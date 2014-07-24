@@ -9,9 +9,9 @@
    
    <body onload="init();">
 
-<!-- <a href="./index.html" title="Massive Manipulation: Position Control">Position Control</a>  
-<a href="./mazeNavigate.html" title="Massive Manipulation: Maze-Navigation">Maze-Navigation </a><p>  -->
-
+<!--<a href="./index.html" title="Massive Manipulation: Position Control">Position Control</a>  
+<a href="./mazeNavigate.html" title="Massive Manipulation: Maze-Navigation">Maze-Navigation </a><p>  
+-->
 
 <canvas id="canvas" width="600" height="600" style="background-color:#EEEEEE;" ></canvas>
       <div id="cc"></div>
@@ -94,35 +94,35 @@
          world.CreateBody(bodyDef).CreateFixture(fixDef);
 
 	// maze
-	bodyDef.userData = 'obstacle';
-	 fixDef.shape.SetAsBox(10, 0.1);//width, height
-         bodyDef.position.Set(15, 200 / 30 + 1.8); //bottom
-	 var bodyBottom = world.CreateBody(bodyDef);
-         bodyBottom.CreateFixture(fixDef);
-         bodyDef.position.Set(5, 400 / 30 + 1.8); //top
-         world.CreateBody(bodyDef).CreateFixture(fixDef);
+	// bodyDef.userData = 'obstacle';
+	//  fixDef.shape.SetAsBox(10, 0.1);//width, height
+ //         bodyDef.position.Set(15, 200 / 30 + 1.8); //bottom
+	//  var bodyBottom = world.CreateBody(bodyDef);
+ //         bodyBottom.CreateFixture(fixDef);
+ //         bodyDef.position.Set(5, 400 / 30 + 1.8); //top
+ //         world.CreateBody(bodyDef).CreateFixture(fixDef);
 
 
 	//create an object to move
-	bodyDef.type = b2Body.b2_dynamicBody;
-	 fixDef.density = 10.0;
-         fixDef.friction = 0.5;
-         fixDef.restitution = 0.2;  //bouncing value
-	bodyDef.position.Set(7,17.5);
-		bodyDef.userData = 'moveable';
-		fixDef.shape = new b2PolygonShape;
-		fixDef.shape.SetAsBox(2.0,2.0);
-		var obst = world.CreateBody(bodyDef);
-		obst.CreateFixture(fixDef);
-		obst.m_angularDamping = 0.1;
-	   obst.m_linearDamping = 0.1;
+	//bodyDef.type = b2Body.b2_dynamicBody;
+	// fixDef.density = 10.0;
+        // fixDef.friction = 0.5;
+        // fixDef.restitution = 0.2;  //bouncing value
+	//bodyDef.position.Set(7,17.5);
+	//	bodyDef.userData = 'moveable';
+	//	fixDef.shape = new b2PolygonShape;
+	//	fixDef.shape.SetAsBox(2.0,2.0);
+	//	var obst = world.CreateBody(bodyDef);
+	//	obst.CreateFixture(fixDef);
+	//	obst.m_angularDamping = 0.1;
+	//   obst.m_linearDamping = 0.1;
 		
          
          //create some robots
 	 bodyDef.type = b2Body.b2_dynamicBody;
           
 	  var robotrad = 0.2;
-	  var numrobots = Math.floor(20/(4*robotrad*robotrad));
+	  var numrobots = 1;//Math.floor(20/(4*robotrad*robotrad));
 	  
 	   fixDef.density = 1.0;
          fixDef.friction = 0.5;
@@ -169,33 +169,42 @@
 		update();
 	})();
 	  
+	 if ( timeStart == null)
+		{	var day = new Date();
+			timeStart= day.getTime();
+		}
+
 	 document.addEventListener( "keydown", function(e){
 	 console.log(e.keyCode);
 		if ( timeStart == null)
 		{	var day = new Date();
 			timeStart= day.getTime();
 		}
-		switch (e.keyCode) {
-			case 37 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-			case 39 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-			case 38 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-			case 40 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-			case 65 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-			case 68 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-			case 87 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-			case 83 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-		}} , false );
+		// switch (e.keyCode) {
+		// 	case 37 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
+		// 	case 39 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
+		// 	case 38 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
+		// 	case 40 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
+		// 	case 65 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
+		// 	case 68 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
+		// 	case 87 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
+		// 	case 83 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
+		// }
+
+
+	} , false );
 	 document.addEventListener( "keyup", function(e){
-	 	switch (e.keyCode) {
-			case 37 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-			case 39 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-			case 38 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-			case 40 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-			case 65 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-			case 68 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-			case 87 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-			case 83 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-		}} , false );
+	 // 	switch (e.keyCode) {
+		// 	case 37 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
+		// 	case 39 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
+		// 	case 38 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
+		// 	case 40 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
+		// 	case 65 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
+		// 	case 68 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
+		// 	case 87 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
+		// 	case 83 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
+		// }
+	} , false );
 	 
 	 // AREA QUERY
 		
@@ -247,7 +256,7 @@
 		// apply the control policy to all robots
 		//console.log(m_Robot[19].GetWorldPoint(new b2Vec2(0,0)));
 		//console.log(impulseV);
-		console.log(obst.fixture);
+		//console.log(obst.fixture);
 		for(var i =0; i<m_Robot.length; i++) {
 			//addFriction(m_Robot[i]);
 			m_Robot[i].ApplyForce(impulseV,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
@@ -351,10 +360,12 @@
 				   
 				}
 			}
+			var day = new Date();
 			    if( timeFinish == null &&  countRobotsAtGoal == m_Robot.length)
-	    { timeFinish = day.getTime();}
+	   { timeFinish = day.getTime();}
 	    	    
-	    var day = new Date();
+	    
+
 	    var timeStr = "0:00";
 		if( timeStart != null)
 		{ timeStr = (day.getTime() - timeStart)/1000;}
@@ -364,7 +375,23 @@
             $('#cc').html(string); //USERDATA WILL SHOWN IN "div" WITH ID "cc" 
 	    //$('#cc').html("<progress value="22" max="100"></progress>");
 
-	    
+		if( m_Robot[0].GetPosition().x <10&& m_Robot[0].GetPosition().y >10){
+			m_controlState = ROBOT_INPUT.ROBOT_RIGHT; 
+			
+		}
+		else if(m_Robot[0].GetPosition().x >10 && m_Robot[0].GetPosition().y >10 )
+		{
+			m_controlState = ROBOT_INPUT.ROBOT_FWD; 
+
+		}
+		else if( m_Robot[0].GetPosition().x > 10 && m_Robot[0].GetPosition().y <10 )
+		{
+			m_controlState = ROBOT_INPUT.ROBOT_LEFT; 
+		}
+
+		else if (m_Robot[0].GetPosition().x <10 && m_Robot[0].GetPosition().y <10){
+			m_controlState = ROBOT_INPUT.ROBOT_BWD; 
+		}
          }; //end update
          
 
