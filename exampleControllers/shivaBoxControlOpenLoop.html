@@ -239,18 +239,56 @@
 	    var countRobotsAtGoal;
          function update() {//called each animation round
 
+         	var previousPointX = m_Robot[0].GetPosition().x;
+         	var previousPointY = m_Robot[0].GetPosition().y;
+
 		var impulseV=new b2Vec2(0,0);
+
+		//var b2Vec2 vel = 
 		var impulse = 3.0;
 		stringCtl = "nothing";
 		
+		// if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
+		// {impulseV.x -= impulse * (-10 + m_Robot[0].GetPosition().x );impulseV.y = 0;stringCtl = stringCtl+" left";} 
+		// if(m_controlState & ROBOT_INPUT.ROBOT_RIGHT)
+		// {impulseV.x += impulse * (10 - m_Robot[0].GetPosition().x );impulseV.y = 0; stringCtl = stringCtl+" right";}
+		// if(m_controlState & ROBOT_INPUT.ROBOT_FWD)
+		// {impulseV.y -= impulse * (-10 + m_Robot[0].GetPosition().y );impulseV.x = 0;stringCtl = stringCtl+" fwd";} // y-axis is inverted in webpage
+		// if(m_controlState & ROBOT_INPUT.ROBOT_BWD)
+		// {impulseV.y += impulse * (10 - m_Robot[0].GetPosition().y );impulseV.x = 0;stringCtl = stringCtl+" bwd";}
 		if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
-		{impulseV.x -= impulse;stringCtl = stringCtl+" left";} 
+		{
+			impulseV.x = -impulse *  (3 - Math.abs(m_Robot[0].GetLinearVelocity().x)); 
+			impulseV.y =impulse * (0 - m_Robot[0].GetLinearVelocity().y); 
+			stringCtl = stringCtl+" left";
+			console.log("velocity x :" + m_Robot[0].GetLinearVelocity().x);
+			console.log("velocity y :" + m_Robot[0].GetLinearVelocity().y);
+		} 
 		if(m_controlState & ROBOT_INPUT.ROBOT_RIGHT)
-		{impulseV.x += impulse;stringCtl = stringCtl+" right";}
+		{
+			impulseV.x = impulse * (3- m_Robot[0].GetLinearVelocity().x); 
+			impulseV.y = impulse * (0 - m_Robot[0].GetLinearVelocity().y); 
+			console.log("velocity x :" + m_Robot[0].GetLinearVelocity().x);
+			console.log("velocity y :" + m_Robot[0].GetLinearVelocity().y);
+			 stringCtl = stringCtl+" right";
+		}
 		if(m_controlState & ROBOT_INPUT.ROBOT_FWD)
-		{impulseV.y -= impulse;stringCtl = stringCtl+" fwd";} // y-axis is inverted in webpage
+		{
+			impulseV.x = impulse * (0 - m_Robot[0].GetLinearVelocity().x);
+			impulseV.y = -impulse * (3 - Math.abs(m_Robot[0].GetLinearVelocity().y)); 
+			
+			stringCtl = stringCtl+" fwd";
+			console.log("velocity x :" + m_Robot[0].GetLinearVelocity().x);
+			console.log("velocity y :" + m_Robot[0].GetLinearVelocity().y);
+		} // y-axis is inverted in webpage
 		if(m_controlState & ROBOT_INPUT.ROBOT_BWD)
-		{impulseV.y += impulse;stringCtl = stringCtl+" bwd";}
+		{
+			impulseV.y = impulse * (3- m_Robot[0].GetLinearVelocity().y); 
+			impulseV.x = impulse * (0 - m_Robot[0].GetLinearVelocity().x); 
+			stringCtl = stringCtl+" bwd";
+			console.log("velocity x :" + m_Robot[0].GetLinearVelocity().x);
+			console.log("velocity y :" + m_Robot[0].GetLinearVelocity().y);
+		}
 		
 		//console.log(m_Robot.length);  there are 20.
 		// apply the control policy to all robots
@@ -375,21 +413,29 @@
             $('#cc').html(string); //USERDATA WILL SHOWN IN "div" WITH ID "cc" 
 	    //$('#cc').html("<progress value="22" max="100"></progress>");
 
-		if( m_Robot[0].GetPosition().x <10&& m_Robot[0].GetPosition().y >10){
-			m_controlState = ROBOT_INPUT.ROBOT_RIGHT; 
+
+	    var threshold= 20;
+	    var epsilon = 2;
+
+		if(  m_Robot[0].GetPosition().y >threshold- epsilon  && m_Robot[0].GetPosition().x < threshold- epsilon){
+			//m_controlState = 3.0*( 1- m_Robot[0].GetPosition().x );   //we want to go 1 unit/s to the right; 
+			m_controlState = ROBOT_INPUT.ROBOT_RIGHT;
+			// console.log("X:"+ m_Robot[0].GetPosition().x);
+			// console.log("Y:"+ m_Robot[0].GetPosition().y );
 			
 		}
-		else if(m_Robot[0].GetPosition().x >10 && m_Robot[0].GetPosition().y >10 )
+		else if(m_Robot[0].GetPosition().x >=threshold - epsilon && m_Robot[0].GetPosition().y > epsilon )
 		{
+			
 			m_controlState = ROBOT_INPUT.ROBOT_FWD; 
 
 		}
-		else if( m_Robot[0].GetPosition().x > 10 && m_Robot[0].GetPosition().y <10 )
+		else if( m_Robot[0].GetPosition().y<= epsilon && m_Robot[0].GetPosition().x >=epsilon  )
 		{
 			m_controlState = ROBOT_INPUT.ROBOT_LEFT; 
 		}
 
-		else if (m_Robot[0].GetPosition().x <10 && m_Robot[0].GetPosition().y <10){
+		else if (m_Robot[0].GetPosition().x < epsilon && m_Robot[0].GetPosition().y <= threshold- epsilon){
 			m_controlState = ROBOT_INPUT.ROBOT_BWD; 
 			//This comment is for testing git.
 		}
