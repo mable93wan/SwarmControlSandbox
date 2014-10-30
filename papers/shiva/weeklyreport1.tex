@@ -109,12 +109,10 @@ y = C x(t) + D u(t)\\
 where \emph{x(t)} represents our states, \emph{u(t)} is our input and \emph{e(t)} represents noise in the system. We also have \emph{y} as our output.\\
 First we assume that we don't have noise in the system and we also have just one robot. As mentioned, \emph{a} is our input and \emph{x, y,} and their velocities are our states that we want to control.\\
 We define our states as following:
-\begin{equation}
-X_1 = P_x 
-\end{equation}
-\begin{equation}
-\dot{X}_1 = X_2 = \dot{P}_x = v_x
-\end{equation}
+\begin{align}
+X_1 &= P_x \\
+\dot{X}_1 &= X_2 = \dot{P}_x = v_x
+\end{align}
 \begin{equation}
 X_3 = P_y 
 \end{equation}
@@ -184,14 +182,10 @@ we know that we can control velocity of our robot, we want to see what happens i
 \begin{equation}
 \dot{P}_{x2}= v_{x2}
 \end{equation}
-\begin{equation}
-\dot{v}_{x2} = a_{x2}
-\end{equation}
-\centering
-.\\
-.\\
-.
-
+\begin{align}
+\dot{v}_{x2} &= a_{x2}\\
+&\vdots
+\end{align}
 \begin{equation}
 \dot{P}_{xn}= v_{xn}
 \end{equation}
