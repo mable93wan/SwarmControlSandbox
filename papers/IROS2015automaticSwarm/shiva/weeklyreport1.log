@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.1415926-2.4-0.9998 (MiKTeX 2.9 64-bit) (preloaded format=xelatex 2014.10.2)  23 OCT 2014 18:22
+This is XeTeX, Version 3.1415926-2.4-0.9998 (MiKTeX 2.9 64-bit) (preloaded format=xelatex 2014.10.2)  30 OCT 2014 14:31
 entering extended mode
 **weeklyreport1.tex
 
-(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\journalSwarmControl\weekl
-yreport1.tex
+(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\IROS2015automaticSwarm\sh
+iva\weeklyreport1.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -967,8 +967,8 @@ File: se-ascii-print.def 2011/12/02 v1.10 stringenc: Printable ASCII characters
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
 les
 )
-(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\journalSwarmControl\weekl
-yreport1.aux)
+(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\IROS2015automaticSwarm\sh
+iva\weeklyreport1.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 79.
 LaTeX Font Info:    ... okay on input line 79.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 79.
@@ -1038,10 +1038,10 @@ LaTeX Info: Redefining \ref on input line 79.
 LaTeX Info: Redefining \pageref on input line 79.
 LaTeX Info: Redefining \nameref on input line 79.
 
-(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\journalSwarmControl\weekl
-yreport1.out)
-(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\journalSwarmControl\weekl
-yreport1.out)
+(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\IROS2015automaticSwarm\sh
+iva\weeklyreport1.out)
+(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\IROS2015automaticSwarm\sh
+iva\weeklyreport1.out)
 \@outlinefile=\write4
 
 *geometry* detected driver: pdftex
@@ -1141,37 +1141,28 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 Requested font "fourier-bb" at 5.51999pt
  -> fourier-bb
 
-Underfull \hbox (badness 10000) in paragraph at lines 176--180
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 184--185
-
- []
-
 [1
 
 ]
 Requested font "futro8t" at 10.0pt
  -> futro8t
- [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 241.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 241.
+ [2] [3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
 
-(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\journalSwarmControl\weekl
-yreport1.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 241.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 241.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 241.
+(C:\Users\sshahro2\Desktop\SwarmControlSandbox\papers\IROS2015automaticSwarm\sh
+iva\weeklyreport1.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 336.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 336.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
  ) 
 Here is how much of TeX's memory you used:
  29625 strings out of 429035
- 657484 string characters out of 3167909
- 837018 words of memory out of 3000000
+ 657529 string characters out of 3167909
+ 843095 words of memory out of 3000000
  32490 multiletter control sequences out of 15000+200000
  34689 words of font info for 36 fonts, out of 3000000 for 9000
  912 hyphenation exceptions out of 8191
- 62i,12n,100p,733b,1805s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,12n,100p,733b,1811s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on weeklyreport1.pdf (2 pages).
+Output written on weeklyreport1.pdf (3 pages).

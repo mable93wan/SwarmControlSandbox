@@ -173,16 +173,111 @@ We want to find number of states that we can control. we need to know \emph{B, A
 \end{equation}
 So we have 2 controllable states. (One for the x axis and one for the y axis.)
 
-we know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other.\\
-If we had n robots, we had exactly the same symmetry of what we had for 1 robot and we could just control 2 states. So it seems that we can control average position of the robots, and average linear velocity of them. Or we could just control one robot when trying to have global control.\\
-\\
+we know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in x axis:\\
+\begin{equation}
+\dot{P}_{x1} = v_{x1}
+\end{equation}
+\begin{equation}
+\dot{v}_{x1} = a_{x1}
+\end{equation}
+
+\begin{equation}
+\dot{P}_{x2}= v_{x2}
+\end{equation}
+\begin{equation}
+\dot{v}_{x2} = a_{x2}
+\end{equation}
+\centering
+.\\
+.\\
+.
+
+\begin{equation}
+\dot{P}_{xn}= v_{xn}
+\end{equation}
+\begin{equation}
+\dot{v}_{xn} = a_{xn}
+\end{equation}
+
+\begin{flushleft}
+So our state-space representation will be:
+\begin{equation}
+\begin{bmatrix}
+\dot{X}_1\\ 
+\dot{X}_2\\
+.\\
+.\\
+.\\
+\dot{X}_{n-1}\\
+\dot{X}_n
+
+\end{bmatrix} = \begin{bmatrix}
+0 & 1 & . & . & . & 0 & 0 \\
+0 & 0 & . & . & . & 0 & 0 \\
+0 & 0 & 0 & 1 & . & 0 & 0 \\
+0 & 0 & 0 & 0 & . & 0 & 0 \\
+. & . & . & . & . & . & . \\
+0 & 0 & . & . & . & 0 & 1 \\
+0 & 0 & . & . & . & 0 & 0 
+\end{bmatrix}  \begin{bmatrix}
+X_1\\
+X_2\\
+.\\
+.\\
+.\\
+X_{n-1}\\
+X_n
+\end{bmatrix} + \begin{bmatrix}
+0\\
+1\\
+.\\
+.\\
+.\\
+0\\
+1
+\end{bmatrix} a
+\end{equation}
+
+If we had n robots, we had exactly the same symmetry of what we had for 1 robot. We can control two states because:
+\begin{equation}
+ B= \begin{bmatrix} 
+0\\
+1\\
+.\\
+.\\
+.\\
+0\\
+1
+\end{bmatrix}
+,
+ AB= \begin{bmatrix} 
+1\\
+0\\
+.\\
+.\\
+.\\
+1\\
+0
+\end{bmatrix}
+,
+ A^2B= \begin{bmatrix} 
+0\\
+0\\
+.\\
+.\\
+.\\
+0\\
+0
+\end{bmatrix}, ...
+\end{equation}  So it seems that for any number of robots if we give a global command to them, we have just two states to control them. So it is obvious that we can not control position of all the robots, but it shows that we can control average position of the robots, and average linear velocity of them.\\
+
 Now, we assume that we don't have the symmetry by having a noise (e(t) in equation (7)). Assume that noise has a Gaussian distribution:\\
 \begin{equation}
 P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
 \end{equation}
 
 After a while, if we have lots of robots, we should have some bell shape of their position because of noise:\\
-
+\end{flushleft}
 \centering{\begin{tikzpicture}
 \begin{axis}[
   no markers, domain=-4:4, samples=100,
