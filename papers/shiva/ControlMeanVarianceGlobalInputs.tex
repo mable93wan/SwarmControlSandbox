@@ -79,65 +79,55 @@
 \begin{document}
 The OpenLoop controller: We want to control position and velocity of the robots and deciding about force for reaching our desired position and velocity. So our input is going to be accelerator(\emph{F = ma}). If we show acceleration by \emph{a}, velocity by \emph{v} and position in x coordinate by \emph{$P_x$} and in y coordinate by \emph{$P_y$}, we have the following equations
 \begin{equation}
-\dot{P}_x = v_x
-\end{equation}
-\begin{equation}
+\begin{bmatrix}
+\dot{P}_x = v_x \\
 \dot{v}_x = a_x
+\end{bmatrix}
 \end{equation}
 \begin{equation}
-\ddot{P}_x= a_x
-\end{equation}
-Respectively we have the following equations for y axis:
-\begin{equation}
-\dot{P}_y= v_y
-\end{equation}
-\begin{equation}
+\begin{bmatrix}
+\dot{P}_y = v_y \\
 \dot{v}_y = a_y
+\end{bmatrix}
 \end{equation}
-\begin{equation}
-\ddot{P}_y= a_y
-\end{equation}
+
 
 
 The state-space representation of our OpenLoop controller is: 
-\begin{multline}
-\\
-\dot{x}(t)  =  A x(t) + B u(t) + We(t)\\
-y = C x(t) + D u(t)\\
-\end{multline}
+\begin{align}
+\dot{x}(t)  &=  A x(t) + B u(t) + We(t)\\
+y &= C x(t) + D u(t)
+\end{align}
+
 
 where \emph{x(t)} represents our states, \emph{u(t)} is our input and \emph{e(t)} represents noise in the system. We also have \emph{y} as our output.\\
 First we assume that we don't have noise in the system and we also have just one robot. As mentioned, \emph{a} is our input and \emph{x, y,} and their velocities are our states that we want to control.\\
 We define our states as following:
 \begin{align}
 X_1 &= P_x \\
-\dot{X}_1 &= X_2 = \dot{P}_x = v_x
+\dot{X}_1 &= X_2 = \dot{P}_x = v_x\\
+X_3 &= P_y\\
+ \dot{X}_3 &= X_4 = \dot{P}_y = v_y 
 \end{align}
-\begin{equation}
-X_3 = P_y 
-\end{equation}
-\begin{equation}
-\dot{X}_3 = X_4 = \dot{P}_y = v_y 
-\end{equation}
 
 
 So our state space representation is:
 \begin{equation}
 \begin{bmatrix}
-\dot{X}_1\\ 
-\dot{X}_2\\
-\dot{X}_3\\
-\dot{X}_4
+\dot{x}_1\\ 
+\dot{x}_2\\
+\dot{x}_3\\
+\dot{x}_4
 \end{bmatrix} = \begin{bmatrix}
 0 & 1 & 0 & 0 \\
 0 & 0 & 0 & 0\\
 0 & 0 & 0 & 1\\
 0 & 0 & 0 & 0
 \end{bmatrix}  \begin{bmatrix}
-X_1\\
-X_2\\
-X_3\\
-X_4
+x_1\\
+x_2\\
+x_3\\
+x_4
 \end{bmatrix} + \begin{bmatrix}
 0\\
 1\\
@@ -146,8 +136,9 @@ X_4
 \end{bmatrix} a
 \end{equation}
 
-We want to find number of states that we can control. we need to know \emph{B, AB,$A^2$B, $A^3$B, ...}.
+We want to find number of states that we can control. We need to know rank of the controllability matrix \emph{\{B, AB,$A^2$B, $A^3$B, ...\}}.
 \begin{equation}
+C = \{
  B= \begin{bmatrix} 
 0\\
 1\\
@@ -167,43 +158,33 @@ We want to find number of states that we can control. we need to know \emph{B, A
 0\\
 0\\
 0
-\end{bmatrix}, ...
+\end{bmatrix}, ... ,
+A^{n-1}B \}
 \end{equation}
-So we have 2 controllable states. (One for the x axis and one for the y axis.)
+So we have 2 controllable states. (One corresponds x axis and corresponds y axis.)
 
-we know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in x axis:\\
-\begin{equation}
-\dot{P}_{x1} = v_{x1}
-\end{equation}
-\begin{equation}
-\dot{v}_{x1} = a_{x1}
-\end{equation}
-
-\begin{equation}
-\dot{P}_{x2}= v_{x2}
-\end{equation}
+we know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in\emph{x} axis:\\
 \begin{align}
+\dot{P}_{x1} &= v_{x1}\\
+\dot{v}_{x1} &= a_{x1}\\
+\dot{P}_{x2} &= v_{x2}\\
 \dot{v}_{x2} &= a_{x2}\\
-&\vdots
+&\vdots\\
+\dot{P}_{xn} &= v_{xn}\\
+\dot{v}_{xn} &= a_{xn}
 \end{align}
-\begin{equation}
-\dot{P}_{xn}= v_{xn}
-\end{equation}
-\begin{equation}
-\dot{v}_{xn} = a_{xn}
-\end{equation}
 
 \begin{flushleft}
 So our state-space representation will be:
 \begin{equation}
 \begin{bmatrix}
-\dot{X}_1\\ 
-\dot{X}_2\\
+\dot{x}_1\\ 
+\dot{x}_2\\
 .\\
 .\\
 .\\
-\dot{X}_{n-1}\\
-\dot{X}_n
+\dot{x}_{2n-1}\\
+\dot{x}_{2n}
 
 \end{bmatrix} = \begin{bmatrix}
 0 & 1 & . & . & . & 0 & 0 \\
@@ -214,13 +195,13 @@ So our state-space representation will be:
 0 & 0 & . & . & . & 0 & 1 \\
 0 & 0 & . & . & . & 0 & 0 
 \end{bmatrix}  \begin{bmatrix}
-X_1\\
-X_2\\
+x_1\\
+x_2\\
 .\\
 .\\
 .\\
-X_{n-1}\\
-X_n
+x_{2n-1}\\
+x_{2n}
 \end{bmatrix} + \begin{bmatrix}
 0\\
 1\\
@@ -234,7 +215,7 @@ X_n
 
 If we had n robots, we had exactly the same symmetry of what we had for 1 robot. We can control two states because:
 \begin{equation}
- B= \begin{bmatrix} 
+C=\{ B= \begin{bmatrix} 
 0\\
 1\\
 .\\
@@ -262,10 +243,83 @@ If we had n robots, we had exactly the same symmetry of what we had for 1 robot.
 .\\
 0\\
 0
-\end{bmatrix}, ...
-\end{equation}  So it seems that for any number of robots if we give a global command to them, we have just two states to control them. So it is obvious that we can not control position of all the robots, but it shows that we can control average position of the robots, and average linear velocity of them.\\
+\end{bmatrix}, ... \}
+\end{equation}  So for any number of robots if we give a global command to them, we have just two states to control them. So it is obvious that we can not control position of all the robots, but what states are controllable? To answer this question we create a sensor that calculates average position and average velocity of the robots:\\
 
-Now, we assume that we don't have the symmetry by having a noise (e(t) in equation (7)). Assume that noise has a Gaussian distribution:\\
+\begin{equation}
+\begin{bmatrix}
+\dot{\bar{x}}_p \\
+\dot{\bar{x}}_v
+\end{bmatrix} = \frac{1}{n} \begin{bmatrix}
+0& 1& 0& 1& ... &0& 1 \\
+0& 0& 0& 0& ... &0& 0
+\end{bmatrix}
+\begin{bmatrix}
+x_1\\
+x_2\\
+.\\
+.\\
+.\\
+x_{2n-1}\\
+x_{2n}
+\end{bmatrix} + \frac{1}{n}\begin{bmatrix}
+0& 0& 0& 0& ... &0& 0 \\
+0& 1& 0& 1& ... &0& 1
+\end{bmatrix}\begin{bmatrix} 
+0\\
+1\\
+.\\
+.\\
+.\\
+0\\
+1
+\end{bmatrix} a
+\end{equation}
+Thus:
+\begin{equation}
+\begin{bmatrix}
+\dot{\bar{x}}_p \\
+\dot{\bar{x}}_v
+\end{bmatrix} = \begin{bmatrix}
+0& 1 \\
+0& 0
+\end{bmatrix}
+\begin{bmatrix}
+\bar{x}_p\\
+\bar{x}_v
+\end{bmatrix} + \begin{bmatrix} 
+0\\
+1
+\end{bmatrix} a
+\end{equation}
+
+We analyze \emph{C} for \emph{y}:
+\begin{equation}
+C=\{ B= \begin{bmatrix} 
+0\\
+1
+\end{bmatrix}
+,
+ AB= \begin{bmatrix} 
+1\\
+0
+\end{bmatrix}
+,
+ A^2B= \begin{bmatrix} 
+0\\
+0
+\end{bmatrix}, ... \}
+\end{equation}
+
+So we can control average position and average velocity of n robots.$\blacksquare$ \\
+
+If we calculate standard deviation:
+
+\begin{equation}
+\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
+\end{equation}
+
+Now, we assume that we do not have the symmetry by having a noise term (e(t) in equation (7)). Assume that noise has a Gaussian distribution:\\
 \begin{equation}
 P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
 \end{equation}

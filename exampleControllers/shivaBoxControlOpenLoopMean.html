@@ -441,7 +441,7 @@
 		if(  mean_position_y >threshold- epsilon2  && mean_position_x < threshold- epsilon2){
 			//m_controlState = 3.0*( 1- m_Robot[0].GetPosition().x );   //we want to go 1 unit/s to the right; 
 			m_controlState = ROBOT_INPUT.ROBOT_RIGHT;
-			// console.log("X:"+ m_Robot[0].GetPosition().x);
+			 console.log("X:"+ mean_position_x);
 			// console.log("Y:"+ m_Robot[0].GetPosition().y );
 			
 		}
@@ -449,6 +449,7 @@
 		{
 			
 			m_controlState = ROBOT_INPUT.ROBOT_FWD; 
+			console.log("X:"+ mean_position_x);
 			//console.log("X:"+ m_Robot[0].GetPosition().x);
 			// console.log("Y:"+ m_Robot[0].GetPosition().y );
 
@@ -456,10 +457,12 @@
 		else if( mean_position_y <= epsilon && mean_position_x >=epsilon2  )
 		{
 			m_controlState = ROBOT_INPUT.ROBOT_LEFT; 
+			console.log("X:"+ mean_position_x);
 		}
 
 		else if (mean_position_x < epsilon2 && mean_position_y <= threshold- epsilon){
 			m_controlState = ROBOT_INPUT.ROBOT_BWD; 
+			console.log("X:"+ mean_position_x);
 			//This comment is for testing git.
 		}
          }; //end update
