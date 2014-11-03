@@ -430,8 +430,8 @@ if(!firstloop){
 			}
 			else
 			{
-				var now = day.getTime();
 				passed = (day.getTime() - timer)/1000;
+				console.log(passed + " " + mean_position_y);
 				if (passed > desired_stop_time){
 					timer = null;
 					passed = null;
