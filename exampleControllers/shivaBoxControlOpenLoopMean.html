@@ -67,6 +67,7 @@
 	 var timeFinish = null;
 		var timer = null;
 		var passed = null;
+		var overall_time = null;
 		var firstloop = false;
 	 
 	 //goal positions
@@ -372,24 +373,32 @@
 		var desired_y2 = 10;
 		var desired_stop_time = 10;
 		var e = 0.5;
+		if(overall_time == null)
+		{
+		overall_time = day.getTime();
+		}
 if(!firstloop){
 		if(mean_position_y > desired_y + e ){
 			m_controlState= ROBOT_INPUT.ROBOT_FWD;
+			console.log((day.getTime()- overall_time )/1000 + " " + mean_position_y);
 		}
 		else if(mean_position_y < desired_y - e){
 			m_controlState= ROBOT_INPUT.ROBOT_BWD;
+			console.log((day.getTime()- overall_time )/1000 + " " + mean_position_y);
 		}
 		else if(mean_position_x > desired_x + e )
 		{
 			m_controlState= ROBOT_INPUT.ROBOT_LEFT;
+			console.log((day.getTime()- overall_time )/1000 + " " + mean_position_y);
 		}
 		else if(mean_position_x < desired_x - e)
 		{
 			m_controlState= ROBOT_INPUT.ROBOT_RIGHT;
+			console.log((day.getTime()- overall_time )/1000+ " " + mean_position_y);
 		}
 		
 		else if(mean_position_x <= desired_x + e && mean_position_x >= desired_x - e && mean_position_y <= desired_y + e && mean_position_y >= desired_y - e){
-			
+			console.log((day.getTime()- overall_time )/1000 + " " + mean_position_y);
 			m_controlState = ROBOT_INPUT.ROBOT_IDLE;
 			if(timer== null)
 			{
@@ -398,6 +407,7 @@ if(!firstloop){
 			else
 			{
 				passed = (day.getTime() - timer)/1000;
+				console.log((day.getTime()- overall_time )/1000 + " " + mean_position_y);
 				if (passed > desired_stop_time){
 					timer = null;
 					passed = null;
@@ -409,17 +419,21 @@ if(!firstloop){
 		else{
 				if(mean_position_y > desired_y2 + e ){
 			m_controlState= ROBOT_INPUT.ROBOT_FWD;
+			console.log((day.getTime()- overall_time )/1000+ " " + mean_position_y);
 		}
 		else if(mean_position_y < desired_y2 - e){
 			m_controlState= ROBOT_INPUT.ROBOT_BWD;
+			console.log((day.getTime()- overall_time )/1000+ " " + mean_position_y);
 		}
 		else if(mean_position_x > desired_x2 + e )
 		{
 			m_controlState= ROBOT_INPUT.ROBOT_LEFT;
+			console.log((day.getTime()- overall_time )/1000 + " " + mean_position_y);
 		}
 		else if(mean_position_x < desired_x2 - e)
 		{
 			m_controlState= ROBOT_INPUT.ROBOT_RIGHT;
+			console.log((day.getTime()- overall_time )/1000+ " " + mean_position_y);
 		}
 		
 		else if(mean_position_x <= desired_x2 + e && mean_position_x >= desired_x2 - e && mean_position_y <= desired_y2 + e && mean_position_y >= desired_y2 - e){
@@ -431,7 +445,7 @@ if(!firstloop){
 			else
 			{
 				passed = (day.getTime() - timer)/1000;
-				console.log(passed + " " + mean_position_y);
+				console.log((day.getTime()- overall_time )/1000 + " " + mean_position_y);
 				if (passed > desired_stop_time){
 					timer = null;
 					passed = null;
