@@ -8,3 +8,11 @@
 *.aux
 
 *.log
+*.aux
+*.aux
+*.dvi
+*.log
+*.out
+*.out
+*.gz
+*.aux
