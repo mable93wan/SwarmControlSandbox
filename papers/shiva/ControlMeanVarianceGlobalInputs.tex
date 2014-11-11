@@ -77,7 +77,9 @@
 }
 
 \begin{document}
-The OpenLoop controller: We want to control position and velocity of the robots and deciding about force for reaching our desired position and velocity. So our input is going to be accelerator(\emph{F = ma}). If we show acceleration by \emph{a}, velocity by \emph{v} and position in x coordinate by \emph{$P_x$} and in y coordinate by \emph{$P_y$}, we have the following equations
+\section{OpenLoop Mean Controller}
+\subsection{OpenLoop Controller for One Robot}
+We want to control position and velocity of the robots and deciding about force for reaching our desired position and velocity. So our input is going to be accelerator(\emph{F = ma}). If we show acceleration by \emph{a}, velocity by \emph{v} and position in x coordinate by \emph{$P_x$} and in y coordinate by \emph{$P_y$}, we have the following equations
 \begin{equation}
 \begin{bmatrix}
 \dot{P}_x = v_x \\
@@ -95,8 +97,8 @@ The OpenLoop controller: We want to control position and velocity of the robots 
 
 The state-space representation of our OpenLoop controller is: 
 \begin{align}
-\dot{x}(t)  &=  A x(t) + B u(t) + We(t)\\
-y &= C x(t) + D u(t)
+\dot{x}(t)  &=  A x(t) + B u(t) \\
+y &= C x(t) + D u(t)\nonumber
 \end{align}
 
 
@@ -104,10 +106,10 @@ where \emph{x(t)} represents our states, \emph{u(t)} is our input and \emph{e(t)
 First we assume that we don't have noise in the system and we also have just one robot. As mentioned, \emph{a} is our input and \emph{x, y,} and their velocities are our states that we want to control.\\
 We define our states as following:
 \begin{align}
-X_1 &= P_x \\
-\dot{X}_1 &= X_2 = \dot{P}_x = v_x\\
-X_3 &= P_y\\
- \dot{X}_3 &= X_4 = \dot{P}_y = v_y 
+x_1 &= P_x \\
+\dot{x}_1 &= x_2 = \dot{P}_x = v_x\\
+x_3 &= P_y\\
+ \dot{x}_3 &= x_4 = \dot{P}_y = v_y 
 \end{align}
 
 
@@ -129,41 +131,52 @@ x_2\\
 x_3\\
 x_4
 \end{bmatrix} + \begin{bmatrix}
-0\\
-1\\
-0\\
-1
+0 & 0 \\
+1 & 0 \\
+0 & 0 \\
+0 & 1
 \end{bmatrix} a
 \end{equation}
 
-We want to find number of states that we can control. We need to know rank of the controllability matrix \emph{\{B, AB,$A^2$B, $A^3$B, ...\}}.
+We want to find number of states that we can control. We need to know rank of the controllability matrix \emph{\{B, AB,$A^2$B, ... , $A^{n-1}$B\}}.
 \begin{equation}
-C = \{
- B= \begin{bmatrix} 
-0\\
-1\\
-0\\
-1
+C = \{ B, AB, A^2B, ... , A^{n-1}B \}
+\end{equation}
+
+\begin{equation}
+C=\left\{
+\begin{bmatrix} 
+0 & 0\\
+1 & 0 \\
+0 & 0 \\
+0 & 1
 \end{bmatrix}
 ,
- AB= \begin{bmatrix} 
-1\\
-0\\
-1\\
-0
+\begin{bmatrix} 
+1 & 0\\
+0 & 0\\
+0 & 1\\
+0 & 0
+\end{bmatrix}
+\begin{bmatrix} 
+0 & 0\\
+0 & 0\\
+0 & 0\\
+0 & 0
 \end{bmatrix}
 ,
- A^2B= \begin{bmatrix} 
-0\\
-0\\
-0\\
-0
-\end{bmatrix}, ... ,
-A^{n-1}B \}
+\begin{bmatrix} 
+0 & 0\\
+0 & 0\\
+0 & 0\\
+0 & 0
+\end{bmatrix}
+ \right\}
 \end{equation}
 So we have 2 controllable states. (One corresponds x axis and corresponds y axis.)
 
-we know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in\emph{x} axis:\\
+\subsection{Controlling More than One Robot}
+we know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in \emph{x} axis:\\
 \begin{align}
 \dot{P}_{x1} &= v_{x1}\\
 \dot{v}_{x1} &= a_{x1}\\
@@ -210,12 +223,12 @@ x_{2n}
 .\\
 0\\
 1
-\end{bmatrix} a
+\end{bmatrix} a_x
 \end{equation}
 
-If we had n robots, we had exactly the same symmetry of what we had for 1 robot. We can control two states because:
+If we had n robots, we had exactly the same symmetry of what we had for 1 robot. We can again control two states because:
 \begin{equation}
-C=\{ B= \begin{bmatrix} 
+C=\left\{ \begin{bmatrix} 
 0\\
 1\\
 .\\
@@ -225,7 +238,7 @@ C=\{ B= \begin{bmatrix}
 1
 \end{bmatrix}
 ,
- AB= \begin{bmatrix} 
+  \begin{bmatrix} 
 1\\
 0\\
 .\\
@@ -235,7 +248,7 @@ C=\{ B= \begin{bmatrix}
 0
 \end{bmatrix}
 ,
- A^2B= \begin{bmatrix} 
+\begin{bmatrix} 
 0\\
 0\\
 .\\
@@ -243,8 +256,10 @@ C=\{ B= \begin{bmatrix}
 .\\
 0\\
 0
-\end{bmatrix}, ... \}
-\end{equation}  So for any number of robots if we give a global command to them, we have just two states to control them. So it is obvious that we can not control position of all the robots, but what states are controllable? To answer this question we create a sensor that calculates average position and average velocity of the robots:\\
+\end{bmatrix}, ... \right\}
+\end{equation}  
+\subsection{Controlling Mean Position}
+So for any number of robots if we give a global command to them, we have just two states to control them in each axis. So it is obvious that we can not control position of all the robots, but what states are controllable? To answer this question we create a sensor that calculates average position and average velocity of the robots:\\
 
 \begin{equation}
 \begin{bmatrix}
@@ -273,7 +288,7 @@ x_{2n}
 .\\
 0\\
 1
-\end{bmatrix} a
+\end{bmatrix} a_x
 \end{equation}
 Thus:
 \begin{equation}
@@ -295,41 +310,61 @@ Thus:
 
 We analyze \emph{C} for \emph{y}:
 \begin{equation}
-C=\{ B= \begin{bmatrix} 
+C=\left\{ \begin{bmatrix} 
 0\\
 1
 \end{bmatrix}
 ,
- AB= \begin{bmatrix} 
+ \begin{bmatrix} 
 1\\
 0
 \end{bmatrix}
-,
- A^2B= \begin{bmatrix} 
-0\\
-0
-\end{bmatrix}, ... \}
+ \right\}
 \end{equation}
 
-So we can control average position and average velocity of n robots.$\blacksquare$ \\
-
-If we calculate standard deviation:
-
+This matrix has rank two, and thus each state is controllable. These controllable states are average position and average velocity:
 \begin{equation}
-\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
+a = K\begin{bmatrix}
+\begin{bmatrix}
+\dot{\bar{x}}_p \\
+\dot{\bar{x}}_v
+\end{bmatrix}
+-
+\begin{bmatrix}
+x_{goal} \\
+\dot{x}_{goal}
+\end{bmatrix}
+\end{bmatrix}
 \end{equation}
+$\blacksquare$ \\
 
-Now, we assume that we do not have the symmetry by having a noise term (e(t) in equation (7)). Assume that noise has a Gaussian distribution:\\
+\subsection{Applying Noise}
+
+Real systems, especially at the micro scale, are affected by unmodelled dynamics called Brownian noise. To model this equation (3) must be modified to following:
+\begin{align}
+\dot{x}(t)  &=  A x(t) + B u(t) + We(t)\\
+y &= C x(t) + D u(t)\nonumber
+\end{align}
+where e(t) is the error in the system.
+
+After some time, gaussian distribution shapes the outline of the robots because of the brownian noise feature:\\
 \begin{equation}
 P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
 \end{equation}
 
-After a while, if we have lots of robots, we should have some bell shape of their position because of noise:\\
+where $\sigma$ is standard deviation:
+\begin{equation}
+\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
+\end{equation}
+After a while, if we have lots of robots, we see the robots to make a bell shaped curve because of the Brownian noise. In we see the probability density function of a Gaussian distribution:\\
 \end{flushleft}
+\begin{equation}
+f(x) \texttildelow N(\mu , \sigma)
+\end{equation}
 \centering{\begin{tikzpicture}
 \begin{axis}[
   no markers, domain=-4:4, samples=100,
-  axis lines*=left, xlabel=$t$, ylabel=$x$,
+  axis lines*=left, xlabel=$position-x$, ylabel=$pdf$,
   every axis y label/.style={at=(current axis.above origin),anchor=south},
   every axis x label/.style={at=(current axis.right of origin),anchor=west},
   height=5cm, width=12cm,
@@ -362,7 +397,7 @@ If robots face a wall, we expect to have the following shape:\\
 \begin{tikzpicture}
 \begin{axis}[
   no markers, domain=-4:4, samples=100,
-  axis lines*=left, xlabel=$t$, ylabel=$x$,
+  axis lines*=left, xlabel=$position-x$, ylabel=$pdf$,
   every axis y label/.style={at=(current axis.above origin),anchor=south},
   every axis x label/.style={at=(current axis.right of origin),anchor=west},
   height=5cm, width=12cm,
