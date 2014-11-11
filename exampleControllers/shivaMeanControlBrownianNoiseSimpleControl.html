@@ -114,7 +114,7 @@
 	 bodyDef.type = b2Body.b2_dynamicBody;
           
 	  var robotrad = 0.2;
-	  var numrobots = 500;//Math.floor(20/(4*robotrad*robotrad));
+	  var numrobots = 100;//Math.floor(20/(4*robotrad*robotrad));
 	  
 	   fixDef.density = 1.0;
          fixDef.friction = 0.5;
@@ -214,14 +214,7 @@
 		var impulseV=new b2Vec2(0,0);
 
 		var impulse = 3.0;
-		var sum_velocity_x = 0;
-		var sum_velocity_y = 0;
-		for(var i = 0; i < numrobots; ++i) {
-			sum_velocity_x += m_Robot[i].GetLinearVelocity().x;
-			sum_velocity_y += m_Robot[i].GetLinearVelocity().y;
-		}
-		var mean_velocity_x = sum_velocity_x / numrobots;
-		var mean_velocity_y = sum_velocity_y / numrobots;
+		
 		if(m_controlState & ROBOT_INPUT.ROBOT_PROP)
 		{
 			impulseV.x = 0; 
@@ -381,12 +374,22 @@ if(overall_time == null)   // set the start time
 		var offsetY = 5;
 
 		goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
-		var Kgain = 1;
+		var Kgain = 10;
+		var Kderivative = 1;
 
+
+ 		var sum_velocity_x = 0;
+		var sum_velocity_y = 0;
+		for(var i = 0; i < numrobots; ++i) {
+			sum_velocity_x += m_Robot[i].GetLinearVelocity().x;
+			sum_velocity_y += m_Robot[i].GetLinearVelocity().y;
+		}
+		var mean_velocity_x = sum_velocity_x / numrobots;
+		var mean_velocity_y = sum_velocity_y / numrobots;
 
 	
 	
-		m_ControlInputY = Kgain*(goalY - mean_position_y);
+		m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
 		m_controlState= ROBOT_INPUT.ROBOT_PROP;
 			
 
