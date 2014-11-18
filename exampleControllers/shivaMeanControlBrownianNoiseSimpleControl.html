@@ -225,8 +225,9 @@
 			var brownianImpulse = new b2Vec2(0,0); 
         var mag = 0;
         var ang = 0;
+		var vary= 2;
             //apply Brownian noise: 
-            mag = Math.random();
+            mag = vary * Math.random();
             ang = 2*Math.PI*Math.random();
             brownianImpulse.x = mag*Math.cos(ang) + impulseV.x ;
             brownianImpulse.y = mag*Math.sin(ang) + impulseV.y ;
@@ -365,7 +366,21 @@ if(overall_time == null)   // set the start time
 		var mean_position_x = sum_position_x / numrobots;
 		var mean_position_y = sum_position_y / numrobots;
 
-		
+		//draw the average position
+	$("canvas").drawArc({
+			strokeStyle: "red",
+  			strokeWidth: 5,						  
+			x: mean_position_x* 30, y: mean_position_y * 30,
+			radius: radius * 30
+			})
+
+.drawLine({
+  strokeStyle: 'red',
+  strokeWidth: 3,
+  x1: 0, y1: mean_position_y * 30,
+  x2: 1000, y2: mean_position_y* 30,
+})
+.restoreCanvas();
 
 
 		//goal positions
@@ -374,7 +389,7 @@ if(overall_time == null)   // set the start time
 		var offsetY = 5;
 
 		goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
-		var Kgain = 10;
+		var Kgain = 4;
 		var Kderivative = 1;
 
 
