@@ -1,85 +1,43 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
 
-\documentclass[10pt,letterpaper]{article}
 
-%\pdfminorversion=5
-%\pdfobjcompresslevel=3 
-%\pdfcompresslevel=9
-
-\usepackage{hyperref}
-\usepackage{url}
+\usepackage[colorlinks=true, urlcolor=blue, pdfborder={0 0 0}]{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
 \usepackage{geometry}
+\usepackage{overpic}
+\usepackage{fancyhdr}
+\usepackage{url}
 \usepackage{graphicx}
 \usepackage[caption=false,font=footnotesize]{subfig}
 
 \usepackage{fourier}
 \usepackage{amsmath}
-\usepackage{overpic}
 \usepackage{pgfplots}
-\graphicspath{{./figs/}}
-\newcommand{\figheight}{1.0in}
-% Fonts
-\usepackage[T1]{fontenc}
-%\usepackage[urw-garamond]{mathdesign}
 
-% Set your name here
-\def\name{Shiva Shahrokhi}
-
-% The following metadata will show up in the PDF properties
-\hypersetup{
-  colorlinks = false,
-  urlcolor = black,
-  pdfauthor = {\name},
-  pdfkeywords = {},
-  pdftitle = {\name: Shiva Weekly Report},
-  pdfsubject = {Weekly Report},
-  pdfpagemode = UseNone
-}
-
-\geometry{
-  body={7.6in, 9.75in},
-  left=0.5in,
-  top=0.75in
-}
-
-
-% Customize page headers
-\pagestyle{myheadings}
-\markright{\name}
-\thispagestyle{empty}
-
-% Custom section fonts
-\usepackage{sectsty}
-\sectionfont{\rmfamily\mdseries\Large}
-\subsectionfont{\rmfamily\mdseries\itshape\large}
-
-% Other possible font commands include:
-% \ttfamily for teletype,
-% \sffamily for sans serif,
-% \bfseries for bold,
-% \scshape for small caps,
-% \normalsize, \large, \Large, \LARGE sizes.
-
-% Don't indent paragraphs.
-\setlength\parindent{0em}
-
-% Make lists without bullets and compact spacing
-\renewenvironment{itemize}{
-  \begin{list}{}{
-    \setlength{\leftmargin}{1.5em}
-    \setlength{\itemsep}{0.25em}
-    \setlength{\parskip}{0pt}
-    \setlength{\parsep}{0.25em}
-  }
-}{
-  \end{list}
-}
-\pgfmathdeclarefunction{gauss}{2}{%
-  \pgfmathparse{1/(#2*sqrt(2*pi))*exp(-((x-#1)^2)/(2*#2^2))}%
-}
-
+\graphicspath{{./pictures/pdf/},{./pictures/ps/},{./pictures/png/},{./pictures/jpg/}}
 \begin{document}
+\author{Shiva Shahrokhi, Aaron T. Becker}
+\title{Open-Loop Controller}
+\maketitle
+\thispagestyle{fancy}
+\pagestyle{fancy}
+\addtolength{\headsep}{0.2in}
+\addtolength{\topmargin}{-0.2in}
+\lhead{\small pdf at \href{https://github.com/aabecker/SwarmControlSandbox/tree/master/papers/shiva}{github.com/aabecker/SwarmControlSandbox}}
+
+\begin{abstract}
+This paper talks about open-loop controller.
+
+\end{abstract}
+
 \section{Open-Loop Mean Controller}
+
+
+
+
 \subsection{Open-Loop Controller for One Robot}
+
 We want to control position and velocity of the robots and deciding about force for reaching our desired position and velocity. So our input is going to be accelerator(\emph{F = ma}). If we show acceleration by \emph{a}, velocity by \emph{v} and position in x coordinate by \emph{$P_x$} and in y coordinate by \emph{$P_y$}, we have the following equations
 \begin{equation}
 \begin{bmatrix}
@@ -176,8 +134,9 @@ C=\left\{
 \end{equation}
 So we showed that we have two controllable states.
 
-\subsection{Controlling More than One Robot}
-we know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in \emph{x} axis:\\
+
+\subsection{Controlling Position for More than One Robot}
+We know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in \emph{x} axis:\\
 \begin{align}
 \dot{P}_{x1} &= v_{x1}\\\nonumber
 \dot{v}_{x1} &= a_{x1}\\\nonumber
@@ -188,7 +147,7 @@ we know that we can control velocity of our robot, we want to see what happens i
 \dot{v}_{xn} &= a_{xn}\nonumber
 \end{align}
 
-\begin{flushleft}
+
 So our state-space representation will be:
 \begin{equation}
 \begin{bmatrix}
@@ -259,6 +218,9 @@ C=\left\{ \begin{bmatrix}
 0
 \end{bmatrix}, ... \right\}
 \end{equation}  
+ 
+
+
 \subsection{Controlling Mean Position}
 So for any number of robots if we give a global command to them, we have just two controllable states in each axis. So it is obvious that we can not control position of all the robots, but what states are controllable? To answer this question we create a reduced order system that calculates average position and average velocity of the robots:\\
 
@@ -337,10 +299,9 @@ x_{goal} \\
 \end{bmatrix}
 \end{bmatrix}
 \end{equation}
-$\blacksquare$ \\
+%$\blacksquare$ \\
 
 \subsection{Applying Noise}
-
 Real systems, especially at the micro scale, are affected by unmodelled dynamics much of which can be designed by Brownian noise. To model this equation (3) must be modified as follows:
 \begin{align}
 \dot{x}(t)  &=  A x(t) + B u(t) + We(t)\\
@@ -358,11 +319,11 @@ where $\sigma$ is standard deviation:
 \sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
 \end{equation}
 After a while, if we have lots of robots, we see the robots to make a bell shaped curve because of the Brownian noise. In we see the probability density function of a Gaussian distribution:\\
-\end{flushleft}
+
 \begin{equation}
-f(x) \texttildelow N(\mu , \sigma)
+%f(x) \texttildelow N(\mu , \sigma)
 \end{equation}
-\centering{\begin{tikzpicture}
+\begin{tikzpicture}
 \begin{axis}[
   no markers, domain=-4:4, samples=100,
   axis lines*=left, xlabel=$position-x$, ylabel=$pdf$,
@@ -375,8 +336,8 @@ f(x) \texttildelow N(\mu , \sigma)
   ]
   %\addplot [fill=cyan!20, draw=none, domain=-4:1] {gauss(0,1)} \closedcycle;
   %\addplot [fill=cyan!20, draw=none, domain=-4:1] {gauss(0,1)+ gauss(2,1)} \closedcycle;
-  \addplot [fill=cyan!20, draw=none, domain=0:8] {gauss(4,1)} \closedcycle;
-  \addplot [very thick,cyan!50!black , domain= 0:8 ] {gauss(4,1)};
+%  \addplot [fill=cyan!20, draw=none, domain=0:8] {gauss(4,1)} \closedcycle;
+%  \addplot [very thick,cyan!50!black , domain= 0:8 ] {gauss(4,1)};
   %\addplot [very thick,cyan!50!black , domain= -4:1] {gauss(2,1)};
 
 
@@ -384,17 +345,13 @@ f(x) \texttildelow N(\mu , \sigma)
 \end{axis}
 
 \end{tikzpicture}
-}
-\\
-
 
 Probability of the position of the robots, if we have Gaussian noise. \\
 
 
-\begin{flushleft}
 If robots face a wall, we expect to have the following shape:\\
-\end{flushleft} 
-\centering{
+
+
 \begin{tikzpicture}
 \begin{axis}[
   no markers, domain=-4:4, samples=100,
@@ -407,14 +364,17 @@ If robots face a wall, we expect to have the following shape:\\
   grid = major
   ]
   %\addplot [fill=cyan!20, draw=none, domain=0:5] {gauss(6,1)} \closedcycle;
-  \addplot [fill=red!20, draw=none, domain=0:5] {gauss(4,1)+ gauss(6,1)} \closedcycle;
+%  \addplot [fill=red!20, draw=none, domain=0:5] {gauss(4,1)+ gauss(6,1)} \closedcycle;
   %\addplot [fill=cyan!20, draw=none, domain=-4:4] {gauss(0,2)} \closedcycle;
-  \addplot [very thick,cyan!50!black, domain= 0:8 ] {gauss(4,1)};
-  \addplot [very thick,cyan!50!black , domain= 0:5] {gauss(6,1)};
+%  \addplot [very thick,cyan!50!black, domain= 0:8 ] {gauss(4,1)};
+%  \addplot [very thick,cyan!50!black , domain= 0:5] {gauss(6,1)};
 
-\draw [yshift=-0.6cm, latex-latex](axis cs:3,0) -- node [fill=white] {Mirrored} (axis cs:5,0);
+%\draw [yshift=-0.6cm, latex-latex](axis cs:3,0) -- node [fill=white] {Mirrored} (axis cs:5,0);
 \end{axis}
 
 \end{tikzpicture}
-}
-\end{document}
+
+
+
+ 
+ \end{document}
