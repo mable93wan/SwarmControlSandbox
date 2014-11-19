@@ -48,6 +48,7 @@
 	}; 
       var m_ControlInputY = 0;
 	var goalY = 2;
+	var goalX = 2;
 	
       var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
 	  
@@ -217,7 +218,7 @@
 		
 		if(m_controlState & ROBOT_INPUT.ROBOT_PROP)
 		{
-			impulseV.x = 0; 
+			impulseV.x = m_ControlInputX; 
 			impulseV.y = m_ControlInputY; 
 		}
 		
@@ -225,7 +226,7 @@
 			var brownianImpulse = new b2Vec2(0,0); 
         var mag = 0;
         var ang = 0;
-		var vary= 2;
+		var vary= 1;
             //apply Brownian noise: 
             mag = vary * Math.random();
             ang = 2*Math.PI*Math.random();
@@ -329,7 +330,7 @@
 	$("canvas").drawArc({
 			strokeStyle: "green",
   			strokeWidth: 5,						  
-			x: 5 * 30, y: goalY * 30,
+			x: goalX * 30, y: goalY * 30,
 			radius: radius * 30
 			})
 
@@ -338,6 +339,12 @@
   strokeWidth: 3,
   x1: 0, y1: goalY * 30,
   x2: 1000, y2: goalY * 30,
+})
+.drawLine({
+  strokeStyle: 'green',
+  strokeWidth: 3,
+  x1: goalX* 30, y1: 0 ,
+  x2: goalX * 30, y2: 1000,
 })
 .restoreCanvas();
 			var day = new Date();
@@ -380,6 +387,12 @@ if(overall_time == null)   // set the start time
   x1: 0, y1: mean_position_y * 30,
   x2: 1000, y2: mean_position_y* 30,
 })
+.drawLine({
+  strokeStyle: 'red',
+  strokeWidth: 3,
+  x1: mean_position_x* 30, y1: 0 ,
+  x2: mean_position_x * 30, y2: 1000* 30,
+})
 .restoreCanvas();
 
 
@@ -387,8 +400,12 @@ if(overall_time == null)   // set the start time
 		var cycleInSec = 20;
 		var amplitudeY = 5;
 		var offsetY = 5;
+		var amplitudeX = 5;
+		var offsetX = 5;
 
 		goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+		goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+		
 		var Kgain = 4;
 		var Kderivative = 1;
 
@@ -405,11 +422,13 @@ if(overall_time == null)   // set the start time
 	
 	
 		m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+		m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 		m_controlState= ROBOT_INPUT.ROBOT_PROP;
 			
 
 	
-		console.log(elapsedTimeSec  + " " + mean_position_y + " " +  goalY );
+		console.log(elapsedTimeSec  + " " + mean_position_y + " " +  goalY + " " + mean_position_x + " " +  goalX  );
+		
 		
          }; //end update
 
