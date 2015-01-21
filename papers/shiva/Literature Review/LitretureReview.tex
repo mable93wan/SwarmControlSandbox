@@ -1,0 +1,35 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\usepackage{xcolor}
+\newcommand\todo[1]{\textcolor{red}{#1}}   %I use this command to highlight areas that are unfinished
+%\renewcommand\todo[1]{}   % uncomment this to hide all \todo{} in the text.
+\usepackage{hyperref}
+\usepackage{geometry}
+\begin{document}
+\author{Shiva Shahrokhi}
+\title{Literature Review to Access Swarm Control Robotics Lab}
+\maketitle
+
+\begin{abstract}
+
+Simple robots can do huge things. To control swarm of simple robots, we need to know how to steer them simply. One way is global control which means a single input to all the robots (or particles). Humans can do it, we want machine to do it automatically and efficiently.
+ 
+\end{abstract}
+
+\section{Literature Review}
+\subsection{Micro assembly using a cluster of paramagnetic Microparticles:}
+
+In this paper, they use an external magnetic source to guid cluster of paramagnetic micro particles to achieve point to point positioning of the cluster, manipulation of micro objects and assembly of micro objects into a microstructure.They experimentally analyzed the relation between the number of micro particles within the cluster and its average linear velocity. They have created the micro objects on silicon wafer. Drag forces on the cluster on the cluster of micro particles and micro objects are estimated using the applied current to each of the electromagnets and the velocity of the cluster. Future work is 3D controlling and 2D controlling in a better velocity.\cite{Khalil2013}
+
+\subsection{Massive Uniform Manipulation}
+
+In this paper, they use a common input signal to control large populations of simple robots. When you want to control a swarm with a single global command, you must have at least one obstacle to control the swarm. They had three methods to work with: Addressable, Local and Global. Addressable means that each robot has its own name and the system in this state is fully controllable. Local means that each robot has a parameter to scale the turning rate and with this parameter it is completely controllable. and the third method is Global, which means all the robots get the same input, but we should have at least one obstacle to control position of all the robots. They had shown that the global command is the fastest way for humans to lead the robots to the goal position and Local is the slowest one. However; motion planning in block world with multiple robots and fixed and moveable squares is PSPACE-complete, so an alternative for this problem is to design complex environments that can enable position control with small number of moves. \cite{AaronManipulation2013}
+
+\subsection{}
+ 
+\bibliographystyle{IEEEtran}
+\bibliography{LitretureReview.bib}
+
+
+\end{document}
+
+ 
