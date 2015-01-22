@@ -29,7 +29,35 @@ I.~S.~M. Khalil, F.~van~den Brink, O.~S. Sukas, and S.~Misra, ``Microassembly
 
 \bibitem{AaronManipulation2013}
 A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
-  uniform manipulation,'' \emph{IEEE International Conference on Intelligent
+  uniform manipulation,'' in \emph{IEEE International Conference on Intelligent
   Robots and Systems}, Nov. 2013.
+
+\bibitem{swarmcontrol2013}
+A.~Becker, C.~Ertel, and J.~McLurkin, ``Crowdsourcing swarm manipulation
+  experiments: A massive online user study with large swarms of simple
+  robots,'' in \emph{IEEE International Conference on Robotics and Automation},
+  2014.
+
+\bibitem{TourNanocar2012}
+P.-T. Chiang, J.~Mielke, J.~Godoy, J.~M. Guerrero, L.~B. Alemany, C.~J.
+  Villag{\'o}mez, A.~Saywell, L.~Grill, and J.~M. Tour, ``Toward a light-driven
+  motorized nanocar: Synthesis and initial imaging of single molecules,''
+  \emph{ACS Nano}, vol.~6, no.~1, pp. 592--597, Nov. 2012.
+
+\bibitem{Goodrich2012}
+M.~Goodrich, S.~Kerman, B.~Pendleton, and P.~Sujit, ``What types of interaction
+  do bio-inspired robot swarms and flocks afford a human?'' in
+  \emph{Proceedings of Robotics: Science and Systems}, Sydney, Australia, July
+  2012.
+
+\bibitem{Croix2012}
+J.-P. de~la Croix and M.~Egerstedt, ``Controllability characterizations of
+  leader-based swarm interactions,'' in \emph{Association for the Advancement
+  of Artificial Intelligence}, 2012.
+
+\bibitem{Lewis2012}
+A.~Kolling, S.~Nunnally, and M.~Lewis, ``Towards human control of robot
+  swarms,'' in \emph{ACM/IEEE International Conference on}, March 2012, pp.
+  89--96.
 
 \end{thebibliography}

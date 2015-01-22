@@ -11,20 +11,38 @@
 
 \begin{abstract}
 
-Simple robots can do huge things. To control swarm of simple robots, we need to know how to steer them simply. One way is global control which means a single input to all the robots (or particles). Humans can do it, we want machine to do it automatically and efficiently.
+Simple robots can do huge things. To control swarm of simple robots, we need to know how to steer them simply. One way is global control which means a single input to all the robots (or particles). Previous works shows that humans can do it, so we want computers to do it automatically and efficiently.
  
 \end{abstract}
 
 \section{Literature Review}
 \subsection{Micro assembly using a cluster of paramagnetic Microparticles:}
 
-In this paper, they use an external magnetic source to guid cluster of paramagnetic micro particles to achieve point to point positioning of the cluster, manipulation of micro objects and assembly of micro objects into a microstructure.They experimentally analyzed the relation between the number of micro particles within the cluster and its average linear velocity. They have created the micro objects on silicon wafer. Drag forces on the cluster on the cluster of micro particles and micro objects are estimated using the applied current to each of the electromagnets and the velocity of the cluster. Future work is 3D controlling and 2D controlling in a better velocity.\cite{Khalil2013}
+In this paper, they use an external magnetic source to guid cluster of paramagnetic micro particles to achieve point to point positioning of the cluster, manipulation of micro objects and assembly of micro objects into a microstructure.They experimentally analyzed the relation between the number of micro particles within the cluster and its average linear velocity. They have created the micro objects on silicon wafer. Drag forces on the cluster of micro particles and micro objects are estimated using the applied current to each of the electromagnets and the velocity of the cluster. Future work is 3D controlling and 2D controlling in a better velocity.\cite{Khalil2013}
 
 \subsection{Massive Uniform Manipulation}
 
 In this paper, they use a common input signal to control large populations of simple robots. When you want to control a swarm with a single global command, you must have at least one obstacle to control the swarm. They had three methods to work with: Addressable, Local and Global. Addressable means that each robot has its own name and the system in this state is fully controllable. Local means that each robot has a parameter to scale the turning rate and with this parameter it is completely controllable. and the third method is Global, which means all the robots get the same input, but we should have at least one obstacle to control position of all the robots. They had shown that the global command is the fastest way for humans to lead the robots to the goal position and Local is the slowest one. However; motion planning in block world with multiple robots and fixed and moveable squares is PSPACE-complete, so an alternative for this problem is to design complex environments that can enable position control with small number of moves. \cite{AaronManipulation2013}
 
-\subsection{}
+\subsection{Crowdsourcing Swarm Manipulation Experiments: A Massive Online User Study with Large Swarms of Simple Robots}
+
+In this paper, an online game named "SwarmControl.net" has been made to let humans control hundreds of robots. It is done this way because previous studies on real robots were not scalable because of the cost of the robots. Five games with different approaches are implemented and it is possible to vary number of robots, control commands-choosing from global, repulsive or attractive modes-, visual feedback, noise, control position. Future works in this paper includes modifying site, adding other experiments and also developing efficient automatic controllers. \cite{swarmcontrol2013}
+
+\subsection{Toward a Light-Driven Motorized Nano car: Synthesis and Initial Imaging of Single Molecules}
+
+In this paper, they present the second generation motorized nona car. These nano cars are designed to operate on surfaces and to be studied at the single molecule level. The previous nano cars used four C wheels, but had difficulties because they could not spin faster because of the temperature. This work present a way to synthesize at nano machine that can convert energy input like light or chemically power into controlled motion on a surface. They imaged single molecules after deposition on Cu. The future challenges are using different metallic and nonmetallic surfaces and evaluating the possibility of making inherently fluorescent motorized nano cars that have excitation and emission at a usable region. \cite{TourNanocar2012}
+
+\subsection{What types of Interaction do Bio-Inspired Robot Swarms and Flocks Afford a Human?}
+
+In this paper, they see how leader, predator, and stakeholders can work when we have a human operator and they he or she can influence a decentralized agent. They show that leaders are more effective to influence the flock, but predators can divide the flock to number of sub flocks that is leading us to better results in some problems. For switching between modes, it is possible to have a stake holder with more than one agent. Couzin's a non-linear controller where agents make zone dependent switches between control laws. In this bio-inspired model, three zones are defined: repulsion, orientation, and attraction. When the agents are in the zone of repulsion, agents induces repulsion to get out of that zone. If the agent is not in the zone of repulsion, the attraction and/or orientation induce forces. Their future work is to see how a team of distributed humans can use decentralized human influence to manage a bio-inspired collective.\cite{Goodrich2012}
+
+\subsection{Controllability Characterizations of Leader-Based Swarm Interactions}
+
+In this paper, they research role of the network topology when controlling a network of mobile robots. They have found that rank of the controllability matrix and also node centrality of the leader of the network are two parameters that determine how difficult the network is for the human. They use acyclic, cycle, and complete graph and let people vote for the difficulty and also measure their performance. They found out that a configuration with a higher rank is almost always giving a better score in comparison to lower rank. And small leader node centrality is another factor showing if the network topology is easier to control or not. \cite{Croix2012}
+
+\subsection{Towards Human Control of Robot Swarms}
+
+In this paper, they compare two different approaches for human operator to control the swarm: \emph{selection} and \emph{beacon} and autonomous swarm with regard to performance, adaption to complex environments, and scalability. Selection requires active selection of groups and beacon exerts a passive influence on nearby robots. They have shown that autonomous swarms have higher performance in open environments. However; selection control works better in complex environments and beacon control has a potential for scaling when we have larger swarms. \cite{Lewis2012}
  
 \bibliographystyle{IEEEtran}
 \bibliography{LitretureReview.bib}
