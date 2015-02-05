@@ -5,6 +5,9 @@
 		//1. Add S shaped walls
 		//2. Grid the way
 		//3. Apply BrushFire Algorithm
+		//4. make controllers, drawing and bfs sections.
+		//5. BFS instead of SetValue
+		//6. Draw the array values on the screen (Debug Draw)
 		////////////////////////////////////////////////////////////description//
 		// We want to control variance and mean position and find a way to the goal.
 		/////////////////////////////////////////////////////////////////////////
@@ -42,8 +45,51 @@
 	var m_ControlInputY = 0;
 	var goalX = 16;
 	var goalY = 20;
+
 	
 	var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
+	// It does BFS
+	function BFS(x, y , map)
+	{
+		console.log("residim inja");
+		var arraySize = map.length;
+		var infinity = arraySize * arraySize;
+
+		var dist = map[x][y];
+		if(dist == -1)
+		{
+			return;
+		}
+		if(x-1 >0)
+		if(map[x-1][y] > dist +1)
+		{
+			map[x-1][y] = dist+1;
+			console.log("with " + x-1 + " and " + y + " We have : " + map[x-1][y]);
+			BFS(x-1, y, map);
+		}
+		if(y+1 < arraySize)
+		if(map[x][y+1] > dist +1)
+		{
+			map[x][y+1] = dist+1;
+			console.log("with " + x + " and " + y +1+ " We have : " + map[x][y+1]);
+			BFS(x, y+1, map);
+		}
+		if(y-1 >0)
+		if(map[x][y-1] > dist +1)
+		{
+			map[x][y-1] = dist+1;
+			console.log("with " + x + " and " + y-1 + " We have : " + map[x][y-1]);
+			BFS(x, y-1, map);
+		}
+		if(x+1 < arraySize )
+		if(map[x+1][y] > dist +1)
+		{
+			map[x+1][y] = dist+1;
+			console.log("with " + x+1 + " and " + y + " We have : " + map[x+1][y]);
+			BFS(x+1, y, map);
+		}
+
+	}
 	function init() {
 		var b2Vec2 = Box2D.Common.Math.b2Vec2
 		, b2AABB = Box2D.Collision.b2AABB
@@ -84,24 +130,24 @@
 		bodyDef.type = b2Body.b2_staticBody;
 		fixDef.shape = new b2PolygonShape;
 		fixDef.shape.SetAsBox(20, 2);//width, height
-		bodyDef.position.Set(10, 600 / 30 + 1.8); //bottom
+		bodyDef.position.Set(10, 600 / 30 + 1); //bottom
 		var bodyBottom = world.CreateBody(bodyDef);
 		bodyBottom.CreateFixture(fixDef);
-		bodyDef.position.Set(10, -1.8); //top
+		bodyDef.position.Set(10, -1); //top
 		world.CreateBody(bodyDef).CreateFixture(fixDef);
 		fixDef.shape.SetAsBox(2, 14);//width, height
-		bodyDef.position.Set(-1.8, 13); //left
+		bodyDef.position.Set(-1, 13); //left
 		world.CreateBody(bodyDef).CreateFixture(fixDef);
-		bodyDef.position.Set(21.8, 13); // right side
+		bodyDef.position.Set(21, 13); // right side
 		world.CreateBody(bodyDef).CreateFixture(fixDef);
 
 	// maze
 	bodyDef.userData = 'obstacle';
-	 fixDef.shape.SetAsBox(10, 0.1);//width, height
-         bodyDef.position.Set(15, 200 / 30 + 1.8); //bottom
+	 fixDef.shape.SetAsBox(10, 0.5);//width, height
+         bodyDef.position.Set(15, 150 / 30 + 1.5); //bottom
          var bodyBottom = world.CreateBody(bodyDef);
          bodyBottom.CreateFixture(fixDef);
-         bodyDef.position.Set(5, 400 / 30 + 1.8); //top
+         bodyDef.position.Set(5, 400 / 30 + 0.2); //top
          world.CreateBody(bodyDef).CreateFixture(fixDef);
 
 
@@ -113,7 +159,7 @@
          bodyDef.position.Set(7,17.5);
          bodyDef.userData = 'moveable';
          fixDef.shape = new b2PolygonShape;
-         fixDef.shape.SetAsBox(2.0,2.0);
+         fixDef.shape.SetAsBox(1.5,1.5);
          var obst = world.CreateBody(bodyDef);
          obst.CreateFixture(fixDef);
          obst.m_angularDamping = 0.1;
@@ -277,15 +323,15 @@ var countRobotsAtGoal;
 				{
 					var X = f.GetShape().GetVertices()[1].x - f.GetShape().GetVertices()[0].x;
 					var Y = f.GetShape().GetVertices()[2].y - f.GetShape().GetVertices()[1].y;
-							///////////////////////////////////
+		///////////////////////////////////
 		// Brushfire Algorithm
 		///////////////////////////////////
 		var mapXSize = 20;
 		var mapYSize = 20;
-		
-		var arr = new Array(mapXSize);
+		//TODO: Make arr global.
+		var map = new Array(mapXSize);
   		for (var i = 0; i < mapXSize; i++) {
-    		arr[i] = new Array(mapYSize);
+    		map[i] = new Array(mapYSize);
   		}
   		for (var i = 0 ; i < mapXSize ; i++)
   			for(var j = 0; j < mapYSize; j++)
@@ -293,18 +339,17 @@ var countRobotsAtGoal;
   				if(i <f.GetShape().GetVertices()[1].x && i-1 > f.GetShape().GetVertices()[1].x && j < f.GetShape().GetVertices()[2].y && j-1 > f.GetShape().GetVertices()[2].y && b.GetUserData() == 'obstacle')
   				{
   					//setting obstacles 
-  					arr[i][j]= 100;
+  					map[i][j]= -1;
   				}
   				else {
   					//setting default free spaces.
-  					arr[i][j]= 0;
+  					map[i][j]= mapXSize *mapYSize;
   				}
   			}
-  			//while we have not reached start point
-  			while(arr[0][20] == 0)
-  			{
-
-  			}
+  			//we set the goal position value 1.
+  			map[19][1] = 0;
+  			//while we have at least one point that is 0:
+  			BFS(19,1, map);
   		
 		//console.log(X);
 		var pos = b.GetPosition();
@@ -402,6 +447,7 @@ var countRobotsAtGoal;
 		var sum2_y = 0;
 		var desired_var_x;
 		//TODO: make this depend on time
+		//if()
 		if(var_x < min_desired_var_x)
 		{
 			goalX = 18;
@@ -414,7 +460,7 @@ var countRobotsAtGoal;
 			goalY = 18;
 			desired_var_x = min_desired_var_x;
 		}
-		console.log("Var X : " + var_x);
+		//console.log("Var X : " + var_x);
 
 
 		for(var i = 0; i < numrobots; ++i) {
