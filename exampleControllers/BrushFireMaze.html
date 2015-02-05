@@ -2,7 +2,6 @@
 <!--
 // TODO: (remove items when completed)
 //
-//3. Apply BrushFire Algorithm
 //4. make controllers, drawing and bfs sections.
 //
 //6. Draw the array values on the screen (Debug Draw)
@@ -53,6 +52,7 @@
 		var mapYSize = 20;
 		var map = new Array(mapXSize);
 		var ifBFS = false;
+		var BFSDebugMode = true;
 		for (var i = 0; i < mapXSize; i++) 
 		{
 			map[i] = new Array(mapYSize);
@@ -281,7 +281,7 @@
 			var mazeSize = 15;
 			var mazeTopY = 13;
 			var mazeDownY = 6;
-			var goalPositionX = 19;
+			var goalPositionX = 18;
 			var goalPositionY = 1;
 			//giving -1 to boundaries
 			if(!ifBFS)
@@ -299,7 +299,7 @@
 					map[i][mazeTopY]= -1;
 				}
 				//Top Maze
-				for(var i = mapXSize-1 ; i > mapXSize- mazeSize; i--)
+				for(var i = mapXSize-1 ; i > mapXSize- mazeSize -1 ; i--)
 				{
 					map[i][mazeDownY] = -1;
 				}
@@ -314,13 +314,10 @@
 				map[goalPositionX][goalPositionY]= 0;
 			
 				BFS(goalPositionX, goalPositionY);
-				for(var i = 0 ; i < mapXSize; i++)
-					for (var j = 0 ; j < mapYSize; j++)
-					{
-						console.log("with " + j + " and " + i + " we have " + map[j][i]);
-					}
+				
 				ifBFS = true;
 			}
+			
 			
 			(function animloop()
 			{
@@ -385,7 +382,23 @@
 				radius: radius * 30
 			})
 			.restoreCanvas();
-			
+			if(BFSDebugMode)
+			{
+				for(var i = 0 ; i < mapXSize; i++)
+					for (var j = 0 ; j < mapYSize; j++)
+					{
+						$("canvas").drawText(
+						{
+							strokeStyle: '#25a',
+							strokeWidth: 2,
+							x: (i+ 0.5)*30  , y: (j+0.5) *30 ,
+							fontSize: 20,
+							fontFamily: 'Verdana, sans-serif',
+							text: map[i][j]
+						});
+						//console.log("with " + j + " and " + i + " we have " + map[j][i]);
+					}
+			}
 			
 			//draw robots and obstacles
 			for (b = world.GetBodyList() ; b; b = b.GetNext())
@@ -455,6 +468,7 @@
 				x2: 20*30, y2: i*30
 			})
 			}
+			
 			$("canvas").restoreCanvas();
 			
 			
