@@ -53,8 +53,8 @@
 		var flagVar = false;
 		var ifBFS = true;
 		var BFSDebugMode = false;
-		var Gradient_x_DebugMode = false;
-		var Gradient_y_DebugMode = true;
+		var Gradient_DebugMode = true;
+		;
 		var map = new Array(mapXSize);
 		var gradient_x = new Array(mapXSize);
 		var gradient_y = new Array(mapXSize);
@@ -152,39 +152,39 @@
 				return;
 			}
 			
-				if(map[x-1][y] == -1 && map[x+1][y] == -1)
-				{
-					gradient_x[x][y] = 0;
-				}
-				else if(map[x-1][y] == -1 )
-				{
-					gradient_x[x][y]= map[x+1][y] - map[x][y];
-				}
-				else if(map[x+1][y] == -1 )
-				{
-					gradient_x[x][y]= map[x][y] - map[x-1][y];
-				}
-				else
-				{
-					gradient_x[x][y] = (map[x+1][y] - map[x-1][y])/2;
-				}
-			
-				if(map[x][y-1] == -1 && map[x][y+1] == -1)
-				{
-					gradient_y[x][y] = 0;
-				}
-				else if(map[x][y-1] == -1 )
-				{
-					gradient_y[x][y]= map[x][y+1] - map[x][y];
-				}
-				else if(map[x][y+1] == -1 )
-				{
-					gradient_y[x][y]= map[x][y-1] - map[x][y];
-				}
-				else
-				{
-					gradient_y[x][y] = (map[x][y+1] - map[x][y-1])/2;
-				}
+			if(map[x-1][y] == -1 && map[x+1][y] == -1)
+			{
+				gradient_x[x][y] = 0;
+			}
+			else if(map[x-1][y] == -1 )
+			{
+				gradient_x[x][y]= map[x+1][y] - map[x][y];
+			}
+			else if(map[x+1][y] == -1 )
+			{
+				gradient_x[x][y]= map[x][y] - map[x-1][y];
+			}
+			else
+			{
+				gradient_x[x][y] = (map[x+1][y] - map[x-1][y])/2;
+			}
+		
+			if(map[x][y-1] == -1 && map[x][y+1] == -1)
+			{
+				gradient_y[x][y] = 0;
+			}
+			else if(map[x][y-1] == -1 )
+			{
+				gradient_y[x][y]= map[x][y+1] - map[x][y];
+			}
+			else if(map[x][y+1] == -1 )
+			{
+				gradient_y[x][y]= map[x][y] - map[x][y-1];
+			}
+			else
+			{
+				gradient_y[x][y] = (map[x][y+1] - map[x][y-1])/2;
+			}
 		}
 
 		////////////////////////////
@@ -483,24 +483,37 @@
 				ifGradient = false;
 
 			}
-			if(Gradient_x_DebugMode)
+			if(Gradient_DebugMode)
 			{
 				for(var i = 0 ; i < mapXSize; i++)
 					for (var j = 0 ; j < mapYSize; j++)
 					{
-						$("canvas").drawText(
+						var a = 0;
+						
+						if(gradient_x[i][j] != 0 && gradient_y[i][j] != 0)
 						{
-							strokeStyle: '#25a',
-							strokeWidth: 2,
-							x: (i+ 0.5)*30  , y: (j+0.5) *30 ,
-							fontSize: 15,
-							fontFamily: 'Verdana, sans-serif',
-							text: gradient_x[i][j]
+							a = Math.atan2(gradient_y[i][j],gradient_x[i][j] ) * 180 / Math.PI + 270;
+						}
+						else if(gradient_x[i][j] == 0 && gradient_y[i][j] == 0)
+						{
+							continue;
+						}
+						
+						$('canvas').drawVector({
+						  strokeStyle: '#000',
+						  strokeWidth: 1,
+						  rounded: true,
+						  endArrow: true,
+						  arrowRadius: 15,
+						  arrowAngle: 30,		  
+						  x: 30* (i+ 0.5  + 0.5*Math.cos((90+a)*Math.PI/180.0))	 , y: 30 * (j + 0.5 + 0.5*Math.sin((90+a)*Math.PI/180.0)),
+						  a1: a, l1: 30
 						});
+
 					}
 					
 			}
-			if(Gradient_y_DebugMode)
+			/*if(Gradient_y_DebugMode)
 			{
 				for(var i = 0 ; i < mapXSize; i++)
 					for (var j = 0 ; j < mapYSize; j++)
@@ -516,7 +529,7 @@
 						});
 					}
 					
-			}
+			}*/
 
 			
 			//draw robots and obstacles
