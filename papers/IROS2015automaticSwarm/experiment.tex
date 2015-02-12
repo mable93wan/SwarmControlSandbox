@@ -1,0 +1,66 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}\label{sec:expResults}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The experimental section compares the results of our hysteresis based controller applied to a \emph{block-pushing} task.  In preliminary work over 1000 human users completed this task using varying levels of feedback. To our surprise, users who received the lowest amount of feedback -- just the moments of the position distribution of the robot swarm -- performed better than users with full state feedback.
+
+
+
+
+
+\subsection{Human-user experiment}
+
+Sensing is expensive, especially on the nanoscale. To see nanocars~\cite{Chiang2011}, scientists fasten molecules that fluoresce light when activated by a strong light source. Unfortunately, multiple exposures can destroy these molecules, a process called \emph{photobleaching}. Photobleaching can be minimized by lowering the excitation light intensity, but this increases the probability of missed detections~\cite{Cazes2001}.  This experiment explores manipulation with varying amounts of sensing information: {\bf full-state} sensing provides the most information by showing the position of all robots; {\bf convex-hull} draws a convex hull around the outermost robots; {\bf mean} provides the average position of the population; and {\bf mean + variance} adds a confidence ellipse. Fig.~\ref{fig:Visualization} shows screenshots of the same robot swarm with each type of visual feedback. Full-state requires $2n$ data points for $n$ robots. Convex-hull requires at worst $2n$, but usually a smaller number.  Mean requires two, and variance three, data points.  Mean and mean + variance are convenient even with millions of robots. Our hypothesis predicted a steady decay in performance as the amount of visual feedback decreased.
+
+% Additionally, as population characteristics, they are available even if only a percentage of the robots are detected each control cycle.
+%Photobleaching: http://www.piercenet.com/browse.cfm?fldID=4DD9D52E-5056-8A76-4E6E-E217FAD0D86B
+%
+%Photobleaching is caused by the irreversible destruction of fluorophores due to either the prolonged exposure to the excitation source or exposure to high-intensity excitation light. Photobleaching can be minimized or avoided by exposing the fluor(s) to the lowest possible level of excitation light intensity for the shortest length of time that still yields the best signal detection; this requires optimization of the detection method using high sensitivity CCD cameras, high numerical aperture objective and/or the widest bandpass emission filter(s) available. Other approaches include using fluorophores that are more photostable than traditional fluorophores and/or using antifade reagents to protect the fluor(s) against photobleaching. Steps to avoid photobleaching are not feasible for all detection methods and should be optimized for each method used. For example, antifade reagents are toxic to live cells, and therefore they can only be used with fixed cells or tissue. Furthermore, some detection methods, such as flow cytometry, normally do not require steps to avoid photobleaching because of the extremely short exposure time of the fluorophore to the excitation source.
+
+
+\begin{figure}
+\centering
+\begin{overpic}[width = \columnwidth]{ResVaryVis.pdf}\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:ResVaryVis} Completion-time results for the four levels of visual feedback shown in Fig.~\ref{fig:Visualization}. Surprisingly, players perform better with limited feedback--subjects with only the mean + variance  outperformed all others.
+%\vspace{-2em}
+}
+\end{figure}
+
+\begin{figure}[b!]
+\renewcommand{\figwid}{0.24\columnwidth}
+\begin{overpic}[width =\figwid]{VaryVisFS.pdf}\put(20,15){Full-state}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisCH.pdf}\put(10,15){Convex-hull}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisMV.pdf}\put(10,15){Mean + var}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisMe.pdf}\put(30,15){Mean}\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:Visualization}Screenshots from task \emph{Vary Visualization}. This experiment challenges players to quickly steer 100 robots (blue discs) to push an object (green hexagon) into a goal region. We record the completion time and other statistics.
+%\vspace{-1em}
+}
+\end{figure}
+
+To our surprise, our experiment indicates the opposite: players  with just the mean completed the task faster than those with full-state feedback.  As Fig.~\ref{fig:ResVaryVis} shows, the levels of feedback arranged by increasing completion time are [mean + variance, mean, full-state, convex-hull].  Anecdotal evidence from beta-testers who played the game suggests that tracking 100 robots is overwhelming---similar to schooling phenomenons that confuse predators---while working with just the mean + variance is like using a ``spongy'' manipulator. Our beta-testers found convex-hull feedback confusing and irritating.  A single robot left behind an obstacle will stretch the entire hull, obscuring the majority of the swarm.
+%obscuring what the rest of the swarm is doing.   
+
+
+\subsection{Automated Block Pushing}
+
+To solve this problem, the discretized the environment, used breadth-first search to determine $M$, the shortest path from any point for the block to the goal, and generate a gradient map $\nabla M$ toward the goal.  The blocks's center of mass is at $b$ and has radius $r_b$. The robots were then directed to assemble at  $b - r_b \nabla M$ to push the block toward the goal location.
+
+
+TODO: write this in algorithmic form
+
+image:  show the vector field and the robots pushing a block
+
+plot of results, comparing to humans
+
+plot of results, varying the number of robots %lower priority, maybe in the journal version
+
+images of worlds where the algorithm fails, short discussion.
+
+
+
+
+
+
