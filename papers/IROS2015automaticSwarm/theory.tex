@@ -295,13 +295,10 @@ where $\sigma$ is standard deviation:
 \begin{equation}
 \sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
 \end{equation}
-After a while, if we have lots of robots, we see the robots to make a bell shaped curve because of the Brownian noise. In we see the probability density function of a Gaussian distribution:\\
-
-
 
 \subsection{Controlling both the mean and the variance of many robots}
 
-
+When we want to control mean and variance in the same time, we should use a hysteresis control law for the variance along controlling mean. It means that we control mean position while variance is not bigger than our maximum desired variance. If variance was bigger than the maximum desired variance, we then stop controlling mean position and reduce the variance. when we reach some minimum desired variance, we go back to our mean position. 
 hysteresis control law, \cite{sadra2014}
 
 \begin{equation}
