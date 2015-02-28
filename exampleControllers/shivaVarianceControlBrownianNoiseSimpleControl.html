@@ -26,7 +26,7 @@
 <html>
 <link rel="ensemble icon" href="pictures/ATBensembleIcon.ico">
 <head>
-<title>COntrolling mean position despite noise</title>
+<title>Controlling variance </title>
 </head>
 <body onload="init();">
 <canvas id="canvas" width="600" height="600" style="background-color:#EEEEEE;" ></canvas>
@@ -45,6 +45,7 @@ WAIT : 0x40
 var m_ControlInputY = 0;
 var goalY = 2;
 var goalX = 2;
+var flagvar = false;
 var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
 function init() {
 var b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -72,6 +73,7 @@ var timer = null;
 var passed = null;
 var overall_time = null;
 var firstloop = false;
+
 //goal positions
 var myGoalsX = [8,7,9,7,8,9,7,9];
 var myGoalsY = [6,7,7,8,8,8,9,9];
@@ -314,29 +316,17 @@ var cycleInSec = 20;
 var amplitudeY = 5;
 var offsetY = 5;
 var amplitudeX = 5;
-var offsetX = 5;
-var max_desired_var_x = 5;
-var min_desired_var_x = 3;
-var desired_var_y = 1;
+var offsetX = 7.5;
+var max_desired_var_x = 4;
+var min_desired_var_x = 2;
+//var desired_var_y = 1;
 var sum_position_x = 0;
 var sum_position_y = 0;
 var sum2_x = 0;
 var sum2_y = 0;
-var desired_var_x;
-//TODO: make this depend on time
-if(var_x < min_desired_var_x)
-{
-goalX = 10;
-goalY = 10;
-desired_var_x = max_desired_var_x;
-}
-else if(var_x > max_desired_var_x)
-{
-goalX = 2;
-goalY = 2;
-desired_var_x = min_desired_var_x;
-}
-console.log("Var X : " + var_x);
+//var desired_var_x;
+
+goalY = 10;//offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
 
 
 for(var i = 0; i < numrobots; ++i) {
@@ -352,6 +342,26 @@ sum2_y += (m_Robot[i].GetPosition().y - mean_position_y) * (m_Robot[i].GetPositi
 }
 var var_x = sum2_x / numrobots;
 var var_y = sum2_y / numrobots;
+//TODO: make this depend on time
+var normalGoal = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+
+if(var_x < min_desired_var_x)
+{
+flagvar = false;
+//desired_var_x = max_desired_var_x;
+}
+if(var_x > max_desired_var_x)
+{
+goalX = 0;
+goalY = 10;
+flagvar = true;
+//desired_var_x = min_desired_var_x;
+}
+if(!flagvar)
+{
+	goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+}
+
 //draw the average position
 $("canvas").drawArc({
 strokeStyle: "red",
@@ -372,7 +382,7 @@ x1: mean_position_x*30, y1: 0 ,
 x2: mean_position_x*30, y2: 1000* 30,
 })
 //draw goal variance line
-.drawLine({
+/*.drawLine({
 strokeStyle: 'green',
 strokeWidth: 7,
 x1: (mean_position_x - desired_var_x/2)*30, y1:mean_position_y* 30 ,
@@ -384,7 +394,7 @@ strokeStyle: 'pink',
 strokeWidth: 5,
 x1: (mean_position_x - var_x/2)* 30, y1:mean_position_y* 30 ,
 x2: (mean_position_x + var_x/2)* 30, y2:mean_position_y* 30,
-})
+})*/
 .restoreCanvas();
 
 
@@ -403,7 +413,8 @@ var mean_velocity_y = sum_velocity_y / numrobots;
 m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
 m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 m_controlState= ROBOT_INPUT.ROBOT_PROP;
-//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
+//sd_x = Math.sqrt(var_x);
+console.log(elapsedTimeSec + " " + mean_position_x + " " + normalGoal + " " + var_x);
 }; //end update
 };
 </script>

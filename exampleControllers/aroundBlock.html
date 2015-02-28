@@ -2,7 +2,7 @@
 <!--
 // TODO: (remove items when completed)
 //
-//4. make controllers, drawing and bfs sections.
+//1. The aim of this code is just rounding the block.
 //
 ////////////////////////////////////////////////////////////description//
 // We want to control variance and mean position and find a way to the goal.
@@ -65,6 +65,7 @@
 		var gradient_x = new Array(mapXSize);
 		var gradient_y = new Array(mapXSize);
 		var gradient_angel = new Array(mapXSize);
+		var gradient_aroundBlock = new Array(mapXSize);
 
 
 		for (var i = 0; i < mapXSize; i++) 
@@ -73,6 +74,7 @@
 			gradient_x[i] = new Array(mapYSize);
 			gradient_y[i] = new Array(mapYSize);
 			gradient_angel[i] = new Array(mapYSize);
+			gradient_aroundBlock[i] = new Array(mapYSize);
 		}
 		
 		
@@ -195,9 +197,30 @@
 			}
 			if(gradient_x[x][y] != 0 || gradient_y[x][y] != 0)
 			{
-				gradient_angel[x][y] = Math.atan2(gradient_y[x][y],gradient_x[x][y] ) * 180 / Math.PI + 270;
+				gradient_angel[x][y] = Math.atan2(gradient_y[x][y],gradient_x[x][y] )  + 3* Math.PI/2;
 			}
 			
+		}
+
+		function AroundBlockVector(x,y, theta, r)
+		{
+			var desired_r = 3/2;
+			if (Math.abs(theta) < Math.PI/6 && r < desired_r)
+			{
+				gradient_aroundBlock[x][y] = Math.atan2(Math.cos(theta), -Math.sin(theta));
+			}
+			else if(Math.abs(theta > Math.PI * 5 / 6))
+			{
+				gradient_aroundBlock[x][y] = Math.atan2(-Math.cos(theta), -Math.sin(-theta));
+			}
+			else if(theta > 0)
+			{
+				gradient_aroundBlock[x][y] = Math.atan2(Math.cos(theta + Math.PI/2), -Math.sin(theta+ Math.PI/2));
+			}
+			else if(theta < 0 )
+			{
+				gradient_aroundBlock[x][y] = Math.atan2(Math.cos(theta - Math.PI/2), -Math.sin(theta - Math.PI/2));
+			}
 		}
 
 		////////////////////////////
@@ -284,7 +307,7 @@
 
 
 			// maze
-			bodyDef.userData = 'obstacle';
+			/*bodyDef.userData = 'obstacle';
 	 		fixDef.shape.SetAsBox(10, 0.5);//width, height
 	        bodyDef.position.Set(15, 150 / mapScale + 1.5); //TOP
 	        var bodyBottom = world.CreateBody(bodyDef);
@@ -292,7 +315,7 @@
 	 
 	        bodyDef.position.Set(5, 400 / mapScale + 0.2); //BOTTOM
 	        world.CreateBody(bodyDef).CreateFixture(fixDef);
-
+			*/
 
 
 			//create an object to move
@@ -300,7 +323,7 @@
 			fixDef.density = 10.0;
 			fixDef.friction = 0.5;
 	        fixDef.restitution = 0.2;  //bouncing value
-	        bodyDef.position.Set(7,17.5);
+	        bodyDef.position.Set(10,10);
 	        bodyDef.userData = 'moveable';
 	        fixDef.shape = new b2PolygonShape;
 	        fixDef.shape.SetAsBox(1.0,1.0);
@@ -315,7 +338,7 @@
 			//create the robots
 			bodyDef.type = b2Body.b2_dynamicBody;
 			var robotrad = 0.1;
-			var numrobots = 500;//Math.floor(20/(4*robotrad*robotrad));
+			var numrobots = 150;//Math.floor(20/(4*robotrad*robotrad));
 			fixDef.density = 1.0;
 			fixDef.friction = 0.5;
 			fixDef.restitution = 0.2; //bouncing value
@@ -351,9 +374,9 @@
 			// Brushfire Algorithm
 			///////////////////////////////////
 			var infinity = mapXSize * mapYSize;
-			var mazeSize = 15;
-			var mazeTopY = 13;
-			var mazeDownY = 6;
+			var mazeSize = 0;
+			var mazeTopY = 0;
+			var mazeDownY = 0;
 			var goalPositionX = 16;
 			var goalPositionY = 3;
 			var goalPositionXDraw = 16.5;
@@ -671,16 +694,17 @@
 			var offsetY = 5;
 			var amplitudeX = 5;
 			var offsetX = 5;
-			var max_desired_var_x = 12;
-			var min_desired_var_x = 8;
-			var max_desired_var_y = max_desired_var_x;
-			var min_desired_var_y = min_desired_var_x;
+			var max_desired_var_x = 5;
+			var min_desired_var_x = 2;
+			var max_desired_var_y = 5;//max_desired_var_x;
+			var min_desired_var_y = 2;//min_desired_var_x;
 			var sum_position_x = 0;
 			var sum_position_y = 0;
 			var sum2_x = 0;
 			var sum2_y = 0;
 			var desired_var_x;
 			var cov_xy = 0;
+			var e = 0.02;
 
 			for(var i = 0; i < numrobots; ++i) {
 				sum_position_x += m_Robot[i].GetPosition().x;
@@ -729,6 +753,13 @@
 				rotate: angle_max_variance
 
 			})
+			//draw the average position
+			$("canvas").drawArc({
+				strokeStyle: "red",
+				strokeWidth: 5,
+				x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+				radius: radius * mapScale
+			})
 			
 			.restoreCanvas();
 
@@ -755,8 +786,8 @@
 				var dist2corner2 = lineDistance(mean_position_x,mean_position_y, 1,19 );
 				var dist2corner3 = lineDistance(mean_position_x, mean_position_y, 19,1);
 				var dist2corner4 = lineDistance(mean_position_x,mean_position_y, 19,19 );
-				var dist2corner5 = lineDistance(mean_position_x,mean_position_y, 19, 7);
-				var dist2corner6 = lineDistance(mean_position_x,mean_position_y, 1, 13);
+				var dist2corner5 = 1000;//lineDistance(mean_position_x,mean_position_y, 19, 7);
+				var dist2corner6 = 1000;//lineDistance(mean_position_x,mean_position_y, 1, 13);
 				var minDistCorner = Math.min(dist2corner1, dist2corner2, dist2corner3, dist2corner4, dist2corner5, dist2corner6)
 				if(minDistCorner == dist2corner1)
 				{
@@ -795,10 +826,80 @@
 				var index_y = Math.floor(mean_position_y);
 				var block_x = Math.floor(blockCOM_x);
 				var block_y = Math.floor(blockCOM_y);
+				//var angel_gradient = gradient_angel[block_x, block_y];
+				//var theta = Math.atan2(mean_position_y - blockCOM_y , mean_position_x - blockCOM_x);
+				// //var alpha = theta - angel_gradient;
+				// var dist = lineDistance(mean_position_x, mean_position_y, blockCOM_x,blockCOM_y);
+				// // console.log("distance = " + dist);
+				// var theta = Math.atan2(mean_position_x - blockCOM_x , mean_position_y - blockCOM_y);
+				// var r = 3/2;
 
+				for(var i = 0 ; i < mapXSize; i ++)
+					for(var j = 0 ; j <mapYSize; j++)
+					{
+						var dist = lineDistance(i, j, blockCOM_x,blockCOM_y);
+
+						var theta = Math.atan2( j - blockCOM_y,i - blockCOM_x ) ;
+						if(i == 15 && j == 10)
+						{
+							console.log("dist = " + dist);
+							console.log("theta = " + theta);
+							console.log("x center of mass = " + blockCOM_x);
+							console.log("y center of mass = "+ blockCOM_y);
+						}
+						AroundBlockVector(i,j,theta , dist);
+					}
+					for(var i = 0 ; i < mapXSize; i++)
+					for (var j = 0 ; j < mapYSize; j++)
+					{	
+						$('canvas').drawVector({
+						  strokeStyle: '#000',
+						  strokeWidth: 1,
+						  rounded: true,
+						  endArrow: true,
+						  arrowRadius: 15,
+						  arrowAngle: 30,		  
+						  x: mapScale* (i+ 0.5  + 0.5*Math.cos(gradient_aroundBlock[i][j]))	 , y: mapScale * (j + 0.5 + 0.5*Math.sin(gradient_aroundBlock[i][j])),
+						  a1: gradient_aroundBlock[i][j]* 180 / Math.PI, l1: mapScale
+						});
+
+					}
+
+					
+			
+
+				// goalX = mean_position_x + (dist - r) * Math.sin(a);
+				// goalY = mean_position_y - (dist - r) * Math.cos(a);
+				// console.log("Goal X : " + goalX);
+				// console.log("Goal Y : " + goalY);
+				// if(Math.abs(mean_position_x - goalX )< e)
+				// {
+				// 	goalX = mean_position_x + Math.sin(gradient_angel + alpha + Math.PI/2) +1;
+				// }
+				/*if(alpha > 0)
+				{
+					goalX = mean_position_x + Math.sin(gradient_angel + alpha + Math.PI/2);
+					goalY = mean_position_y + Math.cos(gradient_angel + alpha + Math.PI/2);
+				}
+				else if (alpha <=0)
+				{
+					goalX = mean_position_x + Math.sin(gradient_angel + alpha - Math.PI/2);
+					goalY = mean_position_y + Math.cos(gradient_angel + alpha - Math.PI/2);
+				}*/
+
+				//else 
+				//{
+					// var r = 0.5;	
+					// goalX = blockCOM_x + r * gradient_x[block_x][block_y];
+					// goalY = blockCOM_y + r * gradient_y[block_x][block_y];
+				//}
+				
+				
+				/*
 				var r = 0.5;	
-				goalX = blockCOM_x + r * gradient_x[block_x][block_y];
+				goalX = blockCOM_x+ r * gradient_x[block_x][block_y];
 				goalY = blockCOM_y + r * gradient_y[block_x][block_y];
+				*/
 				
 				/*if(map[index_x+ 1][index_y] != -1 && map[index_x+ 1][index_y] < map[block_x][block_y])//gradient_angel[index_x+ 1][index_y] == gradient_angel[block_x+1][block_y])
 				{
@@ -835,13 +936,7 @@
 			}
 			// TODO: follow Knuth's example: http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
 			
-			//draw the average position
-			$("canvas").drawArc({
-				strokeStyle: "red",
-				strokeWidth: 5,
-				x: mean_position_x* mapScale, y: mean_position_y * mapScale,
-				radius: radius * mapScale
-			})
+			
 
 			/*.drawLine({
 				strokeStyle: 'red',
@@ -869,7 +964,7 @@
 				x1: (mean_position_x - var_x/2)* 30, y1:mean_position_y* 30 ,
 				x2: (mean_position_x + var_x/2)* 30, y2:mean_position_y* 30,
 			})*/
-			.restoreCanvas();
+			//.restoreCanvas();
 
 
 			//goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2 );
@@ -888,7 +983,7 @@
 			m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 			m_controlState = ROBOT_INPUT.ROBOT_PROP;
 			//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
-			console.log(elapsedTimeSec + " " + var_x );
+			//console.log(elapsedTimeSec + " " + var_x );
 			}; //end update
 		};
 	</script>

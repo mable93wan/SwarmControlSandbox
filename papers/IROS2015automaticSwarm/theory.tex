@@ -12,16 +12,16 @@
 %% A Hybrid controller using hysteresis
 \subsection{Models}
 We consider holonomic robots that move in the 2D plane.
-We want to control position and velocity of the robots and deciding about force for reaching our desired position and velocity. So our input is going to be acceleration (\emph{F = ma}). If we show acceleration by \emph{a}, velocity by \emph{v} and position in x coordinate by \emph{$P_x$} and in y coordinate by \emph{$P_y$}, we have the following equations
+We want to control position and velocity of the robots and deciding about force for reaching our desired position and velocity. So our input is going to be acceleration (\emph{F = ma}). If we show acceleration by \emph{a}, velocity by \emph{v} and position in x coordinate by \emph{$p_x$} and in y coordinate by \emph{$p_y$}, we have the following equations
 \begin{equation}
 \begin{bmatrix}
-\dot{P}_x = v_x \\
+\dot{p}_x = v_x \\
 \dot{v}_x = a_x
 \end{bmatrix}
 \end{equation}
 \begin{equation}
 \begin{bmatrix}
-\dot{P}_y = v_y \\
+\dot{p}_y = v_y \\
 \dot{v}_y = a_y
 \end{bmatrix}
 \end{equation}
@@ -34,14 +34,15 @@ y &= C x(t) + D u(t)\nonumber
 \end{align}
 
 
-where \emph{x(t)} represents our states, \emph{u(t)} is our input and \emph{e(t)} represents noise in the system. We also have \emph{y} as our output.\\
+where \emph{x(t)} represents our states, \emph{u(t)} is our input. %and \emph{e(t)} represents noise in the system. 
+We also have \emph{y} as our output.\\
 First we assume that we don't have noise in the system and we also have just one robot. As mentioned, \emph{a} is our input and \emph{x, y,} and their velocities are our states that we want to control.\\
 We define our states as following:
 \begin{align}
-x_1 &= P_x \\ \nonumber
-\dot{x}_1 &= x_2 = \dot{P}_x = v_x\\\nonumber
-x_3 &= P_y\\ \nonumber
- \dot{x}_3 &= x_4 = \dot{P}_y = v_y \nonumber
+x_1 &= p_x \\ \nonumber
+\dot{x}_1 &= x_2 = \dot{p}_x = v_x\\\nonumber
+x_3 &= p_y\\ \nonumber
+ \dot{x}_3 &= x_4 = \dot{p}_y = v_y \nonumber
 \end{align}
 
 
@@ -110,12 +111,12 @@ So we showed that we have two controllable states.
 \subsection{Independent control is not possible}
 We know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in \emph{x} axis:\\
 \begin{align}
-\dot{P}_{x1} &= v_{x1}\\\nonumber
+\dot{p}_{x1} &= v_{x1}\\\nonumber
 \dot{v}_{x1} &= a_{x1}\\\nonumber
-\dot{P}_{x2} &= v_{x2}\\\nonumber
+\dot{p}_{x2} &= v_{x2}\\\nonumber
 \dot{v}_{x2} &= a_{x2}\\\nonumber
 &\vdots\\\nonumber
-\dot{P}_{xn} &= v_{xn}\\\nonumber
+\dot{p}_{xn} &= v_{xn}\\\nonumber
 \dot{v}_{xn} &= a_{xn}\nonumber
 \end{align}
 
@@ -193,11 +194,11 @@ C=\left\{ \begin{bmatrix}
 \subsection{Controlling Mean Position}
 So for any number of robots if we give a global command to them, we have just two controllable states in each axis. So it is obvious that we can not control position of all the robots, but what states are controllable? To answer this question we create a reduced order system that calculates average position and average velocity of the robots:\\
 
-\begin{equation}
-\begin{bmatrix}
+\begin{align}
+\begin{bmatrix}\nonumber
 \dot{\bar{x}}_p \\
 \dot{\bar{x}}_v
-\end{bmatrix} = \frac{1}{n} \begin{bmatrix}
+\end{bmatrix} &= \frac{1}{n} \begin{bmatrix}
 0& 1& 0& 1& ... &0& 1 \\
 0& 0& 0& 0& ... &0& 0
 \end{bmatrix}
@@ -209,7 +210,8 @@ x_2\\
 .\\
 x_{2n-1}\\
 x_{2n}
-\end{bmatrix} + \frac{1}{n}\begin{bmatrix}
+\end{bmatrix} \\
+&+ \frac{1}{n}\begin{bmatrix}
 0& 0& 0& 0& ... &0& 0 \\
 0& 1& 0& 1& ... &0& 1
 \end{bmatrix}\begin{bmatrix} 
@@ -221,7 +223,7 @@ x_{2n}
 0\\
 1
 \end{bmatrix} u_x
-\end{equation}
+\end{align}
 Thus:
 \begin{equation}
 \begin{bmatrix}
@@ -272,11 +274,47 @@ $\blacksquare$ \\
 
 \subsection{Controlling the variance of many robots}
 
-As shown in section ?? above, only the mean position of a group of robots is controllable. However, there are several techniques for breaking symmetry, for example  by allowing independent noise sources \ref{beckerIJRR2014}, or by using obstacles \ref{beckerMassiveManipulation}.
+As shown in section ?? above, only the mean position of a group of robots is controllable. However, there are several techniques for breaking symmetry, for example  by allowing independent noise sources \cite{beckerIJRR2014}, or by using obstacles \cite{AaronManipulation2013}.
 
-Control the variance requires being able to increase and decrease the variance.  Given a large free workspace, Brownian noise is sufficient to increase the variance.  A flat obstacle can be used to decrease variance.  
+Control the variance requires being able to increase and decrease the variance.  Given a large free workspace, Brownian noise is sufficient to increase the variance.  A flat obstacle can be used to decrease variance. We know the standard deviation of the robots with this equation:
+$\sigma$ is standard deviation:
+\begin{equation}
+\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
+\end{equation}
 
-Control Lyapunov function on $\sigma(t), \sigma_{goal}$, provide a control law.
+Consider the following Control Lyapunov Function:
+\begin{equation}
+V = 1/2 (\sigma_{goal} - \sigma(x))^2
+\end{equation}
+If we calculate the derivative of Lyapunov function we have:
+
+\begin{equation}
+\dot{V} = (\sigma_{goal} - \sigma(x)) \dot{\sigma}
+\end{equation}
+
+For not getting stock for the goal variance, we will have two goal variances, one is the minimum variance desired which when we get to this goal, we drop decreasing variance and when the variance increases to the maximum desired variance we start to decrease variance. So we use a hysteresis function to control variance:
+\begin{equation}
+switch = \left\{ \begin{matrix} 
+1 &\rightarrow & 2 & var & > & max\_var \\
+2 & \rightarrow & 1 & var & < & min\_var 
+\end{matrix}  \right
+\end{equation}
+
+
+\begin{figure}
+\centering
+\begin{overpic}[scale=.3]{hysteresis.png}\put(25,25){var more than max}
+  \put(25,7){var less than min}\end{overpic}
+\vspace{-1em}
+\caption{\label{fig:hysteresis} Two states for controlling variances.
+%\vspace{-2em}
+}
+\end{figure}
+
+
+
+
+%Control Lyapunov function on $\sigma(t), \sigma_{goal}$, provide a control law.
 
 
 Real systems, especially at the micro scale, are affected by unmodelled dynamics much of which can be designed by Brownian noise. To model this equation (3) must be modified as follows:
@@ -291,15 +329,11 @@ After some time, gaussian distribution shapes the outline of the robots because 
 P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
 \end{equation}
 
-where $\sigma$ is standard deviation:
-\begin{equation}
-\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
-\end{equation}
-
 \subsection{Controlling both the mean and the variance of many robots}
 
-When we want to control mean and variance in the same time, we should use a hysteresis control law for the variance along controlling mean. It means that we control mean position while variance is not bigger than our maximum desired variance. If variance was bigger than the maximum desired variance, we then stop controlling mean position and reduce the variance. when we reach some minimum desired variance, we go back to our mean position. 
-hysteresis control law, \cite{sadra2014}
+When we want to control mean and variance in the same time, we should use a hysteresis control law for the variance along controlling mean. It means that we control mean position while variance is not bigger than our maximum desired variance. If variance was bigger than the maximum desired variance, we then stop controlling mean position and reduce the variance. when we reach some minimum desired variance, we go back to our mean position control. 
+%what images should I show here?
+%hysteresis control law, \cite{sadra2014}
 
 \begin{equation}
 \label{eq:hysteresisControlLaw}
