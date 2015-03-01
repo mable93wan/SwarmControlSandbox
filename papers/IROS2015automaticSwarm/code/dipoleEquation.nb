@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    234580,       4342]
-NotebookOptionsPosition[    233107,       4289]
-NotebookOutlinePosition[    233464,       4305]
-CellTagsIndexPosition[    233421,       4302]
+NotebookDataLength[    232336,       4303]
+NotebookOptionsPosition[    230787,       4247]
+NotebookOutlinePosition[    231144,       4263]
+CellTagsIndexPosition[    231101,       4260]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -3555,58 +3555,7 @@ Cell[BoxData[
   3.634136919034233*^9, 3.634137003763723*^9}, {3.6341509892974243`*^9, 
   3.6341511084456987`*^9}, {3.634151146727462*^9, 3.63415117390166*^9}}],
 
-Cell[BoxData[
- TagBox[
-  StyleBox[
-   DynamicModuleBox[{$CellContext`\[Phi]$$ = 0, Typeset`show$$ = True, 
-    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
-    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
-    "\"untitled\"", Typeset`specs$$ = {{{
-       Hold[$CellContext`\[Phi]$$], 0, "Desired direction"}, -Pi, Pi}}, 
-    Typeset`size$$ = {360., {178., 183.}}, Typeset`update$$ = 0, 
-    Typeset`initDone$$, Typeset`skipInitDone$$ = 
-    True, $CellContext`\[Phi]$803510$$ = 0}, 
-    DynamicBox[Manipulate`ManipulateBoxes[
-     1, StandardForm, "Variables" :> {$CellContext`\[Phi]$$ = 0}, 
-      "ControllerVariables" :> {
-        Hold[$CellContext`\[Phi]$$, $CellContext`\[Phi]$803510$$, 0]}, 
-      "OtherVariables" :> {
-       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
-        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
-        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
-         Typeset`skipInitDone$$}, "Body" :> StreamPlot[
-        Module[{$CellContext`\[Theta] = 
-          ArcTan[$CellContext`x, $CellContext`y], $CellContext`r = 
-          Sqrt[$CellContext`x^2 + $CellContext`y^2]}, 
-         Piecewise[{{{1, 0}, $CellContext`r < 1/2}, {{
-             Cos[$CellContext`\[Theta]], 
-             Sin[$CellContext`\[Theta]]}, 
-            And[
-            Abs[$CellContext`\[Theta]] < (1/6) Pi, $CellContext`r < 3/2]}, {{-
-             Cos[$CellContext`\[Theta]], 
-             Sin[-$CellContext`\[Theta]]}, 
-            Abs[$CellContext`\[Theta]] > (5/6) Pi}, {{
-             Cos[$CellContext`\[Theta] + Pi/2], 
-             Sin[$CellContext`\[Theta] + Pi/2]}, $CellContext`\[Theta] > 0}, {{
-             Cos[$CellContext`\[Theta] - Pi/2], 
-             Sin[$CellContext`\[Theta] - Pi/2]}, $CellContext`\[Theta] < 
-            0}}]], {$CellContext`x, -2, 2}, {$CellContext`y, -2, 2}, 
-        StreamPoints -> Fine, PlotRange -> All], 
-      "Specifications" :> {{{$CellContext`\[Phi]$$, 0, "Desired direction"}, -
-         Pi, Pi}}, "Options" :> {}, "DefaultOptions" :> {}],
-     ImageSizeCache->{32.525390625, {6., 8.30908203125}},
-     SingleEvaluation->True],
-    Deinitialization:>None,
-    DynamicModuleValues:>{},
-    SynchronousInitialization->True,
-    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
-    UnsavedVariables:>{Typeset`initDone$$},
-    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
-   Deployed->True,
-   StripOnInput->False],
-  Manipulate`InterpretManipulate[1]]], "Output",
- CellChangeTimes->{
-  3.634151109269517*^9, {3.634151151924159*^9, 3.634151174492077*^9}}]
+Cell[, "Output"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4098,6 +4047,14 @@ $CellContext`a$$)) {
 
 Cell[CellGroupData[{
 
+Cell["\<\
+This looks similar to what we want, although we'd rather not move so far away \
+in the y-direction.  I also need to figure out how to rotate these.\
+\>", "Subsection",
+ CellChangeTimes->{{3.634172221720862*^9, 3.6341722903871202`*^9}}],
+
+Cell[CellGroupData[{
+
 Cell[BoxData[
  RowBox[{"Manipulate", "[", 
   RowBox[{
@@ -4122,7 +4079,7 @@ Cell[BoxData[
          FractionBox["a", 
           RowBox[{"r", "+", "1"}]], 
          RowBox[{"{", 
-          RowBox[{"1", ",", "0"}], "}"}]}], "+", "\[IndentingNewLine]", 
+          RowBox[{"1", ",", "0"}], "}"}]}], "+", 
         RowBox[{
          FractionBox[
           RowBox[{"r", " "}], 
@@ -4192,7 +4149,7 @@ Cell[BoxData[
    3.634171183074799*^9, {3.634171249036232*^9, 3.634171332935772*^9}, 
    3.634171382752407*^9, {3.6341714440711203`*^9, 3.634171445766758*^9}, {
    3.634171914241214*^9, 3.634171914951688*^9}, {3.634172037094315*^9, 
-   3.6341720452141037`*^9}}],
+   3.6341720452141037`*^9}, 3.634172296958563*^9}],
 
 Cell[BoxData[
  TagBox[
@@ -4286,6 +4243,7 @@ Cell[BoxData[
    MatrixForm[BoxForm`e$]]]], "Output",
  CellChangeTimes->{3.634172030270451*^9, 3.6341721084954433`*^9}]
 }, Open  ]]
+}, Open  ]]
 },
 WindowSize->{1030, 747},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
@@ -4321,31 +4279,35 @@ Cell[196445, 3383, 2759, 54, 494, "Output"]
 Cell[199219, 3440, 236, 5, 28, "Input"],
 Cell[CellGroupData[{
 Cell[199480, 3449, 4258, 106, 310, "Input"],
-Cell[203741, 3557, 2617, 51, 33, "Output"]
+Cell[203741, 3557, 16, 0, 27, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[206395, 3613, 5751, 143, 236, "Input"],
-Cell[212149, 3758, 2938, 54, 466, "Output"]
+Cell[203794, 3562, 5751, 143, 236, "Input"],
+Cell[209548, 3707, 2938, 54, 466, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[215124, 3817, 601, 17, 80, "Input"],
-Cell[215728, 3836, 1261, 36, 47, "Output"]
+Cell[212523, 3766, 601, 17, 80, "Input"],
+Cell[213127, 3785, 1261, 36, 47, "Output"]
 }, Open  ]],
-Cell[217004, 3875, 1750, 58, 158, "Input"],
+Cell[214403, 3824, 1750, 58, 158, "Input"],
 Cell[CellGroupData[{
-Cell[218779, 3937, 3934, 100, 186, "Input"],
-Cell[222716, 4039, 2829, 56, 494, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[225582, 4100, 3573, 94, 186, "Input"],
-Cell[229158, 4196, 2848, 55, 494, "Output"]
+Cell[216178, 3886, 3934, 100, 186, "Input"],
+Cell[220115, 3988, 2829, 56, 494, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[232043, 4256, 215, 5, 28, "Input"],
-Cell[232261, 4263, 830, 23, 58, "Output"]
+Cell[222981, 4049, 245, 4, 69, "Subsection"],
+Cell[CellGroupData[{
+Cell[223251, 4057, 3572, 94, 151, "Input"],
+Cell[226826, 4153, 2848, 55, 494, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[229711, 4213, 215, 5, 28, "Input"],
+Cell[229929, 4220, 830, 23, 58, "Output"]
+}, Open  ]]
 }, Open  ]]
 }
 ]
 *)
 
 (* End of internal cache information *)
+
