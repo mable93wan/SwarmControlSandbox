@@ -11,42 +11,32 @@
 %% Controlling Variance proof (CLF)
 %% A Hybrid controller using hysteresis
 \subsection{Models}
-We consider holonomic robots that move in the 2D plane.
-We want to control position and velocity of the robots and deciding about force for reaching our desired position and velocity. So our input is going to be acceleration (\emph{F = ma}). If we show acceleration by \emph{a}, velocity by \emph{v} and position in x coordinate by \emph{$p_x$} and in y coordinate by \emph{$p_y$}, we have the following equations
-\begin{equation}
+Consider holonomic robots that move in the 2D plane. We want to control position and velocity of the robots. 
+First, assume a noiseless system and with just one robot.
+ Our inputs are global forces $[u_x,u_y]$. \begin{equation}
 \begin{bmatrix}
-\dot{p}_x = v_x \\
-\dot{v}_x = a_x
-\end{bmatrix}
-\end{equation}
-\begin{equation}
+\dot{p}_x &=& v_x \\
+\dot{v}_x &=& \frac{1}{m} u_x
+\end{bmatrix},
 \begin{bmatrix}
-\dot{p}_y = v_y \\
-\dot{v}_y = a_y
+\dot{p}_y &=& v_y \\
+\dot{v}_y &=&\frac{1}{m} u_y
 \end{bmatrix}
 \end{equation}
 
-
-The state-space representation of our OpenLoop controller is: 
-\begin{align}
+The state-space representation in standard form is: 
+\begin{align}\label{eq:stdform}
 \dot{x}(t)  &=  A x(t) + B u(t) \\
-y &= C x(t) + D u(t)\nonumber
-\end{align}
+y(t) &= C x(t) + D u(t)\nonumber \end{align}
 
 
-where \emph{x(t)} represents our states, \emph{u(t)} is our input. %and \emph{e(t)} represents noise in the system. 
-We also have \emph{y} as our output.\\
-First we assume that we don't have noise in the system and we also have just one robot. As mentioned, \emph{a} is our input and \emph{x, y,} and their velocities are our states that we want to control.\\
-We define our states as following:
+%where $x(t)$ represents our states, \emph{u(t)} is our input. %and \emph{e(t)} represents noise in the system.  We also have $y(t)$ as our output.\\
+We define our state vector as:
 \begin{align}
-x_1 &= p_x \\ \nonumber
-\dot{x}_1 &= x_2 = \dot{p}_x = v_x\\\nonumber
-x_3 &= p_y\\ \nonumber
- \dot{x}_3 &= x_4 = \dot{p}_y = v_y \nonumber
+\left[ x_1,x_2,x_3,x_4\right]^\intercal = \left[ p_x,v_x,p_y,v_y\right]^\intercal, \nonumber
 \end{align}
 
-
-So our state space representation is:
+and our state space representation as:
 \begin{equation}
 \begin{bmatrix}
 \dot{x}_1\\ 
@@ -65,108 +55,91 @@ x_3\\
 x_4
 \end{bmatrix} + \begin{bmatrix}
 0 & 0 \\
-1 & 0 \\
+\frac{1}{m} & 0 \\
 0 & 0 \\
-0 & 1
+0 & \frac{1}{m}
 \end{bmatrix} u
 \end{equation}
 
-We want to find number of states that we can control. We need to know rank of the controllability matrix \emph{\{B, AB,$A^2$B, ... , $A^{n-1}$B\}}.
+We want to find number of states that we can control, which is given by the rank of the \emph{controllability matrix}
 \begin{equation}
-C = \{ B, AB, A^2B, ... , A^{n-1}B \}
+\mathcal{C} = \{ B, AB, A^2B, ... , A^{n-1}B \}.
 \end{equation}
 
 \begin{equation}
-C=\left\{
+\textrm{Here }
+\mathcal{C}=\left\{
 \begin{bmatrix} 
 0 & 0\\
-1 & 0 \\
+\frac{1}{m} & 0 \\
 0 & 0 \\
-0 & 1
+0 & \frac{1}{m}
 \end{bmatrix}
 ,
 \begin{bmatrix} 
-1 & 0\\
+\frac{1}{m}& 0\\
 0 & 0\\
-0 & 1\\
+0 & \frac{1}{m}\\
 0 & 0
-\end{bmatrix}
+\end{bmatrix},
 \begin{bmatrix} 
 0 & 0\\
 0 & 0\\
 0 & 0\\
 0 & 0
 \end{bmatrix}
-,
-\begin{bmatrix} 
-0 & 0\\
-0 & 0\\
-0 & 0\\
-0 & 0
-\end{bmatrix}
+, \ldots
  \right\}
 \end{equation}
-So we showed that we have two controllable states.
+And thus all four states are controllable
 
-\subsection{Independent control is not possible}
-We know that we can control velocity of our robot, we want to see what happens if we had more than one robot? As we saw here, $v_x$ is completely independent of $v_y$, so if we wanted to have n robots, we had n states in x axis, and n states in y axis, which were completely independent from each other. So assume we have n robots and want to control them in \emph{x} axis:\\
-\begin{align}
-\dot{p}_{x1} &= v_{x1}\\\nonumber
-\dot{v}_{x1} &= a_{x1}\\\nonumber
-\dot{p}_{x2} &= v_{x2}\\\nonumber
-\dot{v}_{x2} &= a_{x2}\\\nonumber
-&\vdots\\\nonumber
-\dot{p}_{xn} &= v_{xn}\\\nonumber
-\dot{v}_{xn} &= a_{xn}\nonumber
-\end{align}
-
-
-So our state-space representation will be:
+\subsection{Independent control with multiple robots is impossible}
+A single robot is fully controllable, but what happens with $n$ robots? For holonomic robots, movement in the $x$ and $y$ coordinates are independent, so for notational convenience without loss of generality we will focus only on movement in the $x$ axis. Given $n$ robots to be  controlled in the $x$ axis, there are $2n$ states, $n$ positions and $n$ velocities.
+\begin{equation}\left[ x_1,x_2,\ldots, x_{2n-1},x_{2n}\right]^\intercal = \left[ p_{x,1},v_{x,1},\ldots,p_{x,n},v_{x,n}\right]^\intercal \nonumber\end{equation}
+%\begin{align}
+%\dot{p}_{x1} &= v_{x1}\\\nonumber
+%\dot{v}_{x1} &= a_{x1}\\\nonumber
+%\dot{p}_{x2} &= v_{x2}\\\nonumber
+%\dot{v}_{x2} &= a_{x2}\\\nonumber
+%&\vdots\\\nonumber
+%\dot{p}_{xn} &= v_{xn}\\\nonumber
+%\dot{v}_{xn} &= a_{xn}\nonumber
+%\end{align}
+Our state-space representation is:
 \begin{equation}
 \begin{bmatrix}
 \dot{x}_1\\ 
 \dot{x}_2\\
-.\\
-.\\
-.\\
+\vdots\\
 \dot{x}_{2n-1}\\
 \dot{x}_{2n}
 
 \end{bmatrix} = \begin{bmatrix}
-0 & 1 & . & . & . & 0 & 0 \\
-0 & 0 & . & . & . & 0 & 0 \\
-0 & 0 & 0 & 1 & . & 0 & 0 \\
-0 & 0 & 0 & 0 & . & 0 & 0 \\
-. & . & . & . & . & . & . \\
-0 & 0 & . & . & . & 0 & 1 \\
-0 & 0 & . & . & . & 0 & 0 
+0 & 1 & \ldots & 0 & 0 \\
+0 & 0 & \ldots& 0 & 0 \\
+\vdots &  \vdots & \ddots & \vdots & \vdots \\
+0 & 0  & \ldots & 0 & 1 \\
+0 & 0 & \ldots& 0 & 0 
 \end{bmatrix}  \begin{bmatrix}
 x_1\\
 x_2\\
-.\\
-.\\
-.\\
+\vdots \\
 x_{2n-1}\\
 x_{2n}
 \end{bmatrix} + \begin{bmatrix}
 0\\
 1\\
-.\\
-.\\
-.\\
+\vdots\\
 0\\
 1
-\end{bmatrix} a_x
+\end{bmatrix} u_x
 \end{equation}
-
-If we had n robots, we had exactly the same symmetry of what we had for 1 robot. We can again control two states because we have rank two in C:
+ However, just as with one robot, we can only control two states because $\mathcal{C}$ has rank two:
 \begin{equation}
-C=\left\{ \begin{bmatrix} 
+\mathcal{C}=\left\{ \begin{bmatrix} 
 0\\
 1\\
-.\\
-.\\
-.\\
+\vdots\\
 0\\
 1
 \end{bmatrix}
@@ -174,9 +147,7 @@ C=\left\{ \begin{bmatrix}
   \begin{bmatrix} 
 1\\
 0\\
-.\\
-.\\
-.\\
+\vdots\\
 1\\
 0
 \end{bmatrix}
@@ -184,15 +155,13 @@ C=\left\{ \begin{bmatrix}
 \begin{bmatrix} 
 0\\
 0\\
-.\\
-.\\
-.\\
+\vdots\\
 0\\
 0
 \end{bmatrix}, ... \right\}
 \end{equation}  
-\subsection{Controlling Mean Position}
-So for any number of robots if we give a global command to them, we have just two controllable states in each axis. So it is obvious that we can not control position of all the robots, but what states are controllable? To answer this question we create a reduced order system that calculates average position and average velocity of the robots:\\
+\subsection{Controlling Mean Position}\label{sec:controlMeanPosition}
+This means any number of robots controlled by a global command, have just two controllable states in each axis. We can not control position of all the robots, but what states are controllable? To answer this question we create the following reduced order system that represents the average position and velocity of the $n$ robots:\\
 
 \begin{align}
 \begin{bmatrix}\nonumber
@@ -205,9 +174,7 @@ So for any number of robots if we give a global command to them, we have just tw
 \begin{bmatrix}
 x_1\\
 x_2\\
-.\\
-.\\
-.\\
+\vdots\\
 x_{2n-1}\\
 x_{2n}
 \end{bmatrix} \\
@@ -217,9 +184,7 @@ x_{2n}
 \end{bmatrix}\begin{bmatrix} 
 0\\
 1\\
-.\\
-.\\
-.\\
+\vdots\\
 0\\
 1
 \end{bmatrix} u_x
@@ -242,9 +207,9 @@ Thus:
 \end{bmatrix} u
 \end{equation}
 
-We analyze \emph{C} for \emph{y}:
+We again analyze $\mathcal{C}$:
 \begin{equation}
-C=\left\{ \begin{bmatrix} 
+\mathcal{C}=\left\{ \begin{bmatrix} 
 0\\
 1
 \end{bmatrix}
@@ -255,89 +220,84 @@ C=\left\{ \begin{bmatrix}
 \end{bmatrix}
  \right\}
 \end{equation}
+This matrix has rank two, and thus the controllable states of the swarm are the average position and average velocity.
+%\begin{equation}
+%a = K\begin{bmatrix}
+%\begin{bmatrix}
+%\dot{\bar{x}}_p \\
+%\dot{\bar{x}}_v
+%\end{bmatrix}
+%-
+%\begin{bmatrix}
+%x_{goal} \\
+%\dot{x}_{goal}
+%\end{bmatrix}
+%\end{bmatrix}
+%\end{equation}
+$\blacksquare$ 
 
-This matrix again  has rank two, and thus all the states are controllable. These controllable states are the average position and average velocity:
+\subsection{Controlling the variance of many robots}\label{sec:VarianceControl}
+
+As shown in Section \ref{sec:controlMeanPosition}, only the mean position mean velocity is controllable. However, there are several techniques for breaking symmetry, for example by allowing independent noise sources \cite{beckerIJRR2014}, or by using obstacles \cite{Becker2013b}.
+
+Controlling the variance requires being able to increase and decrease the variance.  We will list sufficient conditions for each of these.  Given a large free workspace, \emph{Brownian noise} is sufficient to increase the variance.   A flat obstacle can be used to decrease variance. Both conditions are readily found at the micro and nanoscale. The variance, $\sigma^2$, of the robot's position is computed:
 \begin{equation}
-a = K\begin{bmatrix}
-\begin{bmatrix}
-\dot{\bar{x}}_p \\
-\dot{\bar{x}}_v
-\end{bmatrix}
--
-\begin{bmatrix}
-x_{goal} \\
-\dot{x}_{goal}
-\end{bmatrix}
-\end{bmatrix}
-\end{equation}
-$\blacksquare$ \\
-
-\subsection{Controlling the variance of many robots}
-
-As shown in section ?? above, only the mean position of a group of robots is controllable. However, there are several techniques for breaking symmetry, for example  by allowing independent noise sources \cite{beckerIJRR2014}, or by using obstacles \cite{AaronManipulation2013}.
-
-Control the variance requires being able to increase and decrease the variance.  Given a large free workspace, Brownian noise is sufficient to increase the variance.  A flat obstacle can be used to decrease variance. We know the standard deviation of the robots with this equation:
-$\sigma$ is standard deviation:
-\begin{equation}
-\sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2}
+\sigma = \frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2
 \end{equation}
 
 Consider the following Control Lyapunov Function:
 \begin{equation}
-V = 1/2 (\sigma_{goal} - \sigma(x))^2
+V = \frac{1}{2} (\sigma_{goal} - \sigma(x))^2
 \end{equation}
 If we calculate the derivative of Lyapunov function we have:
+
+\todo{Aaron: finish this section}
+
 
 \begin{equation}
 \dot{V} = (\sigma_{goal} - \sigma(x)) \dot{\sigma}
 \end{equation}
-
-For not getting stock for the goal variance, we will have two goal variances, one is the minimum variance desired which when we get to this goal, we drop decreasing variance and when the variance increases to the maximum desired variance we start to decrease variance. So we use a hysteresis function to control variance:
-\begin{equation}
-switch = \left\{ \begin{matrix} 
-1 &\rightarrow & 2 & var & > & max\_var \\
-2 & \rightarrow & 1 & var & < & min\_var 
-\end{matrix}  \right
-\end{equation}
-
-
-\begin{figure}
-\centering
-\begin{overpic}[scale=.3]{hysteresis.png}\put(25,25){var more than max}
-  \put(25,7){var less than min}\end{overpic}
-\vspace{-1em}
-\caption{\label{fig:hysteresis} Two states for controlling variances.
-%\vspace{-2em}
-}
-\end{figure}
-
 
 
 
 %Control Lyapunov function on $\sigma(t), \sigma_{goal}$, provide a control law.
 
 
-Real systems, especially at the micro scale, are affected by unmodelled dynamics much of which can be designed by Brownian noise. To model this equation (3) must be modified as follows:
+Real systems, especially at the micro scale, are affected by unmodelled dynamics much of which can be designed by Brownian noise. To model this~\eqref{eq:stdform} must be modified as follows:
 \begin{align}
-\dot{x}(t)  &=  A x(t) + B u(t) + We(t)\\
-y &= C x(t) + D u(t)\nonumber
+\dot{x}(t)  &=  A x(t) + B u(t) + W \varepsilon(t)\\
+y(t) &= C x(t) + D u(t)\nonumber
 \end{align}
-where $e(t)$ is the error in the system.
+where $\varepsilon(t)$ is the error in the system.
 
-After some time, gaussian distribution shapes the outline of the robots because of the Brownian noise feature:\\
+After some time, Gaussian distribution shapes the outline of the robots because of the Brownian noise feature:\\
 \begin{equation}
-P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}}
+P(x) = \frac{1}{\sigma \sqrt{2\pi } }e^{ -  \frac{\left( x - \mu  \right)^2 } {2\sigma ^2 }}
 \end{equation}
 
 \subsection{Controlling both the mean and the variance of many robots}
 
-When we want to control mean and variance in the same time, we should use a hysteresis control law for the variance along controlling mean. It means that we control mean position while variance is not bigger than our maximum desired variance. If variance was bigger than the maximum desired variance, we then stop controlling mean position and reduce the variance. when we reach some minimum desired variance, we go back to our mean position control. 
+The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much lass than the maximum controlled speed, we can adopt a hysteresis-based controller.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to controlling variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position.
+\begin{equation}
+switch = \left\{ \begin{matrix} 
+1 &\rightarrow & 2 & \sigma^2 & > & \sigma^2_{max} \\
+2 & \rightarrow & 1 & \sigma^2 & < & \sigma^2_{min} 
+\end{matrix}  \right.
+\end{equation}
 %what images should I show here?
 %hysteresis control law, \cite{sadra2014}
+This is a standard technique for dealing with control objectives that evolve at different rates~\cite{Sadraddini2015}, and the hysteresis avoids rapid switching between control modes.
 
-\begin{equation}
-\label{eq:hysteresisControlLaw}
-\end{equation}
+\begin{figure}
+\centering
+\begin{overpic}[scale=.3]{hysteresis.png}
+\put(35,25){$\sigma^2 > \sigma^2_{max}$ }
+\put(35,7){$\sigma^2 < \sigma^2_{min}$}\end{overpic}
+\vspace{-1em}
+\caption{\label{fig:hysteresis} Two states for controlling variances.
+%\vspace{-2em}
+}
+\end{figure}
 
 
 

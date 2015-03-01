@@ -42,6 +42,15 @@ A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
   common input signal,'' in \emph{IEEE/RSJ International Conference on
   Intelligent Robots and Systems (IROS)}, Nov. 2013, pp. 520--527.
 
+\bibitem{Becker2014e}
+\BIBentryALTinterwordspacing
+A.~Becker, C.~Ertel, and J.~McLurkin, ``Crowdsourcing swarm manipulation
+  experiments: A massive online user study with large swarms of simple
+  robots,'' in \emph{{IEEE} International Conference on Robotics and Automation
+  {(ICRA)}}, 2014. [Online]. Available:
+  \url{https://arxiv.org/submit/913241/view}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Chris-Ertel2013}
 \BIBentryALTinterwordspacing
 C.~Ertel and A.~Becker. (2013, Sep.) Swarmcontrol git repository. [Online].
@@ -137,10 +146,10 @@ A.~Becker, C.~Onyuksel, T.~Bretl, and J.~McLurkin, ``Controlling many
   international journal of Robotics Research}, vol.~33, no.~13, pp. 1626--1644,
   2014.
 
-\bibitem{AaronManipulation2013}
-A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
-  uniform manipulation,'' in \emph{IEEE International Conference on Intelligent
-  Robots and Systems}, Nov. 2013.
+\bibitem{Sadraddini2015}
+S.~Sadraddini and C.~Belta, ``Swarm manipulation with a uniform magnetic
+  field,'' in \emph{{IEEE} International Conference on Robotics and Automation
+  {(ICRA)}}, 2015.
 
 \bibitem{Cazes2001}
 J.~Cazes, \emph{Encyclopedia of Chromatography}, 2nd~ed.\hskip 1em plus 0.5em

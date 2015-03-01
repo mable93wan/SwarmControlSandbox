@@ -7,13 +7,12 @@
 
 \subsection{Controlling the mean position}
 
-For controlling mean position, we use a PID controller. Our control input is the force we make, goal positions are the desired positions, and we have our mean position and mean velocity. So we have:
+For controlling mean position, we use a PD controller. Our control input is the force we make, goal positions are the desired positions, and we have our mean position and mean velocity. So we have:
 \begin{align}
-control\_input_x &= K_{g}*(goal_x - \bar{x}) + K_{d}*(0-\bar{v}_x) \nonumber\\
-control\_input_y &= K_{g}*(goal_y - \bar{y}) + K_{d}*(0-\bar{v}_y) 
+u_x &= K_{p}(x_{goal} - \bar{x}) + K_{d}(0-\bar{v}_x) \nonumber\\
+u_y &= K_{p}(y_{goal}  - \bar{y}) + K_{d}(0-\bar{v}_y)  \label{eq:PDcontrolPosition}
 \end{align}
-where Kgain is the gain value, and Kderivative is the derivative value. In order to find these gain values, we tried different values to find the best between them as shown in figure ???.
-In this experiment 100 robots were used and the maximum speed would be 3 cell per second. And with these parameters, we showed that the best values for Kgain is 4, and the best value for Kderivative is 1.
+where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We performed a parameter sweep to identify the best values.  Representative experiments are shown in Fig.~\ref{}.  100 robots were used and the maximum speed was 3 cell per second. \todo{what is 'cell per second'?} With these parameters, we showed that the best values are  $K_{p}= 4$, and  $K_{d} = 1$.
 
 
 %give PID control law, explain experiment (number of robots, maximum speed, ).
@@ -102,7 +101,7 @@ In this experiment 100 robots were used and the maximum speed would be 3 cell pe
 
 %cite the control law, explain experiment (number of robots, maximum speed, ).
 
-For Controlling variance, as we discussed in section ???, we use a hysteresis variance control. For increasing variance we just need to wait and maybe it would be better to go to the area with less obstacles to speed up the process. And in order to decrease the variance, we go to corners to make the variance less.
+For variance control we use a hysteresis-based controller discussed in Section~\ref{sec:VarianceControl}.  Waiting is sufficient to increase variance because Brownian noise naturally disperses the swarm.  If faster dispersion is needed, the swarm can be pushed through obstacles such as a diffraction grating or Pachinko board~\cite{Becker2013b}. To decrease the variance, we push the swarm into corners to decrease the variance.  Our algorithm identifies the nearest corner by \todo{ how does it work?}
 
 %\begin{figure}[!htb]
 %\captionsetup{justification=centering}
@@ -124,14 +123,14 @@ For Controlling variance, as we discussed in section ???, we use a hysteresis va
 
 contrast controllers -- as is typical with PID control laws, we can tune the response to meet desired specifications.
 
-image showing varying Brownian noise
+\todo{image showing varying Brownian noise}
 
-image showing control x variance and y-variance out of phase
+\todo{image showing control x variance and y-variance out of phase}
 
 
 \subsection{Hysteresis Control of mean and variance}
 
-plot showing 1.5 cycles of mean position, and a variance goal.  We might need a longer time
+\todo{plot showing 1.5 cycles of mean position, and a variance goal.  We might need a longer time}
 
 
 
