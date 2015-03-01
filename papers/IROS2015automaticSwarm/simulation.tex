@@ -12,7 +12,17 @@ For controlling mean position, we use a PD controller. Our control input is the 
 u_x &= K_{p}(x_{goal} - \bar{x}) + K_{d}(0-\bar{v}_x) \nonumber\\
 u_y &= K_{p}(y_{goal}  - \bar{y}) + K_{d}(0-\bar{v}_y)  \label{eq:PDcontrolPosition}
 \end{align}
-where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We performed a parameter sweep to identify the best values.  Representative experiments are shown in Fig.~\ref{}. 100 robots were used and the maximum speed was 3 meter per second. With these parameters, we showed that the best values are  $K_{p}= 4$, and  $K_{d} = 1$~\ref{fig:gainValues}.
+where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We performed a parameter sweep to identify the best values.  Representative experiments are shown in Fig.~\ref{fig:gainValues}. 100 robots were used and the maximum speed was 3 meter per second. With these parameters, we showed that the best values are  $K_{p}= 4$, and  $K_{d} = 1$.
+
+\begin{figure}
+\centering
+\begin{overpic}[scale=0.35]{gainvalues.eps}
+\end{overpic}
+\vspace{-1em}
+\caption{\label{fig:gain values} Different proportional gain and derivative gain values to find the best among them.
+%\vspace{-2em}
+}
+\end{figure}
 
 
 

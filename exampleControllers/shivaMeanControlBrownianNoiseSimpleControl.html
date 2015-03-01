@@ -128,7 +128,7 @@
                );
             bodyDef.userData = 'robot';
             bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
-            bodyDef.position.y = 19.5-Math.floor(i/rowLength)*2*robotrad;
+            bodyDef.position.y = 6.5 -Math.floor(i/rowLength)*2*robotrad;
 	    m_Robot[i] = world.CreateBody(bodyDef);
             m_Robot[i].CreateFixture(fixDef);
 	    m_Robot[i].m_angularDamping = 1;
@@ -406,7 +406,7 @@ if(overall_time == null)   // set the start time
 		goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
 		goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
 		
-		var Kgain = 4;
+		var Kgain = 8;
 		var Kderivative = 1;
 
 
@@ -427,7 +427,7 @@ if(overall_time == null)   // set the start time
 			
 
 	
-		console.log(elapsedTimeSec  + " " + mean_position_y + " " +  goalY + " " + mean_position_x + " " +  goalX  );
+		console.log(elapsedTimeSec  + " " + mean_position_y + " " +  goalY);// + " " + mean_position_x + " " +  goalX  );
 		
 		
          }; //end update
