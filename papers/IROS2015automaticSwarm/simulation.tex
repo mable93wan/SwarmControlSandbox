@@ -16,10 +16,10 @@ where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We perf
 
 \begin{figure}
 \centering
-\begin{overpic}[scale=0.35]{gainvalues.eps}
+\begin{overpic}[width = \columnwidth]{gainvalues.eps}
 \end{overpic}
 \vspace{-1em}
-\caption{\label{fig:gain values} Different proportional gain and derivative gain values to find the best among them.
+\caption{\label{fig:gain values} Tuning proportional ($K_p$, top) and derivative ($K_d$, bottom)  gain values improves performance. These plots show convergence with 100 robots.
 %\vspace{-2em}
 }
 \end{figure}
@@ -112,7 +112,7 @@ where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We perf
 
 %cite the control law, explain experiment (number of robots, maximum speed, ).
 
-For variance control we use a hysteresis-based controller discussed in Section~\ref{sec:VarianceControl}.  Waiting is sufficient to increase variance because Brownian noise naturally disperses the swarm.  If faster dispersion is needed, the swarm can be pushed through obstacles such as a diffraction grating or Pachinko board~\cite{Becker2013b}. To decrease the variance, we push the swarm into corners to decrease the variance.  Our algorithm identifies the nearest corner by \todo{ how does it work?}
+For variance control we use a hysteresis-based controller discussed in Section~\ref{sec:VarianceControl}.  Waiting is sufficient to increase variance because Brownian noise naturally disperses the swarm in such a way that the variance increases linearly~\cite{einstein1956investigations}.  If faster dispersion is needed, the swarm can be pushed through obstacles such as a diffraction grating or Pachinko board~\cite{Becker2013b}. To decrease the variance, we push the swarm into corners to decrease the variance.  Our algorithm identifies the nearest corner by \todo{ how does it work?}
 
 %\begin{figure}[!htb]
 %\captionsetup{justification=centering}
@@ -147,7 +147,7 @@ contrast controllers -- as is typical with PID control laws, we can tune the res
 \begin{overpic}[scale=0.35]{MeanVariance.eps}
 \end{overpic}
 \vspace{-2em}
-\caption{\label{fig:hybrid} Here we control both variance and mean position.
+\caption{\label{fig:hybrid} Simulation result with 100 robots under hybrid control law \eqref{eq:hysteresis}, which  controls both the mean position (top) and variance (bottom). For ease of analysis, only $x$ position and variance are shown.
 %\vspace{-2em}
 }
 \end{figure}
