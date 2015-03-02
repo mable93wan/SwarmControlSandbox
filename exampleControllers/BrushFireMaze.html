@@ -296,6 +296,7 @@
 
 
 			//create an object to move
+			if(!BFSDebugMode && !Gradient_DebugMode){
 			bodyDef.type = b2Body.b2_dynamicBody;
 			fixDef.density = 10.0;
 			fixDef.friction = 0.5;
@@ -309,13 +310,17 @@
 	        obst.m_angularDamping = 0.1;
 	        obst.m_linearDamping = 0.1;
 
-
+}
 	        
 
 			//create the robots
 			bodyDef.type = b2Body.b2_dynamicBody;
 			var robotrad = 0.1;
 			var numrobots = 200;//Math.floor(20/(4*robotrad*robotrad));
+			if(BFSDebugMode || Gradient_DebugMode)
+			{
+				numrobots = 0;
+			}
 			fixDef.density = 1.0;
 			fixDef.friction = 0.5;
 			fixDef.restitution = 0.2; //bouncing value
@@ -334,6 +339,7 @@
 				m_Robot[i].m_angularDamping = 1;
 				m_Robot[i].m_linearDamping = 1;
 			}
+		
 
 			window.requestAnimFrame = (function()
 			{
@@ -472,20 +478,55 @@
 				radius: radius * mapScale
 			})
 			.drawArc({
-				strokeStyle: "green",
+				strokeStyle: 'green',
 				strokeWidth: 16,
 				//fillStyle: "green",
 				x: goalPositionXDraw * mapScale, y: goalPositionYDraw * mapScale,
 				radius: 2.0 * mapScale
 			})
-			.drawArc({
-				strokeStyle: "green",
+			.drawText(
+						{
+							strokeStyle: "green",
+							strokeWidth: 2,
+							x: goalPositionXDraw*mapScale  , y: goalPositionYDraw *mapScale ,
+							fontSize: 20,
+							fontFamily: 'Verdana, sans-serif',
+							text: "Goal"
+						})
+			/*.drawArc({
+				strokeStyle: "lightblue",
 				strokeWidth: 16,
 				//fillStyle: "green",
 
 				x: goalPositionXDraw * mapScale, y: goalPositionYDraw * mapScale,
 				radius: 0.5 * mapScale
+			})*/
+			
+			/*.drawArc({
+				strokeStyle: "red",
+				strokeWidth: 3,
+				//fillStyle: "green",
+
+				x: 1.5 * mapScale, y: 18.5 * mapScale,
+				radius: 0.5 * mapScale
+			})*/
+			/*.drawRect({
+
+				fillStyle: "green",
+				x: 16.5 * mapScale, y: 3.5 * mapScale,
+				width: 1* mapScale,
+				height: 1 * mapScale,
+				cornerRadius: 0
 			})
+			.drawRect({
+
+				fillStyle: "red",
+				x: 1.5 * mapScale, y: 18.5 * mapScale,
+				width: 1* mapScale,
+				height: 1 * mapScale,
+				cornerRadius: 0
+			})*/
+			
 			.restoreCanvas();
 
 			if(BFSDebugMode)
@@ -493,6 +534,7 @@
 				for(var i = 0 ; i < mapXSize; i++)
 					for (var j = 0 ; j < mapYSize; j++)
 					{
+						if(map[i][j] != 0 && map[i][j] != 52){
 						$("canvas").drawText(
 						{
 							strokeStyle: '#25a',
@@ -502,6 +544,32 @@
 							fontFamily: 'Verdana, sans-serif',
 							text: map[i][j]
 						});
+					}
+						else if (map[i][j] == 0 )
+						{
+							$("canvas").drawText(
+						{
+							strokeStyle: "yellow",
+							strokeWidth: 2,
+							x: (i+ 0.5)*mapScale  , y: (j+0.5) *mapScale ,
+							fontSize: 20,
+							fontFamily: 'Verdana, sans-serif',
+							text: map[i][j]
+						});
+						}
+						else if (map[i][j] == 52)
+						{
+							$("canvas").drawText(
+						{
+							strokeStyle: "yellow",
+							strokeWidth: 2,
+							x: (i+ 0.5)*mapScale  , y: (j+0.5) *mapScale ,
+							fontSize: 20,
+							fontFamily: 'Verdana, sans-serif',
+							text: map[i][j]
+						});
+						}
+						
 					}
 					
 			}
@@ -513,10 +581,10 @@
 					{	
 						$('canvas').drawVector({
 						  strokeStyle: '#000',
-						  strokeWidth: 1,
+						  strokeWidth: 2,
 						  rounded: true,
 						  endArrow: true,
-						  arrowRadius: 15,
+						  arrowRadius: 10,
 						  arrowAngle: 30,		  
 						  x: mapScale* (i+ 0.5  + 0.5*Math.cos((90+gradient_angel[i][j])*Math.PI/180.0))	 , y: mapScale * (j + 0.5 + 0.5*Math.sin((90+gradient_angel[i][j])*Math.PI/180.0)),
 						  a1: gradient_angel[i][j], l1: mapScale
@@ -552,6 +620,7 @@
 				{
 					if (b.GetUserData() == 'robot')
 					{
+						
 						var radius = f.GetShape().GetRadius();
 						var pos = b.GetPosition();
 						$("canvas")
@@ -569,6 +638,7 @@
 							radius: radius * mapScale
 						})
 						.restoreCanvas();
+					
 					}
 					else if (b.GetUserData() == 'obstacle' || b.GetUserData() == 'moveable' || b.GetUserData() == 'rectangle_ground')
 					{
@@ -581,7 +651,7 @@
 							color = 'brown';
 						if(b.GetUserData() == 'moveable')
 						{
-							color = 'green';
+							color = 'black';
 							blockCOM_x = pos.x;
 							blockCOM_y = pos.y;
 						}
@@ -598,7 +668,8 @@
 							cornerRadius: 0
 						})
 						.restoreCanvas();
-						/*for(var i = 0 ; i < 20; i++)
+						if(BFSDebugMode || Gradient_DebugMode){
+						for(var i = 0 ; i < 20; i++)
 						{
 							$("canvas")
 							.drawLine(
@@ -615,7 +686,8 @@
 								x2: 20*mapScale, y2: i*mapScale
 							})
 						}
-						$("canvas").restoreCanvas();*/
+						$("canvas").restoreCanvas();
+					}
 					}
 
 		}
@@ -729,7 +801,7 @@
 
 			})
 			.drawEllipse({
-				strokeStyle: "purple",
+				strokeStyle: "green",
 				strokeWidth: 5,
 				x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 				width: 3 * 30*Math.sqrt(min_desired_var_x), height: 3 * 30*Math.sqrt(min_desired_var_y),
@@ -737,7 +809,7 @@
 
 			})
 			.drawEllipse({
-				strokeStyle: "purple",
+				strokeStyle: "green",
 				strokeWidth: 5,
 				x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 				width: 3 * 30*Math.sqrt(max_desired_var_x), height: 3 * 30*Math.sqrt(max_desired_var_y),
@@ -772,7 +844,15 @@
 				var dist2corner4 = lineDistance(mean_position_x,mean_position_y, 19,19 );
 				var dist2corner5 = lineDistance(mean_position_x,mean_position_y, 19, 7);
 				var dist2corner6 = lineDistance(mean_position_x,mean_position_y, 1, 13);
-				var minDistCorner = Math.min(dist2corner1, dist2corner2, dist2corner3, dist2corner4, dist2corner5, dist2corner6)
+
+				var minDistCorner = Math.min(dist2corner1, dist2corner2, dist2corner3, dist2corner4, dist2corner5, dist2corner6);
+				var COMdist2corner1 = lineDistance(blockCOM_x, blockCOM_y, 1,1);
+				var COMdist2corner2 = lineDistance(blockCOM_x,blockCOM_y, 1,19 );
+				var COMdist2corner3 = lineDistance(blockCOM_x, blockCOM_y, 19,1);
+				var COMdist2corner4 = lineDistance( blockCOM_x,blockCOM_y, 19,19 );
+				var COMdist2corner5 = lineDistance(blockCOM_x,blockCOM_y, 19, 7);
+				var COMdist2corner6 = lineDistance(blockCOM_x,blockCOM_y, 1, 13);
+
 				if(minDistCorner == dist2corner1)
 				{
 					goalX = 1;
@@ -902,7 +982,7 @@
 			m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
 			m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 			m_controlState = ROBOT_INPUT.ROBOT_PROP;
-			//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
+			console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
 			//console.log(elapsedTimeSec + " " + var_x );
 			}; //end update
 		};
