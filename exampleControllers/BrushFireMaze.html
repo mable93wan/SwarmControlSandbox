@@ -60,7 +60,10 @@
 		// Debugging Variables.
 		var BFSDebugMode = false;
 		var Gradient_DebugMode = false;
-		;
+		var goalRecieved = false;
+		var timeFinished = 1000;
+		var wroteFinish = false;
+		
 		var map = new Array(mapXSize);
 		var gradient_x = new Array(mapXSize);
 		var gradient_y = new Array(mapXSize);
@@ -200,6 +203,7 @@
 			
 		}
 
+
 		////////////////////////////
 		//End Algorithmic Functions
 		////////////////////////////
@@ -215,7 +219,25 @@
 		///////////////////////////
 		//Begin Drawing Functions
 		///////////////////////////
+		//it is used for drawing circle.
+		function calcPointsCirc( cx,cy, rad, dashLength)
+		{
+		    var n = rad/dashLength,
+		        alpha = Math.PI * 2 / n,
+		        pointObj = {},
+		        points = [],
+		        i = -1;
 
+		    while( i < n )
+		    {
+		        var theta = alpha * i,
+		            theta2 = alpha * (i+1);
+
+		        points.push({x : (Math.cos(theta) * rad) + cx, y : (Math.sin(theta) * rad) + cy, ex : (Math.cos(theta2) * rad) + cx, ey : (Math.sin(theta2) * rad) + cy});
+		        i+=2;
+		    }              
+		    return points;            
+		} 
 
 		///////////////////////////
 		//End Drawing Functions
@@ -316,7 +338,7 @@
 			//create the robots
 			bodyDef.type = b2Body.b2_dynamicBody;
 			var robotrad = 0.1;
-			var numrobots = 200;//Math.floor(20/(4*robotrad*robotrad));
+			var numrobots = 100;//Math.floor(20/(4*robotrad*robotrad));
 			if(BFSDebugMode || Gradient_DebugMode)
 			{
 				numrobots = 0;
@@ -692,8 +714,9 @@
 
 		}
 		}
-			
-			$("canvas").drawArc({
+			if(!goalRecieved){
+			$("canvas")
+			.drawArc({
 				//draw the goal mean position
 				strokeStyle: "lightblue",
 				strokeWidth: 5,
@@ -707,6 +730,9 @@
 				x: goalX * mapScale, y: goalY * mapScale,
 				radius: (radius + 0.2) * mapScale
 			})
+			.restoreCanvas();
+		}
+			$("canvas")
 			.drawArc({
 				//COM of the block
 				strokeStyle: "orange",
@@ -758,8 +784,8 @@
 			var offsetY = 5;
 			var amplitudeX = 5;
 			var offsetX = 5;
-			var max_desired_var_x = 7;
-			var min_desired_var_x = 2;
+			var max_desired_var_x = 5;
+			var min_desired_var_x = 3;
 			var max_desired_var_y = max_desired_var_x;
 			var min_desired_var_y = min_desired_var_x;
 			var sum_position_x = 0;
@@ -791,16 +817,17 @@
             var angle2 = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, var_x-var_y);
             var angle_min_variance = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, min_desired_var_x-min_desired_var_y);
             var angle_max_variance = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, max_desired_var_x-max_desired_var_y);
-
+            if(!goalRecieved){
             $("canvas").drawEllipse({
 				strokeStyle: "red",
 				strokeWidth: 5,
+				setLineDash: 6 , 
 				x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 				width: 3 * 30*Math.sqrt(var_xp), height: 3 * 30*Math.sqrt(var_yp),
 				rotate: angle2
 
 			})
-			.drawEllipse({
+			/*.drawEllipse({
 				strokeStyle: "green",
 				strokeWidth: 5,
 				x: mean_position_x* mapScale, y: mean_position_y * mapScale,
@@ -815,9 +842,34 @@
 				width: 3 * 30*Math.sqrt(max_desired_var_x), height: 3 * 30*Math.sqrt(max_desired_var_y),
 				rotate: angle_max_variance
 
-			})
+			})*/
 			
 			.restoreCanvas();
+		}
+			/*var canvas = document.getElementById('canvas'),
+    		ctx = canvas.getContext('2d');
+    		var ctx = canvas.getContext('2d');
+			var pointArray= calcPointsCirc(mean_position_x* mapScale, mean_position_y * mapScale, 1.5 * 30 * Math.sqrt(max_desired_var_x), 1);
+		    ctx.strokeStyle = "green";
+		    ctx.beginPath();
+
+		    for(p = 0; p < pointArray.length; p++){
+		        ctx.moveTo(pointArray[p].x, pointArray[p].y);
+		        ctx.lineTo(pointArray[p].ex, pointArray[p].ey);
+		        ctx.stroke();
+		    }
+
+   			 ctx.closePath();
+   			 pointArray= calcPointsCirc(mean_position_x* mapScale, mean_position_y * mapScale, 1.5 * 30 * Math.sqrt(min_desired_var_x), 1);
+   			 ctx.beginPath();
+
+		    for(p = 0; p < pointArray.length; p= p + 2){
+		        ctx.moveTo(pointArray[p].x, pointArray[p].y);
+		        ctx.lineTo(pointArray[p].ex, pointArray[p].ey);
+		        ctx.stroke();
+		    }
+
+   			 ctx.closePath();*/
 
             //.drawEllipse( 30*meanx, 30*meany,2.4*30*Math.sqrt(varxp), 2.4*30*Math.sqrt(varyp),angle,"lightblue",4 );
 
@@ -831,6 +883,19 @@
 				desired_var_x = max_desired_var_x;
 			}
 			else */
+				
+			if(Math.abs(blockCOM_x - goalPositionX) < 2 && Math.abs(blockCOM_y - goalPositionY) <2)
+			{
+				goalRecieved = true;
+				timeFinished = elapsedTimeSec;
+				if(wroteFinish == false){
+				console.log(elapsedTimeSec + " " + numrobots);
+				wroteFinish = true;
+			}
+				m_controlState  = ROBOT_INPUT.ROBOT_IDLE;
+
+			}
+			if(!goalRecieved){
 			if(var_x < min_desired_var_x && var_y < min_desired_var_y)
 			{
 				flagVar = false;
@@ -851,10 +916,14 @@
 				CornerValuesY[2] = 7;
 				CornerValuesX[3] = 1;
 				CornerValuesY[3] = 13;
-				CornerValuesX[4] = 1;
-				CornerValuesY[4] = 1;
-				CornerValuesX[5] = 19;
-				CornerValuesY[5] = 1;
+				 CornerValuesX[4] = 1;
+				 CornerValuesY[4] = 1;
+				// CornerValuesX[5] = 19;
+				// CornerValuesY[5] = 1;
+				//CornerValuesX[4] = 100;
+				//CornerValuesY[4] = 100;
+				CornerValuesX[5] = 100;
+				CornerValuesY[5] = 100;
 				var minDistCorner = 10000;
 				
 				for (var i = 0 ; i < cornerNum ; i++)
@@ -894,6 +963,7 @@
 				var r = 0.5;	
 				goalX = blockCOM_x + r * gradient_x[block_x][block_y];
 				goalY = blockCOM_y + r * gradient_y[block_x][block_y];
+
 				
 				/*if(map[index_x+ 1][index_y] != -1 && map[index_x+ 1][index_y] < map[block_x][block_y])//gradient_angel[index_x+ 1][index_y] == gradient_angel[block_x+1][block_y])
 				{
@@ -969,7 +1039,7 @@
 
 			//goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2 );
 			//goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2 );
-			var Kgain = 8;
+			var Kgain = 12;
 			var Kderivative = 1;
 			var sum_velocity_x = 0;
 			var sum_velocity_y = 0;
@@ -982,6 +1052,7 @@
 			m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
 			m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 			m_controlState = ROBOT_INPUT.ROBOT_PROP;
+		}
 			//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
 			//console.log(elapsedTimeSec + " " + var_x );
 			}; //end update

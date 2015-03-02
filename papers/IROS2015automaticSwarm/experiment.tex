@@ -34,8 +34,19 @@ To our surprise, our experiment indicated the opposite: players  with just the m
 
 \subsection{Automated Block Pushing}
 
-To solve this problem, the discretized the environment, used breadth-first search to determine $M$, the shortest path from any point for the block to the goal, and generate a gradient map $\nabla M$ toward the goal.  The blocks's center of mass is at $b$ and has radius $r_b$. The robots were then directed to assemble at  $b - r_b \nabla M$ to push the block toward the goal location.
+To solve this problem, the discretized the environment, used breadth-first search to determine $M$, the shortest path from any point for the block to the goal, and generate a gradient map $\nabla M$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The blocks's center of mass is at $b$ and has radius $r_b$. The robots were then directed to assemble at  $b - r_b \nabla M$ to push the block toward the goal location.
 
+\begin{figure}
+\centering
+\begin{overpic}[scale=0.2]{BFSMode.png}
+\end{overpic}
+\begin{overpic}[scale=0.2]{GradientMode.png}
+\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:BFSGradient} BFS algorithm finds the shortest path(left). Gradient vectors are shown(right).
+%\vspace{-2em}
+}
+\end{figure}
 
 TODO: write this in algorithmic form
 
