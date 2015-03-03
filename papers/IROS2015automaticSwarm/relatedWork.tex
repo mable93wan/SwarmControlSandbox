@@ -4,31 +4,38 @@
 \section{Related Work}\label{sec:RelatedWork}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{www.SwarmControl.net}
+\subsection{Human user studies with large swarms}
 
-The goal of~\cite{Becker2014e} was to provide a tool for investigating HSI methods through statistically significant numbers of experiments.  There is currently no comprehensive understanding of user interfaces for controlling multi-robot systems with massive populations.  We are particularly motivated by the sharp constraints in micro- and nanorobotic systems.  For example, full-state feedback with $10^6$ robots leads to operator overload.  
-Similarly, the user interaction required to individually control each robot scales linearly with robot population.   
-Instead, user interaction is often constrained to modifying a global input. This input may be nonstandard, such as the attraction/repulsion field from a scanning tunneling microscope (STM) tip. 
+We are particularly motivated by harsh constraints in micro- and nanorobotic systems.  Large numbers of robots can be constructed, but the user interaction required to individually control each robot scales linearly with robot population.   
+Instead, user interaction is often constrained to modifying a global input. 
 
-Our previous work with over a hundred hardware robots and thousands of simulated robots~\cite{Becker2013b} demonstrated that direct human control of large swarms is possible. Unfortunately, the logistical challenges of repeated experiments with over one hundred robots prevented large-scale tests. To gather better data, we designed \href{http://www.swarmcontrol.net/show_results}{SwarmControl.net}, a large-scale online game to test how humans interact with large swarms.  Our goal was to test several scenarios involving large-scale human-swarm interaction (HSI), and to do so with a statistically-significant sample size. These  experiments~\cite{Becker2014e} showed that numerous simple robots responding to global control inputs are directly controllable by a human operator without special training, and that the visual feedback of the swarm state should be very simple in order to increase task performance. \href{https://github.com/crertel/swarmmanipulate.git}{All code}~\cite{Chris-Ertel2013}, \href{http://www.swarmcontrol.net/show_results}{and experimental results} are posted online.
+There is currently no comprehensive understanding of user interfaces for controlling multi-robot systems with massive populations.  
+Our previous work with over a hundred hardware robots and thousands of simulated robots~\cite{Becker2013b} demonstrated that direct human control of large swarms is possible. Unfortunately, the logistical challenges of repeated experiments with over one hundred robots prevented large-scale tests. To gather better data, we designed \href{http://www.swarmcontrol.net/show_results}{SwarmControl.net}, a large-scale online game to test how humans interact with large swarms~\cite{Becker2014e}.  Our goal was to test several scenarios involving large-scale human-swarm interaction (HSI), and to do so with a statistically-significant sample size. These  experiments showed that numerous simple robots responding to global control inputs are directly controllable by a human operator without special training, and that the visual feedback of the swarm state should be very simple in order to increase task performance. \href{https://github.com/crertel/swarmmanipulate.git}{All code}~\cite{Chris-Ertel2013}, \href{http://www.swarmcontrol.net/show_results}{and experimental results} are posted online. This paper presents motion primitives and an automatic controller that solves one of the games from~\cite{Becker2014e}.
 
 
-\subsection{Block pushing and Compliant Manipulation}
-\todo{copy my block pushing references, look up compliant manipulation}
+\subsection{Block-pushing and Compliant Manipulation}
+Unlike previous work where robots cage an object for manipulation~\cite{Sudsang2002}, our swarm of robots is unable to grasp the blocks they push, and so our manipulation strategies are similar to \emph{nonprehensile manipulation} techniques, e.g.~\cite{Lynch1999}, where forces must be applied along the center of mass of the moveable object. A key difference is that our robots are compliant and tend to flow around the particle.  
 
-\subsection{Human-Swarm Interaction}
-Olson and Wood studied human \emph{fanout}, the number of robots a single human user could control~\cite{Jr2004}.  %Studied as a key aspect of human-robot interaction, 
-They postulated that the optimal number of robots was approximately  the autonomous time  divided by the interaction time required by each robot.  Their sample problem involved a multi-robot search task, where users could assign goals to robots.  Their user interaction studies with simulated planar robots  indicated a \emph{fanout plateau} of about 8 robots, after which there were diminishing returns.   They hypothesize that the location of this plateau is highly dependent on the underlying task, and our work indicated there are some tasks without plateaus. % (Lemmings is an example of this as well, for systems with autonomy
-Their research investigated robots with 3 levels of autonomy.  We use robots without autonomy, corresponding with their first-level robots.
+Our $n$-robot systems with 2 control inputs and 4$n$ states are inherently under actuated, and superficially bear resemblance to 
+%Strategies based purely on particle flow also exist~\cite{Sugawara2012}, but these works 
 
-% Removed this -- 
-%Chen, Barnes, and Harper-Sciarini published a review of supervisory control but emphasized high levels of autonomy, using the 10-level taxonomy given by \cite{Parasuraman2000}.  The direct control techniques this paper examines are the lowest level.
+%Manipulation by caging~\cite{Sudsang2002}
 
-Squire, Trafton, and Parasuraman designed experiments showing that user-interface design had a high impact on the task effectiveness and the number of robots that could be controlled simultaneously in a multi-robot task \cite{Squire:2006:HCM:1121241.1121248}.
+%We can also use a large population of robots for traditional nonprehensile tasks, such as transporting objects using the flow of the robots \cite{Sugawara2012}, and manipulating an object too heavy for a single robot. Our control formulation enables efficient control of this kind of transport.
 
-A number of user studies compare methods for controlling large swarms of simulated robots, for example \cite{bashyal2008human,kolling2012towards,de2012controllability}.  These studies provide insights but are limited by cost to small user studies; have a closed-source code base; and focus on controlling intelligent, programmable agents.  
-For instance \cite{de2012controllability} was limited to a pool of 18 participants,  \cite{bashyal2008human} 5, and \cite{kolling2012towards} 32.
-	Using an online testing environment, we conduct similar studies but with much larger sample sizes.
+%\subsection{Human-Swarm Interaction}
+%Olson and Wood studied human \emph{fanout}, the number of robots a single human user could control~\cite{Jr2004}.  %Studied as a key aspect of human-robot interaction, 
+%They postulated that the optimal number of robots was approximately  the autonomous time  divided by the interaction time required by each robot.  Their sample problem involved a multi-robot search task, where users could assign goals to robots.  Their user interaction studies with simulated planar robots  indicated a \emph{fanout plateau} of about 8 robots, after which there were diminishing returns.   They hypothesize that the location of this plateau is highly dependent on the underlying task, and our work indicated there are some tasks without plateaus. % (Lemmings is an example of this as well, for systems with autonomy
+%Their research investigated robots with 3 levels of autonomy.  We use robots without autonomy, corresponding with their first-level robots.
+%
+%% Removed this -- 
+%%Chen, Barnes, and Harper-Sciarini published a review of supervisory control but emphasized high levels of autonomy, using the 10-level taxonomy given by \cite{Parasuraman2000}.  The direct control techniques this paper examines are the lowest level.
+%
+%Squire, Trafton, and Parasuraman designed experiments showing that user-interface design had a high impact on the task effectiveness and the number of robots that could be controlled simultaneously in a multi-robot task \cite{Squire:2006:HCM:1121241.1121248}.
+%
+%A number of user studies compare methods for controlling large swarms of simulated robots, for example \cite{bashyal2008human,kolling2012towards,de2012controllability}.  These studies provide insights but are limited by cost to small user studies; have a closed-source code base; and focus on controlling intelligent, programmable agents.  
+%For instance \cite{de2012controllability} was limited to a pool of 18 participants,  \cite{bashyal2008human} 5, and \cite{kolling2012towards} 32.
+%	Using an online testing environment, we conduct similar studies but with much larger sample sizes.
 
 \subsection{Global-control of micro- and nanorobots}
 Small robots have been constructed with physical heterogeneity so that they respond differently to a global, broadcast control signal.  Examples include \emph{scratch-drive microrobots}, actuated and controlled by a DC voltage signal from a substrate \cite{Donald2006,Donald2008};   magnetic structures  with different cross-sections that could be independently steered \cite{Floyd2011,Diller2013};   \emph{MagMite} microrobots with different resonant frequencies and a global magnetic field \cite{Frutiger2008}; and  magnetically controlled nanoscale helical screws constructed to stop movement at different cutoff frequencies of a global magnetic field

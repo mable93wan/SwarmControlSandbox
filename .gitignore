@@ -3,9 +3,4 @@
 *.out
 *.log
 *.dvi
-
-
-
-*.pdf
-
 papers/IROS2015automaticSwarm/SwarmControlWithGlobalInputs.pdf
