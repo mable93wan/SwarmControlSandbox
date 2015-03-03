@@ -36,58 +36,6 @@ P.-T. Chiang, J.~Mielke, J.~Godoy, J.~M. Guerrero, L.~B. Alemany, C.~J.
   motorized nanocar: Synthesis and initial imaging of single molecules,''
   \emph{ACS Nano}, vol.~6, no.~1, pp. 592--597, Feb. 2011.
 
-\bibitem{Becker2014e}
-\BIBentryALTinterwordspacing
-A.~Becker, C.~Ertel, and J.~McLurkin, ``Crowdsourcing swarm manipulation
-  experiments: A massive online user study with large swarms of simple
-  robots,'' in \emph{{IEEE} International Conference on Robotics and Automation
-  {(ICRA)}}, 2014. [Online]. Available:
-  \url{https://arxiv.org/submit/913241/view}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Becker2013b}
-A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
-  uniform manipulation: Controlling large populations of simple robots with a
-  common input signal,'' in \emph{IEEE/RSJ International Conference on
-  Intelligent Robots and Systems (IROS)}, Nov. 2013, pp. 520--527.
-
-\bibitem{Chris-Ertel2013}
-\BIBentryALTinterwordspacing
-C.~Ertel and A.~Becker. (2013, Sep.) Swarmcontrol git repository. [Online].
-  Available: \url{https://github.com/crertel/swarmmanipulate.git}
-\BIBentrySTDinterwordspacing
-
-\bibitem{Jr2004}
-D.~R. {Olsen Jr} and S.~B. Wood, ``Fan-out: Measuring human control of multiple
-  robots,'' in \emph{SIGCHI Conference on Human Factors in Computing Systems},
-  Vienna, Austria, Apr. 2004, pp. 231--238.
-
-\bibitem{Squire:2006:HCM:1121241.1121248}
-\BIBentryALTinterwordspacing
-P.~Squire, G.~Trafton, and R.~Parasuraman, ``Human control of multiple unmanned
-  vehicles: effects of interface type on execution and task switching times,''
-  in \emph{Proceedings of the 1st ACM SIGCHI/SIGART conference on Human-robot
-  interaction}, ser. HRI '06.\hskip 1em plus 0.5em minus 0.4em\relax New York,
-  NY, USA: ACM, 2006, pp. 26--32. [Online]. Available:
-  \url{http://doi.acm.org/10.1145/1121241.1121248}
-\BIBentrySTDinterwordspacing
-
-\bibitem{bashyal2008human}
-S.~Bashyal and G.~K. Venayagamoorthy, ``Human swarm interaction for radiation
-  source search and localization,'' in \emph{Swarm Intelligence Symposium
-  (SIS)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2008, pp. 1--8.
-
-\bibitem{kolling2012towards}
-A.~Kolling, S.~Nunnally, and M.~Lewis, ``Towards human control of robot
-  swarms,'' in \emph{Proceedings of the seventh annual ACM/IEEE international
-  conference on Human-Robot Interaction}.\hskip 1em plus 0.5em minus
-  0.4em\relax ACM, 2012, pp. 89--96.
-
-\bibitem{de2012controllability}
-J.-P. de~la Croix and M.~Egerstedt, ``Controllability characterizations of
-  leader-based swarm interactions,'' in \emph{2012 AAAI Fall Symposium Series},
-  2012.
-
 \bibitem{Donald2006}
 B.~Donald, C.~Levey, C.~McGray, I.~Paprotny, and D.~Rus, ``An untethered,
   electrostatic, globally controllable {MEMS} micro-robot,'' \emph{J. of
@@ -121,6 +69,52 @@ S.~Tottori, L.~Zhang, F.~Qiu, K.~Krawczyk, A.~Franco-Obreg{\'o}n, and B.~J.
   Nelson, ``Magnetic helical micromachines: Fabrication, controlled swimming,
   and cargo transport,'' \emph{Advanced Materials}, vol.~24, no. 811, 2012.
 
+\bibitem{Becker2013b}
+A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
+  uniform manipulation: Controlling large populations of simple robots with a
+  common input signal,'' in \emph{IEEE/RSJ International Conference on
+  Intelligent Robots and Systems (IROS)}, Nov. 2013, pp. 520--527.
+
+\bibitem{Becker2014e}
+\BIBentryALTinterwordspacing
+A.~Becker, C.~Ertel, and J.~McLurkin, ``Crowdsourcing swarm manipulation
+  experiments: A massive online user study with large swarms of simple
+  robots,'' in \emph{{IEEE} International Conference on Robotics and Automation
+  {(ICRA)}}, 2014. [Online]. Available:
+  \url{https://arxiv.org/submit/913241/view}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Chris-Ertel2013}
+\BIBentryALTinterwordspacing
+C.~Ertel and A.~Becker. (2013, Sep.) Swarmcontrol git repository. [Online].
+  Available: \url{https://github.com/crertel/swarmmanipulate.git}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Sudsang2002}
+A.~Sudsang, F.~Rothganger, and J.~Ponce, ``Motion planning for disc-shaped
+  robots pushing a polygonal object in the plane,'' \emph{{IEEE} Trans. Robot.
+  Autom.}, vol.~18, no.~4, pp. 550--562, Aug. 2002.
+
+\bibitem{Fink2007}
+J.~Fink, N.~Michael, and V.~Kumar, ``Composition of vector fields for
+  multi-robot manipulation via caging,'' in \emph{Robotics Science and
+  Systems}, Atlanta, GA, Jun. 2007.
+
+\bibitem{Lynch1999}
+K.~Lynch, ``Locally controllable manipulation by stable pushing,'' \emph{{IEEE}
+  Trans. Robot. Autom.}, vol.~15, no.~2, pp. 318--327, Apr. 1999.
+
+\bibitem{deimel2014novel}
+R.~Deimel and O.~Brock, ``A novel type of compliant, underactuated robotic hand
+  for dexterous grasping,'' \emph{Robotics: Science and Systems, Berkeley, CA},
+  pp. 1687--1692, 2014.
+
+\bibitem{odhner2014compliant}
+L.~U. Odhner, L.~P. Jentoft, M.~R. Claffee, N.~Corson, Y.~Tenzer, R.~R. Ma,
+  M.~Buehler, R.~Kohout, R.~D. Howe, and A.~M. Dollar, ``A compliant,
+  underactuated hand for robust manipulation,'' \emph{The International Journal
+  of Robotics Research}, vol.~33, no.~5, pp. 736--752, 2014.
+
 \bibitem{Becker2012}
 A.~Becker and T.~Bretl, ``Approximate steering of a unicycle under bounded
   model perturbation using ensemble control,'' \emph{{IEEE} Trans. Robot.},
@@ -146,14 +140,14 @@ A.~Becker, C.~Onyuksel, T.~Bretl, and J.~McLurkin, ``Controlling many
   international journal of Robotics Research}, vol.~33, no.~13, pp. 1626--1644,
   2014.
 
+\bibitem{graham1990penny}
+R.~L. Graham and N.~J. Sloane, ``Penny-packing and two-dimensional codes,''
+  \emph{Discrete \& Computational Geometry}, vol.~5, no.~1, pp. 1--11, 1990.
+
 \bibitem{Lyapunov1992}
 A.~M. Lyapunov{, translated and edited by A.T. Fuller}, \emph{The General
   Problem of the Stability of Motion}.\hskip 1em plus 0.5em minus 0.4em\relax
   London: Tayor \& Francis, 1992.
-
-\bibitem{graham1990penny}
-R.~L. Graham and N.~J. Sloane, ``Penny-packing and two-dimensional codes,''
-  \emph{Discrete \& Computational Geometry}, vol.~5, no.~1, pp. 1--11, 1990.
 
 \bibitem{Sadraddini2015}
 S.~Sadraddini and C.~Belta, ``Swarm manipulation with a uniform magnetic

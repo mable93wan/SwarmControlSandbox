@@ -4,19 +4,25 @@
 \section{Related Work}\label{sec:RelatedWork}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Human user studies with large swarms}
 
-We are particularly motivated by harsh constraints in micro- and nanorobotic systems.  Large numbers of robots can be constructed, but the user interaction required to individually control each robot scales linearly with robot population.   
+\subsection{Global-control of micro- and nanorobots} %\cite{Peyer2013,Shirai2005,Chiang2011}. 
+We are particularly motivated by harsh constraints in micro- and nanorobotic systems.  
+Small robots are often powered and steered by a global, broadcast control signal.  Examples include \emph{scratch-drive microrobots}, actuated and controlled by a DC voltage signal from a substrate \cite{Donald2006,Donald2008};  \emph{light-driven nanocars}, synthetic molecules actuated by a specific wavelength of light~\ref{Chiang2011},
+ %magnetic structures  with different cross-sections that could be independently steered \cite{Floyd2011,Diller2013};   
+ \emph{MagMite} microrobots with different resonant frequencies controlled by a global magnetic field \cite{Frutiger2008}; and  magnetically controlled nanoscale helical screws \cite{Tottori2012,Peyer2013}. Large numbers of robots can be constructed, but the user interaction required to individually control each robot scales linearly with robot population.   
 Instead, user interaction is often constrained to modifying a global input. 
 
+\subsection{Human user studies with large swarms}
 There is currently no comprehensive understanding of user interfaces for controlling multi-robot systems with massive populations.  
-Our previous work with over a hundred hardware robots and thousands of simulated robots~\cite{Becker2013b} demonstrated that direct human control of large swarms is possible. Unfortunately, the logistical challenges of repeated experiments with over one hundred robots prevented large-scale tests. To gather better data, we designed \href{http://www.swarmcontrol.net/show_results}{SwarmControl.net}, a large-scale online game to test how humans interact with large swarms~\cite{Becker2014e}.  Our goal was to test several scenarios involving large-scale human-swarm interaction (HSI), and to do so with a statistically-significant sample size. These  experiments showed that numerous simple robots responding to global control inputs are directly controllable by a human operator without special training, and that the visual feedback of the swarm state should be very simple in order to increase task performance. \href{https://github.com/crertel/swarmmanipulate.git}{All code}~\cite{Chris-Ertel2013}, \href{http://www.swarmcontrol.net/show_results}{and experimental results} are posted online. This paper presents motion primitives and an automatic controller that solves one of the games from~\cite{Becker2014e}.
+Our previous work with over a hundred hardware robots and thousands of simulated robots~\cite{Becker2013b} demonstrated that direct human control of large swarms is possible. Unfortunately, the logistical challenges of repeated experiments with over one hundred robots prevented large-scale tests. To gather better data, we designed \href{http://www.swarmcontrol.net/show_results}{SwarmControl.net}, a large-scale online game to test how humans interact with large swarms~\cite{Becker2014e}.  Our goal was to test several scenarios involving large-scale human-swarm interaction (HSI), and to do so with a statistically-significant sample size. These  experiments showed that numerous simple robots responding to global control inputs are directly controllable by a human operator without special training, and that the visual feedback of the swarm state should be very simple in order to increase task performance. \href{https://github.com/crertel/swarmmanipulate.git}{All code}~\cite{Chris-Ertel2013}, \href{http://www.swarmcontrol.net/show_results}{and experimental results} are posted online. This paper presents motion primitives and an automatic controller that solves one of the games from swarmcontrol.net.
 
 
 \subsection{Block-pushing and Compliant Manipulation}
-Unlike previous work where robots cage an object for manipulation~\cite{Sudsang2002}, our swarm of robots is unable to grasp the blocks they push, and so our manipulation strategies are similar to \emph{nonprehensile manipulation} techniques, e.g.~\cite{Lynch1999}, where forces must be applied along the center of mass of the moveable object. A key difference is that our robots are compliant and tend to flow around the particle.  
+Unlike caging research work where robots form a rigid arrangement around an object for manipulation~\cite{Sudsang2002,Fink2007}, our swarm of robots is unable to grasp the blocks they push, and so our manipulation strategies are similar to \emph{nonprehensile manipulation} techniques, e.g.~\cite{Lynch1999}, where forces must be applied along the center of mass of the moveable object. A key difference is that our robots are compliant and tend to flow around the object.  
 
-Our $n$-robot systems with 2 control inputs and 4$n$ states are inherently under actuated, and superficially bear resemblance to 
+Our $n$-robot system with 2 control inputs and 4$n$ states is inherently under-actuated, and superficially bears resemblance to compliant, under-actuated manipulators~\cite{deimel2014novel,odhner2014compliant}.  Like these manipulators, the swarm conforms to the object to be manipulated.  However our swarm lacks the restoring force provided by flexures in \cite{odhner2014compliant} and the silicone in \cite{deimel2014novel}.  Our swarm tends to disperse itself, and we require  artificial forces, such as the variance control primitives in Section \ref{sec:VarianceControl},
+ to regroup the swarm.
+
 %Strategies based purely on particle flow also exist~\cite{Sugawara2012}, but these works 
 
 %Manipulation by caging~\cite{Sudsang2002}
@@ -37,9 +43,7 @@ Our $n$-robot systems with 2 control inputs and 4$n$ states are inherently under
 %For instance \cite{de2012controllability} was limited to a pool of 18 participants,  \cite{bashyal2008human} 5, and \cite{kolling2012towards} 32.
 %	Using an online testing environment, we conduct similar studies but with much larger sample sizes.
 
-\subsection{Global-control of micro- and nanorobots}
-Small robots have been constructed with physical heterogeneity so that they respond differently to a global, broadcast control signal.  Examples include \emph{scratch-drive microrobots}, actuated and controlled by a DC voltage signal from a substrate \cite{Donald2006,Donald2008};   magnetic structures  with different cross-sections that could be independently steered \cite{Floyd2011,Diller2013};   \emph{MagMite} microrobots with different resonant frequencies and a global magnetic field \cite{Frutiger2008}; and  magnetically controlled nanoscale helical screws constructed to stop movement at different cutoff frequencies of a global magnetic field
-\cite{Tottori2012,Peyer2013}. 
+
 %In our previous work with robots that can be modeled as nonholonomic unicycles~\cite{Becker2012k}, we showed that an inhomogeneity in turning speed is enough to make even an infinite number of robots controllable with regard to position. 
 %While these approaches theoretically scale to large populations, they also require both excellent state estimation and heterogeneous robots. 
 
