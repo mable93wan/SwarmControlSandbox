@@ -161,8 +161,7 @@ x_{2n}
 \end{bmatrix}, ... \right\}
 \end{equation}  
 \subsection{Controlling Mean Position}\label{sec:controlMeanPosition}
-This means any number of robots controlled by a global command, have just two controllable states in each axis. We can not control position of all the robots, but what states are controllable? To answer this question we create the following reduced order system that represents the average position and velocity of the $n$ robots:\\
-
+This means any number of robots controlled by a global command, have just two controllable states in each axis. We can not control position of all the robots, but what states are controllable? To answer this question we create the following reduced order system that represents the average position and velocity of the $n$ robots:
 \begin{align}
 \begin{bmatrix}\nonumber
 \dot{\bar{x}}_p \\
@@ -283,13 +282,19 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \begin{algorithm}
 \caption{Mean and variance control}\label{alg:MeanVarianceControl}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, and $x_{min}, x_{max}, y_{min}, y_{max}$, the locations of the rat angular boundary.\Loop\State  Compute the ?
-\State Compute the ?\EndLoop
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, and $x_{min}, x_{max}, y_{min}, y_{max}$, the locations of the rat angular boundary.
+\Loop
+\State  Compute the ?
+\State Compute the ?
+\EndLoop
 \end{algorithmic}
 \end{algorithm}
 
-A key challenge is to select proper values for  $\sigma_{min}^2$ and $\sigma_{max}^2$.  For large $n$, Graham and Sloan showed that the minimum variance packing for $n$ circles with radius $r$ is $\approx 4 r^2 (\sqrt{3} n^2)/(4 \pi)=0.138 n^2 r^2$~\cite{graham1990penny}. %\sigma \approx 0.371258 n r,   \sigma_{min} = n*r*1/2, \sigma_{min} = n*r*3/2, 
-%Maximum circle packing density is $\frac{\pi}{2\sqrt{3}} \approx 0.9069$~\cite{chang2010simple}. A collection of $n$ robots, each with radius $r$, has an area of $n \pi r^2$, and thus \todo{figure this density thing out}
+A key challenge is to select proper values for  $\sigma_{min}^2$ and $\sigma_{max}^2$.  For large $n$, Graham and Sloan showed that the minimum variance packing for $n$ circles with radius $r$ is $\approx 4 r^2 (\sqrt{3} n^2)/(4 \pi)=0.138 n^2 r^2$~\cite{graham1990penny}. 
+The random packings generating by pushing our robots into corners are suboptimal, so we choose the conservative values 
+$ \sigma^2_{min} = (\frac{nr}{2})^2, \sigma^2_{min} =  (\frac{nr3}{2})^2$.
+%\sigma \approx 0.371258 n r,   \sigma_{min} = n*r*1/2, \sigma_{min} = n*r*3/2, 
+%  this result was verified in http://www-math.mit.edu/~tchow/penny.pdf
 
 
 
