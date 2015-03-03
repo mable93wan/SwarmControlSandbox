@@ -194,7 +194,7 @@ for(var i =0; i<m_Robot.length; i++) {
 var brownianImpulse = new b2Vec2(0,0);
 var mag = 0;
 var ang = 0;
-var vary= 1;
+var vary= 5;
 //apply Brownian noise:
 mag = vary * Math.random();
 ang = 2*Math.PI*Math.random();
@@ -312,13 +312,16 @@ $('#cc').html(string); //USERDATA WILL SHOWN IN "div" WITH ID "cc"
 // CONTROLLER
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 //goal positions
-var cycleInSec = 20;
+var cycleInSec = 40;
 var amplitudeY = 5;
 var offsetY = 5;
 var amplitudeX = 10;
 var offsetX = 0;
-var max_desired_var_x = 3;
-var min_desired_var_x = 2;
+
+var offsetVar = 0.5;
+var amplitudeVar = 1;
+var max_desired_var_x = 1000;
+var min_desired_var_x = 0;
 //var desired_var_y = 1;
 var sum_position_x = 0;
 var sum_position_y = 0;
@@ -344,14 +347,31 @@ var var_x = sum2_x / numrobots;
 var var_y = sum2_y / numrobots;
 //TODO: make this depend on time
 var normalGoal = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
-var varGoal = 10;
-if(normalGoal == 10)
+var varGoal = offsetVar + amplitudeVar * ( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+
+if (varGoal < var_x)
 {
-	varGoal = 2;
+	if(varGoal == 1.5)
+	{
+		goalX = 1.25;
+	}
+	else if(varGoal ==0.5)
+	{
+		goalX = 1;
+	}
+	goalY = 10;
 }
-else if (normalGoal == 0)
+if(varGoal > var_x)
 {
-	varGoal = 0;
+	if(varGoal == 1.5)
+	{
+		goalX = 2.0;
+	}
+	else if(varGoal ==0.5)
+	{
+		goalX = 1.5;
+	}
+	goalY = 10;
 }
 
 if(var_x < min_desired_var_x)
@@ -359,17 +379,17 @@ if(var_x < min_desired_var_x)
 flagvar = false;
 //desired_var_x = max_desired_var_x;
 }
-if(var_x > max_desired_var_x)
-{
-goalX = 0;
-goalY = 10;
-flagvar = true;
-//desired_var_x = min_desired_var_x;
-}
-if(!flagvar)
-{
-	goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
-}
+// if(var_x > max_desired_var_x)
+// {
+// goalX = 0;
+// goalY = 10;
+// flagvar = true;
+// //desired_var_x = min_desired_var_x;
+// }
+// if(!flagvar)
+// {
+// 	goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+// }
 
 //draw the average position
 $("canvas").drawArc({
@@ -409,8 +429,11 @@ x2: (mean_position_x + var_x/2)* 30, y2:mean_position_y* 30,
 
 //goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2 );
 //goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2 );
+//string = "var = "+ var_x +" Goal Variance = " + varGoal;
+//$('#cc').html(string);
 var Kgain = 4;
 var Kderivative = 1;
+var Ki = 1;
 var sum_velocity_x = 0;
 var sum_velocity_y = 0;
 for(var i = 0; i < numrobots; ++i) {
@@ -419,8 +442,9 @@ sum_velocity_y += m_Robot[i].GetLinearVelocity().y;
 }
 var mean_velocity_x = sum_velocity_x / numrobots;
 var mean_velocity_y = sum_velocity_y / numrobots;
+m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) + Ki * (varGoal-var_x) ;
 m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
-m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
+//m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 m_controlState= ROBOT_INPUT.ROBOT_PROP;
 //sd_x = Math.sqrt(var_x);
 console.log(elapsedTimeSec + " " + varGoal + " " + var_x);

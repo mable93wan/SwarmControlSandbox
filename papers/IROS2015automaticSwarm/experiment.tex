@@ -6,7 +6,24 @@
 The experimental section compares the results of our hysteresis-based controller applied to a \emph{block-pushing} task.  In preliminary work over 1000 human users completed this task using varying levels of feedback. To our surprise, users who received the lowest amount of feedback -- just the moments of the position distribution of the robot swarm -- performed better than users with full state feedback.
  The original experiment explored manipulation with varying amounts of sensing information: {\bf full-state} sensing provides the most information by showing the position of all robots; {\bf convex-hull} draws a convex hull around the outermost robots; {\bf mean} provides the average position of the population; and {\bf mean + variance} adds a confidence ellipse. Fig.~\ref{fig:Visualization} shows screenshots of the same robot swarm with each type of visual feedback. Full-state requires $2n$ data points for $n$ robots. Convex-hull requires at worst $2n$, but usually a smaller number.  Mean requires two, and variance three, data points.  Mean and mean + variance are convenient even with millions of robots. Our hypothesis predicted a steady decay in performance as the amount of visual feedback decreased.
 
-
+\begin{figure*}
+\centering
+\renewcommand{\figwid}{0.4\columnwidth}
+\begin{overpic}[width =\figwid]{story1.png}
+\end{overpic}
+\begin{overpic}[width =\figwid]{story2.png}
+\end{overpic}
+\begin{overpic}[width =\figwid]{story3.png}
+\end{overpic}
+\begin{overpic}[width =\figwid]{story4.png}
+\end{overpic}
+\begin{overpic}[width =\figwid]{story5.png}
+\end{overpic}
+\vspace{-1em}
+\caption{\label{fig:story}These snapshots show the block pushing experiment.
+%\vspace{-2em}
+}
+\end{figure*}
 \begin{figure}
 \centering
 \begin{overpic}[width = \columnwidth]{ResVaryVis.pdf}\end{overpic}
