@@ -315,9 +315,9 @@ $('#cc').html(string); //USERDATA WILL SHOWN IN "div" WITH ID "cc"
 var cycleInSec = 20;
 var amplitudeY = 5;
 var offsetY = 5;
-var amplitudeX = 5;
-var offsetX = 7.5;
-var max_desired_var_x = 4;
+var amplitudeX = 10;
+var offsetX = 0;
+var max_desired_var_x = 100;
 var min_desired_var_x = 2;
 //var desired_var_y = 1;
 var sum_position_x = 0;
@@ -344,6 +344,15 @@ var var_x = sum2_x / numrobots;
 var var_y = sum2_y / numrobots;
 //TODO: make this depend on time
 var normalGoal = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+var varGoal = 10;
+if(normalGoal == 10)
+{
+	varGoal = 2;
+}
+else if (normalGoal == 0)
+{
+	varGoal = 0;
+}
 
 if(var_x < min_desired_var_x)
 {
@@ -414,7 +423,7 @@ m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity
 m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 m_controlState= ROBOT_INPUT.ROBOT_PROP;
 //sd_x = Math.sqrt(var_x);
-console.log(elapsedTimeSec + " " + mean_position_x + " " + normalGoal + " " + var_x);
+console.log(elapsedTimeSec + " " + varGoal + " " + var_x);
 }; //end update
 };
 </script>
