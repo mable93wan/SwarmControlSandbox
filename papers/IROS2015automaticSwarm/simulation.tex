@@ -7,12 +7,12 @@
 
 \subsection{Controlling the mean position}
 
-For controlling mean position, we use a PD controller. Our control input is the force we make, goal positions are the desired positions, and we have our mean position and mean velocity. So we have:
+For controlling mean position, we use a PD controller that uses the mean position and mean velocity. Our control input is the force applied to each robot, and goal positions are the desired positions:
 \begin{align}
 u_x &= K_{p}(x_{goal} - \bar{x}) + K_{d}(0-\bar{v}_x) \nonumber\\
 u_y &= K_{p}(y_{goal}  - \bar{y}) + K_{d}(0-\bar{v}_y)  \label{eq:PDcontrolPosition}
 \end{align}
-where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We performed a parameter sweep to identify the best values.  Representative experiments are shown in Fig.~\ref{fig:gainvalues}. 100 robots were used and the maximum speed was 3 meter per second. We can achieve an overshoot of  \textcolor{red}{ ?? } and a  rise time of  \textcolor{red}{ ?? } with $K_{p}= 4$, and  $K_{d} = 1$. \todo{ (we can't say the best gain values are 4 and 1', but we can say 'to achieve these goals, we can use the gain values 4 and 1'.)}
+here $K_{p}$ is the proportional gain, and $K_{d}$ is the derivative gain. We performed a parameter sweep to identify the best values.  Representative experiments are shown in Fig.~\ref{fig:gainvalues}. 100 robots were used and the maximum speed was 3 meter per second. We can achieve an overshoot of  \textcolor{red}{ ?? } and a  rise time of  \textcolor{red}{ ?? } with $K_{p}= 4$, and  $K_{d} = 1$. \todo{ (we can't say the best gain values are 4 and 1', but we can say 'to achieve these goals, we can use the gain values 4 and 1'.)}
 
 \begin{figure}
 \centering
@@ -140,6 +140,8 @@ contrast controllers -- as is typical with PID control laws, we can tune the res
 
 
 \subsection{Hybrid Control of mean and variance}
+
+Figure~\ref{fig:hybrid} shows representative results of the hybrid controller given in Alg.~\ref{alg:MeanVarianceControl} with 100 robots in a square workspace with no internal obstacles.
 
 %\todo{plot showing 1.5 cycles of mean position, and a variance goal.  We might need a longer time}
 \begin{figure}

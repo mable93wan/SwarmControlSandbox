@@ -1,6 +1,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Results}\label{sec:expResults}
+\section{Block-Pushing Results}\label{sec:expResults}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 The experimental section compares the results of our hysteresis-based controller applied to a \emph{block-pushing} task.  In preliminary work over 1000 human users completed this task using varying levels of feedback. To our surprise, users who received the lowest amount of feedback -- just the moments of the position distribution of the robot swarm -- performed better than users with full state feedback.
@@ -34,7 +34,7 @@ To our surprise, our experiment indicated the opposite: players  with just the m
 
 \subsection{Automated Block Pushing}
 
-To solve this problem, the discretized the environment, used breadth-first search to determine $M$, the shortest path from any point for the block to the goal, and generate a gradient map $\nabla M$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The blocks's center of mass is at $b$ and has radius $r_b$. The robots were then directed to assemble at  $b - r_b \nabla M$ to push the block toward the goal location.
+To solve this problem, we discretized the environment.  On this discretized grid we used breadth-first search to determine $M$, the shortest path from any point for the block to the goal, and generated a gradient map $\nabla \mathbf{M}$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The blocks's center of mass is at $\mathbf{b}$ and has radius $r_b$. The robots were then directed to assemble at  $\mathbf{b} - r_b \nabla \mathbf{M}$ to push the block toward the goal location.
 
 \begin{figure}
 \centering
@@ -51,7 +51,7 @@ To solve this problem, the discretized the environment, used breadth-first searc
 \begin{algorithm}
 \caption{Block-pushing controller for a robotic swarm.}\label{alg:BlockPushing}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's COM $[x_b,y_b]$, and the locations of all convex corners $\mathbf{C}$
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's center of mass $\mathbf{b}$, and the locations of all convex corners $\mathbf{C}$
 \Loop
 \State  Compute the ?
 \State Compute the ?

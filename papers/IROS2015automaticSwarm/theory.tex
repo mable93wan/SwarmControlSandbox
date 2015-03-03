@@ -279,6 +279,7 @@ P(x) = \frac{1}{\sigma \sqrt{2\pi } }e^{ -  \frac{\left( x - \mu  \right)^2 } {2
 
 The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much less than the maximum controlled speed, we can adopt a hysteresis-based controller.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to controlling variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position.
 
+
 \begin{algorithm}
 \caption{Mean and variance control}\label{alg:MeanVarianceControl}
 \begin{algorithmic}[1]
@@ -286,6 +287,9 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \State Compute the ?\EndLoop
 \end{algorithmic}
 \end{algorithm}
+
+A key challenge is to select proper values for  $\sigma_{min}^2$ and $\sigma_{max}^2$.  Maximum circle packing density is $\frac{\pi}{2\sqrt{3}} \approx 0.9069$~\cite{chang2010simple}. A collection of $n$ robots, each with radius $r$, has an area of $n \pi r^2$, and thus \todo{figure this density thing out}
+
 
 
 
