@@ -52,6 +52,8 @@ To solve this problem, we discretized the environment.  On this discretized grid
 \caption{Block-pushing controller for a robotic swarm.}\label{alg:BlockPushing}
 \begin{algorithmic}[1]
 \Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's center of mass $\mathbf{b}$, and the locations of all convex corners $\mathbf{C}$
+\Require Robot distribution is unimodal
+\Require Obstacle-free straight-line path from swarm to moveable block
 \Loop
 \State  Compute the ?
 \State Compute the ?

@@ -256,9 +256,10 @@ where $\varepsilon(t)$ is the error in the system. Given a large free workspace,
 %\begin{equation}
 %P(x) = \frac{1}{\sigma \sqrt{2\pi } }e^{ -  \frac{\left( x - \mu  \right)^2 } {2\sigma ^2 }}
 %\end{equation}
+If the robots are in a bounded environment with sides of length $[\ell_x, \ell_y]$, the unforced variance asymptotically grows to the variance of a uniform distribution,
+$[\sigma_x^2,\sigma_y^2] = \frac{1}{12}[ (\ell_x - 2 r)^2,(\ell_y - 2 r)^2]$.
 
-
- A flat obstacle can be used to decrease variance. Pushing a group of dispersed robots against a flat obstacle will decrease their variance until the maximum packing density is reached.
+ A flat obstacle can be used to decrease variance. Pushing a group of dispersed robots against a flat obstacle will decrease their variance until the minimum-variance (maximum density) packing  is reached. For large $n$, Graham and Sloan showed that the minimum-variance packing for $n$ circles with radius $r$ is $\approx 4 r^2 (\sqrt{3} n^2)/(4 \pi)=0.138 n^2 r^2$~\cite{graham1990penny}. 
 
 We will prove the origin is globally asymptotically stabilizable by using a control-Lyapunov function \cite{Lyapunov1992}.  A suitable Lyapunov function is squared variance error:
 \begin{align}
@@ -295,7 +296,7 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \begin{algorithm}
 \caption{Mean and variance control}\label{alg:MeanVarianceControl}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, and $x_{min}, x_{max}, y_{min}, y_{max}$, the locations of the rat angular boundary.
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, and $x_{min}, x_{max}, y_{min}, y_{max}$, the locations of the rectangular boundary.
 \Loop
 \State  Compute the ?
 \State Compute the ?
@@ -303,7 +304,7 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \end{algorithmic}
 \end{algorithm}
 
-A key challenge is to select proper values for  $\sigma_{min}^2$ and $\sigma_{max}^2$.  For large $n$, Graham and Sloan showed that the minimum variance packing for $n$ circles with radius $r$ is $\approx 4 r^2 (\sqrt{3} n^2)/(4 \pi)=0.138 n^2 r^2$~\cite{graham1990penny}. 
+A key challenge is to select proper values for  $\sigma_{min}^2$ and $\sigma_{max}^2$.  
 The random packings generating by pushing our robots into corners are suboptimal, so we choose the conservative values 
 $ \sigma^2_{min} = (\frac{nr}{2})^2, \sigma^2_{min} =  (\frac{nr3}{2})^2$.
 %\sigma \approx 0.371258 n r,   \sigma_{min} = n*r*1/2, \sigma_{min} = n*r*3/2, 
