@@ -277,7 +277,18 @@ P(x) = \frac{1}{\sigma \sqrt{2\pi } }e^{ -  \frac{\left( x - \mu  \right)^2 } {2
 
 \subsection{Controlling both the mean and the variance of many robots}
 
-The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much lass than the maximum controlled speed, we can adopt a hysteresis-based controller.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to controlling variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position.
+The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much less than the maximum controlled speed, we can adopt a hysteresis-based controller.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to controlling variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position.
+
+\begin{algorithm}
+\caption{Mean and variance control}\label{alg:MeanVarianceControl}
+\begin{algorithmic}[1]
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, and $x_{min}, x_{max}, y_{min}, y_{max}$, the locations of the rat angular boundary.\Loop\State  Compute the ?
+\State Compute the ?\EndLoop
+\end{algorithmic}
+\end{algorithm}
+
+
+
 \begin{equation} \label{eq:hysteresis}
 switch = \left\{ \begin{matrix} 
 1 &\rightarrow & 2 & \sigma^2 & > & \sigma^2_{max} \\

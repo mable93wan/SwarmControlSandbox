@@ -43,20 +43,37 @@ To solve this problem, the discretized the environment, used breadth-first searc
 \begin{overpic}[scale=0.2]{GradientMode.png}
 \end{overpic}
 \vspace{-2em}
-\caption{\label{fig:BFSGradient} BFS algorithm finds the shortest path(left). Gradient vectors are shown(right).
+\caption{\label{fig:BFSGradient}The BFS algorithm finds the shortest path for the moveable block (left), which is used to compute gradient vectors (right).
 %\vspace{-2em}
 }
 \end{figure}
 
-TODO: write this in algorithmic form
+\begin{algorithm}
+\caption{Block-pushing controller for a robotic swarm.}\label{alg:BlockPushing}
+\begin{algorithmic}[1]
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's COM $[x_b,y_b]$, and the locations of all convex corners $\mathbf{C}$
+\Loop
+\State  Compute the ?
+\State Compute the ?
+\EndLoop
+\end{algorithmic}
+\end{algorithm}
 
-image:  show the vector field and the robots pushing a block
 
-plot of results, comparing to humans
 
-plot of results, varying the number of robots %lower priority, maybe in the journal version
+\todo{plot of results, comparing to humans}
 
-images of worlds where the algorithm fails, short discussion.
+
+\begin{figure}
+\centering
+\begin{overpic}[width = \columnwidth]{AutoControlVaryN.pdf}\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:AutoControlVaryN} Completion-time results using the automatic controller from Alg.~\ref{alg:BlockPushing} for different numbers of robots.  Each bar represents the results of five experiments.
+}
+\end{figure}
+
+
+\todo{images of worlds where the algorithm fails, short discussion.}
 
 
 

@@ -12,14 +12,14 @@ For controlling mean position, we use a PD controller. Our control input is the 
 u_x &= K_{p}(x_{goal} - \bar{x}) + K_{d}(0-\bar{v}_x) \nonumber\\
 u_y &= K_{p}(y_{goal}  - \bar{y}) + K_{d}(0-\bar{v}_y)  \label{eq:PDcontrolPosition}
 \end{align}
-where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We performed a parameter sweep to identify the best values.  Representative experiments are shown in Fig.~\ref{fig:gainValues}. 100 robots were used and the maximum speed was 3 meter per second. With these parameters, we showed that the best values are  $K_{p}= 4$, and  $K_{d} = 1$.
+where $K_{p}$ is the proportional gain, and $K_{d}$ the derivative gain. We performed a parameter sweep to identify the best values.  Representative experiments are shown in Fig.~\ref{fig:gainvalues}. 100 robots were used and the maximum speed was 3 meter per second. We can achieve an overshoot of  \textcolor{red}{ ?? } and a  rise time of  \textcolor{red}{ ?? } with $K_{p}= 4$, and  $K_{d} = 1$. \todo{ (we can't say the best gain values are 4 and 1', but we can say 'to achieve these goals, we can use the gain values 4 and 1'.)}
 
 \begin{figure}
 \centering
 \begin{overpic}[width = \columnwidth]{gainvalues.eps}
 \end{overpic}
 \vspace{-1em}
-\caption{\label{fig:gain values} Tuning proportional ($K_p$, top) and derivative ($K_d$, bottom)  gain values improves performance. These plots show convergence with 100 robots.
+\caption{\label{fig:gainvalues} Tuning proportional ($K_p$, top) and derivative ($K_d$, bottom)  gain values improves performance. These plots show convergence with 100 robots.
 %\vspace{-2em}
 }
 \end{figure}
@@ -139,7 +139,7 @@ contrast controllers -- as is typical with PID control laws, we can tune the res
 \todo{image showing control x variance and y-variance out of phase}
 
 
-\subsection{Hysteresis Control of mean and variance}
+\subsection{Hybrid Control of mean and variance}
 
 %\todo{plot showing 1.5 cycles of mean position, and a variance goal.  We might need a longer time}
 \begin{figure}
