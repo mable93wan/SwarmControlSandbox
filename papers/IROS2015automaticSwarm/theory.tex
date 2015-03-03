@@ -234,49 +234,62 @@ This matrix has rank two, and thus the controllable states of the swarm are the 
 %\end{bmatrix}
 %\end{equation}
 $\blacksquare$ 
+Due to symmetry, only the mean position and mean velocity are controllable. However, there are several techniques for breaking symmetry, for example by allowing independent noise sources \cite{beckerIJRR2014}, or by using obstacles \cite{Becker2013b}.
 
 \subsection{Controlling the variance of many robots}\label{sec:VarianceControl}
 
-As shown in Section \ref{sec:controlMeanPosition}, only the mean position mean velocity is controllable. However, there are several techniques for breaking symmetry, for example by allowing independent noise sources \cite{beckerIJRR2014}, or by using obstacles \cite{Becker2013b}.
+The variance, $\sigma^2$, of the robot's position is computed:
+\begin{align}
+ \overline{x}(\mathbf{x}) = \frac{1}{n} \sum_{i=1}^n x_i, \qquad  %\nonumber \\ 
+\sigma^2(\mathbf{x}) &= \frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^2  %NOT 1/(N-1) because we are measuring the actual Variance, not the variance of samples drawn from a distribution
+\end{align}
 
-Controlling the variance requires being able to increase and decrease the variance.  We will list sufficient conditions for each of these.  Given a large free workspace, \emph{Brownian noise} is sufficient to increase the variance.   A flat obstacle can be used to decrease variance. Both conditions are readily found at the micro and nanoscale. The variance, $\sigma^2$, of the robot's position is computed:
-\begin{equation}
-\sigma = \frac{1}{N-1} \sum_{i=1}^N (x_i - \overline{x})^2
-\end{equation}
-
-Consider the following Control Lyapunov Function:
-\begin{equation}
-V = \frac{1}{2} (\sigma_{goal} - \sigma(x))^2
-\end{equation}
-If we calculate the derivative of Lyapunov function we have:
-
-\todo{Aaron: finish this section}
-
-
-\begin{equation}
-\dot{V} = (\sigma_{goal} - \sigma(x)) \dot{\sigma}
-\end{equation}
-
-
-
-%Control Lyapunov function on $\sigma(t), \sigma_{goal}$, provide a control law.
-
-
-Real systems, especially at the micro scale, are affected by unmodelled dynamics much of which can be designed by Brownian noise. To model this~\eqref{eq:stdform} must be modified as follows:
+Controlling the variance requires being able to increase and decrease the variance.  We will list a sufficient condition for each. Both conditions are readily found at the micro and nanoscale. 
+Real systems, especially at the micro scale, are affected by unmodelled dynamics. These unmodelled dynamics are dominated by Brownian noise. To model this~\eqref{eq:stdform} must be modified as follows:
 \begin{align}
 \dot{x}(t)  &=  A x(t) + B u(t) + W \varepsilon(t)\\
 y(t) &= C x(t) + D u(t)\nonumber
 \end{align}
-where $\varepsilon(t)$ is the error in the system.
+where $\varepsilon(t)$ is the error in the system. Given a large free workspace, \emph{Brownian noise} increases the variance linearly with time.
+\begin{equation*}\dot{\sigma}^2(\mathbf{x}(t), u(t) = 0)  = W \varepsilon \end{equation*}
+%After some time, Gaussian distribution shapes the outline of the robots because of the Brownian noise feature:\\
+%\begin{equation}
+%P(x) = \frac{1}{\sigma \sqrt{2\pi } }e^{ -  \frac{\left( x - \mu  \right)^2 } {2\sigma ^2 }}
+%\end{equation}
 
-After some time, Gaussian distribution shapes the outline of the robots because of the Brownian noise feature:\\
-\begin{equation}
-P(x) = \frac{1}{\sigma \sqrt{2\pi } }e^{ -  \frac{\left( x - \mu  \right)^2 } {2\sigma ^2 }}
-\end{equation}
+
+ A flat obstacle can be used to decrease variance. Pushing a group of dispersed robots against a flat obstacle will decrease their variance until the maximum packing density is reached.
+
+We will prove the origin is globally asymptotically stabilizable by using a control-Lyapunov function \cite{Lyapunov1992}.  A suitable Lyapunov function is squared variance error:
+\begin{align}
+\label{eq:LyapunovVariance}
+V(t,\bf{x})  &= \frac{1}{2} (\sigma^2(\mathbf{x}) - \sigma^2_{goal})^2\\
+\dot{V}(t,\bf{x}) &= (\sigma^2(\mathbf{x})-\sigma^2_{goal})\dot{\sigma}^2(\mathbf{x})
+\end{align}
+We note here that $V(t,\mathbf{x})$ is positive definite and radially unbounded, and $V(t,\mathbf{x}) \equiv 0$ only at $\sigma^2(\mathbf{x}) = \sigma^2_{goal}$.
+To make $\dot{V}(t,\mathbf{x})$ negative semi-definite, we choose
+\begin{align}
+u(t) &=   \begin{cases}
+	 \mbox{move toward wall} &\mbox{if } \sigma^2(\mathbf{x})>\sigma^2_{goal} \\ 
+	 0 & \mbox{if } \sigma^2(\mathbf{x}) \le \sigma^2_{goal}.
+\end{cases} 
+\end{align}
+ For such a $u(t)$,
+ \begin{align}
+\dot{\sigma}^2(\mathbf{x}) &=   \begin{cases}
+	 \mbox{negative} &\mbox{if } \sigma^2(\mathbf{x})> \max(\sigma^2_{goal}, \sigma^2_{min}(n,r))  \\ 
+	 W & \mbox{if } \sigma^2(\mathbf{x}) \le \sigma^2_{goal},
+\end{cases} 
+\end{align} and thus
+$\dot{V}(t,{\bf x})$ is negative definite.
+
+
+
+
 
 \subsection{Controlling both the mean and the variance of many robots}
 
-The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much less than the maximum controlled speed, we can adopt a hysteresis-based controller.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to controlling variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position.
+The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much less than the maximum controlled speed, we can adopt a hysteresis-based controller to regulate the mean and variance.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to controlling variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position.
 
 
 \begin{algorithm}

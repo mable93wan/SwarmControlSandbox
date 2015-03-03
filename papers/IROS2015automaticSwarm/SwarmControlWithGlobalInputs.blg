@@ -14,44 +14,44 @@ Database file #2: SwarmControlWithGlobalInputs.bib
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 25 entries,
+You've used 26 entries,
             4039 wiz_defined-function locations,
-            1371 strings with 19987 characters,
-and the built_in function-call counts, 19442 in all, are:
-= -- 1549
-> -- 481
+            1378 strings with 20154 characters,
+and the built_in function-call counts, 19775 in all, are:
+= -- 1571
+> -- 485
 < -- 159
-+ -- 258
-- -- 84
-* -- 970
-:= -- 2893
-add.period$ -- 53
-call.type$ -- 25
++ -- 260
+- -- 85
+* -- 980
+:= -- 2951
+add.period$ -- 55
+call.type$ -- 26
 change.case$ -- 24
 chr.to.int$ -- 363
-cite$ -- 25
-duplicate$ -- 1398
-empty$ -- 1610
-format.name$ -- 108
-if$ -- 4480
+cite$ -- 26
+duplicate$ -- 1426
+empty$ -- 1657
+format.name$ -- 109
+if$ -- 4558
 int.to.chr$ -- 0
-int.to.str$ -- 25
-missing$ -- 253
-newline$ -- 108
-num.names$ -- 25
-pop$ -- 588
+int.to.str$ -- 26
+missing$ -- 258
+newline$ -- 111
+num.names$ -- 26
+pop$ -- 604
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1489
+skip$ -- 1517
 stack$ -- 0
 substring$ -- 868
-swap$ -- 1146
+swap$ -- 1160
 text.length$ -- 38
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 25
+type$ -- 26
 warning$ -- 0
-while$ -- 88
-width$ -- 27
-write$ -- 274
+while$ -- 89
+width$ -- 28
+write$ -- 281
