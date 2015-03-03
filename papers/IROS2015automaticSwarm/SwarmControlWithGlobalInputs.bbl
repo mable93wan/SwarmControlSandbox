@@ -36,12 +36,6 @@ P.-T. Chiang, J.~Mielke, J.~Godoy, J.~M. Guerrero, L.~B. Alemany, C.~J.
   motorized nanocar: Synthesis and initial imaging of single molecules,''
   \emph{ACS Nano}, vol.~6, no.~1, pp. 592--597, Feb. 2011.
 
-\bibitem{Becker2013b}
-A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
-  uniform manipulation: Controlling large populations of simple robots with a
-  common input signal,'' in \emph{IEEE/RSJ International Conference on
-  Intelligent Robots and Systems (IROS)}, Nov. 2013, pp. 520--527.
-
 \bibitem{Becker2014e}
 \BIBentryALTinterwordspacing
 A.~Becker, C.~Ertel, and J.~McLurkin, ``Crowdsourcing swarm manipulation
@@ -50,6 +44,12 @@ A.~Becker, C.~Ertel, and J.~McLurkin, ``Crowdsourcing swarm manipulation
   {(ICRA)}}, 2014. [Online]. Available:
   \url{https://arxiv.org/submit/913241/view}
 \BIBentrySTDinterwordspacing
+
+\bibitem{Becker2013b}
+A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
+  uniform manipulation: Controlling large populations of simple robots with a
+  common input signal,'' in \emph{IEEE/RSJ International Conference on
+  Intelligent Robots and Systems (IROS)}, Nov. 2013, pp. 520--527.
 
 \bibitem{Chris-Ertel2013}
 \BIBentryALTinterwordspacing
@@ -146,6 +146,10 @@ A.~Becker, C.~Onyuksel, T.~Bretl, and J.~McLurkin, ``Controlling many
   international journal of Robotics Research}, vol.~33, no.~13, pp. 1626--1644,
   2014.
 
+\bibitem{graham1990penny}
+R.~L. Graham and N.~J. Sloane, ``Penny-packing and two-dimensional codes,''
+  \emph{Discrete \& Computational Geometry}, vol.~5, no.~1, pp. 1--11, 1990.
+
 \bibitem{Sadraddini2015}
 S.~Sadraddini and C.~Belta, ``Swarm manipulation with a uniform magnetic
   field,'' in \emph{{IEEE} International Conference on Robotics and Automation
@@ -159,9 +163,5 @@ M.~Kloetzer and C.~Belta, ``Temporal logic planning and control of robotic
 \bibitem{einstein1956investigations}
 A.~Einstein, \emph{Investigations on the Theory of the Brownian
   Movement}.\hskip 1em plus 0.5em minus 0.4em\relax Courier Corporation, 1956.
-
-\bibitem{Cazes2001}
-J.~Cazes, \emph{Encyclopedia of Chromatography}, 2nd~ed.\hskip 1em plus 0.5em
-  minus 0.4em\relax New York: Taylor \& Francis Group, 2005, vol.~2.
 
 \end{thebibliography}

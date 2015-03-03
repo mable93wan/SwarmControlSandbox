@@ -16,42 +16,42 @@ Database file #2: SwarmControlWithGlobalInputs.bib
 Done.
 You've used 25 entries,
             4039 wiz_defined-function locations,
-            1372 strings with 19943 characters,
-and the built_in function-call counts, 19144 in all, are:
-= -- 1521
-> -- 473
-< -- 154
-+ -- 253
-- -- 83
-* -- 951
-:= -- 2837
+            1371 strings with 19987 characters,
+and the built_in function-call counts, 19442 in all, are:
+= -- 1549
+> -- 481
+< -- 159
++ -- 258
+- -- 84
+* -- 970
+:= -- 2893
 add.period$ -- 53
 call.type$ -- 25
-change.case$ -- 25
-chr.to.int$ -- 354
+change.case$ -- 24
+chr.to.int$ -- 363
 cite$ -- 25
-duplicate$ -- 1383
-empty$ -- 1605
-format.name$ -- 106
-if$ -- 4419
+duplicate$ -- 1398
+empty$ -- 1610
+format.name$ -- 108
+if$ -- 4480
 int.to.chr$ -- 0
 int.to.str$ -- 25
-missing$ -- 250
+missing$ -- 253
 newline$ -- 108
 num.names$ -- 25
-pop$ -- 590
+pop$ -- 588
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1471
+skip$ -- 1489
 stack$ -- 0
-substring$ -- 838
-swap$ -- 1119
-text.length$ -- 36
+substring$ -- 868
+swap$ -- 1146
+text.length$ -- 38
 text.prefix$ -- 0
 top$ -- 5
 type$ -- 25
 warning$ -- 0
-while$ -- 84
+while$ -- 88
 width$ -- 27
-write$ -- 271
+write$ -- 274
