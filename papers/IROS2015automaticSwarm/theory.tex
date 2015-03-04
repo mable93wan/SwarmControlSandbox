@@ -322,6 +322,16 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \EndLoop
 \end{algorithmic}
 \end{algorithm}
+\begin{figure}
+\centering
+\begin{overpic}[scale=.3]{hysteresis.png}
+\put(39,21){$\sigma^2 < \sigma^2_{min}$ }
+\put(39,5){$\sigma^2 > \sigma^2_{max}$}\end{overpic}
+\vspace{-1em}
+\caption{\label{fig:hysteresis} Two states for controlling the mean and variance of a robot swarm.
+%\vspace{-2em}
+}
+\end{figure}
 
 A key challenge is to select proper values for $\sigma_{min}^2$ and $\sigma_{max}^2$.  The optimal packing density is 
 $ \sigma^2_{optimal}(n,r) = n r^2 \frac{\sqrt{3}}{2 \pi} $.  
@@ -344,16 +354,7 @@ $ \sigma^2_{min} = 10r+ \sigma^2_{optimal}(n,r)$, and $ \sigma^2_{min} = 30r+ \s
 %hysteresis control law, \cite{sadra2014}
 
 
-\begin{figure}
-\centering
-\begin{overpic}[scale=.3]{hysteresis.png}
-\put(39,21){$\sigma^2 < \sigma^2_{min}$ }
-\put(39,5){$\sigma^2 > \sigma^2_{max}$}\end{overpic}
-\vspace{-1em}
-\caption{\label{fig:hysteresis} Two states for controlling the mean and variance of a robot swarm.
-%\vspace{-2em}
-}
-\end{figure}
+
 
 
 
