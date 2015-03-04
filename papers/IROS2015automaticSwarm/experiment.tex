@@ -3,8 +3,55 @@
 \section{Block-Pushing Results}\label{sec:expResults}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The experimental section compares the results of our hysteresis-based controller applied to a \emph{block-pushing} task.  In preliminary work over 1000 human users completed this task using varying levels of feedback. To our surprise, users who received the lowest amount of feedback -- just the moments of the position distribution of the robot swarm -- performed better than users with full state feedback.
- The original experiment explored manipulation with varying amounts of sensing information: {\bf full-state} sensing provides the most information by showing the position of all robots; {\bf convex-hull} draws a convex hull around the outermost robots; {\bf mean} provides the average position of the population; and {\bf mean + variance} adds a confidence ellipse. Fig.~\ref{fig:Visualization} shows screenshots of the same robot swarm with each type of visual feedback. Full-state requires $2n$ data points for $n$ robots. Convex-hull requires at worst $2n$, but usually a smaller number.  Mean requires two, and variance three, data points.  Mean and mean + variance are convenient even with millions of robots. Our hypothesis predicted a steady decay in performance as the amount of visual feedback decreased.
+The experimental section compares the results of our hybrid hysteresis-based controller and human user results attempting a \emph{block-pushing} task.  
+
+\subsection{Human-Controlled Block Pushing}
+
+In previous work over 1000 human users completed this task using varying levels of feedback.
+ The original experiment explored manipulation with varying amounts of sensing information: {\bf full-state} sensing showed the position of all robots; {\bf convex-hull} drew a convex hull around the outermost robots; {\bf mean} displayed the average position of the population; and {\bf mean + variance} added a confidence ellipse. Fig.~\ref{fig:Visualization} shows screenshots of the same robot swarm with each type of visual feedback. Full-state requires $2n$ data points for $n$ robots. Convex-hull requires at worst $2n$, but usually a smaller number.  Mean requires two, and variance three, data points.  Mean and mean + variance are convenient even with millions of robots. We hypothesized a steady decay in performance as the amount of visual feedback decreased.
+
+
+\begin{figure}
+\centering
+\begin{overpic}[width = \columnwidth]{ResVaryVis.pdf}\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:ResVaryVis} Completion-time results for the four levels of visual feedback shown in Fig.~\ref{fig:Visualization}. 
+%\vspace{-2em}
+}
+\end{figure}
+
+\begin{figure}[b!]
+\renewcommand{\figwid}{0.24\columnwidth}
+\begin{overpic}[width =\figwid]{VaryVisFS.pdf}\put(20,15){Full-state}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisCH.pdf}\put(10,15){Convex-hull}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisMV.pdf}\put(10,15){Mean + var}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisMe.pdf}\put(30,15){Mean}\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:Visualization}Screenshots from a block-pushing task with human users. This experiment challenged players to quickly steer 100 robots (blue discs) to push an object (green hexagon) into a goal region. 
+%\vspace{-1em}
+}
+\end{figure}
+
+To our surprise, the results summarized in \ref{fig:ResVaryVis} indicated the opposite: players  with just the mean completed the task faster than those with full-state feedback.  As Fig.~\ref{fig:ResVaryVis} shows, the levels of feedback arranged by increasing completion time are [mean, mean + variance, full-state, convex-hull].  Interviews with  beta-testers suggests that tracking 100 robots was overwhelming---similar to schooling phenomenons that confuse predators---while working with just the mean + variance was like using a ``spongy'' manipulator. Convex-hull feedback was confusing and irritating because a single robot left behind an obstacle would distort the entire hull, obscuring the information about the majority of the swarm.
+%obscuring what the rest of the swarm is doing.   
+
+
+\subsection{Automated Block Pushing}
+
+To solve this block-pushing task, we discretized the environment.  On this discretized grid we used breadth-first search to determine $\mathbf{M}$, the shortest path from any point for the block to the goal, and generated a gradient map $\nabla \mathbf{M}$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The block's center of mass is at $\mathbf{b}$ and has radius $r_b$. The robots were then directed to assemble at  $\mathbf{b} - r_b \nabla \mathbf{M}$ to push the block toward the goal location. We use the hybrid hysteresis-based controller in Alg.~\ref{alg:MeanVarianceControl}  to track the desired position, while maintaining sufficient robot density to move a block by switching to minimize variance whenever variance exceeds a set limit. The control algorithm  for block-pushing is listed in Alg.~\ref{alg:BlockPushing}. Figure~\ref{fig:story} shows snapshots during an execution of this algorithm.
+
+\begin{figure}
+\centering
+\begin{overpic}[scale=0.2]{BFSMode.png}
+\end{overpic}
+\begin{overpic}[scale=0.2]{GradientMode.png}
+\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:BFSGradient}The BFS algorithm finds the shortest path for the moveable block (left), which is used to compute gradient vectors (right).
+%\vspace{-2em}
+}
+\end{figure}
+
 
 \begin{figure*}
 \centering
@@ -20,57 +67,18 @@ The experimental section compares the results of our hysteresis-based controller
 \begin{overpic}[width =\figwid]{story5.png}\put(6,15){T = 33 s}
 \end{overpic}
 \vspace{-1em}
-\caption{\label{fig:story}These snapshots show the block pushing experiment. 
+\caption{\label{fig:story}Snapshots showing the block pushing experiment under automatic control.  See the video attachment for an animation. 
 %\vspace{-2em}
 }
 \end{figure*}
-\begin{figure}
-\centering
-\begin{overpic}[width = \columnwidth]{ResVaryVis.pdf}\end{overpic}
-\vspace{-2em}
-\caption{\label{fig:ResVaryVis} Completion-time results for the four levels of visual feedback shown in Fig.~\ref{fig:Visualization}. Surprisingly, players perform better with limited feedback--subjects with only the mean + variance  outperformed all others.
-%\vspace{-2em}
-}
-\end{figure}
 
-\begin{figure}[b!]
-\renewcommand{\figwid}{0.24\columnwidth}
-\begin{overpic}[width =\figwid]{VaryVisFS.pdf}\put(20,15){Full-state}\end{overpic}
-\begin{overpic}[width =\figwid]{VaryVisCH.pdf}\put(10,15){Convex-hull}\end{overpic}
-\begin{overpic}[width =\figwid]{VaryVisMV.pdf}\put(10,15){Mean + var}\end{overpic}
-\begin{overpic}[width =\figwid]{VaryVisMe.pdf}\put(30,15){Mean}\end{overpic}
-\vspace{-2em}
-\caption{\label{fig:Visualization}Screenshots from task \emph{Vary Visualization}. This experiment challenges players to quickly steer 100 robots (blue discs) to push an object (green hexagon) into a goal region. We record the completion time and other statistics.
-%\vspace{-1em}
-}
-\end{figure}
-
-To our surprise, our experiment indicated the opposite: players  with just the mean completed the task faster than those with full-state feedback.  As Fig.~\ref{fig:ResVaryVis} shows, the levels of feedback arranged by increasing completion time are [mean + variance, mean, full-state, convex-hull].  Anecdotal evidence from beta-testers who played the game suggests that tracking 100 robots is overwhelming---similar to schooling phenomenons that confuse predators---while working with just the mean + variance is like using a ``spongy'' manipulator. Our beta-testers found convex-hull feedback confusing and irritating.  A single robot left behind an obstacle will stretch the entire hull, obscuring the majority of the swarm.
-%obscuring what the rest of the swarm is doing.   
-
-
-\subsection{Automated Block Pushing}
-
-To solve this problem, we discretized the environment.  On this discretized grid we used breadth-first search to determine $M$, the shortest path from any point for the block to the goal, and generated a gradient map $\nabla \mathbf{M}$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The blocks's center of mass is at $\mathbf{b}$ and has radius $r_b$. The robots were then directed to assemble at  $\mathbf{b} - r_b \nabla \mathbf{M}$ to push the block toward the goal location.
-
-\begin{figure}
-\centering
-\begin{overpic}[scale=0.2]{BFSMode.png}
-\end{overpic}
-\begin{overpic}[scale=0.2]{GradientMode.png}
-\end{overpic}
-\vspace{-2em}
-\caption{\label{fig:BFSGradient}The BFS algorithm finds the shortest path for the moveable block (left), which is used to compute gradient vectors (right).
-%\vspace{-2em}
-}
-\end{figure}
 
 \begin{algorithm}
 \caption{Block-pushing controller for a robotic swarm.}\label{alg:BlockPushing}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's center of mass $\mathbf{b}$, and the locations of all convex corners $\mathbf{C}$
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's center of mass $\mathbf{b}$, a map of the environment, and the locations of all convex corners $\mathbf{C}$
 \Require Robot distribution is unimodal
-\Require Obstacle-free straight-line path from swarm to moveable block
+\Require Obstacle-free, straight-line path from swarm to moveable block
 \Loop
 \State  Compute the ?
 \State Compute the ?
@@ -79,8 +87,6 @@ To solve this problem, we discretized the environment.  On this discretized grid
 \end{algorithm}
 
 
-
-\todo{plot of results, comparing to humans}
 
 
 \begin{figure}

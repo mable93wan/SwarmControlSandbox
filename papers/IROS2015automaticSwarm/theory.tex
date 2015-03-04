@@ -330,8 +330,8 @@ $ \sigma^2_{min} = 10r+ \sigma^2_{optimal}(n,r)$, and $ \sigma^2_{min} = 30r+ \s
 
 \begin{equation} \label{eq:hysteresis}
 switch = \left\{ \begin{matrix} 
-1 &\rightarrow & 2 & \sigma^2 & > & \sigma^2_{max} \\
-2 & \rightarrow & 1 & \sigma^2 & < & \sigma^2_{min} 
+1 &\rightarrow & 2, \quad & \sigma^2 & > & \sigma^2_{max} \\
+2 & \rightarrow & 1, \quad & \sigma^2 & < & \sigma^2_{min} 
 \end{matrix}  \right.
 \end{equation}
 %what images should I show here?
@@ -344,7 +344,7 @@ This is a standard technique for dealing with control objectives that evolve at 
 \put(39,21){$\sigma^2 < \sigma^2_{min}$ }
 \put(39,5){$\sigma^2 > \sigma^2_{max}$}\end{overpic}
 \vspace{-1em}
-\caption{\label{fig:hysteresis} Two states for controlling variances.
+\caption{\label{fig:hysteresis} Two states for controlling the mean and variance of a robot swarm.
 %\vspace{-2em}
 }
 \end{figure}
