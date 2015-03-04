@@ -51,6 +51,18 @@ var mapXSize = 20;
 var mapYSize = 20;
 var mapScale = 30;
 
+
+var max_desired_var_x = 1;//numrobots * robotrad * 1/2;
+var min_desired_var_x = 0.5;//numrobots * robotrad * 3/2;;
+var max_desired_var_y = max_desired_var_x;
+var min_desired_var_y = min_desired_var_x;
+var min_desired_var_xInt = min_desired_var_x;
+var min_desired_var_yInt = min_desired_var_x;
+var max_desired_var_xInt = max_desired_var_x;
+var max_desired_var_yInt = max_desired_var_x;
+var done = false;
+
+
 var blockCOM_x = 0;
 var blockCOM_y = 0;
 // checking variables.
@@ -285,7 +297,7 @@ function init()
 	//create the robots
 	bodyDef.type = b2Body.b2_dynamicBody;
 	var robotrad = 0.1; //for SwarmControl.net, we used 0.2;
-	var numrobots = 200;//Math.floor(20/(4*robotrad*robotrad));
+	var numrobots = 20;//Math.floor(20/(4*robotrad*robotrad));
 	if(BFSDebugMode || Gradient_DebugMode)
 	{
 		numrobots = 0;
@@ -626,21 +638,34 @@ function init()
 	// CONTROLLER
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//goal positions
-	var cycleInSec = 20;
+	var cycleInSec = 10;
 	var amplitudeY = 5;
 	var offsetY = 5;
 	var amplitudeX = 5;
 	var offsetX = 5;
-	var max_desired_var_x = 5;//numrobots * robotrad * 1/2;
-	var min_desired_var_x = 3;//numrobots * robotrad * 3/2;;
-	var max_desired_var_y = max_desired_var_x;
-	var min_desired_var_y = min_desired_var_x;
+
 	var sum_position_x = 0;
 	var sum_position_y = 0;
 	var sum2_x = 0;
 	var sum2_y = 0;
 	var desired_var_x;
 	var cov_xy = 0;
+	var varDelta = 0.1;
+	if( elapsedTimeSec%cycleInSec > cycleInSec/2  )
+	{
+		if(!done){
+		done = true;
+		min_desired_var_xInt = min_desired_var_x;
+		min_desired_var_yInt = min_desired_var_y;
+		max_desired_var_xInt = max_desired_var_x;
+		max_desired_var_yInt = max_desired_var_y;
+		}
+
+	}
+	else
+	{
+		done = false;
+	}
 
 	for(var i = 0; i < numrobots; ++i) {
 		sum_position_x += m_Robot[i].GetPosition().x;
@@ -692,28 +717,36 @@ function init()
 		var block_x = Math.floor(blockCOM_x);
 		var block_y = Math.floor(blockCOM_y);
 
-		if(var_x < min_desired_var_x && var_y < min_desired_var_y)
+		if(var_x < min_desired_var_xInt && var_y < min_desired_var_yInt)
 		{
 			flagVar = false;
+	
 		}
-		if(var_x > max_desired_var_x || var_y > max_desired_var_y)
+		if(var_x > max_desired_var_xInt || var_y > max_desired_var_yInt)
 		{
 			flagVar = true;
+		}
+		if(flagVar)
+		{
+			min_desired_var_xInt =  min_desired_var_xInt + varDelta;
+			min_desired_var_yInt = min_desired_var_yInt + varDelta;
+			max_desired_var_xInt = max_desired_var_xInt + varDelta;
+			max_desired_var_yInt = max_desired_var_yInt + varDelta;
 			var cornerNum = 6;
 			var dist2corner = new Array(cornerNum);
 			var COMdist2corner = new Array(cornerNum);
 			var CornerValuesX = new Array(cornerNum);
 			var CornerValuesY = new Array(cornerNum);
-			CornerValuesX[0] = 2;
-			CornerValuesY[0] = 18;
-			CornerValuesX[1] = 18;
-			CornerValuesY[1] = 18;
-			CornerValuesX[2] = 18;
-			CornerValuesY[2] = 8;
-			CornerValuesX[3] = 2;
-			CornerValuesY[3] = 12;
-			CornerValuesX[4] = 2;
-			CornerValuesY[4] = 2;
+			CornerValuesX[0] = 1;
+			CornerValuesY[0] = 19;
+			CornerValuesX[1] = 19;
+			CornerValuesY[1] = 19;
+			CornerValuesX[2] = 19;
+			CornerValuesY[2] = 7;
+			CornerValuesX[3] = 1;
+			CornerValuesY[3] = 13;
+			CornerValuesX[4] = 1;
+			CornerValuesY[4] = 1;
 			CornerValuesX[5] = 100;
 			CornerValuesY[5] = 100;
 			var minDistCorner = 10000;
@@ -751,6 +784,23 @@ function init()
 		x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 		radius: radius * mapScale
 	}).restoreCanvas();
+	$("canvas").drawEllipse({
+			strokeStyle: "green",
+			strokeWidth: 5,
+			setLineDash: 6 , 
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * 30*Math.sqrt(min_desired_var_xInt), height: 3 * 30*Math.sqrt(min_desired_var_yInt),
+			rotate: angle2
+		}).restoreCanvas();
+	$("canvas").drawEllipse({
+			strokeStyle: "green",
+			strokeWidth: 5,
+			setLineDash: 6 , 
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * 30*Math.sqrt(max_desired_var_xInt), height: 3 * 30*Math.sqrt(max_desired_var_yInt),
+			rotate: angle2
+		}).restoreCanvas();
+
 	var Kgain = 12;
 	var Kderivative = 1;
 	var sum_velocity_x = 0;
