@@ -53,12 +53,13 @@ To our surprise, the results summarized in \ref{fig:ResVaryVis} indicated the op
 \While{$\sigma^2 > \sigma_{min}^2$}
 \State $\mathbf{c}_i \gets$ the nearest corner in $\mathbf{C}$ to $[\bar{x},\bar{y}]$
 \State $ [x_{goal}, y_{goal}] \gets \mathbf{c}_i $
-\If {$\mathbf{b}$ is between $[\bar{x},\bar{y}]$ and $\mathbf{c}_i$}
+\If {$\mathbf{M}(\mathbf{b}) > \mathbf{M} (\mathbf{c}_i)$}
 \State  $[x_{goal}, y_{goal}] \gets  \mathbf{c}_{i-1}$ 
+\State Apply \eqref{eq:PDcontrolPosition} to move toward $[x_{goal}, y_{goal}]$
 \EndIf
 \EndWhile
 \Else  
-\State $[x_{goal}, y_{goal}] \gets \mathbf{b} - r_b \nabla \mathbf{M}$ 
+\State $[x_{goal}, y_{goal}] \gets \mathbf{b} - r_b \nabla \mathbf{M}(\mathbf{b})$ 
 \EndIf
 \State Apply \eqref{eq:PDcontrolPosition} to move toward $[x_{goal}, y_{goal}]$
 \EndWhile
@@ -78,7 +79,7 @@ To our surprise, the results summarized in \ref{fig:ResVaryVis} indicated the op
 \end{figure}
 
 
-To solve this block-pushing task, we discretized the environment.  On this discretized grid we used breadth-first search to determine $\mathbf{M}$, the shortest distance from any grid cell to the goal, and generated a gradient map $\nabla \mathbf{M}$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The block's center of mass is at $\mathbf{b}$ and has radius $r_b$. The robots were then directed to assemble at  $\mathbf{b} - r_b \nabla \mathbf{M}$ to push the block toward the goal location. We use the hybrid hysteresis-based controller in Alg.~\ref{alg:MeanVarianceControl}  to track the desired position, while maintaining sufficient robot density to move a block by switching to minimize variance whenever variance exceeds a set limit. The minimize variance control law \eqref{eq:PDcontrolVariance} is slightly modified to choose the nearest corner further from the goal than $\mathbf{b}$ with an obstacle-free straight-line path to $\mathbf{b}$. 
+To solve this block-pushing task, we discretized the environment.  On this discretized grid we used breadth-first search to determine $\mathbf{M}$, the shortest distance from any grid cell to the goal, and generated a gradient map $\nabla \mathbf{M}$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The block's center of mass is at $\mathbf{b}$ and has radius $r_b$. The robots were then directed to assemble at  $\mathbf{b} - r_b \nabla \mathbf{M}(\mathbf{b})$ to push the block toward the goal location. We use the hybrid hysteresis-based controller in Alg.~\ref{alg:MeanVarianceControl}  to track the desired position, while maintaining sufficient robot density to move a block by switching to minimize variance whenever variance exceeds a set limit. The minimize variance control law \eqref{eq:PDcontrolVariance} is slightly modified to choose the nearest corner further from the goal than $\mathbf{b}$ with an obstacle-free straight-line path to $\mathbf{b}$. 
 The control algorithm  for block-pushing is listed in Alg.~\ref{alg:BlockPushing}. 
 Figure~\ref{fig:story} shows snapshots during an execution of this algorithm, and experimental results are summarized in Fig.~\ref{fig:AutoControlVaryN}.
 
