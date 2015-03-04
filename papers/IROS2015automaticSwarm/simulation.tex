@@ -121,7 +121,7 @@ here $K_{p}$ is the proportional gain, and $K_{d}$ is the derivative gain. We pe
 
 %cite the control law, explain experiment (number of robots, maximum speed, ).
 
-For variance control we use the control law discussed in Section~\ref{sec:VarianceControl}.  Moving away from the wall and waiting is sufficient to increase variance because Brownian noise naturally disperses the swarm in such a way that the variance increases linearly~\cite{einstein1956investigations}.  If faster dispersion is needed, the swarm can be pushed through obstacles such as a diffraction grating or Pachinko board~\cite{Becker2013b}. To decrease the variance, we push the swarm into corners to decrease the variance.  Our algorithm identifies the nearest corner by \todo{ how does it work?}
+For variance control we use the control law discussed in Section~\ref{sec:VarianceControl}.  Moving away from the wall and waiting is sufficient to increase variance because Brownian noise naturally disperses the swarm in such a way that the variance increases linearly~\cite{einstein1956investigations}.  If faster dispersion is needed, the swarm can be pushed through obstacles such as a diffraction grating or Pachinko board~\cite{Becker2013b}. To decrease the variance, we push the swarm into corners. Our algorithm identifies the nearest corner by calculating distance to the corners. Corners are sorted. If the block is ahead of the swarm, the swarm will go to the previous corner for not pushing the block backward. \todo{ Is this explanation good?}
 The variance control law has three gains:
 \begin{align}
 u_x &= K_{p}(x_{goal}(\sigma^2_{ref}) - \bar{x}) - K_{d}\bar{v}_x + K_{i}(\sigma^2_{ref}-\sigma^2_{x}) \nonumber\\
@@ -133,7 +133,7 @@ x_{goal}(\sigma^2_{ref}) = r + \sqrt{3\sigma^2_{ref}}
 \end{align}
  If another wall is closer, the signs of $K_p,K_i$ are inverted, and the location $x_{goal}$ is translated. In a slight abuse of notation, because the variance integrates over time, we call the gain scaling the variance error $K_i$.  Results are shown in Fig.~\ref{fig:varyBrownian}, with $K_{p,i,d} = [4,1,1]$.
 
-%\todo{Are the gain values and control law correct?}
+%\todo{Are the gain values and control law correct?}s
 
 \todo{image showing control x variance and y-variance out of phase}
 
