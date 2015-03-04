@@ -79,10 +79,25 @@ To solve this block-pushing task, we discretized the environment.  On this discr
 \Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's center of mass $\mathbf{b}$, a map of the environment, and the locations of all convex corners $\mathbf{C}$
 \Require Robot distribution is unimodal
 \Require Obstacle-free, straight-line path from swarm to moveable block
-\Loop
-\State  Compute the ?
-\State Compute the ?
-\EndLoop
+\State Compute the shortest path with breadth-first search
+\State Compute the gradient of each cell using the bfs values
+\While{$\mathbf{b}$ is not in goal region}
+\State  Compute $\sigma^2$
+\If {$\sigma^2 > \sigma_{max}^2$}
+\While{$\sigma^2 > \sigma_{min}^2$}
+\State c = the nearest corner in $\mathbf{C}$
+\If {$\mathbf{b}$ is between $[\bar{x},\bar{y}]$ and c}
+\State Go to the previous corner of c in $\mathbf{C}$
+\Else 
+\State Go to c
+\EndIf
+\EndWhile
+
+\Else  
+\State $goal_{temp} = \mathbf{b} + r * gradient(\mathbf{b})$ 
+\State Go to $goal_{temp}$
+\EndIf
+\EndWhile
 \end{algorithmic}
 \end{algorithm}
 

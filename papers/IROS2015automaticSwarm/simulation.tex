@@ -125,7 +125,7 @@ For variance control we use the control law discussed in Section~\ref{sec:Varian
 The variance control law has three gains:
 \begin{align}
 u_x &= K_{p}(x_{goal}(\sigma^2_{ref}) - \bar{x}) - K_{d}\bar{v}_x + K_{i}(\sigma^2_{ref}-\sigma^2_{x}) \nonumber\\
-u_y &= K_{p}(y_{goal}(\sigma^2_{ref})  - \bar{y}) - K_{d}\bar{v}_y + K_{i}(\sigma^2_{ref}-\sigma^2_{x}).  \label{eq:PDcontrolVariance}
+u_y &= K_{p}(y_{goal}(\sigma^2_{ref})  - \bar{y}) - K_{d}\bar{v}_y + K_{i}(\sigma^2_{ref}-\sigma^2_{y}).  \label{eq:PDcontrolVariance}
 \end{align}
 The following assumes that the nearest wall is to the left of the robot at $x=0$:
 \begin{align}
@@ -133,7 +133,7 @@ x_{goal}(\sigma^2_{ref}) = r + \sqrt{3\sigma^2_{ref}}
 \end{align}
  If another wall is closer, the signs of $K_p,K_i$ are inverted, and the location $x_{goal}$ is translated. In a slight abuse of notation, because the variance integrates over time, we call the gain scaling the variance error $K_i$.  Results are shown in Fig.~\ref{fig:varyBrownian}, with $K_{p,i,d} = [4,1,1]$.
 
-\todo{Are the gain values and control law correct?}
+%\todo{Are the gain values and control law correct?}
 
 \todo{image showing control x variance and y-variance out of phase}
 

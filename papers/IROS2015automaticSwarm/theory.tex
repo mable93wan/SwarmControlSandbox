@@ -82,14 +82,7 @@ We want to find number of states that we can control, which is given by the rank
 0 & 0\\
 0 & \frac{1}{m}\\
 0 & 0
-\end{bmatrix},
-\begin{bmatrix} 
-0 & 0\\
-0 & 0\\
-0 & 0\\
-0 & 0
 \end{bmatrix}
-, \ldots
  \right\}
 \end{equation}
 And thus all four states are controllable
@@ -298,7 +291,7 @@ $\dot{V}(t,{\bf x})$ is negative definite and the variance is globally asymptoti
 
 \subsection{Controlling both the mean and the variance of many robots}
 
-The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much less than the maximum controlled speed, we can adopt a hybrid, hysteresis-based controller to regulate the mean and variance shown in Alg.~\ref{alg:MeanVarianceControl}.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to minimizing variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position this process is illustrated in Fig.~\ref{fig:hysteresis}. 
+The mean and variance of the swarm cannot be controlled simultaneously, however if the dispersion due to Brownian motion is much less than the maximum controlled speed, we can adopt a hybrid, hysteresis-based controller to regulate the mean and variance shown in Alg.~\ref{alg:MeanVarianceControl}.  Such a controller normally controls the mean position according to \eqref{eq:PDcontrolPosition}, but switches to minimizing variance if the variance exceeds some $\sigma_{max}^2$.  The variance is lowered to less than $\sigma_{min}^2$, and the system returns to controlling the mean position. This process is illustrated in Fig.~\ref{fig:hysteresis}. 
 
 
 \begin{algorithm}
@@ -306,8 +299,28 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \begin{algorithmic}[1]
 \Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, and $x_{min}, x_{max}, y_{min}, y_{max}$, the locations of the rectangular boundary.
 \Loop
-\State  Compute the ?
-\State Compute the ?
+\State $x_{goal} = desired\_ x$
+\State $y_{goal} = desired\_ y$
+\State $flag_x = false$ 
+\State $flag_y = false$ 
+\State  Compute $\sigma^2$
+
+\If {$\sigma_x^2 > \sigma_{max}^2$ OR $flag_x == true$}
+\State $x_{goal} = x_{min}$
+\State $flag_x = true$
+\EndIf
+\If{$\sigma_y^2 > \sigma_{max}^2$ OR $flag_y == true$}
+\State $y_{goal} = y_{min}$
+\State $flag_y = true$
+\EndIf
+
+\If {$flag_x == true$ AND $\sigma_x^2 < \sigma_{min}^2$}
+\State $flag_x = false$
+\EndIf
+\If {$flag_y == true$ AND $\sigma_y^2 < \sigma_{min}^2$}
+\State $flag_y = false$
+\EndIf
+\State Go to $[x_{goal}, y_{goal}]$
 \EndLoop
 \end{algorithmic}
 \end{algorithm}
@@ -330,8 +343,8 @@ $ \sigma^2_{min} = 10r+ \sigma^2_{optimal}(n,r)$, and $ \sigma^2_{min} = 30r+ \s
 
 \begin{equation} \label{eq:hysteresis}
 switch = \left\{ \begin{matrix} 
-1 &\rightarrow & 2, \quad & \sigma^2 & > & \sigma^2_{max} \\
-2 & \rightarrow & 1, \quad & \sigma^2 & < & \sigma^2_{min} 
+1 &\rightarrow & 2, \quad &\sigma^2 & > & \sigma^2_{max} \\
+2 & \rightarrow & 1, \quad &\sigma^2 & < & \sigma^2_{min} 
 \end{matrix}  \right.
 \end{equation}
 %what images should I show here?
