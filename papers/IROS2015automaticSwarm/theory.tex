@@ -253,7 +253,7 @@ where $W\bm{\varepsilon}(t)$ is a random perturbation produced by Brownian noise
 %\end{equation}
 If the robots are in a bounded environment with sides of length $[\ell_x, \ell_y]$, the unforced variance asymptotically grows to the variance of a uniform distribution,
 \begin{align}
-[\sigma_x^2,\sigma_y^2] = \frac{1}{12}[ (\ell_x - 2 r)^2,(\ell_y - 2 r)^2].
+[\sigma_x^2,\sigma_y^2] = \frac{1}{12}[ (\ell_x - 2 r)^2,(\ell_y - 2 r)^2].\label{eq:VarianceUniformDistribution}
 \end{align}
  Therefore, to achieve a desired variance $\sigma^2_{goal}$, the swarm's mean position must be at least $r+\sqrt{3 \sigma^2_{goal}}$ from the nearest wall.
 
@@ -297,30 +297,30 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \begin{algorithm}
 \caption{Hybrid mean and variance control}\label{alg:MeanVarianceControl}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, and $x_{min}, x_{max}, y_{min}, y_{max}$, the locations of the rectangular boundary.
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the locations of the rectangular boundary $\{x_{min}, x_{max}, y_{min}, y_{max}\}$, and the target mean position $[x_{target},y_{target}]$.
+\State $flag_x = false$ %TODO: what is 'false' variable in latex?
+\State $flag_y = false$  %TODO: use assignment operator instead of '=' sign.
+\State $x_{goal} =  x_{target}$   
+\State $y_{goal} = y_{target}$
 \Loop
-\State $x_{goal} = desired\_ x$
-\State $y_{goal} = desired\_ y$
-\State $flag_x = false$ 
-\State $flag_y = false$ 
-\State  Compute $\sigma^2$
+\State  Compute $\sigma_x^2, \sigma_y^2$
 
-\If {$\sigma_x^2 > \sigma_{max}^2$ OR $flag_x == true$}
+\If {$\sigma_x^2 > \sigma_{max}^2$}
 \State $x_{goal} = x_{min}$
 \State $flag_x = true$
-\EndIf
-\If{$\sigma_y^2 > \sigma_{max}^2$ OR $flag_y == true$}
-\State $y_{goal} = y_{min}$
-\State $flag_y = true$
-\EndIf
-
-\If {$flag_x == true$ AND $\sigma_x^2 < \sigma_{min}^2$}
+\Else {\bf if} {$flag_x$ AND $\sigma_x^2 < \sigma_{min}^2$}
+\State $y_{goal} =  y_{target}$
 \State $flag_x = false$
 \EndIf
-\If {$flag_y == true$ AND $\sigma_y^2 < \sigma_{min}^2$}
+
+\If{$\sigma_y^2 > \sigma_{max}^2$}
+\State $y_{goal} = y_{min}$
+\State $flag_y = true$
+\Else {\bf~if} {$flag_y$ AND $\sigma_y^2 < \sigma_{min}^2$}
+\State $y_{goal} =  y_{target}$
 \State $flag_y = false$
 \EndIf
-\State Go to $[x_{goal}, y_{goal}]$
+\State Apply \eqref{eq:PDcontrolPosition} to move toward $[x_{goal}, y_{goal}]$
 \EndLoop
 \end{algorithmic}
 \end{algorithm}

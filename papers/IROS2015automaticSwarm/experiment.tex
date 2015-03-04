@@ -5,7 +5,7 @@
 
 The experimental section compares the results of our hybrid hysteresis-based controller and human user results attempting a \emph{block-pushing} task.  
 
-\subsection{Human-Controlled Block Pushing}
+\subsection{Human-Controlled Block-Pushing}
 
 In previous work over 1000 human users completed this task using varying levels of feedback.
  The original experiment explored manipulation with varying amounts of sensing information: {\bf full-state} sensing showed the position of all robots; {\bf convex-hull} drew a convex hull around the outermost robots; {\bf mean} displayed the average position of the population; and {\bf mean + variance} added a confidence ellipse. Fig.~\ref{fig:Visualization} shows screenshots of the same robot swarm with each type of visual feedback. Full-state requires $2n$ data points for $n$ robots. Convex-hull requires at worst $2n$, but usually a smaller number.  Mean requires two, and variance three, data points.  Mean and mean + variance are convenient even with millions of robots. We hypothesized a steady decay in performance as the amount of visual feedback decreased.
@@ -36,9 +36,11 @@ To our surprise, the results summarized in \ref{fig:ResVaryVis} indicated the op
 %obscuring what the rest of the swarm is doing.   
 
 
-\subsection{Automated Block Pushing}
+\subsection{Automated Block-Pushing}
 
-To solve this block-pushing task, we discretized the environment.  On this discretized grid we used breadth-first search to determine $\mathbf{M}$, the shortest path from any point for the block to the goal, and generated a gradient map $\nabla \mathbf{M}$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The block's center of mass is at $\mathbf{b}$ and has radius $r_b$. The robots were then directed to assemble at  $\mathbf{b} - r_b \nabla \mathbf{M}$ to push the block toward the goal location. We use the hybrid hysteresis-based controller in Alg.~\ref{alg:MeanVarianceControl}  to track the desired position, while maintaining sufficient robot density to move a block by switching to minimize variance whenever variance exceeds a set limit. The control algorithm  for block-pushing is listed in Alg.~\ref{alg:BlockPushing}. Figure~\ref{fig:story} shows snapshots during an execution of this algorithm.
+To solve this block-pushing task, we discretized the environment.  On this discretized grid we used breadth-first search to determine $\mathbf{M}$, the shortest path from any point for the block to the goal, and generated a gradient map $\nabla \mathbf{M}$ toward the goal as shown in Fig.~\ref{fig:BFSGradient}.  The block's center of mass is at $\mathbf{b}$ and has radius $r_b$. The robots were then directed to assemble at  $\mathbf{b} - r_b \nabla \mathbf{M}$ to push the block toward the goal location. We use the hybrid hysteresis-based controller in Alg.~\ref{alg:MeanVarianceControl}  to track the desired position, while maintaining sufficient robot density to move a block by switching to minimize variance whenever variance exceeds a set limit. The minimize variance control law \eqref{eq:PDcontrolVariance} is slightly modified to choose the nearest corner further from the goal than $\mathbf{b}$ with an obstacle-free straight-line path to $\mathbf{b}$. 
+The control algorithm  for block-pushing is listed in Alg.~\ref{alg:BlockPushing}. 
+Figure~\ref{fig:story} shows snapshots during an execution of this algorithm.
 
 \begin{figure}
 \centering
@@ -51,6 +53,8 @@ To solve this block-pushing task, we discretized the environment.  On this discr
 %\vspace{-2em}
 }
 \end{figure}
+
+
 
 
 \begin{figure*}
@@ -67,7 +71,7 @@ To solve this block-pushing task, we discretized the environment.  On this discr
 \begin{overpic}[width =\figwid]{story5.png}\put(6,15){T = 33 s}
 \end{overpic}
 \vspace{-1em}
-\caption{\label{fig:story}Snapshots showing the block pushing experiment under automatic control.  See the video attachment for an animation. 
+\caption{\label{fig:story}Snapshots showing the block-pushing experiment under automatic control.  See the video attachment for an animation. 
 %\vspace{-2em}
 }
 \end{figure*}
@@ -79,15 +83,16 @@ To solve this block-pushing task, we discretized the environment.  On this discr
 \Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's center of mass $\mathbf{b}$, a map of the environment, and the locations of all convex corners $\mathbf{C}$
 \Require Robot distribution is unimodal
 \Require Obstacle-free, straight-line path from swarm to moveable block
-\State Compute the shortest path with breadth-first search, $\mathbf{M}$
-\State Compute the gradient of each cell using the bfs values, $\nabla \mathbf{M}$
+\State Compute $\mathbf{M}$, the distance to goal, with breadth-first search,
+\State Compute the gradient, $\nabla \mathbf{M}$
+\State $\mathbf{C}= \mathrm{sort(\mathbf{C})}$ by $-\mathbf{M}$
 \While{$\mathbf{b}$ is not in goal region}
-\State  Compute $\sigma^2$
+\State  Compute $\sigma^2 = \max{\sigma_x,\sigma_y}$
 \If {$\sigma^2 > \sigma_{max}^2$}
 \While{$\sigma^2 > \sigma_{min}^2$}
-\State c = the nearest corner in $\mathbf{C}$
-\If {$\mathbf{b}$ is between $[\bar{x},\bar{y}]$ and c}
-\State Go to the previous corner of c in $\mathbf{C}$
+\State $\mathbf{c} =$ the nearest corner in $\mathbf{C}$
+\If {$\mathbf{b}$ is between $[\bar{x},\bar{y}]$ and $\mathbf{c}$}
+\State Go to the previous corner of $\mathbf{c}$ in $\mathbf{C}$
 \Else 
 \State Go to c
 \EndIf
