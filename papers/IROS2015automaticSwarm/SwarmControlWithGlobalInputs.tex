@@ -22,6 +22,7 @@
 }
 \usepackage{graphicx}
 \usepackage[cmex10]{amsmath}
+\usepackage{bm}
 \usepackage{amssymb}
 \usepackage{rotating}
 
@@ -175,7 +176,7 @@ Stochastic Swarm Control with Global Inputs
 \maketitle
 
 \begin{abstract}
-Micro and nano robots can be built in large numbers, but generating independent control inputs for each robot is prohibitively difficult.  Instead, micro and nano robots are often controlled by a global field.  In previous work we conducted large-scale human-user experiments where humans played games that steered large swarms of simple robots to complete tasks such as manipulate blocks. One surprising result was that humans completed a block-pushing task \emph{faster} when provided with only the mean and variance of the robot swarm than with full-state feedback.  This paper investigates controllers that use only the mean and variance of a robot swarm. We prove that the mean position is controllable, then provide conditions under which variance is controllable.  We next derive automatic controllers for these and a hysteresis-based switching control to regulate the first two moments of the robot distribution.  Finally, we employ these controllers as primitives for a block-pushing task.
+Micro and nano robots can be built in large numbers, but generating independent control inputs for each robot is prohibitively difficult.  Instead, micro and nano robots are often controlled by a global field.  In previous work we conducted large-scale human-user experiments where humans played games that steered large swarms of simple robots to complete tasks such as manipulating blocks. One surprising result was that humans completed a block-pushing task \emph{faster} when provided with only the mean and variance of the robot swarm than with full-state feedback.  This paper investigates controllers that use only the mean and variance of a robot swarm. We prove that the mean position is controllable, then provide conditions under which variance is controllable.  We next derive automatic controllers for these and a hybrid, hysteresis-based switching control to regulate the first two moments of the robot distribution.  Finally, we employ these controllers as primitives for a block-pushing task.
 
 
 %{The introduction tells us the contribution here.  What did we learn?}
