@@ -22,7 +22,7 @@
 <html>
 	<link rel="ensemble icon" href="pictures/ATBensembleIcon.ico">
 	<head>
-		<title>StochasticSwarmControl</title>
+		<title>Stochastic Swarm Control: Box Pushing</title>
 	</head>
 	<body onload="init();">
 		<canvas id="canvas" width="600" height="600" style="background-color:#EEEEEE;"></canvas>
@@ -33,7 +33,6 @@
 	<script type="text/javascript" src="../shared/jcanvas.min.js"></script>
 	<script type="text/javascript">
 		// in Chrome, to view the console: Use the keyboard shortcut Command - Option - J (Mac) or Control -Shift -J (Windows/Linux).
-
 
 		///////////////////////////////
 		//Begin Global Variables
@@ -64,21 +63,14 @@
 		var map = new Array(mapXSize);
 		var gradient_x = new Array(mapXSize);
 		var gradient_y = new Array(mapXSize);
-		var gradient_angel = new Array(mapXSize);
-
-
+		var gradient_angle = new Array(mapXSize);
 		for (var i = 0; i < mapXSize; i++) 
 		{
 			map[i] = new Array(mapYSize);
 			gradient_x[i] = new Array(mapYSize);
 			gradient_y[i] = new Array(mapYSize);
-			gradient_angel[i] = new Array(mapYSize);
+			gradient_angle[i] = new Array(mapYSize);
 		}
-		
-		
-		
-
-
 		/////////////////////////////
 		//End Global Variables
 		/////////////////////////////
@@ -87,14 +79,10 @@
 		//Begin Algorithmic Functions
 		/////////////////////////////
 
-		// It does BFS
 		function BFS(x, y )
-		{
+		{//recursively compute Breadth First Search from goal to every other grid cell
 			var dist = map[x][y];
 			if(dist == -1)
-			{
-				return;
-			}
 			if(x-1 >0)
 			{
 				if(map[x-1][y] > dist +1)
@@ -103,10 +91,6 @@
 					//console.log("with " + x-1 + " and " + y + " We have : " + map[x-1][y]);
 					BFS(x-1, y);
 				}
-			}
-			else
-			{
-				return;
 			}
 			if(y+1 < mapYSize)
 			{
@@ -117,10 +101,6 @@
 					BFS(x, y+1);
 				}
 			}
-			else
-			{
-				return;
-			}
 			if(y-1 >0)
 			{
 				if(map[x][y-1] > dist +1)
@@ -129,10 +109,6 @@
 					//console.log("with " + x + " and " + y-1 + " We have : " + map[x][y-1]);
 					BFS(x, y-1);
 				}
-			}
-			else
-			{
-				return;
 			}
 			if(x+1 < mapXSize)
 			{
@@ -143,15 +119,10 @@
 					BFS(x+1, y);
 				}
 			}
-			else
-			{
-				return;
-			}
-
 		}
 
 		function Gradient(x,y)
-		{
+		{// computes the x and y gradient of cell(x,y)  requires a map with distance values.
 			var dist = map[x][y];
 			if(dist == -1)
 			{
@@ -195,39 +166,14 @@
 			}
 			if(gradient_x[x][y] != 0 || gradient_y[x][y] != 0)
 			{
-				gradient_angel[x][y] = Math.atan2(gradient_y[x][y],gradient_x[x][y] ) * 180 / Math.PI + 270;
+				gradient_angle[x][y] = Math.atan2(gradient_y[x][y],gradient_x[x][y] ) * 180 / Math.PI + 270;
 			}
 			
 		}
-
 		////////////////////////////
 		//End Algorithmic Functions
 		////////////////////////////
 
-		////////////////////////////
-		//Begin Controller Functions
-		////////////////////////////
-
-		////////////////////////////
-		//End Controller Functions
-		////////////////////////////
-
-		///////////////////////////
-		//Begin Drawing Functions
-		///////////////////////////
-
-
-		///////////////////////////
-		//End Drawing Functions
-		///////////////////////////
-
-		///////////////////////////
-		//Begin Debug Functions
-		///////////////////////////
-
-		///////////////////////////
-		//End Debug Functions
-		///////////////////////////
 
 		function init() 
 		{
@@ -259,7 +205,6 @@
 			var boundaryHeight = 2;
 			var boundaryWidth = 20;
 
-			
 			var fixDef = new b2FixtureDef;
 			fixDef.density = 1.0;
 			fixDef.friction = 0.5;
@@ -282,18 +227,14 @@
 			bodyDef.position.Set(21, 13); // right side
 			world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-
 			// maze
 			bodyDef.userData = 'obstacle';
 	 		fixDef.shape.SetAsBox(10, 0.5);//width, height
 	        bodyDef.position.Set(15, 150 / mapScale + 1.5); //TOP
 	        var bodyBottom = world.CreateBody(bodyDef);
 	        bodyBottom.CreateFixture(fixDef);
-	 
 	        bodyDef.position.Set(5, 400 / mapScale + 0.2); //BOTTOM
 	        world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-
 
 			//create an object to move
 			if(!BFSDebugMode && !Gradient_DebugMode){
@@ -309,10 +250,7 @@
 	        obst.CreateFixture(fixDef);
 	        obst.m_angularDamping = 0.1;
 	        obst.m_linearDamping = 0.1;
-
 }
-	        
-
 			//create the robots
 			bodyDef.type = b2Body.b2_dynamicBody;
 			var robotrad = 0.1;
@@ -326,21 +264,20 @@
 			fixDef.restitution = 0.2; //bouncing value
 			var m_Robot = new Array();
 			var rowLength = Math.floor(5/(2*robotrad));
+			fixDef.shape = new b2CircleShape(
+					robotrad //Math.random() + 0.1 //radius
+			);
+			bodyDef.userData = 'robot';
 			for(var i = 0; i < numrobots; ++i) 
 			{
-				fixDef.shape = new b2CircleShape(
-					robotrad //Math.random() + 0.1 //radius
-				);
-				bodyDef.userData = 'robot';
 				bodyDef.position.x = 1.5+(i%rowLength)*2*robotrad;
 				bodyDef.position.y = 18.5-Math.floor(i/rowLength)*2*robotrad;
 				m_Robot[i] = world.CreateBody(bodyDef);
 				m_Robot[i].CreateFixture(fixDef);
-				m_Robot[i].m_angularDamping = 1;
+				m_Robot[i].m_angularDamping = 1;//was 1, we used 10 on SwarmControl
 				m_Robot[i].m_linearDamping = 1;
 			}
 		
-
 			window.requestAnimFrame = (function()
 			{
 				return window.requestAnimationFrame ||
@@ -364,8 +301,8 @@
 			var goalPositionY = 3;
 			var goalPositionXDraw = 16.5;
 			var goalPositionYDraw = 3.5;
-			//giving -1 to boundaries
-			if(ifBFS)
+			
+			if(ifBFS)//giving -1 to boundaries
 			{	//at the end, map[x][y] is the BFS distance to the goal
 				for(var i = 0 ; i < mapXSize; i++)
 				{
@@ -586,8 +523,8 @@
 						  endArrow: true,
 						  arrowRadius: 10,
 						  arrowAngle: 30,		  
-						  x: mapScale* (i+ 0.5  + 0.5*Math.cos((90+gradient_angel[i][j])*Math.PI/180.0))	 , y: mapScale * (j + 0.5 + 0.5*Math.sin((90+gradient_angel[i][j])*Math.PI/180.0)),
-						  a1: gradient_angel[i][j], l1: mapScale
+						  x: mapScale* (i+ 0.5  + 0.5*Math.cos((90+gradient_angle[i][j])*Math.PI/180.0))	 , y: mapScale * (j + 0.5 + 0.5*Math.sin((90+gradient_angle[i][j])*Math.PI/180.0)),
+						  a1: gradient_angle[i][j], l1: mapScale
 						});
 
 					}
@@ -743,7 +680,7 @@
 				overall_time = day.getTime();
 			}
 			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
-			string = "Time = "+ elapsedTimeSec +"s<br>A PD controller is making robots (blue discs) track a mean vertical position</strong>";
+			string = "Time = "+ elapsedTimeSec +"s<br>Algorithm II  is making robots (blue discs) push a block to the goal</strong>";
 			$('#cc').html(string); //USERDATA WILL SHOWN IN "div" WITH ID "cc"
 
 
@@ -895,7 +832,7 @@
 				goalX = blockCOM_x + r * gradient_x[block_x][block_y];
 				goalY = blockCOM_y + r * gradient_y[block_x][block_y];
 				
-				/*if(map[index_x+ 1][index_y] != -1 && map[index_x+ 1][index_y] < map[block_x][block_y])//gradient_angel[index_x+ 1][index_y] == gradient_angel[block_x+1][block_y])
+				/*if(map[index_x+ 1][index_y] != -1 && map[index_x+ 1][index_y] < map[block_x][block_y])//gradient_angle[index_x+ 1][index_y] == gradient_angle[block_x+1][block_y])
 				{
 					goalX = block_x + 1 + 0.5;
 					goalY = block_y + 0.5;
