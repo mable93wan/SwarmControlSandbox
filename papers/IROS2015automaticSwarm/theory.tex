@@ -297,28 +297,26 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \begin{algorithm}
 \caption{Hybrid mean and variance control}\label{alg:MeanVarianceControl}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the locations of the rectangular boundary $\{x_{min}, x_{max}, y_{min}, y_{max}\}$, and the target mean position $[x_{target},y_{target}]$.
-\State $flag_x = false$ %TODO: what is 'false' variable in latex?
-\State $flag_y = false$  %TODO: use assignment operator instead of '=' sign.
-\State $x_{goal} =  x_{target}$   
-\State $y_{goal} = y_{target}$
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the locations of the rectangular boundary $\{x_{min}, x_{max}, y_{min}, y_{max}\}$, and the target mean position $[x_{target},y_{target}]$.%TODO: use  \AND, \OR, \XOR, \NOT, \TO, \TRUE, \FALSE \gets
+\State $flag_x \gets \FALSE$,  $flag_y \gets \FALSE$ 
+\State $x_{goal} \gets  x_{target}$, $y_{goal} \gets y_{target}$
 \Loop
 \State  Compute $\sigma_x^2, \sigma_y^2$
 
 \If {$\sigma_x^2 > \sigma_{max}^2$}
-\State $x_{goal} = x_{min}$
-\State $flag_x = true$
-\Else {\bf if} {$flag_x$ AND $\sigma_x^2 < \sigma_{min}^2$}
-\State $y_{goal} =  y_{target}$
-\State $flag_x = false$
+\State $x_{goal}  \gets x_{min}$
+\State $flag_x  \gets \TRUE$
+\Else {\bf if} {$flag_x$ \textbf{and} $\sigma_x^2 < \sigma_{min}^2$}
+\State $y_{goal}  \gets  y_{target}$
+\State $flag_x  \gets false$
 \EndIf
 
 \If{$\sigma_y^2 > \sigma_{max}^2$}
-\State $y_{goal} = y_{min}$
-\State $flag_y = true$
-\Else {\bf~if} {$flag_y$ AND $\sigma_y^2 < \sigma_{min}^2$}
-\State $y_{goal} =  y_{target}$
-\State $flag_y = false$
+\State $y_{goal}  \gets y_{min}$
+\State $flag_y  \gets \TRUE$
+\Else {\bf~if} {$flag_y$ \textbf{and} $\sigma_y^2 < \sigma_{min}^2$}
+\State $y_{goal}  \gets  y_{target}$
+\State $flag_y  \gets \FALSE$
 \EndIf
 \State Apply \eqref{eq:PDcontrolPosition} to move toward $[x_{goal}, y_{goal}]$
 \EndLoop
