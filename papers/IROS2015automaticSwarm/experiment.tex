@@ -10,16 +10,6 @@ The experimental section compares the results of our hybrid hysteresis-based con
 In previous work over 1000 human users completed this task using varying levels of feedback.
  The original experiment explored manipulation with varying amounts of sensing information: {\bf full-state} sensing showed the position of all robots; {\bf convex-hull} drew a convex hull around the outermost robots; {\bf mean} displayed the average position of the population; and {\bf mean + variance} added a confidence ellipse. Fig.~\ref{fig:Visualization} shows screenshots of the same robot swarm with each type of visual feedback. Full-state requires $2n$ data points for $n$ robots. Convex-hull requires at worst $2n$, but usually a smaller number.  Mean requires two, and variance three, data points.  Mean and mean + variance are convenient even with millions of robots. We hypothesized a steady decay in performance as the amount of visual feedback decreased.
 
-
-\begin{figure}
-\centering
-\begin{overpic}[width = \columnwidth]{ResVaryVis.pdf}\end{overpic}
-\vspace{-2em}
-\caption{\label{fig:ResVaryVis} Completion-time results for the four levels of visual feedback shown in Fig.~\ref{fig:Visualization}. 
-%\vspace{-2em}
-}
-\end{figure}
-
 \begin{figure}[b!]
 \renewcommand{\figwid}{0.24\columnwidth}
 \begin{overpic}[width =\figwid]{VaryVisFS.pdf}\put(20,15){Full-state}\end{overpic}
@@ -32,7 +22,18 @@ In previous work over 1000 human users completed this task using varying levels 
 }
 \end{figure}
 
-To our surprise, the results summarized in \ref{fig:ResVaryVis} indicated the opposite: players  with just the mean completed the task faster than those with full-state feedback.  As Fig.~\ref{fig:ResVaryVis} shows, the levels of feedback arranged by increasing completion time are [mean, mean + variance, full-state, convex-hull].  Interviews with  beta-testers suggests that tracking 100 robots was overwhelming---similar to schooling phenomenons that confuse predators---while working with just the mean + variance was like using a ``spongy'' manipulator. Convex-hull feedback was confusing and irritating because a single robot left behind an obstacle would distort the entire hull, obscuring the information about the majority of the swarm.
+\begin{figure}
+\centering
+\begin{overpic}[width = \columnwidth]{ResVaryVis.pdf}\end{overpic}
+\vspace{-2em}
+\caption{\label{fig:ResVaryVis} Completion-time results for the four levels of visual feedback shown in Fig.~\ref{fig:Visualization}. 
+%\vspace{-2em}
+}
+\end{figure}
+
+
+
+To our surprise, the results indicated the opposite: players with just the mean completed the task faster than those with full-state feedback.  As Fig.~\ref{fig:ResVaryVis} shows, the levels of feedback arranged by increasing completion time are [mean, mean + variance, full-state, convex-hull].  Interviews with  beta-testers suggests that tracking 100 robots was overwhelming---similar to schooling phenomenons that confuse predators---while working with just the mean + variance was like using a ``spongy'' manipulator. Convex-hull feedback was confusing and irritating because a single robot left behind an obstacle would distort the entire hull, obscuring the information about the majority of the swarm.
 %obscuring what the rest of the swarm is doing.   
 
 
