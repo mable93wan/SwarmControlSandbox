@@ -228,7 +228,8 @@ This matrix has rank two, and thus the controllable states of the swarm are the 
 %\end{bmatrix}
 %\end{bmatrix}
 %\end{equation}
-$\blacksquare$ 
+\hfill $\blacksquare$ 
+
 Due to symmetry, only the mean position and mean velocity are controllable. However, there are several techniques for breaking symmetry, for example by allowing independent noise sources \cite{beckerIJRR2014}, or by using obstacles \cite{Becker2013b}.
 
 \subsection{Controlling the variance of many robots}\label{sec:VarianceControl}
@@ -283,7 +284,7 @@ u(t) &=   \begin{cases}
 	 W & \mbox{if } \sigma^2(\mathbf{x}) \le \sigma^2_{goal},
 \end{cases} 
 \end{align} and thus
-$\dot{V}(t,{\bf x})$ is negative definite and the variance is globally asymptotically stabilizable.
+$\dot{V}(t,{\bf x})$ is negative definite and the variance is globally asymptotically stabilizable. \hfill$\blacksquare$ 
 
 
 
