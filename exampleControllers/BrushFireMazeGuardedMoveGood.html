@@ -65,7 +65,7 @@ var ifGradient = true;
 // Debugging Variables.
 var BFSDebugMode = false;
 var Gradient_DebugMode = false;
-var goalRecieved = false;
+var goalRecieved = false;  //have we reached the goal?
 var timeFinished = 1000;
 var wroteFinish = false;
 
@@ -411,7 +411,7 @@ function init()
 		var brownianImpulse = new b2Vec2(0,0);
 		var mag = 0;
 		var ang = 0;
-		var vary= 1;
+		var vary= 0.5; //was 1
 		for(var i =0; i<m_Robot.length; i++) 
 		{
 			mag = vary * Math.random();
@@ -636,8 +636,8 @@ function init()
 	var offsetY = 5;
 	var amplitudeX = 5;
 	var offsetX = 5;
-	var max_desired_var_x = 5;//numrobots * robotrad * 1/2;
-	var min_desired_var_x = 3;//numrobots * robotrad * 3/2;;
+	var max_desired_var_x = 2;//numrobots * robotrad * 1/2;
+	var min_desired_var_x = .8;//numrobots * robotrad * 3/2;;
 	var max_desired_var_y = max_desired_var_x;
 	var min_desired_var_y = min_desired_var_x;
 	var sum_position_x = 0;
@@ -667,6 +667,10 @@ function init()
 	var angle2 = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, var_x-var_y);
 	var angle_min_variance = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, min_desired_var_x-min_desired_var_y);
 	var angle_max_variance = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, max_desired_var_x-max_desired_var_y);
+				var index_x = Math.floor(mean_position_x);
+			var index_y = Math.floor(mean_position_y);
+			var block_x = Math.floor(blockCOM_x);
+			var block_y = Math.floor(blockCOM_y);
 	if(!goalRecieved){
 		$("canvas").drawEllipse({
 			strokeStyle: "red",
@@ -677,18 +681,31 @@ function init()
 			rotate: angle2
 		})
 		.restoreCanvas();
+	}else{
+
+		var winstring = "You won in "+timeFinished + "s\n with " + numrobots +" robots!";
+		$("canvas").drawText(
+		{
+			strokeStyle: "Blue",
+			strokeWidth: 3,
+			x: 5*mapScale  , y: goalPositionYDraw *mapScale ,
+			fontSize: 40,
+			fontFamily: 'Verdana, sans-serif',
+			text: winstring
+		}).restoreCanvas();
 	}
+
 
 	if(Math.abs(blockCOM_x - goalPositionX) < 2 && Math.abs(blockCOM_y - goalPositionY) <2)
 	{
 		goalRecieved = true;
-		timeFinished = elapsedTimeSec;
+		
 		if(wroteFinish == false){
+			timeFinished = elapsedTimeSec;
 			console.log(elapsedTimeSec + " " + numrobots);
 			wroteFinish = true;
 		}
 		m_controlState  = ROBOT_INPUT.ROBOT_IDLE;
-
 	}
 	if(!goalRecieved){
 		if(var_x < min_desired_var_x && var_y < min_desired_var_y)
@@ -698,59 +715,43 @@ function init()
 		if(var_x > max_desired_var_x || var_y > max_desired_var_y)
 		{
 			flagVar = true;
-			var cornerNum = 6;
-			var dist2corner = new Array(cornerNum);
-			var COMdist2corner = new Array(cornerNum);
-			var CornerValuesX = new Array(cornerNum);
-			var CornerValuesY = new Array(cornerNum);
-			CornerValuesX[0] = 1;
-			CornerValuesY[0] = 19;
-			CornerValuesX[1] = 19;
-			CornerValuesY[1] = 19;
-			CornerValuesX[2] = 19;
-			CornerValuesY[2] = 7;
-			CornerValuesX[3] = 1;
-			CornerValuesY[3] = 13;
-			CornerValuesX[4] = 1;
-			CornerValuesY[4] = 1;
-			CornerValuesX[5] = 100;
-			CornerValuesY[5] = 100;
+		}
+		if(flagVar)
+		{
+			var CornerValuesX = [1,		19,	19,	1,	1,	100];
+			var CornerValuesY = [19,	19,	7,	13,	1,	100];
+			var CornerValuesD = [51,	41, 30,	24, 17, 100];
+			var dist2corner = new Array(CornerValuesX.length);
+			var COMdist2corner = new Array(CornerValuesX.length);
 			var minDistCorner = 10000;
+			var IndexMinDist = 0;
 
-			for (var i = 0 ; i < cornerNum ; i++)
-			{
+			for (var i = 0 ; i < CornerValuesX.length ; i++)
+			{	//computes distance from all corners to COM  and swarm mean.  Also records closest corner to  mean of swarm
 				dist2corner[i] = lineDistance(mean_position_x, mean_position_y, CornerValuesX[i], CornerValuesY[i]);
 				COMdist2corner[i] = lineDistance(blockCOM_x, blockCOM_y, CornerValuesX[i], CornerValuesY[i]);
 				if(minDistCorner > dist2corner[i])
 				{
 					minDistCorner = dist2corner[i];
+					IndexMinDist = i;
 				}
 			}
-			for(var i = 0 ; i < cornerNum; i++)
+			if(   CornerValuesD[IndexMinDist] <  map[block_x][block_y]  && IndexMinDist>0 )
 			{
-				if(minDistCorner == dist2corner[i])
-				{
-					if(COMdist2corner[i] >=  dist2corner[i]|| i == 0)
-					{
-						goalX = CornerValuesX[i];
-						goalY = CornerValuesY[i];
-					}
-					else 
-					{
-						goalX = CornerValuesX[i-1];
-						goalY = CornerValuesY[i-1];
-					}
-				}
+				//console.log(" Corner " + map[CornerValuesX[IndexMinDist]][CornerValuesY[IndexMinDist] ]  + " block " +  map[block_x][block_y] + " MinIndex" + IndexMinDist );
+				IndexMinDist = IndexMinDist-1;
 			}
+			goalX = CornerValuesX[IndexMinDist];
+			goalY = CornerValuesY[IndexMinDist];
 		}
 		if(!flagVar)
 		{
-			var index_x = Math.floor(mean_position_x);
-			var index_y = Math.floor(mean_position_y);
-			var block_x = Math.floor(blockCOM_x);
-			var block_y = Math.floor(blockCOM_y);
-
-			var r = 0.5;	
+			var COMdist2swarm = lineDistance(blockCOM_x, blockCOM_y, mean_position_x, mean_position_y);
+			var r = 0.1;
+			if( COMdist2swarm > 2.5)
+			{	r = 1.5
+			}
+			//var r = Math.max(0.0, Math.min(1.5, 0.5*COMdist2swarm));	
 			goalX = blockCOM_x + r * gradient_x[block_x][block_y];
 			goalY = blockCOM_y + r * gradient_y[block_x][block_y];
 		}
@@ -761,6 +762,23 @@ function init()
 		x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 		radius: radius * mapScale
 	}).restoreCanvas();
+	$("canvas").drawEllipse({
+			strokeStyle: "green",
+			strokeWidth: 5,
+			setLineDash: 6 , 
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * 30*Math.sqrt(min_desired_var_x), height: 3 * 30*Math.sqrt(min_desired_var_y),
+			rotate: angle2
+		}).restoreCanvas();
+	$("canvas").drawEllipse({
+			strokeStyle: "green",
+			strokeWidth: 5,
+			setLineDash: 6 , 
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * 30*Math.sqrt(max_desired_var_x), height: 3 * 30*Math.sqrt(max_desired_var_y),
+			rotate: angle2
+		}).restoreCanvas();
+
 	var Kgain = 12;
 	var Kderivative = 1;
 	var sum_velocity_x = 0;
