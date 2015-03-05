@@ -5,6 +5,9 @@
 %%  Variance Control      (image and plot(s) )
 %%  Hybrid control   (image and plot(s) )
 
+Our simulations use a Javascript port of \href{http://box2d.org/}{Box2D}, a popular 2D physics engine with support for rigid-body dynamics and fixed-timestep simulation. 
+
+
 \subsection{Controlling the mean position}
 
 For controlling mean position, we use a PD controller that uses the mean position and mean velocity. Our control input is the force applied to each robot, and goal positions are the desired positions:

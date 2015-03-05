@@ -21,21 +21,6 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Peyer2013}
-K.~E. Peyer, L.~Zhang, and B.~J. Nelson, ``Bio-inspired magnetic swimming
-  microrobots for biomedical applications,'' \emph{Nanoscale}, 2013.
-
-\bibitem{Shirai2005}
-Y.~Shirai, A.~J. Osgood, Y.~Zhao, K.~F. Kelly, and J.~M. Tour, ``Directional
-  control in thermally driven single-molecule nanocars,'' \emph{Nano Letters},
-  vol.~5, no.~11, pp. 2330--2334, Feb. 2005.
-
-\bibitem{Chiang2011}
-P.-T. Chiang, J.~Mielke, J.~Godoy, J.~M. Guerrero, L.~B. Alemany, C.~J.
-  Villag{\'o}mez, A.~Saywell, L.~Grill, and J.~M. Tour, ``Toward a light-driven
-  motorized nanocar: Synthesis and initial imaging of single molecules,''
-  \emph{ACS Nano}, vol.~6, no.~1, pp. 592--597, Feb. 2011.
-
 \bibitem{Donald2006}
 B.~Donald, C.~Levey, C.~McGray, I.~Paprotny, and D.~Rus, ``An untethered,
   electrostatic, globally controllable {MEMS} micro-robot,'' \emph{J. of
@@ -46,18 +31,11 @@ B.~Donald, C.~Levey, and I.~Paprotny, ``Planar microassembly by parallel
   actuation of {MEMS} microrobots,'' \emph{J. of {MEMS}}, vol.~17, no.~4, pp.
   789--808, Aug. 2008.
 
-\bibitem{Floyd2011}
-S.~Floyd, E.~Diller, C.~Pawashe, and M.~Sitti, ``Control methodologies for a
-  heterogeneous group of untethered magnetic micro-robots,'' \emph{Int. J.
-  Robot. Res.}, vol.~30, no.~13, pp. 1553--1565, Nov. 2011.
-
-\bibitem{Diller2013}
-\BIBentryALTinterwordspacing
-E.~Diller, J.~Giltinan, and M.~Sitti, ``Independent control of multiple
-  magnetic microrobots in three dimensions,'' \emph{The International Journal
-  of Robotics Research}, vol.~32, no.~5, pp. 614--631, 2013. [Online].
-  Available: \url{http://ijr.sagepub.com/content/32/5/614.abstract}
-\BIBentrySTDinterwordspacing
+\bibitem{Chiang2011}
+P.-T. Chiang, J.~Mielke, J.~Godoy, J.~M. Guerrero, L.~B. Alemany, C.~J.
+  Villag{\'o}mez, A.~Saywell, L.~Grill, and J.~M. Tour, ``Toward a light-driven
+  motorized nanocar: Synthesis and initial imaging of single molecules,''
+  \emph{ACS Nano}, vol.~6, no.~1, pp. 592--597, Feb. 2011.
 
 \bibitem{Frutiger2008}
 D.~Frutiger, B.~Kratochvil, K.~Vollmers, and B.~J. Nelson, ``Magmites -
@@ -68,6 +46,10 @@ D.~Frutiger, B.~Kratochvil, K.~Vollmers, and B.~J. Nelson, ``Magmites -
 S.~Tottori, L.~Zhang, F.~Qiu, K.~Krawczyk, A.~Franco-Obreg{\'o}n, and B.~J.
   Nelson, ``Magnetic helical micromachines: Fabrication, controlled swimming,
   and cargo transport,'' \emph{Advanced Materials}, vol.~24, no. 811, 2012.
+
+\bibitem{Peyer2013}
+K.~E. Peyer, L.~Zhang, and B.~J. Nelson, ``Bio-inspired magnetic swimming
+  microrobots for biomedical applications,'' \emph{Nanoscale}, 2013.
 
 \bibitem{Becker2013b}
 A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
@@ -115,25 +97,6 @@ L.~U. Odhner, L.~P. Jentoft, M.~R. Claffee, N.~Corson, Y.~Tenzer, R.~R. Ma,
   underactuated hand for robust manipulation,'' \emph{The International Journal
   of Robotics Research}, vol.~33, no.~5, pp. 736--752, 2014.
 
-\bibitem{Becker2012}
-A.~Becker and T.~Bretl, ``Approximate steering of a unicycle under bounded
-  model perturbation using ensemble control,'' \emph{{IEEE} Trans. Robot.},
-  vol.~28, no.~3, pp. 580--591, Jun. 2012.
-
-\bibitem{Becker2012k}
-A.~Becker, C.~Onyuksel, and T.~Bretl, ``Feedback control of many
-  differential-drive robots with uniform control inputs,'' in \emph{IEEE/RSJ
-  International Conference on Intelligent Robots and Systems (IROS)}, Oct.
-  2012.
-
-\bibitem{Takahashi2006}
-\BIBentryALTinterwordspacing
-K.~Takahashi, K.~Hashimoto, N.~Ogawa, and H.~Oku, ``Organized motion control of
-  a lot of microorganisms using visual feedback,'' in \emph{IEEE Int. Conf.
-  Rob. Aut.}, May 2006, pp. 1408--1413. [Online]. Available:
-  \url{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=1641906&isnumber=34383}
-\BIBentrySTDinterwordspacing
-
 \bibitem{beckerIJRR2014}
 A.~Becker, C.~Onyuksel, T.~Bretl, and J.~McLurkin, ``Controlling many
   differential-drive robots with uniform control inputs,'' \emph{The
@@ -162,5 +125,16 @@ M.~Kloetzer and C.~Belta, ``Temporal logic planning and control of robotic
 \bibitem{einstein1956investigations}
 A.~Einstein, \emph{Investigations on the Theory of the Brownian
   Movement}.\hskip 1em plus 0.5em minus 0.4em\relax Courier Corporation, 1956.
+
+\bibitem{haldane1951simple}
+J.~Haldane, ``Simple tests for bimodality and bitangentiality,'' \emph{Annals
+  of eugenics}, vol.~16, no.~1, pp. 359--364, 1951.
+
+\bibitem{stuber2007positive}
+M.~Stuber, W.~D. Gilson, M.~Sch{\"a}r, D.~A. Kedziorek, L.~V. Hofmann, S.~Shah,
+  E.-J. Vonken, J.~W. Bulte, and D.~L. Kraitchman, ``Positive contrast
+  visualization of iron oxide-labeled stem cells using inversion-recovery with
+  on-resonant water suppression (iron),'' \emph{Magnetic Resonance in
+  Medicine}, vol.~58, no.~5, pp. 1072--1077, 2007.
 
 \end{thebibliography}
