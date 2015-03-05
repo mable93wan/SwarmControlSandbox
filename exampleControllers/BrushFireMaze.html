@@ -285,7 +285,7 @@ function init()
 	//create the robots
 	bodyDef.type = b2Body.b2_dynamicBody;
 	var robotrad = 0.1; //for SwarmControl.net, we used 0.2;
-	var numrobots = 200;//Math.floor(20/(4*robotrad*robotrad));
+	var numrobots = 100;//Math.floor(20/(4*robotrad*robotrad));
 	if(BFSDebugMode || Gradient_DebugMode)
 	{
 		numrobots = 0;
@@ -631,8 +631,8 @@ function init()
 	var offsetY = 5;
 	var amplitudeX = 5;
 	var offsetX = 5;
-	var max_desired_var_x = 5;//numrobots * robotrad * 1/2;
-	var min_desired_var_x = 1;//numrobots * robotrad * 3/2;;
+	var max_desired_var_x = 4;//numrobots * robotrad * 1/2;
+	var min_desired_var_x = 3;//numrobots * robotrad * 3/2;;
 	var max_desired_var_y = max_desired_var_x;
 	var min_desired_var_y = min_desired_var_x;
 	var sum_position_x = 0;
@@ -718,7 +718,13 @@ function init()
 				COMdist2corner[i] = lineDistance(blockCOM_x, blockCOM_y, CornerValuesX[i], CornerValuesY[i]);
 				if(minDistCorner > dist2corner[i])
 				{
+					if((i == 3 && mean_position_y > CornerValuesY[i]) || (i ==2 && mean_position_y < CornerValuesY[i]))
+					{
+						minDistCorner = minDistCorner;
+					}
+					else {
 					minDistCorner = dist2corner[i];
+					}
 				}
 			}
 			for(var i = 0 ; i < cornerNum; i++)
@@ -756,7 +762,7 @@ function init()
 		x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 		radius: radius * mapScale
 	}).restoreCanvas();
-	var Kgain = 12;
+	var Kgain = 8;
 	var Kderivative = 1;
 	var sum_velocity_x = 0;
 	var sum_velocity_y = 0;

@@ -53,7 +53,7 @@ var mapScale = 30;
 
 
 var max_desired_var_x = 1;//numrobots * robotrad * 1/2;
-var min_desired_var_x = 0.5;//numrobots * robotrad * 3/2;;
+var min_desired_var_x = 0;//0.5;//numrobots * robotrad * 3/2;;
 var max_desired_var_y = max_desired_var_x;
 var min_desired_var_y = min_desired_var_x;
 var min_desired_var_xInt = min_desired_var_x;
@@ -297,7 +297,7 @@ function init()
 	//create the robots
 	bodyDef.type = b2Body.b2_dynamicBody;
 	var robotrad = 0.1; //for SwarmControl.net, we used 0.2;
-	var numrobots = 20;//Math.floor(20/(4*robotrad*robotrad));
+	var numrobots = 100;//Math.floor(20/(4*robotrad*robotrad));
 	if(BFSDebugMode || Gradient_DebugMode)
 	{
 		numrobots = 0;
@@ -650,7 +650,7 @@ function init()
 	var sum2_y = 0;
 	var desired_var_x;
 	var cov_xy = 0;
-	var varDelta = 0.1;
+	var varDelta = 0.01;
 	if( elapsedTimeSec%cycleInSec > cycleInSec/2  )
 	{
 		if(!done){
@@ -720,6 +720,10 @@ function init()
 		if(var_x < min_desired_var_xInt && var_y < min_desired_var_yInt)
 		{
 			flagVar = false;
+			min_desired_var_xInt =min_desired_var_x;
+			min_desired_var_yInt =min_desired_var_y;
+			//max_desired_var_xInt = max_desired_var_x;
+			//max_desired_var_yInt = max_desired_var_y;
 	
 		}
 		if(var_x > max_desired_var_xInt || var_y > max_desired_var_yInt)
@@ -737,16 +741,16 @@ function init()
 			var COMdist2corner = new Array(cornerNum);
 			var CornerValuesX = new Array(cornerNum);
 			var CornerValuesY = new Array(cornerNum);
-			CornerValuesX[0] = 1;
-			CornerValuesY[0] = 19;
-			CornerValuesX[1] = 19;
-			CornerValuesY[1] = 19;
-			CornerValuesX[2] = 19;
-			CornerValuesY[2] = 7;
-			CornerValuesX[3] = 1;
-			CornerValuesY[3] = 13;
-			CornerValuesX[4] = 1;
-			CornerValuesY[4] = 1;
+			CornerValuesX[0] = 2;
+			CornerValuesY[0] = 18;
+			CornerValuesX[1] = 18;
+			CornerValuesY[1] = 18;
+			CornerValuesX[2] = 18;
+			CornerValuesY[2] = 8;
+			CornerValuesX[3] = 2;
+			CornerValuesY[3] = 12;
+			CornerValuesX[4] = 2;
+			CornerValuesY[4] = 2;
 			CornerValuesX[5] = 100;
 			CornerValuesY[5] = 100;
 			var minDistCorner = 10000;
