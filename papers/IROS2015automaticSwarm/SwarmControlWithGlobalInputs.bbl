@@ -86,16 +86,16 @@ J.~Fink, N.~Michael, and V.~Kumar, ``Composition of vector fields for
 K.~Lynch, ``Locally controllable manipulation by stable pushing,'' \emph{{IEEE}
   Trans. Robot. Autom.}, vol.~15, no.~2, pp. 318--327, Apr. 1999.
 
-\bibitem{deimel2014novel}
-R.~Deimel and O.~Brock, ``A novel type of compliant, underactuated robotic hand
-  for dexterous grasping,'' \emph{Robotics: Science and Systems, Berkeley, CA},
-  pp. 1687--1692, 2014.
-
 \bibitem{odhner2014compliant}
 L.~U. Odhner, L.~P. Jentoft, M.~R. Claffee, N.~Corson, Y.~Tenzer, R.~R. Ma,
   M.~Buehler, R.~Kohout, R.~D. Howe, and A.~M. Dollar, ``A compliant,
   underactuated hand for robust manipulation,'' \emph{The International Journal
   of Robotics Research}, vol.~33, no.~5, pp. 736--752, 2014.
+
+\bibitem{deimel2014novel}
+R.~Deimel and O.~Brock, ``A novel type of compliant, underactuated robotic hand
+  for dexterous grasping,'' \emph{Robotics: Science and Systems, Berkeley, CA},
+  pp. 1687--1692, 2014.
 
 \bibitem{beckerIJRR2014}
 A.~Becker, C.~Onyuksel, T.~Bretl, and J.~McLurkin, ``Controlling many
