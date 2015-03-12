@@ -1,14 +1,8 @@
 
 <!--
-// IDEA: 
-try a biger obstacle shaped like hexagon, so we can push deepeer into the object?  Try a bigger world?
-try a hysteresis based on time (go to corner for 5 seconds, then push.   If pushing for more than 5 seconds && variance> max variance, go to corner.)
+This is just for getting a movie of the swarm writing the "swarm" !
 
 
-// TODO: (remove items when completed)
-//
-//4. make controllers, drawing and bfs sections.
-//
 ////////////////////////////////////////////////////////////description//
 // We want to control variance and mean position and find a way to the goal.
 /////////////////////////////////////////////////////////////////////////
@@ -30,7 +24,7 @@ try a hysteresis based on time (go to corner for 5 seconds, then push.   If push
 <title>Stochastic Swarm Control: Box Pushing</title>
 </head>
 <body onload="init();">
-<canvas id="canvas" width="800" height="800" style="background-color:#EEEEEE;"></canvas>
+<canvas id="canvas" width="800" height="600" style="background-color:#EEEEEE;"></canvas>
 <div id="cc"></div>
 </body>
 <script type="text/javascript" src="../shared/Box2dWeb-2.1.a.3.min.js"></script> <!-- box2d -->
@@ -48,11 +42,9 @@ var ROBOT_INPUT = {
 	ROBOT_PROP : 0x01, //proportional control
 	WAIT : 0x40
 };
-
-var width = 800;
+var width = 600;
 var m_ControlInputY = 0;
-var goalX = 5;
-var goalY = 18;
+
 var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
 var mapXSize = 20;
 var mapYSize = 20;
@@ -71,10 +63,18 @@ var goalRecieved = false;  //have we reached the goal?
 var timeFinished = 1000;
 var wroteFinish = false;
 
+var numberOfGoals = 60;
+
 var map = new Array(mapXSize);
 var gradient_x = new Array(mapXSize);
 var gradient_y = new Array(mapXSize);
 var gradient_angle = new Array(mapXSize);
+
+var goalsX = new Array(numberOfGoals);
+var goalsY = new Array(numberOfGoals);
+
+var index_goal = 0;
+var done = false;
 
 
 for (var i = 0; i < mapXSize; i++) 
@@ -84,6 +84,199 @@ for (var i = 0; i < mapXSize; i++)
 	gradient_y[i] = new Array(mapYSize);
 	gradient_angle[i] = new Array(mapYSize);
 }
+
+///// S
+goalsX[0] = 10;
+goalsY[0] = 17;
+goalsX[1] = 9;
+goalsY[1] = 17;
+goalsX[2] = 8;
+goalsY[2] = 17;
+goalsX[3] = 8;
+goalsY[3] = 18;
+goalsX[4] = 8;
+goalsY[4] = 19;
+goalsX[5] = 9;
+goalsY[5] = 19;
+goalsX[6] = 10;
+goalsY[6] = 19;
+goalsX[7] = 10;
+goalsY[7] = 20;
+goalsX[8] = 10;
+goalsY[8] = 21;
+goalsX[9] = 9;
+goalsY[9] = 21;
+goalsX[10] = 8;
+goalsY[10] = 21;
+//W
+goalsX[11] = 12;
+goalsY[11] = 17;
+goalsX[12] = 12;
+goalsY[12] = 18;
+goalsX[13] = 12;
+goalsY[13] = 19;
+goalsX[14] = 13;
+goalsY[14] = 20;
+goalsX[15] = 14;
+goalsY[15] = 21;
+goalsX[16] = 15;
+goalsY[16] = 20;
+goalsX[17] = 15;
+goalsY[17] = 19;
+goalsX[18] = 16;
+goalsY[18] = 21;
+goalsX[19] = 17;
+goalsY[19] = 20;
+goalsX[20] = 18;
+goalsY[20] = 19;
+goalsX[21] = 18;
+goalsY[21] = 18;
+goalsX[22] = 18;
+goalsY[22] = 17;
+//A
+goalsX[23] = 20;
+goalsY[23] = 21;
+goalsX[24] = 20;
+goalsY[24] = 20;
+goalsX[25] = 20;
+goalsY[25] = 19;
+goalsX[26] = 20;
+goalsY[26] = 18;
+goalsX[27] = 21;
+goalsY[27] = 17;
+goalsX[28] = 22;
+goalsY[28] = 18;
+goalsX[29] = 21;
+goalsY[29] = 19;
+goalsX[30] = 22;
+goalsY[30] = 19;
+goalsX[31] = 22;
+goalsY[31] = 20;
+goalsX[32] = 22;
+goalsY[32] = 21;
+
+//R
+goalsX[33] = 24;
+goalsY[33] = 21;
+goalsX[34] = 24;
+goalsY[34] = 20;
+goalsX[35] = 24;
+goalsY[35] = 19;
+goalsX[36] = 24;
+goalsY[36] = 18;
+goalsX[37] = 24;
+goalsY[37] = 17;
+goalsX[38] = 25;
+goalsY[38] = 17;
+goalsX[39] = 26;
+goalsY[39] = 17;
+goalsX[40] = 26;
+goalsY[40] = 18;
+goalsX[41] = 25;
+goalsY[41] = 19;
+goalsX[42] = 26;
+goalsY[42] = 20;
+goalsX[43] = 26;
+goalsY[43] = 21;
+
+//M
+
+goalsX[44] = 28;
+goalsY[44] = 21;
+goalsX[45] = 28;
+goalsY[45] = 20;
+goalsX[46] = 28;
+goalsY[46] = 19;
+goalsX[47] = 28;
+goalsY[47] = 18;
+goalsX[48] = 28;
+goalsY[48] = 17;
+goalsX[49] = 29;
+goalsY[49] = 17;
+goalsX[50] = 30;
+goalsY[50] = 18;
+goalsX[51] = 31;
+goalsY[51] = 19;
+goalsX[52] = 32;
+goalsY[52] = 18;
+goalsX[53] = 33;
+goalsY[53] = 17;
+goalsX[54] = 34;
+goalsY[54] = 17;
+goalsX[55] = 34;
+goalsY[55] = 18;
+goalsX[56] = 34;
+goalsY[56] = 19;
+goalsX[57] = 34;
+goalsY[57] = 20;
+goalsX[58] = 34;
+goalsY[58] = 21;
+
+// Underline
+
+goalsX[59] = 34;
+goalsY[59] = 23;
+goalsX[60] = 33;
+goalsY[60] = 23;
+goalsX[61] = 32;
+goalsY[61] = 23;
+goalsX[62] = 31;
+goalsY[62] = 23;
+goalsX[63] = 30;
+goalsY[63] = 23;
+goalsX[64] = 29;
+goalsY[64] = 23;
+goalsX[65] = 28;
+goalsY[65] = 23;
+goalsX[66] = 27;
+goalsY[66] = 23;
+goalsX[67] = 26;
+goalsY[67] = 23;
+goalsX[68] = 25;
+goalsY[68] = 23;
+goalsX[69] = 24;
+goalsY[69] = 23;
+goalsX[70] = 23;
+goalsY[70] = 23;
+goalsX[71] = 22;
+goalsY[71] = 23;
+goalsX[72] = 21;
+goalsY[72] = 23;
+goalsX[73] = 20;
+goalsY[73] = 23;
+goalsX[74] = 19;
+goalsY[74] = 23;
+goalsX[75] = 18;
+goalsY[75] = 23;
+goalsX[76] = 17;
+goalsY[76] = 23;
+goalsX[77] = 16;
+goalsY[77] = 23;
+goalsX[78] = 15;
+goalsY[78] = 23;
+goalsX[79] = 14;
+goalsY[79] = 23;
+goalsX[80] = 13;
+goalsY[80] = 23;
+goalsX[81] = 12;
+goalsY[81] = 23;
+goalsX[82] = 11;
+goalsY[82] = 23;
+goalsX[83] = 10;
+goalsY[83] = 23;
+goalsX[84] = 9;
+goalsY[84] = 23;
+goalsX[85] = 8;
+goalsY[85] = 23;
+
+
+
+var offsetGoalY = 2;
+var offsetGoalX = 0.5;
+var goalX = goalsX[0]/2- offsetGoalX;
+var goalY = goalsY[0]/2 -offsetGoalY;
+
+
 /////////////////////////////
 //End Global Variables
 /////////////////////////////
@@ -264,31 +457,7 @@ function init()
 	bodyDef.position.Set(21, 13); // right side
 	world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-	// maze
-	bodyDef.userData = 'obstacle';
-		fixDef.shape.SetAsBox(10, 0.5);//width, height
-    bodyDef.position.Set(15, width/4 / mapScale + 1.5); //TOP
-    var bodyBottom = world.CreateBody(bodyDef);
-    bodyBottom.CreateFixture(fixDef);
 
-    bodyDef.position.Set(5, width*2/3 / mapScale + 0.2); //BOTTOM
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-	//create an object to move
-	if(!BFSDebugMode && !Gradient_DebugMode){
-		bodyDef.type = b2Body.b2_dynamicBody;
-		fixDef.density = 10.0;
-		fixDef.friction = 0.5;
-    fixDef.restitution = 0.2;  //bouncing value
-    bodyDef.position.Set(7,17.5);
-    bodyDef.userData = 'moveable';
-    fixDef.shape = new b2PolygonShape;
-    fixDef.shape.SetAsBox(1.0,1.0);
-    var obst = world.CreateBody(bodyDef);
-    obst.CreateFixture(fixDef);
-    obst.m_angularDamping = 0.1;
-    obst.m_linearDamping = 0.1;
-}
 	//create the robots
 	bodyDef.type = b2Body.b2_dynamicBody;
 	var robotrad = 0.1; //for SwarmControl.net, we used 0.2;
@@ -307,8 +476,8 @@ function init()
 	for(var i = 0; i < numrobots; ++i) 
 	{
 		bodyDef.userData = 'robot';
-		bodyDef.position.x = 1.5+(i%rowLength)*2*robotrad;
-		bodyDef.position.y = 18.5-Math.floor(i/rowLength)*2*robotrad;
+		bodyDef.position.x = 3+(i%rowLength)*2*robotrad;
+		bodyDef.position.y = 7-Math.floor(i/rowLength)*2*robotrad;
 		m_Robot[i] = world.CreateBody(bodyDef);
 		m_Robot[i].CreateFixture(fixDef);
 		m_Robot[i].m_angularDamping = 1; //was 1, we used 10 on SwarmControl
@@ -338,44 +507,7 @@ function init()
 	var goalPositionY = 3;
 	var goalPositionXDraw = 16.5;
 	var goalPositionYDraw = 3.5;
-	//giving -1 to boundaries
-	if(ifBFS)
-	{	//at the end, map[x][y] is the BFS distance to the goal
-		for(var i = 0 ; i < mapXSize; i++){
-			map[i][0]= -1;
-			map[i][mapYSize -1] = -1;
-			map[0][i]= -1;
-			map[mapXSize-1][i]= -1;
-		}
-		// giving -1 to obstacles.(Down Maze)
-		for (var i = 0 ; i < mazeSize; i++){
-			map[i][mazeTopY]= -1;
-		}
-		//Top Maze
-		for(var i = mapXSize-1 ; i > mapXSize- mazeSize -1 ; i--){
-			map[i][mazeDownY] = -1;
-		}
-		for (var i = 0 ; i < mapXSize ; i++){
-			for (var j = 0 ; j < mapYSize; j++){
-				if(map[i][j] != -1)
-				{
-					map[i][j]= infinity;
-				}
-			}
-		}
-		map[goalPositionX][goalPositionY] = 0;
-		BFS(goalPositionX, goalPositionY);
-		ifBFS = false;
-	}
-	if(ifGradient)
-	{	//for each cell, calculate the gradient
-		for(var i = 0 ; i < mapXSize; i ++){
-			for(var j = 0 ; j <mapYSize; j++){
-				Gradient(i,j); 
-			}
-		}
-		ifGradient = false;
-	}
+
 
 	(function animloop()
 	{
@@ -413,7 +545,7 @@ function init()
 		var brownianImpulse = new b2Vec2(0,0);
 		var mag = 0;
 		var ang = 0;
-		var vary= 0.5; //was 1
+		var vary= 1; //was 1
 		for(var i =0; i<m_Robot.length; i++) 
 		{
 			mag = vary * Math.random();
@@ -431,25 +563,6 @@ function init()
 		{
 			x: 5 * mapScale, y: 5 * mapScale,
 			rotate: angle
-		}).drawArc(
-		{
-			fillStyle: "orange",
-			x: 5 * mapScale, y: 5 * mapScale,
-			radius: radius * mapScale
-		}).drawArc(
-		{
-			strokeStyle: 'green',
-			strokeWidth: 16, //fillStyle: "green",
-			x: goalPositionXDraw * mapScale, y: goalPositionYDraw * mapScale,
-			radius: 2.0 * mapScale
-		}).drawText(
-		{
-			strokeStyle: "green",
-			strokeWidth: 2,
-			x: goalPositionXDraw*mapScale  , y: goalPositionYDraw *mapScale ,
-			fontSize: 20,
-			fontFamily: 'Verdana, sans-serif',
-			text: "Goal"
 		}).restoreCanvas();
 
 		if(BFSDebugMode)
@@ -609,15 +722,7 @@ function init()
 	})
 		.restoreCanvas();
 	}
-	$("canvas")
-	.drawArc({
-		//COM of the block
-		strokeStyle: "orange",
-		strokeWidth: 5,
-		x: blockCOM_x * mapScale, y: blockCOM_y * mapScale,
-		radius: radius * mapScale
-	})
-	.restoreCanvas();
+
 	var day = new Date();
 	if( timeFinish == null && false)
 		{ timeFinish = day.getTime();}
@@ -633,7 +738,7 @@ function init()
 	// CONTROLLER
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//goal positions
-	var cycleInSec = 20;
+	var cycleInSec = 2;
 	var amplitudeY = 5;
 	var offsetY = 5;
 	var amplitudeX = 5;
@@ -648,6 +753,30 @@ function init()
 	var sum2_y = 0;
 	var desired_var_x;
 	var cov_xy = 0;
+	if(elapsedTimeSec%cycleInSec > cycleInSec/2 )
+	{
+		if(index_goal <86)
+		{
+			done = false;
+			goalX = goalsX[index_goal]/2 - 0.5;
+			goalY = goalsY[index_goal]/2 - 2;
+			//console.log("Here We are");
+
+
+		}
+
+	}
+	else
+	{
+		if(!done)
+		{
+			index_goal = index_goal + 1;
+			done = true;
+		}
+	}
+
+	//goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
+	//goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2  );
 
 	for(var i = 0; i < numrobots; ++i) {
 		sum_position_x += m_Robot[i].GetPosition().x;
@@ -685,103 +814,40 @@ function init()
 		.restoreCanvas();
 	}else{
 
-		// var winstring = "Success,\n "+ numrobots +" robots in " +Math.floor(timeFinished) + "s";
-		// $("canvas").drawText(
-		// {
-		// 	strokeStyle: "blue",
-		// 	strokeWidth: 4,
-		// 	x: 9*mapScale  , y: 10 *mapScale ,
-		// 	fontSize: 40,
-		// 	fontFamily: 'Verdana, sans-serif',
-		// 	text: winstring
-		// }).restoreCanvas();
+		var winstring = "You won in "+timeFinished + "s\n with " + numrobots +" robots!";
+		$("canvas").drawText(
+		{
+			strokeStyle: "Blue",
+			strokeWidth: 3,
+			x: 8*mapScale  , y: goalPositionYDraw *mapScale ,
+			fontSize: 40,
+			fontFamily: 'Verdana, sans-serif',
+			text: winstring
+		}).restoreCanvas();
 	}
 
 
-	if(Math.abs(blockCOM_x - goalPositionX) < 2 && Math.abs(blockCOM_y - goalPositionY) <2)
-	{
-		goalRecieved = true;
-		
-		if(wroteFinish == false){
-			timeFinished = elapsedTimeSec;
-			console.log(elapsedTimeSec + " " + numrobots);
-			wroteFinish = true;
-		}
-		m_controlState  = ROBOT_INPUT.ROBOT_IDLE;
+	
+
+	
+	for(var i = 0 ; i < index_goal; i++){
+		$("canvas").drawRect({
+			fillStyle: "green",
+			x: (goalsX[i]/2 -0.5)* mapScale, y: (goalsY[i]/2 - 2) * mapScale,
+			width: 0.5 * mapScale,
+			height: 0.5 * mapScale,
+			cornerRadius: 0
+
+		}).restoreCanvas();
 	}
-	if(!goalRecieved){
-		if(var_x < min_desired_var_x && var_y < min_desired_var_y)
-		{
-			flagVar = false;
-		}
-		if(var_x > max_desired_var_x || var_y > max_desired_var_y)
-		{
-			flagVar = true;
-		}
-		if(flagVar)
-		{
-			var CornerValuesX = [1,		19,	19,	1,	1,	100];
-			var CornerValuesY = [19,	19,	7,	13,	1,	100];
-			var CornerValuesD = [51,	41, 30,	24, 17, 100];
-			var dist2corner = new Array(CornerValuesX.length);
-			var COMdist2corner = new Array(CornerValuesX.length);
-			var minDistCorner = 10000;
-			var IndexMinDist = 0;
-
-			for (var i = 0 ; i < CornerValuesX.length ; i++)
-			{	//computes distance from all corners to COM  and swarm mean.  Also records closest corner to  mean of swarm
-				dist2corner[i] = lineDistance(mean_position_x, mean_position_y, CornerValuesX[i], CornerValuesY[i]);
-				COMdist2corner[i] = lineDistance(blockCOM_x, blockCOM_y, CornerValuesX[i], CornerValuesY[i]);
-				if(minDistCorner > dist2corner[i])
-				{
-					minDistCorner = dist2corner[i];
-					IndexMinDist = i;
-				}
-			}
-			if(   CornerValuesD[IndexMinDist] <  map[block_x][block_y]  && IndexMinDist>0 )
-			{
-				//console.log(" Corner " + map[CornerValuesX[IndexMinDist]][CornerValuesY[IndexMinDist] ]  + " block " +  map[block_x][block_y] + " MinIndex" + IndexMinDist );
-				IndexMinDist = IndexMinDist-1;
-			}
-			goalX = CornerValuesX[IndexMinDist];
-			goalY = CornerValuesY[IndexMinDist];
-		}
-		if(!flagVar)
-		{
-			var COMdist2swarm = lineDistance(blockCOM_x, blockCOM_y, mean_position_x, mean_position_y);
-			var r = 0.1;
-			if( COMdist2swarm > 2.5)
-			{	r = 1.5
-			}
-			//var r = Math.max(0.0, Math.min(1.5, 0.5*COMdist2swarm));	
-			goalX = blockCOM_x + r * gradient_x[block_x][block_y];
-			goalY = blockCOM_y + r * gradient_y[block_x][block_y];
-		}
-
 	$("canvas").drawArc({ //draw the average position
 		strokeStyle: "red",
 		strokeWidth: 5,
 		x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 		radius: radius * mapScale
-	}).restoreCanvas();
-	$("canvas").drawEllipse({
-			strokeStyle: "green",
-			strokeWidth: 5,
-			setLineDash: 6 , 
-			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
-			width: 3 * 30*Math.sqrt(min_desired_var_x), height: 3 * 30*Math.sqrt(min_desired_var_y),
-			rotate: angle2
-		}).restoreCanvas();
-	$("canvas").drawEllipse({
-			strokeStyle: "green",
-			strokeWidth: 5,
-			setLineDash: 6 , 
-			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
-			width: 3 * 30*Math.sqrt(max_desired_var_x), height: 3 * 30*Math.sqrt(max_desired_var_y),
-			rotate: angle2
-		}).restoreCanvas();
+	}).restoreCanvas();		
 
-	var Kgain = 12;
+	var Kgain = 4;
 	var Kderivative = 1;
 	var sum_velocity_x = 0;
 	var sum_velocity_y = 0;
@@ -794,7 +860,7 @@ function init()
 	m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
 	m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 	m_controlState = ROBOT_INPUT.ROBOT_PROP;
-}
+
 	//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
 	//console.log(elapsedTimeSec + " " + var_x );
 	}; //end update
