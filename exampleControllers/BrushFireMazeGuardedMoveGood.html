@@ -592,7 +592,7 @@ function init()
 		}
 	}
 	if(!goalRecieved){
-		$("canvas")
+		/*$("canvas")
 		.drawArc({
 		//draw the goal mean position
 		strokeStyle: "lightblue",
@@ -607,9 +607,9 @@ function init()
 		x: goalX * mapScale, y: goalY * mapScale,
 		radius: (radius + 0.2) * mapScale
 	})
-		.restoreCanvas();
+		.restoreCanvas();*/
 	}
-	$("canvas")
+	/*$("canvas")
 	.drawArc({
 		//COM of the block
 		strokeStyle: "orange",
@@ -617,7 +617,7 @@ function init()
 		x: blockCOM_x * mapScale, y: blockCOM_y * mapScale,
 		radius: radius * mapScale
 	})
-	.restoreCanvas();
+	.restoreCanvas();*/
 	var day = new Date();
 	if( timeFinish == null && false)
 		{ timeFinish = day.getTime();}
@@ -674,7 +674,7 @@ function init()
 			var block_x = Math.floor(blockCOM_x);
 			var block_y = Math.floor(blockCOM_y);
 	if(!goalRecieved){
-		$("canvas").drawEllipse({
+		/*$("canvas").drawEllipse({
 			strokeStyle: "red",
 			strokeWidth: 5,
 			setLineDash: 6 , 
@@ -682,7 +682,7 @@ function init()
 			width: 3 * 30*Math.sqrt(var_xp), height: 3 * 30*Math.sqrt(var_yp),
 			rotate: angle2
 		})
-		.restoreCanvas();
+		.restoreCanvas();*/
 	}else{
 
 		// var winstring = "Success,\n "+ numrobots +" robots in " +Math.floor(timeFinished) + "s";
@@ -758,7 +758,7 @@ function init()
 			goalY = blockCOM_y + r * gradient_y[block_x][block_y];
 		}
 
-	$("canvas").drawArc({ //draw the average position
+	/*$("canvas").drawArc({ //draw the average position
 		strokeStyle: "red",
 		strokeWidth: 5,
 		x: mean_position_x* mapScale, y: mean_position_y * mapScale,
@@ -779,7 +779,7 @@ function init()
 			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
 			width: 3 * 30*Math.sqrt(max_desired_var_x), height: 3 * 30*Math.sqrt(max_desired_var_y),
 			rotate: angle2
-		}).restoreCanvas();
+		}).restoreCanvas();*/
 
 	var Kgain = 12;
 	var Kderivative = 1;
