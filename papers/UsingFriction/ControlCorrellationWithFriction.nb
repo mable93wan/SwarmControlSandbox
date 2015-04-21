@@ -1,0 +1,344 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11078,        335]
+NotebookOptionsPosition[     10073,        294]
+NotebookOutlinePosition[     10420,        309]
+CellTagsIndexPosition[     10377,        306]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Consider a rectangular workspace with walls that have friction :  a robot \
+incontact with the wall is slowed.\
+\>", "Subsection",
+ CellChangeTimes->{{3.6386310007495675`*^9, 3.638631037967289*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Draw it", "Subsubsection",
+ CellChangeTimes->{{3.638631043872879*^9, 3.638631050329525*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"w", " ", "=", " ", "10"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Graphics", "[", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{"Black", ",", " ", 
+    RowBox[{"Rectangle", "[", 
+     RowBox[{
+      RowBox[{"w", "*", "1.1", "*", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", 
+         RowBox[{"-", "1"}]}], "}"}]}], ",", 
+      RowBox[{"w", "*", "1.1", "*", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}]}]}], "]"}], ",", "\[IndentingNewLine]",
+     "White", ",", " ", 
+    RowBox[{"Rectangle", "[", 
+     RowBox[{
+      RowBox[{"w", "*", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"-", "1"}], ",", 
+         RowBox[{"-", "1"}]}], "}"}]}], ",", 
+      RowBox[{"w", "*", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "1"}], "}"}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"add", " ", "robots"}], "*)"}], "\[IndentingNewLine]", "Blue", 
+    ",", "\[IndentingNewLine]", 
+    RowBox[{"Disk", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"3", ",", "3"}], "}"}], ",", "1"}], "]"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Disk", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"-", "5"}], ",", 
+        RowBox[{"-", "5"}]}], "}"}], ",", "1"}], "]"}]}], 
+   "\[IndentingNewLine]", "}"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.638631074433935*^9, 3.6386312211326036`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[0], RectangleBox[{-11., -11.}, {11., 11.}]}, 
+   {GrayLevel[1], RectangleBox[{-10, -10}, {10, 10}]}, 
+   {RGBColor[0, 0, 1], DiskBox[{3, 3}], DiskBox[{-5, -5}]}}]], "Output",
+ CellChangeTimes->{{3.6386311453460255`*^9, 3.6386311737638674`*^9}, {
+  3.638631209469437*^9, 3.6386312215956497`*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Equations of Motion: assume inputs are velocity (so we have a kinematic, not \
+a dynamic model)\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.6386310535498466`*^9, 3.6386310612346153`*^9}, {
+  3.6386312626177516`*^9, 3.6386312741789074`*^9}}],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.638632087526234*^9, 3.638632112047686*^9}, {
+  3.6386322720396833`*^9, 3.6386322814726267`*^9}, {3.638632685313007*^9, 
+  3.638632792543729*^9}, {3.638632870223496*^9, 3.6386328708255568`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"FrictionModel", "[", 
+   RowBox[{"force_", ",", " ", "fricForce_"}], "]"}], ":=", " ", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Abs", "[", "fricForce", "]"}], ">", 
+     RowBox[{"Abs", "[", "force", "]"}]}], ",", "0", ",", 
+    RowBox[{"force", "-", "fricForce"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"MotionModel", "[", 
+   RowBox[{
+   "x_", ",", "y_", ",", "\[Mu]Fric_", ",", " ", "vx_", ",", "vy_", ",", " ", 
+    "TopW_", ",", "RightW_", ",", "BottomW_", ",", "LeftW_", " ", ",", 
+    "RobRadius_"}], "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"\[Theta]", " ", "=", " ", 
+     RowBox[{"ArcTan", "[", 
+      RowBox[{"vx", ",", "vy"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"y", "\[GreaterEqual]", 
+        RowBox[{"TopW", "-", "RobRadius"}]}], "  ", "&&", " ", 
+       RowBox[{"vy", " ", ">", " ", "0"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vy", " ", "=", " ", "0"}], ";", " ", 
+       RowBox[{"vx", " ", "=", " ", 
+        RowBox[{"vx", "*", " ", 
+         RowBox[{"FrictionModel", "[", 
+          RowBox[{
+           RowBox[{"Cos", "[", "\[Theta]", "]"}], ",", 
+           RowBox[{
+            RowBox[{"-", "\[Mu]Fric"}], " ", 
+            RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], "]"}]}]}]}]}], "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"y", "\[LessEqual]", 
+        RowBox[{"BottomW", "+", "RobRadius"}]}], "  ", "&&", " ", 
+       RowBox[{"vy", " ", "<", " ", "0"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vy", " ", "=", " ", "0"}], ";", " ", 
+       RowBox[{"vx", " ", "=", " ", 
+        RowBox[{"vx", "*", 
+         RowBox[{"FrictionModel", "[", 
+          RowBox[{
+           RowBox[{"Cos", "[", "\[Theta]", "]"}], ",", 
+           RowBox[{
+            RowBox[{"-", "\[Mu]Fric"}], " ", 
+            RowBox[{"Sin", "[", "\[Theta]", "]"}]}]}], "]"}]}]}]}]}], "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"x", "\[GreaterEqual]", 
+        RowBox[{"RightW", "-", "RobRadius"}]}], "  ", "&&", " ", 
+       RowBox[{"vy", " ", ">", " ", "0"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vx", " ", "=", " ", "0"}], ";", " ", 
+       RowBox[{"vy", " ", "=", " ", 
+        RowBox[{"vy", "*", 
+         RowBox[{"FrictionModel", "[", 
+          RowBox[{
+           RowBox[{"Sin", "[", "\[Theta]", "]"}], ",", 
+           RowBox[{
+            RowBox[{"-", "\[Mu]Fric"}], " ", 
+            RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], "]"}]}]}]}]}], "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"x", "\[LessEqual]", 
+        RowBox[{"BottomW", "+", "RobRadius"}]}], "  ", "&&", " ", 
+       RowBox[{"vy", " ", "<", " ", "0"}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vx", " ", "=", " ", "0"}], ";", " ", 
+       RowBox[{"vy", " ", "=", " ", 
+        RowBox[{"vy", "*", 
+         RowBox[{"FrictionModel", "[", 
+          RowBox[{
+           RowBox[{"Sin", "[", "\[Theta]", "]"}], ",", 
+           RowBox[{
+            RowBox[{"-", "\[Mu]Fric"}], " ", 
+            RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], "]"}]}]}]}]}], "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{"apply", " ", "velocity", " ", "to", " ", "motion"}], "*)"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"{", 
+     RowBox[{"vx", ",", "vy"}], "}"}]}], "\[IndentingNewLine]", 
+   ")"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6386312880632963`*^9, 3.638631403595848*^9}, {
+  3.638631434690957*^9, 3.638631785976082*^9}, {3.6386319127897625`*^9, 
+  3.6386319237768607`*^9}, {3.6386328047049446`*^9, 3.63863289356783*^9}, {
+  3.6386336838778534`*^9, 3.6386337324967146`*^9}}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Assume leftmost robot is touching left wall.  What [vx, vy] should we apply \
+for 1 second to achieve a desired \[CapitalDelta]Y?\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.6386329495644293`*^9, 3.63863298667414*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"Clear", "[", "w", "]"}], "\[IndentingNewLine]", 
+ RowBox[{"DSolve", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"vx", ",", "vy"}], "}"}], "=", 
+       RowBox[{"MotionModel", "[", 
+        RowBox[{
+         RowBox[{"x", "[", "t", "]"}], ",", 
+         RowBox[{"y", "[", "t", "]"}], ",", "\[Mu]Fric", ",", " ", "vxIn", 
+         ",", "vyIn", ",", " ", "w", ",", "w", ",", 
+         RowBox[{"-", "w"}], ",", 
+         RowBox[{"-", "w"}], ",", "1"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"x", "'"}], "[", "t", "]"}], "\[Equal]", " ", "vx"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"y", "'"}], "[", "t", "]"}], "\[Equal]", "vy"}], ",", 
+     RowBox[{
+      RowBox[{"y", "[", "0", "]"}], "\[Equal]", "0"}], ",", 
+     RowBox[{
+      RowBox[{"x", "[", "0", "]"}], "\[Equal]", 
+      RowBox[{"-", "w"}]}]}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "y"}], "}"}], ",", "t"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.638633583042771*^9, 3.6386336727797437`*^9}, {
+   3.6386337394284077`*^9, 3.638633819414406*^9}, 3.6386338716476283`*^9, {
+   3.6386339340178647`*^9, 3.638633934458909*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"{", 
+   RowBox[{
+    RowBox[{"x", "\[Rule]", 
+     RowBox[{"Function", "[", 
+      RowBox[{
+       RowBox[{"{", "t", "}"}], ",", 
+       RowBox[{
+        RowBox[{"t", " ", "vxIn"}], "-", "w"}]}], "]"}]}], ",", 
+    RowBox[{"y", "\[Rule]", 
+     RowBox[{"Function", "[", 
+      RowBox[{
+       RowBox[{"{", "t", "}"}], ",", 
+       RowBox[{"t", " ", "vyIn"}]}], "]"}]}]}], "}"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.6386338242908936`*^9, {3.638633861111575*^9, 3.638633873302794*^9}, 
+   3.638633935451008*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["A demonstration", "Subsubsection",
+ CellChangeTimes->{{3.6386310639098825`*^9, 3.6386310686583576`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MotionModel", "[", 
+  RowBox[{
+  "x", ",", "y", ",", "\[Mu]Fric", ",", " ", "vxIn", ",", "vyIn", ",", " ", 
+   "w", ",", "w", ",", 
+   RowBox[{"-", "w"}], ",", 
+   RowBox[{"-", "w"}], ",", "1"}], "]"}]], "Input",
+ CellChangeTimes->{{3.638633842566721*^9, 3.638633845628027*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"vxIn", ",", "vyIn"}], "}"}]], "Output",
+ CellChangeTimes->{{3.638633839937458*^9, 3.6386338509245567`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{767, 873},
+WindowMargins->{{170, Automatic}, {53, Automatic}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (September 9, 2014)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 208, 4, 79, "Subsection"],
+Cell[CellGroupData[{
+Cell[813, 30, 98, 1, 39, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[936, 35, 1437, 42, 192, "Input"],
+Cell[2376, 79, 338, 6, 374, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2763, 91, 251, 5, 67, "Subsubsection"],
+Cell[3017, 98, 242, 3, 31, "Input"],
+Cell[3262, 103, 3942, 98, 352, "Input"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7241, 206, 229, 4, 67, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[7495, 214, 1344, 33, 152, "Input"],
+Cell[8842, 249, 555, 17, 31, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9446, 272, 110, 1, 39, "Subsubsection"],
+Cell[CellGroupData[{
+Cell[9581, 277, 302, 7, 31, "Input"],
+Cell[9886, 286, 147, 3, 31, "Output"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
