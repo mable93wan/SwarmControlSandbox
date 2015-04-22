@@ -4,3 +4,5 @@
 *.log
 *.dvi
 papers/IROS2015automaticSwarm/SwarmControlWithGlobalInputs.pdf
+
+*.blg
