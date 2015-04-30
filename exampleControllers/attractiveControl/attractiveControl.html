@@ -1,0 +1,877 @@
+<!--
+//
+// Author: Shiva Shahrocki and Aaron Becker
+// Started" 11/01/2014 -- present
+// Description: controls the mean position of n holonomic disk robots using mean position as feedback
+/// uses a PD controller.
+//
+// Records output into a log file/
+//
+// Status {working, broken, in progress, replacedby}: 
+//
+///////////////////////////////////////////////////////////////////////////////
+-->
+<html>
+<link rel="ensemble icon" href="../pictures/ATBensembleIcon.ico">
+<head>
+	<title>Stochastic Swarm Control: Attractive Control</title>
+</head>
+<body onload="init();">
+	<canvas id="canvas" width="600" height="600" style="background-color:#EEEEEE;"></canvas>
+	<div id="cc"></div>
+</body>
+<script type="text/javascript" src="../../shared/Box2dWeb-2.1.a.3.min.js"></script> <!-- box2d -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> <!-- forms & strings -->
+<script type="text/javascript" src="../../shared/jcanvas.min.js"></script>
+<script type="text/javascript">
+
+	// in Chrome, to view the console: Use the keyboard shortcut Command - Option - J (Mac) or Control -Shift -J (Windows/Linux).
+
+	///////////////////////////////
+	//Begin Global Variables
+	///////////////////////////////
+	var ROBOT_INPUT = {
+		ROBOT_IDLE : 0x0,
+		ROBOT_PROP : 0x01, //proportional control
+		WAIT : 0x40
+	};
+	var m_ControlInputY = 0;
+	var goalX = 5;
+	var goalY = 18;
+	var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
+	var mapXSize = 20;
+	var mapYSize = 20;
+	var mapScale = 30;
+
+	var blockCOM_x = 0;
+	var blockCOM_y = 0;
+	// checking variables.
+	var flagVar = false;
+	var ifBFS = true;
+	var ifGradient = true;
+	// Debugging Variables.
+	var BFSDebugMode = false;
+	var Gradient_DebugMode = false;
+	;
+	var map = new Array(mapXSize);
+	var gradient_x = new Array(mapXSize);
+	var gradient_y = new Array(mapXSize);
+	var gradient_angle = new Array(mapXSize);
+	for (var i = 0; i < mapXSize; i++) 
+	{
+		map[i] = new Array(mapYSize);
+		gradient_x[i] = new Array(mapYSize);
+		gradient_y[i] = new Array(mapYSize);
+		gradient_angle[i] = new Array(mapYSize);
+	}
+	/////////////////////////////
+	//End Global Variables
+	/////////////////////////////
+
+	/////////////////////////////
+	//Begin Algorithmic Functions
+	/////////////////////////////
+
+    function setupController() {
+        var that = this;
+      
+        /* setup mouse listener */
+        $("#canvas").mousemove( function(e){
+
+            /* We need the mouse position in the canvas's coordinate system */
+            /* Thanks to Denilson Sa for this:
+             * http://stackoverflow.com/questions/6773481/how-to-get-the-mouseevent-coordinates-for-an-element-that-has-css3-transform
+             * */
+            var rect = this.getBoundingClientRect();
+            var left = e.clientX - rect.left - this.clientLeft + this.scrollLeft;
+            var top = e.clientY - rect.top - this.clientTop + this.scrollTop;
+
+            that._mX = 20 * left/this.width;
+            that._mY = 20 * top/this.height;
+        });        
+
+        $("#canvas").mousedown( function(e) {
+            that._attracting = true;
+            //check if this is the first valid keypress, if so, starts the timer
+            if( that._startTime == null )
+            { 
+                that.lastUserInteraction = new Date().getTime();
+                that._startTime = that.lastUserInteraction;
+                that._runtime = 0.0;
+            }
+        });
+
+        $("#canvas").mouseup( function (e) {
+            that.lastUserInteraction = new Date().getTime();
+            that._attracting = false;
+        });
+
+                /* setup touch listener */
+        $("#canvas")[0].addEventListener('touchmove', function(e){
+            e.preventDefault();
+            var rect = this.getBoundingClientRect();
+            var touch = e.touches[0];
+            var left = touch.pageX - rect.left - this.clientLeft + this.scrollLeft;
+            var top = touch.pageY - rect.top - this.clientTop + this.scrollTop;
+
+            that._mX = 20 * left/this.width;
+            that._mY = 20 * top/this.height -2; //
+        },false);        
+
+        $("#canvas")[0].addEventListener('touchstart', function(e) {
+            that._attracting = true;
+            //check if this is the first valid keypress, if so, starts the timer
+            if( that._startTime == null )
+            { 
+                that.lastUserInteraction = new Date().getTime();
+                that._startTime = that.lastUserInteraction;
+                that._runtime = 0.0;
+            }
+        },false);
+
+        $("#canvas")[0].addEventListener('touchend', function (e) {
+            that.lastUserInteraction = new Date().getTime();
+            that._attracting = false;
+        },false);
+    };
+
+    function attractiveUpdate() {
+        var that = this;
+        // apply the user force to all the robots
+        if (that._attracting) {
+            that.lastUserInteraction = new Date().getTime();
+            _.each( that._robots, function(r) { 
+                var rpos = r.GetPosition();             
+                var dx = that._mX - rpos.x;
+                var dy = that._mY - rpos.y;
+                var distSq = dx*dx + dy*dy;
+                var mag = Math.sqrt(distSq);
+                var h2 = 4;
+                var forceM = 100*distSq/Math.pow(distSq + h2,2);
+                //that._impulseV.x = 20*dx/Math.pow(mag,1) || 0;
+                that._impulseV.x = 20*dx/mag*forceM || 0;
+                that._impulseV.y = 20*dy/mag*forceM || 0;
+                r.ApplyForce( that._impulseV, r.GetWorldPoint( that._zeroReferencePoint ) );
+            } );
+        }
+
+        // step the world, and then remove all pending forces
+        this._world.Step(1 / 60, 10, 10);
+        this._world.ClearForces();
+    };
+
+	function BFS(x, y )
+	{//recursively compute Breadth First Search from goal to every other grid cell
+		var dist = map[x][y];
+		if(dist == -1)
+		if(x-1 >0)
+		{
+			if(map[x-1][y] > dist +1)
+			{
+				map[x-1][y] = dist+1;
+				//console.log("with " + x-1 + " and " + y + " We have : " + map[x-1][y]);
+				BFS(x-1, y);
+			}
+		}
+		if(y+1 < mapYSize)
+		{
+			if(map[x][y+1] > dist +1)
+			{
+				map[x][y+1] = dist+1;
+				//console.log("with " + x + " and " + y +1+ " We have : " + map[x][y+1]);
+				BFS(x, y+1);
+			}
+		}
+		if(y-1 >0)
+		{
+			if(map[x][y-1] > dist +1)
+			{
+				map[x][y-1] = dist+1;
+				//console.log("with " + x + " and " + y-1 + " We have : " + map[x][y-1]);
+				BFS(x, y-1);
+			}
+		}
+		if(x+1 < mapXSize)
+		{
+			if(map[x+1][y] > dist +1)
+			{
+				map[x+1][y] = dist+1;
+				//console.log("with " + x+1 + " and " + y + " We have : " + map[x+1][y]);
+				BFS(x+1, y);
+			}
+		}
+	}
+
+	function Gradient(x,y)
+	{// computes the x and y gradient of cell(x,y)  requires a map with distance values.
+		var dist = map[x][y];
+		if(dist == -1)
+		{
+			gradient_x[x][y] = 0;
+			gradient_y[x][y] = 0;
+			return;
+		}
+		
+		if(map[x-1][y] == -1 && map[x+1][y] == -1)
+		{
+			gradient_x[x][y] = 0;
+		}
+		else if(map[x-1][y] == -1 )
+		{
+			gradient_x[x][y]= map[x+1][y] - map[x][y];
+		}
+		else if(map[x+1][y] == -1 )
+		{
+			gradient_x[x][y]= map[x][y] - map[x-1][y];
+		}
+		else
+		{
+			gradient_x[x][y] = (map[x+1][y] - map[x-1][y])/2;
+		}
+	
+		if(map[x][y-1] == -1 && map[x][y+1] == -1)
+		{
+			gradient_y[x][y] = 0;
+		}
+		else if(map[x][y-1] == -1 )
+		{
+			gradient_y[x][y]= map[x][y+1] - map[x][y];
+		}
+		else if(map[x][y+1] == -1 )
+		{
+			gradient_y[x][y]= map[x][y] - map[x][y-1];
+		}
+		else
+		{
+			gradient_y[x][y] = (map[x][y+1] - map[x][y-1])/2;
+		}
+		if(gradient_x[x][y] != 0 || gradient_y[x][y] != 0)
+		{
+			gradient_angle[x][y] = Math.atan2(gradient_y[x][y],gradient_x[x][y] ) * 180 / Math.PI + 270;
+		}
+		
+	}
+	////////////////////////////
+	//End Algorithmic Functions
+	////////////////////////////
+
+
+	function init() 
+	{
+		var b2Vec2 = Box2D.Common.Math.b2Vec2
+			, b2AABB = Box2D.Collision.b2AABB
+			, b2BodyDef = Box2D.Dynamics.b2BodyDef
+			, b2Body = Box2D.Dynamics.b2Body
+			, b2FixtureDef = Box2D.Dynamics.b2FixtureDef
+			, b2Fixture = Box2D.Dynamics.b2Fixture
+			, b2World = Box2D.Dynamics.b2World
+			, b2MassData = Box2D.Collision.Shapes.b2MassData
+			, b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
+			, b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
+			, b2DebugDraw = Box2D.Dynamics.b2DebugDraw
+			, b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef
+		;
+		var world = new b2World(
+			new b2Vec2(0, 00) //gravity setting to zero removes gravity
+			, true //allow sleep
+		);
+		var canvas = $('#canvas');
+		var context = canvas.get(0).getContext('2d');
+		var timeStart = null;
+		var timeFinish = null;
+		var timer = null;
+		var passed = null;
+		var overall_time = null;
+		var firstloop = false;
+		var boundaryHeight = 2;
+		var boundaryWidth = 20;
+
+		var fixDef = new b2FixtureDef;
+		fixDef.density = 1.0;
+		fixDef.friction = 0.5;
+		fixDef.restitution = 0.2; //bouncing value
+		var bodyDef = new b2BodyDef;
+
+		//create enclosing boundary rectangles
+		bodyDef.userData = 'obstacle';
+		bodyDef.type = b2Body.b2_staticBody;
+		fixDef.shape = new b2PolygonShape;
+		fixDef.shape.SetAsBox(20, 2);//width, height
+		bodyDef.position.Set(10, 600 / mapScale + 1); //bottom
+		var bodyBottom = world.CreateBody(bodyDef);
+		bodyBottom.CreateFixture(fixDef);
+		bodyDef.position.Set(10, -1); //top
+		world.CreateBody(bodyDef).CreateFixture(fixDef);
+		fixDef.shape.SetAsBox(2, 14);//width, height
+		bodyDef.position.Set(-1, 13); //left
+		world.CreateBody(bodyDef).CreateFixture(fixDef);
+		bodyDef.position.Set(21, 13); // right side
+		world.CreateBody(bodyDef).CreateFixture(fixDef);
+
+		// maze
+		bodyDef.userData = 'obstacle';
+ 		fixDef.shape.SetAsBox(10, 0.5);//width, height
+        bodyDef.position.Set(15, 150 / mapScale + 1.5); //TOP
+        var bodyBottom = world.CreateBody(bodyDef);
+        bodyBottom.CreateFixture(fixDef);
+        bodyDef.position.Set(5, 400 / mapScale + 0.2); //BOTTOM
+        world.CreateBody(bodyDef).CreateFixture(fixDef);
+
+		//create an object to move
+		if(!BFSDebugMode && !Gradient_DebugMode){
+		bodyDef.type = b2Body.b2_dynamicBody;
+		fixDef.density = 10.0;
+		fixDef.friction = 0.5;
+        fixDef.restitution = 0.2;  //bouncing value
+        bodyDef.position.Set(7,17.5);
+        bodyDef.userData = 'moveable';
+        fixDef.shape = new b2PolygonShape;
+        fixDef.shape.SetAsBox(1.0,1.0);
+        var obst = world.CreateBody(bodyDef);
+        obst.CreateFixture(fixDef);
+        obst.m_angularDamping = 0.1;
+        obst.m_linearDamping = 0.1;
+}
+		//create the robots
+		bodyDef.type = b2Body.b2_dynamicBody;
+		var robotrad = 0.1;
+		var numrobots = 200;//Math.floor(20/(4*robotrad*robotrad));
+		if(BFSDebugMode || Gradient_DebugMode)
+		{
+			numrobots = 0;
+		}
+		fixDef.density = 1.0;
+		fixDef.friction = 0.5;
+		fixDef.restitution = 0.2; //bouncing value
+		var m_Robot = new Array();
+		var rowLength = Math.floor(5/(2*robotrad));
+		fixDef.shape = new b2CircleShape(
+				robotrad //Math.random() + 0.1 //radius
+		);
+		bodyDef.userData = 'robot';
+		for(var i = 0; i < numrobots; ++i) 
+		{
+			bodyDef.position.x = 1.5+(i%rowLength)*2*robotrad;
+			bodyDef.position.y = 18.5-Math.floor(i/rowLength)*2*robotrad;
+			m_Robot[i] = world.CreateBody(bodyDef);
+			m_Robot[i].CreateFixture(fixDef);
+			m_Robot[i].m_angularDamping = 1;//was 1, we used 10 on SwarmControl
+			m_Robot[i].m_linearDamping = 1;
+		}
+
+		// setupController
+        var that = this;
+        that._attracting = true;
+        setupAttractiveController(); 
+
+	
+		window.requestAnimFrame = (function()
+		{
+			return window.requestAnimationFrame ||
+			window.webkitRequestAnimationFrame ||
+			window.mozRequestAnimationFrame ||
+			window.oRequestAnimationFrame ||
+			window.msRequestAnimationFrame ||
+			function(/* function */ callback, /* DOMElement */ element){
+				window.setTimeout(callback, 1000 / 60);
+			};
+		})();
+
+		///////////////////////////////////
+		// Brushfire Algorithm
+		///////////////////////////////////
+		var infinity = mapXSize * mapYSize;
+		var mazeSize = 15;
+		var mazeTopY = 13;
+		var mazeDownY = 6;
+		var goalPositionX = 16;
+		var goalPositionY = 3;
+		var goalPositionXDraw = 16.5;
+		var goalPositionYDraw = 3.5;
+		
+		if(ifBFS)//giving -1 to boundaries
+		{	//at the end, map[x][y] is the BFS distance to the goal
+			for(var i = 0 ; i < mapXSize; i++)
+			{
+				map[i][0]= -1;
+				map[i][mapYSize -1] = -1;
+				map[0][i]= -1;
+				map[mapXSize-1][i]= -1;
+			}
+			// giving -1 to obstacles.(Down Maze)
+			for (var i = 0 ; i < mazeSize; i++)
+			{
+				map[i][mazeTopY]= -1;
+			}
+			//Top Maze
+			for(var i = mapXSize-1 ; i > mapXSize- mazeSize -1 ; i--)
+			{
+				map[i][mazeDownY] = -1;
+			}
+			for (var i = 0 ; i < mapXSize ; i++)
+				for (var j = 0 ; j < mapYSize; j++)
+				{
+					if(map[i][j] != -1)
+					{
+						map[i][j]= infinity;
+					}
+				}
+			map[goalPositionX][goalPositionY]= 0;
+		
+			BFS(goalPositionX, goalPositionY);
+
+			ifBFS = false;
+		}
+		if(ifGradient)
+		{
+			//for each cell, calculate the gradient
+
+			for(var i = 0 ; i < mapXSize; i ++)
+				for(var j = 0 ; j <mapYSize; j++)
+				{
+					Gradient(i,j);
+				}
+			
+			ifGradient = false;
+
+		}
+		//
+		
+		
+		
+		(function animloop()
+		{
+			requestAnimFrame(animloop);
+			update();
+		})();
+		if ( timeStart == null)
+		{
+			var day = new Date();
+			timeStart= day.getTime();
+		}
+		function lineDistance( x1,y1,x2,y2)
+		{
+			var xs = 0;
+			var ys = 0;
+			xs = x1 - x2;
+			xs = xs * xs;
+			ys = y1- y2;
+			ys = ys * ys;
+			return Math.sqrt( xs + ys );
+		}
+		function update() 
+		{
+
+		//called each animation round
+		//y-axis is inverted in webpage
+			var impulseV=new b2Vec2(0,0);
+			var impulse = 3.0;
+			if(m_controlState & ROBOT_INPUT.ROBOT_PROP)
+			{
+				impulseV.x = m_ControlInputX;
+				impulseV.y = m_ControlInputY;
+			}
+			//apply Brownian noise:
+				var brownianImpulse = new b2Vec2(0,0);
+				var mag = 0;
+				var ang = 0;
+				var vary= 1;
+			for(var i =0; i<m_Robot.length; i++) 
+			{
+				mag = vary * Math.random();
+				ang = 2*Math.PI*Math.random();
+				brownianImpulse.x = mag*Math.cos(ang) + impulseV.x ;
+				brownianImpulse.y = mag*Math.sin(ang) + impulseV.y ;
+				m_Robot[i].ApplyForce(brownianImpulse,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
+			}
+
+		world.Step(1 / 60, 10, 10);
+		world.DrawDebugData();
+		world.ClearForces();			
+		$("canvas").clearCanvas();
+		$("canvas")
+		.rotateCanvas(
+		{
+			x: 5 * mapScale, y: 5 * mapScale,
+			rotate: angle
+		})
+		.drawArc(
+		{
+			fillStyle: "orange",
+			x: 5 * mapScale, y: 5 * mapScale,
+			radius: radius * mapScale
+		})
+		.drawArc({
+			strokeStyle: 'green',
+			strokeWidth: 16,
+			//fillStyle: "green",
+			x: goalPositionXDraw * mapScale, y: goalPositionYDraw * mapScale,
+			radius: 2.0 * mapScale
+		})
+		.drawText(
+					{
+						strokeStyle: "green",
+						strokeWidth: 2,
+						x: goalPositionXDraw*mapScale  , y: goalPositionYDraw *mapScale ,
+						fontSize: 20,
+						fontFamily: 'Verdana, sans-serif',
+						text: "Goal"
+					})		
+		.restoreCanvas();
+
+		if(BFSDebugMode)
+		{
+			for(var i = 0 ; i < mapXSize; i++)
+				for (var j = 0 ; j < mapYSize; j++)
+				{
+					if(map[i][j] != 0 && map[i][j] != 52){
+					$("canvas").drawText(
+					{
+						strokeStyle: '#25a',
+						strokeWidth: 2,
+						x: (i+ 0.5)*mapScale  , y: (j+0.5) *mapScale ,
+						fontSize: 20,
+						fontFamily: 'Verdana, sans-serif',
+						text: map[i][j]
+					});
+				}
+					else if (map[i][j] == 0 )
+					{
+						$("canvas").drawText(
+					{
+						strokeStyle: "yellow",
+						strokeWidth: 2,
+						x: (i+ 0.5)*mapScale  , y: (j+0.5) *mapScale ,
+						fontSize: 20,
+						fontFamily: 'Verdana, sans-serif',
+						text: map[i][j]
+					});
+					}
+					else if (map[i][j] == 52)
+					{
+						$("canvas").drawText(
+					{
+						strokeStyle: "yellow",
+						strokeWidth: 2,
+						x: (i+ 0.5)*mapScale  , y: (j+0.5) *mapScale ,
+						fontSize: 20,
+						fontFamily: 'Verdana, sans-serif',
+						text: map[i][j]
+					});
+					}
+					
+				}		
+		}
+		
+		if(Gradient_DebugMode)
+		{
+			for(var i = 0 ; i < mapXSize; i++)
+				for (var j = 0 ; j < mapYSize; j++)
+				{	
+					$('canvas').drawVector({
+					  strokeStyle: '#000',
+					  strokeWidth: 2,
+					  rounded: true,
+					  endArrow: true,
+					  arrowRadius: 10,
+					  arrowAngle: 30,		  
+					  x: mapScale* (i+ 0.5  + 0.5*Math.cos((90+gradient_angle[i][j])*Math.PI/180.0))	 , y: mapScale * (j + 0.5 + 0.5*Math.sin((90+gradient_angle[i][j])*Math.PI/180.0)),
+					  a1: gradient_angle[i][j], l1: mapScale
+					});
+				}				
+		}
+
+		
+		//draw robots and obstacles
+		for (b = world.GetBodyList() ; b; b = b.GetNext())
+		{
+			var angle = b.GetAngle()*(180/Math.PI);
+			for(f = b.GetFixtureList(); f; f = f.GetNext()) 
+			{
+				if (b.GetUserData() == 'robot')
+				{
+					
+					var radius = f.GetShape().GetRadius();
+					var pos = b.GetPosition();
+					$("canvas")
+					.rotateCanvas(
+					{
+						x: pos.x * mapScale, y: pos.y * mapScale,
+						rotate: angle
+					})
+					.drawArc(
+					{
+						strokeStyle: "lightblue",
+						strokeWidth: 1,
+						fillStyle: "blue",
+						x: pos.x * mapScale, y: pos.y * mapScale,
+						radius: radius * mapScale
+					})
+					.restoreCanvas();
+				
+				}
+				else if (b.GetUserData() == 'obstacle' || b.GetUserData() == 'moveable' || b.GetUserData() == 'rectangle_ground')
+				{
+					var X = f.GetShape().GetVertices()[1].x - f.GetShape().GetVertices()[0].x;
+					var Y = f.GetShape().GetVertices()[2].y - f.GetShape().GetVertices()[1].y;
+					//console.log(X);
+					var pos = b.GetPosition();
+					var color = 'orange';
+					if(b.GetUserData() == 'obstacle')
+					{	color = 'brown';}
+					if(b.GetUserData() == 'moveable')
+					{
+						color = 'black';
+						blockCOM_x = pos.x;
+						blockCOM_y = pos.y;
+					}
+					$("canvas")
+					.rotateCanvas({
+						x: pos.x * mapScale, y: pos.y * mapScale,
+						rotate: angle
+					})
+					.drawRect({
+						fillStyle: color,
+						x: pos.x * mapScale, y: pos.y * mapScale,
+						width: X * mapScale,
+						height: Y * mapScale,
+						cornerRadius: 0
+					})
+					.restoreCanvas();
+					if(BFSDebugMode || Gradient_DebugMode){
+					for(var i = 0 ; i < 20; i++)
+					{
+						$("canvas")
+						.drawLine(
+						{
+							strokeStyle: 'gray',
+							strokeWidth: 1,
+							x1: i*mapScale, y1: 0,
+							x2: i*mapScale, y2: 20*mapScale
+						})
+						.drawLine({
+							strokeStyle: 'gray',
+							strokeWidth: 1,
+							x1: 0, y1: i*mapScale,
+							x2: 20*mapScale, y2: i*mapScale
+						})
+					}
+					$("canvas").restoreCanvas();
+				}
+				}
+	}
+	}
+		
+		$("canvas").drawArc({
+			//draw the goal mean position
+			strokeStyle: "lightblue",
+			strokeWidth: 5,
+			x: goalX * mapScale, y: goalY * mapScale,
+			radius: radius * mapScale
+		})
+		.drawArc({
+			//draw the goal mean position
+			strokeStyle: "lightblue",
+			strokeWidth: 5,
+			x: goalX * mapScale, y: goalY * mapScale,
+			radius: (radius + 0.2) * mapScale
+		})
+		.drawArc({
+			//COM of the block
+			strokeStyle: "orange",
+			strokeWidth: 5,
+			x: blockCOM_x * mapScale, y: blockCOM_y * mapScale,
+			radius: radius * mapScale
+		})
+		.restoreCanvas();
+		var day = new Date();
+		if( timeFinish == null && false)
+			{ timeFinish = day.getTime();}
+		if(overall_time == null) // set the start time
+		{
+			overall_time = day.getTime();
+		}
+		var elapsedTimeSec = (day.getTime()- overall_time )/1000;
+		string = "Time = "+ elapsedTimeSec +"s<br>Algorithm II  is making robots (blue discs) push a block to the goal</strong>";
+		$('#cc').html(string); //USERDATA WILL SHOWN IN "div" WITH ID "cc"
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// CONTROLLER
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//goal positions
+		var cycleInSec = 20;
+		var amplitudeY = 5;
+		var offsetY = 5;
+		var amplitudeX = 5;
+		var offsetX = 5;
+		var max_desired_var_x = 7;
+		var min_desired_var_x = 2;
+		var max_desired_var_y = max_desired_var_x;
+		var min_desired_var_y = min_desired_var_x;
+		var sum_position_x = 0;
+		var sum_position_y = 0;
+		var sum2_x = 0;
+		var sum2_y = 0;
+		var desired_var_x;
+		var cov_xy = 0;
+
+		for(var i = 0; i < numrobots; ++i) {
+			sum_position_x += m_Robot[i].GetPosition().x;
+			sum_position_y += m_Robot[i].GetPosition().y;
+		}
+		var mean_position_x = sum_position_x / numrobots;
+		var mean_position_y = sum_position_y / numrobots;
+		for(var i = 0; i < numrobots; ++i) {
+			sum2_x += (m_Robot[i].GetPosition().x - mean_position_x) * (m_Robot[i].GetPosition().x - mean_position_x);
+			sum2_y += (m_Robot[i].GetPosition().y - mean_position_y) * (m_Robot[i].GetPosition().y - mean_position_y);
+			cov_xy=  cov_xy+ (m_Robot[i].GetPosition().x- mean_position_x)*(m_Robot[i].GetPosition().y - mean_position_y)/numrobots;
+		}
+		var var_x = sum2_x / numrobots;
+		var var_y = sum2_y / numrobots;
+
+
+        
+        var diffeq = Math.sqrt( (var_x-var_y)*(var_x-var_y)/4 + cov_xy*cov_xy);
+        var var_xp = (var_x+var_y)/2 + diffeq;
+        var var_yp = (var_x+var_y)/2 - diffeq;
+        var angle2 = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, var_x-var_y);
+        var angle_min_variance = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, min_desired_var_x-min_desired_var_y);
+        var angle_max_variance = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, max_desired_var_x-max_desired_var_y);
+
+        $("canvas").drawEllipse({
+			strokeStyle: "red",
+			strokeWidth: 5,
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * 30*Math.sqrt(var_xp), height: 3 * 30*Math.sqrt(var_yp),
+			rotate: angle2
+
+		})
+		.drawEllipse({
+			strokeStyle: "green",
+			strokeWidth: 5,
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * 30*Math.sqrt(min_desired_var_x), height: 3 * 30*Math.sqrt(min_desired_var_y),
+			rotate: angle_min_variance
+
+		})
+		.drawEllipse({
+			strokeStyle: "green",
+			strokeWidth: 5,
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * 30*Math.sqrt(max_desired_var_x), height: 3 * 30*Math.sqrt(max_desired_var_y),
+			rotate: angle_max_variance
+
+		})
+		
+		.restoreCanvas();
+
+
+		if(var_x < min_desired_var_x && var_y < min_desired_var_y)
+		{
+			flagVar = false;
+		}
+		if(var_x > max_desired_var_x || var_y > max_desired_var_y)
+		{
+			flagVar = true;
+			var cornerNum = 6;
+			var dist2corner = new Array(cornerNum);
+			var COMdist2corner = new Array(cornerNum);
+			var CornerValuesX = new Array(cornerNum);
+			var CornerValuesY = new Array(cornerNum);
+			CornerValuesX[0] = 1;
+			CornerValuesY[0] = 19;
+			CornerValuesX[1] = 19;
+			CornerValuesY[1] = 19;
+			CornerValuesX[2] = 19;
+			CornerValuesY[2] = 7;
+			CornerValuesX[3] = 1;
+			CornerValuesY[3] = 13;
+			CornerValuesX[4] = 1;
+			CornerValuesY[4] = 1;
+			CornerValuesX[5] = 19;
+			CornerValuesY[5] = 1;
+			var minDistCorner = 10000;
+			
+			for (var i = 0 ; i < cornerNum ; i++)
+			{
+				dist2corner[i] = lineDistance(mean_position_x, mean_position_y, CornerValuesX[i], CornerValuesY[i]);
+				COMdist2corner[i] = lineDistance(blockCOM_x, blockCOM_y, CornerValuesX[i], CornerValuesY[i]);
+				if(minDistCorner > dist2corner[i])
+				{
+					minDistCorner = dist2corner[i];
+				}
+			}
+			for(var i = 0 ; i < cornerNum; i++)
+			{
+				if(minDistCorner == dist2corner[i])
+				{
+					if(COMdist2corner[i] >=  dist2corner[i]|| i == 0)
+					{
+						goalX = CornerValuesX[i];
+						goalY = CornerValuesY[i];
+					}
+					else 
+					{
+						goalX = CornerValuesX[i-1];
+						goalY = CornerValuesY[i-1];
+					}
+				}
+			}
+
+		}
+		if(!flagVar)
+		{
+			var index_x = Math.floor(mean_position_x);
+			var index_y = Math.floor(mean_position_y);
+			var block_x = Math.floor(blockCOM_x);
+			var block_y = Math.floor(blockCOM_y);
+
+			var r = 0.5;	
+			goalX = blockCOM_x + r * gradient_x[block_x][block_y];
+			goalY = blockCOM_y + r * gradient_y[block_x][block_y];
+
+		}
+		// TODO: follow Knuth's example: http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
+		
+		//draw the average position
+		$("canvas").drawArc({
+			strokeStyle: "red",
+			strokeWidth: 5,
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			radius: radius * mapScale
+		})
+		.restoreCanvas();
+
+
+		//goalY = offsetY+ amplitudeY*( elapsedTimeSec%cycleInSec > cycleInSec/2 );
+		//goalX = offsetX+ amplitudeX*( elapsedTimeSec%cycleInSec > cycleInSec/2 );
+		var Kgain = 4;
+		var Kderivative = 1;
+		var sum_velocity_x = 0;
+		var sum_velocity_y = 0;
+		for(var i = 0; i < numrobots; ++i) {
+			sum_velocity_x += m_Robot[i].GetLinearVelocity().x;
+			sum_velocity_y += m_Robot[i].GetLinearVelocity().y;
+		}
+		var mean_velocity_x = sum_velocity_x / numrobots;
+		var mean_velocity_y = sum_velocity_y / numrobots;
+		m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+		m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
+		m_controlState = ROBOT_INPUT.ROBOT_PROP;
+		//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
+		//console.log(elapsedTimeSec + " " + var_x );
+		}; //end update
+	};
+</script>
+<style>
+#cc	{
+	top: 600px;
+	width: 600px;
+	height: 200px;
+	margin: 0;
+	overflow: auto;
+}
+</style>
+</html>
+
+
