@@ -59,7 +59,7 @@ var ifBFS = true;
 var ifGradient = true;
 // Debugging Variables.
 var BFSDebugMode = false;
-var Gradient_DebugMode = false;
+var Gradient_DebugMode = true;
 var goalRecieved = false;
 var timeFinished = 1000;
 var wroteFinish = false;
@@ -171,10 +171,11 @@ function Gradient(x,y)
 	{
 		gradient_y[x][y] = (map[x][y+1] - map[x][y-1])/2;
 	}
-	if(gradient_x[x][y] != 0 && gradient_y[x][y] != 0)
+	//if(gradient_x[x][y] != 0 && gradient_y[x][y] != 0)
 	{
 		gradient_angle[x][y] = Math.atan2(gradient_y[x][y],gradient_x[x][y] ) * 180 / Math.PI + 270;
 	}
+
 }
 ////////////////////////////
 //End Algorithmic Functions

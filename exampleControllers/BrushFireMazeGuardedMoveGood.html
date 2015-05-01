@@ -178,7 +178,7 @@ function Gradient(x,y)
 	{
 		gradient_y[x][y] = (map[x][y+1] - map[x][y-1])/2;
 	}
-	if(gradient_x[x][y] != 0 && gradient_y[x][y] != 0)
+	//if(gradient_x[x][y] != 0 && gradient_y[x][y] != 0)
 	{
 		gradient_angle[x][y] = Math.atan2(gradient_y[x][y],gradient_x[x][y] ) * 180 / Math.PI + 270;
 	}
@@ -791,8 +791,8 @@ function init()
 	}
 	var mean_velocity_x = sum_velocity_x / numrobots;
 	var mean_velocity_y = sum_velocity_y / numrobots;
-	m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
-	m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
+	// m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+	// m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 	m_controlState = ROBOT_INPUT.ROBOT_PROP;
 }
 	//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
