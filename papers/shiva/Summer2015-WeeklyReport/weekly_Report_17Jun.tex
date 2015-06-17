@@ -1,0 +1,119 @@
+%%%% Weekly Report Information %%%%
+\newcommand{\handoutName}{Weekly report}
+\newcommand{\handoutdate}{\today}
+%\newcommand{\duedate}{}
+\input{Header.tex}
+
+\section{My \emph{Objectives} this week}
+\begin{itemize}
+\item Loading windows on my Macbook
+\item Running Kilobots with windows
+\item Writing and simulating the algorithm of setting positions for two robots
+\item Adding a folder for Journal version of our IROS papers
+\end{itemize}
+
+
+\section{Two Robots Positioning}\label{sec:algorithm}
+
+
+\subsection{Controlling Covariance}
+
+In this algorithm we want to control two position of two robots using friction. For ease of proof, we assume that we want to \emph{x} position of the robots, and \emph{y} of the robots are not the same and will remain the initial $\Delta y $ as we go through the algorithm.
+\begin{algorithm}
+\caption{Getting desired X-space}\label{alg:CovarianceControl}
+\begin{algorithmic}[1]
+\Require Knowledge of the starting and ending positions  of the two robots $s_1$ (topper robot) \& $s_2$ (lower robot)  \& $e_1$ (topper robot) \& $e_2$ (lower robot) and $L$ length of the bottom wall. Current position of the robot will be showed as $r$.
+%\Input Global velocity of robots (unless they touch side)
+%\Assume $\Delta y \neq 0$ 
+\Ensure $\Delta y(t) = \delta y(0)$ 
+%\Assume $max(s_{1y} , s_{2y}) < L - \epsilon $
+\State $e_{1x} - e_{2x} = \Delta e_x$
+\State $s_{1x} - s_{2x} = \Delta s_x$
+\Loop
+
+\If {$\Delta x >= 0$ \emph{AND} $\Delta e > 0$}
+\While  {$L - r_2 > \Delta e$}
+\State Go left
+\EndWhile
+
+\State Go down until lower robot touch bottom wall
+\If {$\Delta e < \Delta x$}
+\State Go left until $\Delta e = \Delta x$
+\Else Go right until $\Delta e = \Delta x$
+\EndIf
+\State Go to desired position
+\EndIf
+
+\If {$\Delta x >= 0$ \emph{AND} $\Delta e < 0$}
+\While  {$r_2 < \|\Delta e\| $}
+\State Go right
+\EndWhile
+\If {$r_2 = L$ \emph{OR} $r_1 = L$}
+\State Go $\epsilon$ left 
+\EndIf
+\State Go down until lower robot touch bottom wall
+\State Go right until $\Delta e = \Delta x$
+\State Go to desired position
+\EndIf
+
+\If {$\Delta x < 0$ \emph{AND} $\Delta e < 0$}
+\While  {$r_2 > \|\Delta e\|$}
+\State Go right
+\EndWhile
+\State Go down until lower robot touch bottom wall
+\If {$\|\Delta e\| < \|\Delta x\|$}
+\State Go right until $\|\Delta e\| = \|\Delta x\|$
+\Else Go left until $\|\Delta e\| = \|\Delta x\|$
+\EndIf
+\State Go to desired position
+\EndIf
+\newpage
+\If {$\Delta x < 0$ \emph{AND} $\Delta e > 0$}
+\While  {$L < \Delta e + r_2 $}
+\State Go left
+\EndWhile
+\If {$r_2 = L$ \emph{OR} $r_1 = L$}
+\State Go $\epsilon$ left 
+\EndIf
+\State Go down until lower robot touch bottom wall
+\State Go right until $\Delta e = \Delta x$
+\State Go to desired position
+\EndIf
+
+\EndLoop
+\end{algorithmic}
+\end{algorithm}
+
+
+\section{My \emph{Accomplishments} this week}
+
+\subsection{\emph{Kilobots}}
+
+\begin{itemize}
+\item I installed windows on my machine, and was able to see robots moving around and also communicating with each other.
+\end{itemize}
+
+\subsection{\emph{Algorithms}}
+
+\begin{itemize}
+\item I wrote the algorithm with latex which works with all the possible positions that the robots may see.
+\end{itemize}
+
+
+
+
+
+\section{My \emph{Plan} for next week}
+
+\begin{itemize}
+\item Complete the algorithm with Mathematica
+\item Trying to go to the light by installing Kilobotics platform.(Now our robots don't understand their libraries because of the k-team platform.
+\end{itemize}
+
+\subsection{Meeting with Dr. Becker  }
+
+\begin{itemize}
+\item To see if my algorithm work and getting comments out of it.
+\end{itemize}
+
+\end{document}
