@@ -17,61 +17,57 @@ In this algorithm we want to control two position of two robots using friction. 
 \State $s_{1x} - s_{2x} = \Delta s_x$
 \Loop
 
-\if {\Delta x >= 0 AND \Delta e > 0}
-\while  {$L - r_2 > \Delta e$}
+\If {$\Delta x >= 0$ \emph{AND} $\Delta e > 0$}
+\While  {$L - r_2 > \Delta e$}
 \State Go left
-\Endwhile
+\EndWhile
+
 \State Go down until lower robot touch bottom wall
-\if {$\Delta e < \Delta x$}
-\state Go left until $\Delta e = \Delta x$
+\If {$\Delta e < \Delta x$}
+\State Go left until $\Delta e = \Delta x$
 \Else Go right until $\Delta e = \Delta x$
-\Endif
+\EndIf
 \State Go to desired position
-\Endif
+\EndIf
 
-\if {\Delta x >= 0 AND \Delta e < 0}
-\while  {$r_2 < \|\Delta e\| $}
+\If {$\Delta x >= 0$ \emph{AND} $\Delta e < 0$}
+\While  {$r_2 < \|\Delta e\| $}
 \State Go right
-\Endwhile
-\if {$r_2 = L \emph{or} r_1 = L$}
-\State Go \epsilon left 
-\endif
+\EndWhile
+\If {$r_2 = L$ \emph{OR} $r_1 = L$}
+\State Go $\epsilon$ left 
+\EndIf
 \State Go down until lower robot touch bottom wall
-\state Go right until $\Delta e = \Delta x$
+\State Go right until $\Delta e = \Delta x$
 \State Go to desired position
-\Endif
+\EndIf
 
-\if {\Delta x < 0 AND \Delta e < 0}
-\while  {$r_2 > \|\Delta e\|$}
+\If {$\Delta x < 0$ \emph{AND} $\Delta e < 0$}
+\While  {$r_2 > \|\Delta e\|$}
 \State Go right
-\Endwhile
+\EndWhile
 \State Go down until lower robot touch bottom wall
-\if {$\|\Delta e\| < \|\Delta x\|$}
-\state Go right until $\|\Delta e\| = \|\Delta x\|$
+\If {$\|\Delta e\| < \|\Delta x\|$}
+\State Go right until $\|\Delta e\| = \|\Delta x\|$
 \Else Go left until $\|\Delta e\| = \|\Delta x\|$
-\Endif
+\EndIf
 \State Go to desired position
-\Endif
-
-\if {\Delta x < 0 AND \Delta e > 0}
-\while  {$L < \Delta e + r_2 $}
+\EndIf
+\newpage
+\If {$\Delta x < 0$ \emph{AND} $\Delta e > 0$}
+\While  {$L < \Delta e + r_2 $}
 \State Go left
-\Endwhile
-\if {$r_2 = L \emph{or} r_1 = L$}
-\State Go \epsilon left 
-\endif
+\EndWhile
+\If {$r_2 = L$ \emph{OR} $r_1 = L$}
+\State Go $\epsilon$ left 
+\EndIf
 \State Go down until lower robot touch bottom wall
-\state Go right until $\Delta e = \Delta x$
+\State Go right until $\Delta e = \Delta x$
 \State Go to desired position
-\Endif
-
+\EndIf
 
 \EndLoop
 \end{algorithmic}
 \end{algorithm}
-
-
-
-
 
 

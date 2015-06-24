@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     61891,       1564]
-NotebookOptionsPosition[     60473,       1514]
-NotebookOutlinePosition[     60835,       1530]
-CellTagsIndexPosition[     60792,       1527]
+NotebookDataLength[     71717,       1794]
+NotebookOptionsPosition[     69879,       1732]
+NotebookOutlinePosition[     70236,       1748]
+CellTagsIndexPosition[     70193,       1745]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -209,15 +209,17 @@ ButtonData:>\\\"paclet:ref/message/General/infy\\\", ButtonNote -> \
 Cell[BoxData[
  RowBox[{
   StyleBox[
-   RowBox[{"General", "::", "stop"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(Power :: \
+   RowBox[{"General", "::", "stop"}], "MessageName"], ":", 
+  " ", "\<\"Further output of \[NoBreak]\\!\\(\\*StyleBox[\\(Power :: \
 infy\\), \\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this \
 calculation. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
 ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
 ButtonData:>\\\"paclet:ref/message/General/stop\\\", ButtonNote -> \
 \\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{{3.642619755719679*^9, 3.642619778973609*^9}}],
+ GeneratedCell->False,
+ CellAutoOverwrite->False,
+ CellChangeTimes->{{3.642619755719679*^9, 3.642619778973609*^9}, 
+   3.6437416865000963`*^9}],
 
 Cell[BoxData[
  RowBox[{"If", "[", 
@@ -387,7 +389,7 @@ Cell[BoxData[{
            RowBox[{"edge", ",", "walls"}], "}"}]}], "]"}]}], ",", 
        RowBox[{
         RowBox[{"#", "=!=", "False"}], "&"}]}], "]"}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{"moveParticleInWalls", "[", 
    RowBox[{"pos_", ",", "move_"}], "]"}], ":=", 
@@ -410,18 +412,14 @@ Cell[BoxData[{
          RowBox[{"{", 
           RowBox[{
            RowBox[{"{", 
-            RowBox[{
-             RowBox[{"-", "1"}], ",", 
-             RowBox[{"-", "1"}]}], "}"}], ",", 
+            RowBox[{"0", ",", "0"}], "}"}], ",", 
            RowBox[{"{", 
-            RowBox[{
-             RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "}"}], ",", 
+            RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
          "\[IndentingNewLine]", " ", 
          RowBox[{"{", 
           RowBox[{
            RowBox[{"{", 
-            RowBox[{
-             RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+            RowBox[{"0", ",", "1"}], "}"}], ",", 
            RowBox[{"{", 
             RowBox[{"1", ",", "1"}], "}"}]}], "}"}], ",", 
          "\[IndentingNewLine]", " ", 
@@ -430,18 +428,14 @@ Cell[BoxData[{
            RowBox[{"{", 
             RowBox[{"1", ",", "1"}], "}"}], ",", 
            RowBox[{"{", 
-            RowBox[{"1", ",", 
-             RowBox[{"-", "1"}]}], "}"}]}], "}"}], ",", "\[IndentingNewLine]",
-          " ", 
+            RowBox[{"1", ",", "0"}], "}"}]}], "}"}], ",", 
+         "\[IndentingNewLine]", " ", 
          RowBox[{"{", 
           RowBox[{
            RowBox[{"{", 
-            RowBox[{"1", ",", 
-             RowBox[{"-", "1"}]}], "}"}], ",", 
+            RowBox[{"1", ",", "0"}], "}"}], ",", 
            RowBox[{"{", 
-            RowBox[{
-             RowBox[{"-", "1"}], ",", 
-             RowBox[{"-", "1"}]}], "}"}]}], "}"}]}], "}"}]}]}], 
+            RowBox[{"0", ",", "0"}], "}"}]}], "}"}]}], "}"}]}]}], 
      "\[IndentingNewLine]", "}"}], ",", "\[IndentingNewLine]", 
     RowBox[{"(*", 
      RowBox[{
@@ -541,8 +535,7 @@ Cell[BoxData[{
             RowBox[{"If", "[", 
              RowBox[{
               RowBox[{
-               RowBox[{"x", " ", "\[Equal]", " ", 
-                RowBox[{"-", "1"}]}], " ", "&&", " ", 
+               RowBox[{"x", " ", "\[Equal]", " ", "0"}], " ", "&&", " ", 
                RowBox[{
                 RowBox[{"Abs", "[", "\[Alpha]Des", "]"}], "\[GreaterEqual]", 
                 " ", 
@@ -569,8 +562,7 @@ Cell[BoxData[{
             RowBox[{"If", "[", 
              RowBox[{
               RowBox[{
-               RowBox[{"y", " ", "\[Equal]", " ", 
-                RowBox[{"-", "1"}]}], " ", "&&", " ", 
+               RowBox[{"y", " ", "\[Equal]", " ", "0"}], " ", "&&", " ", 
                RowBox[{"\[Alpha]Des", "\[LessEqual]", " ", "0"}]}], ",", " ", 
               
               RowBox[{"moveOK", " ", "=", " ", "False"}]}], "]"}], ";", 
@@ -587,7 +579,9 @@ Cell[BoxData[{
    3.64363493534129*^9}, {3.643635816124959*^9, 3.6436358204569397`*^9}, {
    3.6436366106330957`*^9, 3.643636617664937*^9}, {3.643636682239799*^9, 
    3.643636694974148*^9}, 3.643636729566121*^9, {3.643636902849749*^9, 
-   3.6436369286741333`*^9}, {3.643637089317648*^9, 3.643637103849972*^9}}],
+   3.6436369286741333`*^9}, {3.643637089317648*^9, 3.643637103849972*^9}, {
+   3.643716442501993*^9, 3.643716447801918*^9}, {3.644132841075902*^9, 
+   3.644132875554392*^9}}],
 
 Cell[CellGroupData[{
 
@@ -628,8 +622,7 @@ Cell[BoxData[
                    RowBox[{"{", 
                     RowBox[{
                     RowBox[{"{", 
-                    RowBox[{"1", ",", 
-                    RowBox[{"-", "1"}]}], "}"}], ",", 
+                    RowBox[{"1", ",", "0"}], "}"}], ",", 
                     RowBox[{"{", 
                     RowBox[{"1", ",", "1"}], "}"}]}], "}"}], ",", 
                    RowBox[{"{", 
@@ -637,27 +630,20 @@ Cell[BoxData[
                     RowBox[{"{", 
                     RowBox[{"1", ",", "1"}], "}"}], ",", 
                     RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"-", "1"}], ",", "1"}], "}"}]}], "}"}], ",", 
+                    RowBox[{"0", ",", "1"}], "}"}]}], "}"}], ",", 
                    RowBox[{"{", 
                     RowBox[{
                     RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"-", "1"}], ",", "1"}], "}"}], ",", 
+                    RowBox[{"0", ",", "1"}], "}"}], ",", 
                     RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"-", "1"}], ",", 
-                    RowBox[{"-", "1"}]}], "}"}]}], "}"}], ",", 
+                    RowBox[{"0", ",", "0"}], "}"}]}], "}"}], ",", 
                    RowBox[{"{", 
                     RowBox[{
                     RowBox[{"{", 
-                    RowBox[{
-                    RowBox[{"-", "1"}], ",", 
-                    RowBox[{"-", "1"}]}], "}"}], ",", 
+                    RowBox[{"0", ",", "0"}], "}"}], ",", 
                     RowBox[{"{", 
-                    RowBox[{"1", ",", 
-                    RowBox[{"-", "1"}]}], "}"}]}], "}"}]}], "}"}]}], "}"}]}], 
-              "]"}]}], ",", 
+                    RowBox[{"1", ",", "0"}], "}"}]}], "}"}]}], "}"}]}], 
+                "}"}]}], "]"}]}], ",", 
             RowBox[{
              RowBox[{"#", "=!=", "False"}], "&"}]}], "]"}]}], ";", 
          "\[IndentingNewLine]", 
@@ -795,35 +781,34 @@ Cell[BoxData[
        "\[IndentingNewLine]", 
        RowBox[{
         RowBox[{"path", "=", " ", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"{", 
-            RowBox[{
-             RowBox[{"{", 
-              RowBox[{"0", ",", "0"}], "}"}], ",", 
-             RowBox[{"{", 
-              RowBox[{".5", ",", "1"}], "}"}], ",", 
-             RowBox[{"{", 
-              RowBox[{
-               RowBox[{"-", ".2"}], ",", 
-               RowBox[{"-", ".8"}]}], "}"}], ",", 
-             RowBox[{"{", 
-              RowBox[{
-               RowBox[{"-", ".6"}], ",", ".3"}], "}"}]}], "}"}], ";"}], 
-          "*)"}], " ", 
          RowBox[{"achieveDesiredXspacing", "[", 
           RowBox[{"ps1", ",", "ps2", ",", "pe1", ",", "pe2"}], "]"}]}], ";", 
         "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"0", ",", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{".5", ",", "1"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", ".2"}], ",", 
+              RowBox[{"-", ".8"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", ".6"}], ",", ".3"}], "}"}]}], "}"}], ";"}], "*)"}],
+         "\[IndentingNewLine]", "\[IndentingNewLine]", 
         RowBox[{"Graphics", "[", 
          RowBox[{"{", "\[IndentingNewLine]", 
           RowBox[{"Black", ",", " ", 
            RowBox[{"Rectangle", "[", 
             RowBox[{
-             RowBox[{"1.1", 
+             RowBox[{
+              RowBox[{"-", "0.1"}], 
               RowBox[{"{", 
-               RowBox[{
-                RowBox[{"-", "1"}], ",", 
-                RowBox[{"-", "1"}]}], "}"}]}], ",", 
+               RowBox[{"1", ",", "1"}], "}"}]}], ",", 
              RowBox[{"1.1", 
               RowBox[{"{", 
                RowBox[{"1", ",", "1"}], "}"}]}]}], "]"}], ",", 
@@ -831,9 +816,7 @@ Cell[BoxData[
            RowBox[{"Rectangle", "[", 
             RowBox[{
              RowBox[{"{", 
-              RowBox[{
-               RowBox[{"-", "1"}], ",", 
-               RowBox[{"-", "1"}]}], "}"}], ",", 
+              RowBox[{"0", ",", "0"}], "}"}], ",", 
              RowBox[{"{", 
               RowBox[{"1", ",", "1"}], "}"}]}], "]"}], ",", 
            "\[IndentingNewLine]", 
@@ -1004,8 +987,8 @@ Cell[BoxData[
         RowBox[{"ps1", ",", 
          RowBox[{"{", 
           RowBox[{
-           RowBox[{"1", "/", "2"}], ",", 
-           RowBox[{"1", "/", "4"}]}], "}"}]}], "}"}], ",", 
+           RowBox[{"3", "/", "4"}], ",", 
+           RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{
          RowBox[{"-", "1"}], ",", 
@@ -1019,8 +1002,8 @@ Cell[BoxData[
         RowBox[{"ps2", ",", 
          RowBox[{"{", 
           RowBox[{
-           RowBox[{
-            RowBox[{"-", "1"}], "/", "2"}], ",", "0"}], "}"}]}], "}"}], ",", 
+           RowBox[{"1", "/", "2"}], ",", 
+           RowBox[{"1", "/", "4"}]}], "}"}]}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{
          RowBox[{"-", "1"}], ",", 
@@ -1034,7 +1017,7 @@ Cell[BoxData[
         RowBox[{"pe1", ",", 
          RowBox[{"{", 
           RowBox[{
-           RowBox[{"1", "/", "2"}], ",", 
+           RowBox[{"7", "/", "8"}], ",", 
            RowBox[{"1", "/", "2"}]}], "}"}]}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{
@@ -1049,9 +1032,8 @@ Cell[BoxData[
         RowBox[{"pe2", ",", 
          RowBox[{"{", 
           RowBox[{
-           RowBox[{"1", "/", "2"}], ",", 
-           RowBox[{
-            RowBox[{"-", "1"}], "/", "2"}]}], "}"}]}], "}"}], ",", 
+           RowBox[{"1", "/", "8"}], ",", 
+           RowBox[{"1", "/", "4"}]}], "}"}]}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{
          RowBox[{"-", "1"}], ",", 
@@ -1059,6 +1041,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"1", ",", "1"}], "}"}], ",", "Locator"}], "}"}]}], 
     "\[IndentingNewLine]", "]"}]}]}]], "Input",
+ InitializationCell->True,
  CellChangeTimes->{{3.642115739423017*^9, 3.64211581465235*^9}, {
    3.64211639741261*^9, 3.6421164758259487`*^9}, {3.642116679890699*^9, 
    3.642116758410285*^9}, {3.6421167981616297`*^9, 3.6421168005846863`*^9}, {
@@ -1098,52 +1081,60 @@ Cell[BoxData[
    3.6436362295152683`*^9}, {3.6436363305505466`*^9, 
    3.6436363343252077`*^9}, {3.643637348632453*^9, 3.643637351110564*^9}, {
    3.6436373946838284`*^9, 3.6436374194702587`*^9}, {3.643637475920896*^9, 
-   3.643637631201536*^9}, {3.6436376728431387`*^9, 3.643637810362781*^9}}],
+   3.643637631201536*^9}, {3.6436376728431387`*^9, 3.643637810362781*^9}, {
+   3.643716063430435*^9, 3.643716074988155*^9}, {3.6440855797760553`*^9, 
+   3.644085597159823*^9}, {3.644085952794071*^9, 3.644086013120738*^9}, {
+   3.6441327364945993`*^9, 3.644132785376173*^9}, {3.644132921016861*^9, 
+   3.644132974993626*^9}, {3.644133078651518*^9, 3.644133083085525*^9}}],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
    DynamicModuleBox[{$CellContext`pe1$$ = {
-     Rational[1, 2], 
+     Rational[7, 8], 
      Rational[1, 2]}, $CellContext`pe2$$ = {
+     Rational[1, 8], 
+     Rational[1, 4]}, $CellContext`progress$$ = 0., $CellContext`ps1$$ = {
+     Rational[3, 4], 
+     Rational[1, 2]}, $CellContext`ps2$$ = {
      Rational[1, 2], 
-     Rational[-1, 2]}, $CellContext`progress$$ = 0, $CellContext`ps1$$ = {
-     Rational[1, 2], 
-     Rational[1, 4]}, $CellContext`ps2$$ = {
-     Rational[-1, 2], 0}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+     Rational[1, 4]}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
       Hold[$CellContext`progress$$], 0, 1}, {{
        Hold[$CellContext`ps1$$], {
+        Rational[3, 4], 
+        Rational[1, 2]}}, {-1, -1}, {1, 1}}, {{
+       Hold[$CellContext`ps2$$], {
         Rational[1, 2], 
         Rational[1, 4]}}, {-1, -1}, {1, 1}}, {{
-       Hold[$CellContext`ps2$$], {
-        Rational[-1, 2], 0}}, {-1, -1}, {1, 1}}, {{
        Hold[$CellContext`pe1$$], {
-        Rational[1, 2], 
+        Rational[7, 8], 
         Rational[1, 2]}}, {-1, -1}, {1, 1}}, {{
        Hold[$CellContext`pe2$$], {
-        Rational[1, 2], 
-        Rational[-1, 2]}}, {-1, -1}, {1, 1}}}, Typeset`size$$ = {
-    360., {110., 115.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`progress$1652627$$ = 
-    0, $CellContext`ps1$1652628$$ = {0, 0}, $CellContext`ps2$1652629$$ = {0, 
-    0}, $CellContext`pe1$1652630$$ = {0, 0}, $CellContext`pe2$1652631$$ = {0, 
+        Rational[1, 8], 
+        Rational[1, 4]}}, {-1, -1}, {1, 1}}}, Typeset`size$$ = {
+    360., {177., 182.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`progress$2697777$$ = 
+    0, $CellContext`ps1$2697778$$ = {0, 0}, $CellContext`ps2$2697779$$ = {0, 
+    0}, $CellContext`pe1$2697780$$ = {0, 0}, $CellContext`pe2$2697781$$ = {0, 
     0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`pe1$$ = {
-          Rational[1, 2], 
+          Rational[7, 8], 
           Rational[1, 2]}, $CellContext`pe2$$ = {
+          Rational[1, 8], 
+          Rational[1, 4]}, $CellContext`progress$$ = 
+        0, $CellContext`ps1$$ = {
+          Rational[3, 4], 
+          Rational[1, 2]}, $CellContext`ps2$$ = {
           Rational[1, 2], 
-          Rational[-1, 2]}, $CellContext`progress$$ = 0, $CellContext`ps1$$ = {
-          Rational[1, 2], 
-          Rational[1, 4]}, $CellContext`ps2$$ = {
-          Rational[-1, 2], 0}}, "ControllerVariables" :> {
-        Hold[$CellContext`progress$$, $CellContext`progress$1652627$$, 0], 
-        Hold[$CellContext`ps1$$, $CellContext`ps1$1652628$$, {0, 0}], 
-        Hold[$CellContext`ps2$$, $CellContext`ps2$1652629$$, {0, 0}], 
-        Hold[$CellContext`pe1$$, $CellContext`pe1$1652630$$, {0, 0}], 
-        Hold[$CellContext`pe2$$, $CellContext`pe2$1652631$$, {0, 0}]}, 
+          Rational[1, 4]}}, "ControllerVariables" :> {
+        Hold[$CellContext`progress$$, $CellContext`progress$2697777$$, 0], 
+        Hold[$CellContext`ps1$$, $CellContext`ps1$2697778$$, {0, 0}], 
+        Hold[$CellContext`ps2$$, $CellContext`ps2$2697779$$, {0, 0}], 
+        Hold[$CellContext`pe1$$, $CellContext`pe1$2697780$$, {0, 0}], 
+        Hold[$CellContext`pe2$$, $CellContext`pe2$2697781$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -1154,8 +1145,8 @@ $CellContext`mv$, $CellContext`\[CapitalDelta]xy$, $CellContext`path1$, \
 $CellContext`path2$}, $CellContext`path$ = \
 $CellContext`achieveDesiredXspacing[$CellContext`ps1$$, $CellContext`ps2$$, \
 $CellContext`pe1$$, $CellContext`pe2$$]; Graphics[{Black, 
-           Rectangle[1.1 {-1, -1}, 1.1 {1, 1}], White, 
-           Rectangle[{-1, -1}, {1, 1}], 
+           Rectangle[(-0.1) {1, 1}, 1.1 {1, 1}], White, 
+           Rectangle[{0, 0}, {1, 1}], 
            PointSize[Large], Green, 
            Point[$CellContext`ps1$$], 
            Circle[$CellContext`ps2$$, 1/20], Red, 
@@ -1178,10 +1169,8 @@ $CellContext`path2$ = {$CellContext`pm2$};
            For[$CellContext`i = 
              1, $CellContext`i <= $CellContext`progress$$ (
                Length[$CellContext`path$] - 1), 
-             
              Increment[$CellContext`i], $CellContext`mv$ = 
               Part[$CellContext`path$, $CellContext`i + 
-                
                 1]; $CellContext`pm1$ = \
 $CellContext`moveParticleInWalls[$CellContext`pm1$, $CellContext`mv$]; \
 $CellContext`pm2$ = $CellContext`moveParticleInWalls[$CellContext`pm2$, \
@@ -1209,18 +1198,19 @@ $CellContext`mv$]; AppendTo[$CellContext`path1$, $CellContext`pm1$];
            Arrow[$CellContext`path2$]}]], 
       "Specifications" :> {{$CellContext`progress$$, 0, 1, ControlType -> 
          Slider, Appearance -> "Labeled"}, {{$CellContext`ps1$$, {
+           Rational[3, 4], 
+           Rational[1, 2]}}, {-1, -1}, {1, 1}, ControlType -> 
+         Locator}, {{$CellContext`ps2$$, {
            Rational[1, 2], 
            Rational[1, 4]}}, {-1, -1}, {1, 1}, ControlType -> 
-         Locator}, {{$CellContext`ps2$$, {
-           Rational[-1, 2], 0}}, {-1, -1}, {1, 1}, ControlType -> 
          Locator}, {{$CellContext`pe1$$, {
-           Rational[1, 2], 
+           Rational[7, 8], 
            Rational[1, 2]}}, {-1, -1}, {1, 1}, ControlType -> 
          Locator}, {{$CellContext`pe2$$, {
-           Rational[1, 2], 
-           Rational[-1, 2]}}, {-1, -1}, {1, 1}, ControlType -> Locator}}, 
+           Rational[1, 8], 
+           Rational[1, 4]}}, {-1, -1}, {1, 1}, ControlType -> Locator}}, 
       "Options" :> {}, "DefaultOptions" :> {}],
-     ImageSizeCache->{411., {157., 162.}},
+     ImageSizeCache->{411., {224., 229.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
@@ -1231,19 +1221,32 @@ $CellContext`mv$]; AppendTo[$CellContext`path1$, $CellContext`pm1$];
    Deployed->True,
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
- CellChangeTimes->{
-  3.64363623023094*^9, 3.643636334971837*^9, 3.643636735306005*^9, 
-   3.643636778387463*^9, 3.643636848883688*^9, 3.643636966297928*^9, 
-   3.6436371112282743`*^9, 3.643637423706016*^9, 3.6436376323813057`*^9, {
-   3.643637716716374*^9, 3.643637743091626*^9}, {3.643637781273596*^9, 
-   3.643637811080735*^9}, 3.643637873417156*^9}]
+ CellChangeTimes->{3.643719858896737*^9, 3.644085604496117*^9, 
+  3.644132795689183*^9, 3.644133006901371*^9, 3.644133668492465*^9}]
 }, Open  ]],
 
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.643719828080661*^9, 3.6437198302210283`*^9}}],
+
 Cell[BoxData[
- RowBox[{" ", 
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{"TODO", ":", " ", 
+        RowBox[{
+        "Correct", " ", "this", " ", "part", " ", "of", " ", "the", " ", 
+         "code", " ", "for", " ", "doing", " ", "the", " ", "right", " ", 
+         "move", "\[IndentingNewLine]", "1"}]}], ")"}], "X", " ", 
+      "coordinate", "\[IndentingNewLine]", "2"}], ")"}], "Y", " ", "and", " ",
+     "X", " ", 
+    RowBox[{"together", "."}]}], "\[IndentingNewLine]", "*)"}], 
+  "\[IndentingNewLine]", " ", 
   RowBox[{
    RowBox[{
-    RowBox[{"achieveDesiredXspacing", "[", 
+    RowBox[{"achieveDesiredXspacing2", "[", 
      RowBox[{"ps1_", ",", "ps2_", ",", "pe1_", ",", "pe2_"}], "]"}], ":=", 
     RowBox[{"Module", "[", 
      RowBox[{
@@ -1378,6 +1381,7 @@ Cell[BoxData[
         "*)"}], "\[IndentingNewLine]", "moves"}]}], "\[IndentingNewLine]", 
      "]"}]}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
    "\[IndentingNewLine]"}]}]], "Input",
+ InitializationCell->True,
  CellChangeTimes->{{3.642117005887888*^9, 3.64211704486712*^9}, {
    3.642117080685493*^9, 3.642117217297338*^9}, {3.642117260448121*^9, 
    3.642117305018765*^9}, {3.642117511615287*^9, 3.642117633054521*^9}, {
@@ -1400,7 +1404,148 @@ Cell[BoxData[
    3.6421257532941713`*^9}, {3.642125809836959*^9, 3.64212581142803*^9}, {
    3.642125882836829*^9, 3.6421258855791197`*^9}, {3.642126087913125*^9, 
    3.642126109423635*^9}, {3.6421261565550413`*^9, 3.642126162449119*^9}, {
-   3.643637850723421*^9, 3.64363786052169*^9}}],
+   3.643637850723421*^9, 3.64363786052169*^9}, {3.6436382381629*^9, 
+   3.643638262771618*^9}, {3.6436390442359056`*^9, 3.643639084904951*^9}, {
+   3.643639121969161*^9, 3.643639157946107*^9}, {3.643639395068747*^9, 
+   3.643639409529407*^9}, {3.64408388838693*^9, 3.644083936023664*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"achieveDesiredXspacing", "[", 
+   RowBox[{"ps1_", ",", "ps2_", ",", "pe1_", ",", "pe2_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "\[CapitalDelta]e", " ", ",", " ", "\[CapitalDelta]x", " ", ",", " ", 
+      "L", " ", ",", 
+      RowBox[{"\[Epsilon]", " ", "\[IndentingNewLine]", "currPosTop"}], ",", 
+      " ", "currPosBottom", ",", "\[CapitalDelta]r", ",", " ", "moves", ",", 
+      " ", "endPosTop", ",", " ", "endPosBottom"}], "\[IndentingNewLine]", 
+     "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{"(*", 
+     RowBox[{
+     "determine", " ", "which", " ", "point", " ", "is", " ", "highest"}], 
+     "*)"}], "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"ps1", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
+         ">", 
+        RowBox[{
+        "ps2", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}]}], ",", 
+       "  ", 
+       RowBox[{
+        RowBox[{"currPosTop", " ", "=", " ", "ps1"}], ";", " ", 
+        RowBox[{"currPosBottom", "=", "ps2"}], ";", 
+        RowBox[{"endPosTop", " ", "=", " ", "pe1"}], ";", " ", 
+        RowBox[{"endPosBottom", "=", " ", "pe2"}], ";"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"currPosTop", " ", "=", " ", "ps2"}], ";", " ", 
+        RowBox[{"currPosBottom", "=", "ps1"}], ";", " ", 
+        RowBox[{"endPosTop", " ", "=", " ", "pe2"}], ";", " ", 
+        RowBox[{"endPosBottom", "=", " ", "pe1"}], ";"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"\[CapitalDelta]e", " ", "=", " ", 
+      RowBox[{
+       RowBox[{
+       "endPosTop", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+       "-", 
+       RowBox[{
+       "endPosBottom", "\[LeftDoubleBracket]", "1", 
+        "\[RightDoubleBracket]"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"\[CapitalDelta]x", " ", "=", " ", 
+      RowBox[{
+       RowBox[{
+       "currPosTop", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+       " ", "-", " ", 
+       RowBox[{
+       "currPosBottom", "\[LeftDoubleBracket]", "1", 
+        "\[RightDoubleBracket]"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"moves", " ", "=", " ", 
+      RowBox[{"{", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0"}], "}"}], "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"L", "=", " ", "1"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"\[Epsilon]", " ", "=", " ", 
+      RowBox[{"1", "/", "10"}]}], ";", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"\[CapitalDelta]x", "\[Equal]", "\[CapitalDelta]e"}], ",", " ", 
+       RowBox[{"Return", "[", "moves", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"L", "-", 
+         RowBox[{
+         "currPosBottom", "\[LeftDoubleBracket]", "1", 
+          "\[RightDoubleBracket]"}]}], " ", "<", " ", "\[CapitalDelta]e"}], 
+       ",", "  ", 
+       RowBox[{"\[CapitalDelta]r", " ", "=", " ", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"L", "-", "\[CapitalDelta]e", " ", "-", " ", 
+           RowBox[{
+           "currPosBottom", "\[LeftDoubleBracket]", "1", 
+            "\[RightDoubleBracket]"}], "+", " ", "\[Epsilon]"}], ",", " ", 
+          "0"}], "}"}]}], ",", " ", 
+       RowBox[{"\[CapitalDelta]r", " ", "=", " ", 
+        RowBox[{"{", 
+         RowBox[{"0", ",", "0"}], "}"}]}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], " ", "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"currPosTop", " ", "=", " ", 
+      RowBox[{"currPosTop", "+", "\[CapitalDelta]r"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"currPosBottom", " ", "=", " ", 
+      RowBox[{"currPosBottom", "+", "\[CapitalDelta]r"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\[CapitalDelta]r", " ", "=", " ", 
+      RowBox[{"-", 
+       RowBox[{
+       "currPosBottom", "\[LeftDoubleBracket]", "2", 
+        "\[RightDoubleBracket]"}]}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"moves", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "\[CapitalDelta]r"}], "}"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"currPosTop", " ", "=", " ", 
+      RowBox[{"currPosTop", "+", "\[CapitalDelta]r"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"currPosBottom", " ", "=", " ", 
+      RowBox[{"currPosBottom", "+", "\[CapitalDelta]r"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\[CapitalDelta]r", " ", "=", " ", 
+      RowBox[{"\[CapitalDelta]e", " ", "-", " ", "\[CapitalDelta]x"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"moves", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"\[CapitalDelta]r", " ", ",", " ", "0"}], "}"}]}], "]"}], ";",
+      "\[IndentingNewLine]", 
+     RowBox[{"currPosTop", " ", "=", " ", 
+      RowBox[{"currPosTop", "+", "\[CapitalDelta]r"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"currPosBottom", " ", "=", " ", 
+      RowBox[{"currPosBottom", "+", "\[CapitalDelta]r"}]}], ";", 
+     "\[IndentingNewLine]", "moves"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.6440839710159693`*^9, 3.644084092665428*^9}, {
+   3.6440841297336197`*^9, 3.644084273035254*^9}, {3.644084339330164*^9, 
+   3.6440843806157846`*^9}, {3.6440846214704723`*^9, 3.644084849465185*^9}, {
+   3.644084917608593*^9, 3.644084946351903*^9}, {3.6440849964469976`*^9, 
+   3.644085363555134*^9}, {3.64408539913411*^9, 3.644085551755156*^9}, 
+   3.644132596565523*^9, {3.644132676425064*^9, 3.644132716713914*^9}}],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{{3.6440839460165987`*^9, 3.644083955710146*^9}}],
 
 Cell[CellGroupData[{
 
@@ -1413,6 +1558,8 @@ Cell[BoxData[
  RowBox[{"-", "1"}]], "Output",
  CellChangeTimes->{3.642122520019783*^9}]
 }, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"\[IndentingNewLine]", 
@@ -1509,11 +1656,82 @@ Cell[BoxData[
    "\[IndentingNewLine]"}]}]], "Input",
  CellChangeTimes->{{3.642125177938827*^9, 3.642125194232583*^9}, {
   3.642125728761321*^9, 3.642125737031479*^9}, {3.642125958876588*^9, 
-  3.6421260501401033`*^9}}]
+  3.6421260501401033`*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{
+   {GrayLevel[0], RectangleBox[{-1.1, -1.1}, {1.1, 1.1}]}, 
+   {GrayLevel[1], RectangleBox[{-1, -1}, {1, 1}]}, 
+   {RGBColor[0, 1, 0], PointSize[Large], 
+    PointBox[NCache[{Rational[1, 2], Rational[1, 4]}, {0.5, 0.25}]], 
+    CircleBox[NCache[{Rational[-1, 2], Rational[1, 4]}, {-0.5, 0.25}], NCache[
+     Rational[1, 20], 0.05]], 
+    {RGBColor[1, 0, 0], 
+     PointBox[NCache[{Rational[1, 2], Rational[3, 4]}, {0.5, 0.75}]], 
+     CircleBox[NCache[{Rational[1, 2], Rational[3, 4]}, {0.5, 0.75}], NCache[
+      Rational[1, 20], 0.05]]}, 
+    {RGBColor[0, 0, 1], 
+     {Dashing[{Small, Small}], 
+      LineBox[NCache[{{Rational[1, 2], Rational[1, 4]}, {
+         Rational[1, 2], Rational[3, 4]}}, {{0.5, 0.25}, {0.5, 0.75}}]], 
+      LineBox[NCache[{{Rational[-1, 2], Rational[1, 4]}, {
+         Rational[1, 2], Rational[3, 4]}}, {{-0.5, 0.25}, {0.5, 
+        0.75}}]]}}}}]], "Output",
+ CellChangeTimes->{3.644085698682469*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"$RecursionLimit", "::", "reclim"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Recursion depth of \[NoBreak]\\!\\(1024\\)\[NoBreak] \
+exceeded. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/$RecursionLimit/reclim\\\", ButtonNote -> \
+\\\"$RecursionLimit::reclim\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.644085698712381*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"$RecursionLimit", "::", "reclim"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Recursion depth of \[NoBreak]\\!\\(1024\\)\[NoBreak] \
+exceeded. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/$RecursionLimit/reclim\\\", ButtonNote -> \
+\\\"$RecursionLimit::reclim\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.644085698729278*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"$RecursionLimit", "::", "reclim"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Recursion depth of \[NoBreak]\\!\\(1024\\)\[NoBreak] \
+exceeded. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/message/$RecursionLimit/reclim\\\", ButtonNote -> \
+\\\"$RecursionLimit::reclim\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.644085698743102*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"General", "::", "stop"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Further output of \
+\[NoBreak]\\!\\(\\*StyleBox[\\($RecursionLimit :: reclim\\), \
+\\\"MessageName\\\"]\\)\[NoBreak] will be suppressed during this calculation. \
+\\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", \
+ButtonFrame->None, ButtonData:>\\\"paclet:ref/message/General/stop\\\", \
+ButtonNote -> \\\"General::stop\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{3.644085698766369*^9}]
+}, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1165, 676},
-WindowMargins->{{Automatic, -128}, {-19, Automatic}},
+WindowSize->{1280, 694},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September 9, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -1529,7 +1747,7 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 566, 14, 63, "Input"],
+Cell[558, 20, 566, 14, 46, "Input"],
 Cell[1127, 36, 231, 5, 46, "Input"],
 Cell[CellGroupData[{
 Cell[1383, 45, 133, 1, 44, "Subsection"],
@@ -1550,21 +1768,33 @@ Cell[4897, 160, 499, 10, 24, "Message"],
 Cell[5399, 172, 469, 10, 39, "Message"],
 Cell[5871, 184, 501, 10, 24, "Message"],
 Cell[6375, 196, 469, 10, 39, "Message"],
-Cell[6847, 208, 552, 11, 24, "Message"],
-Cell[7402, 221, 1731, 50, 76, "Output"]
+Cell[6847, 208, 617, 13, 24, "Message"],
+Cell[7467, 223, 1731, 50, 76, "Output"]
 }, Open  ]],
-Cell[9148, 274, 11808, 315, 747, "Input",
+Cell[9213, 276, 11612, 307, 730, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[20981, 593, 21451, 507, 1100, "Input"],
-Cell[42435, 1102, 6999, 136, 336, "Output"]
+Cell[20850, 587, 21392, 500, 1100, "Input",
+ InitializationCell->True],
+Cell[42245, 1089, 6838, 135, 470, "Output"]
 }, Open  ]],
-Cell[49449, 1241, 7371, 161, 489, "Input"],
+Cell[49098, 1227, 94, 1, 28, "Input"],
+Cell[49195, 1230, 8164, 179, 557, "Input",
+ InitializationCell->True],
+Cell[57362, 1411, 5779, 133, 488, "Input"],
+Cell[63144, 1546, 113, 1, 46, "Input"],
 Cell[CellGroupData[{
-Cell[56845, 1406, 145, 3, 28, "Input"],
-Cell[56993, 1411, 87, 2, 28, "Output"]
+Cell[63282, 1551, 145, 3, 28, "Input"],
+Cell[63430, 1556, 87, 2, 28, "Output"]
 }, Open  ]],
-Cell[57095, 1416, 3362, 95, 284, "Input"]
+Cell[CellGroupData[{
+Cell[63554, 1563, 3362, 95, 284, "Input"],
+Cell[66919, 1660, 958, 19, 374, "Output"],
+Cell[67880, 1681, 474, 10, 24, "Message"],
+Cell[68357, 1693, 474, 10, 24, "Message"],
+Cell[68834, 1705, 474, 10, 24, "Message"],
+Cell[69311, 1717, 540, 11, 24, "Message"]
+}, Open  ]]
 }, Open  ]]
 }
 ]
