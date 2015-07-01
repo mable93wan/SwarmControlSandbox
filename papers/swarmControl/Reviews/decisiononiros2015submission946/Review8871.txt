@@ -1,0 +1,18 @@
+Reviewer 1 of IROS 2015 submission 946
+
+Comments to the author
+======================
+
+This paper has described to solve "block pushing problem"
+by swarm robot. Authors propose a controller using "the
+mean and variance" of a robot swarm. Reviewer consider this
+method is useful to control robot swarm.
+
+Reviewer wrote minor comments on attachment file. Please
+follow
+these comments.
+
+Comments on the Video Attachment
+================================
+
+Attached video is difficult to understand for most readers.

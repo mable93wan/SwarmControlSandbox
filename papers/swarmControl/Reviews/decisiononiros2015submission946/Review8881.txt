@@ -1,0 +1,58 @@
+Reviewer 2 of IROS 2015 submission 946
+
+Comments to the author
+======================
+
+In this paper, Stochastic Swarm Control with Global Inputs,
+the authors present work in developing automatic
+controllers for large swarms by using the mean and variance
+of the robots' positions.
+
+The authors take the right approach in trying to minimize
+the data used for the operator. Instead of using the
+position and velocity data for each robot, the swarm is
+"summarized" into different statistics, such as the
+mean/variance or convex hull of the swarm. The authors'
+previous work indicate that full state information is not
+necessary, and indeed can be harmful. There is similar work
+that has investigated this phenomenon too in human-swarm
+control that should be referenced (Nunnally 2012: Human
+Influence of Robotic Swarms with Bandwidth and Localization
+Issues).
+
+There are other works that could be cited in the literature
+review that are appropriate for this paper, similar to the
+one above. See the recent works of Mike Lewis and Mike
+Goodrich. In addition, it may be helpful (although I leave
+this to the authors' discretion) to state other reasons why
+full state information may not be available (i.e. bandwidth
+limitations), as well as how some summary information (e.g.
+convex hull) could be, and is more effectively, computed by
+the swarm in a distributed manner.
+
+The theory and implementation of the algorithms seems sound
+and well presented to me. The video also does an excellent
+jobs of showing these algorithms in action, and should
+clear up any questions left by those that may not fully
+understand the implementation.
+
+Other notes:
+
+Sometimes Fig. is used and other times Figure is used--this
+should be consistent.
+
+Figure 10 is referenced and placed before Figure 9. These
+should be switched.
+
+Some variable definitions are missing from Section III:
+Theory. In the Equation 1, m is not defined. In the same
+section, at the beginning of III.D., the sentence should
+stated "The variance of the swarm's position..." instead of
+robot's position
+
+Comments on the Video Attachment
+================================
+
+This video is an excellent illustration of the algorithms
+used in the paper, and I think it clearly demonstrates what
+the authors are trying to achieve.

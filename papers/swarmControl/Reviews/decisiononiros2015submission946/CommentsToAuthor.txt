@@ -1,0 +1,21 @@
+- This paper deals with swarm control using a controller to
+regulate the mean and variance of the robots. The
+controller is applied to planar box-pushing problem by 20
+through 200 robots on simulation.
+
+- As a reviewer pointed out, how to realize the proposed
+method in a distributed manner is interesting.
+
+- Block pushing with mean or mean+variance control is
+useful for humans, probably due to centralized control with
+small inputs and limited computing resources. The authors
+are requested to clarify the situations in which the
+proposed mean+variance control is advantageous for
+machines.
+
+- See reviewers' comments to improve this paper.
+
+
+----------------------------------------
+Comments on Video Attachment:
+
