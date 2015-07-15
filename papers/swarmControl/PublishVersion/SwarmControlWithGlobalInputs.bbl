@@ -86,6 +86,20 @@ J.~Fink, N.~Michael, and V.~Kumar, ``Composition of vector fields for
 K.~Lynch, ``Locally controllable manipulation by stable pushing,'' \emph{{IEEE}
   Trans. Robot. Autom.}, vol.~15, no.~2, pp. 318--327, Apr. 1999.
 
+\bibitem{Armani2006}
+M.~D. Armani, S.~V. Chaudhary, R.~Probst, and B.~Shapiro, ``Using feedback
+  control of microflows to independently steer multiple particles,''
+  \emph{Journal of Microelectromechanical systems}, vol.~15, no.~4, Aug. 2006.
+
+\bibitem{Becker2009}
+\BIBentryALTinterwordspacing
+A.~Becker, R.~Sandheinrich, and T.~Bretl, ``Automated manipulation of spherical
+  objects in three dimensions using a gimbaled air jet,'' in \emph{Intelligent
+  Robots and Systems, 2009. IROS 2009. IEEE/RSJ International Conference on},
+  oct. 2009, pp. 781 --786. [Online]. Available:
+  \url{http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5354427}
+\BIBentrySTDinterwordspacing
+
 \bibitem{odhner2014compliant}
 L.~U. Odhner, L.~P. Jentoft, M.~R. Claffee, N.~Corson, Y.~Tenzer, R.~R. Ma,
   M.~Buehler, R.~Kohout, R.~D. Howe, and A.~M. Dollar, ``A compliant,

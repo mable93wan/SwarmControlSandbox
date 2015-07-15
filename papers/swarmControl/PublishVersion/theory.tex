@@ -13,28 +13,11 @@
 \subsection{Models}
 Consider holonomic robots that move in the 2D plane. We want to control position and velocity of the robots. 
 First, assume a noiseless system with just one robot.
- Our inputs are global forces $[u_x,u_y]$. \begin{equation}
-\begin{bmatrix}
-\dot{p}_x &=& v_x \\
-\dot{v}_x &=& \frac{1}{m} u_x
-\end{bmatrix},
-\begin{bmatrix}
-\dot{p}_y &=& v_y \\
-\dot{v}_y &=&\frac{1}{m} u_y
-\end{bmatrix}
-\end{equation}
-
+ Our inputs are global forces $[u_x,u_y]$. We define our state vector $\mathbf{x}(t)$ as the $x$ position, $x$ velocity, $y$ position and $y$ velocity.
 The state-space representation in standard form is: 
 \begin{align}\label{eq:stdform}
 \dot{\mathbf{x}}(t)  &=  A \mathbf{x}(t) + B \mathbf{u}(t) \\
 \mathbf{y}(t) &= C \mathbf{x}(t) + D \mathbf{u}(t)\nonumber 
-\end{align}
-
-
-%where $x(t)$ represents our states, \emph{u(t)} is our input. %and \emph{e(t)} represents noise in the system.  We also have $y(t)$ as our output.\\
-We define our state vector $\mathbf{x}(t)$ as:
-\begin{align}
-\left[ x_1,x_2,x_3,x_4\right]^\intercal = \left[ p_x,v_x,p_y,v_y\right]^\intercal, \nonumber
 \end{align}
 
 and our state space representation as:
@@ -62,28 +45,42 @@ x_4
 \end{bmatrix} u
 \end{equation}
 
-We want to find number of states that we can control, which is given by the rank of the \emph{controllability matrix}
+We want to find the number of states that we can control, which is given by the rank of the \emph{controllability matrix}
 \begin{equation}
-\mathcal{C} = \{ B, AB, A^2B, ... , A^{n-1}B \}.
+\mathcal{C} = [ B, AB, A^2B, ... , A^{n-1}B ].
 \end{equation}
 
 \begin{equation}
 \textrm{Here }
-\mathcal{C}=\left\{
-\begin{bmatrix} 
+\mathcal{C}=\left[
+\begin{matrix} 
 0 & 0\\
 \frac{1}{m} & 0 \\
 0 & 0 \\
 0 & \frac{1}{m}
-\end{bmatrix}
-,
-\begin{bmatrix} 
+\end{matrix}
+\,\middle\vert\,
+\begin{matrix} 
 \frac{1}{m}& 0\\
 0 & 0\\
 0 & \frac{1}{m}\\
 0 & 0
-\end{bmatrix}
- \right\}
+\end{matrix}
+\,\middle\vert\,
+\begin{matrix} 
+0 & 0\\
+0 & 0 \\
+0 & 0 \\
+0 & 0
+\end{matrix}
+\,\middle\vert\,
+\begin{matrix} 
+0 & 0\\
+0 & 0\\
+0 & 0\\
+0 & 0
+\end{matrix}
+ \right]
 \end{equation}
 And thus all four states are controllable
 
@@ -130,37 +127,45 @@ x_{2n}
 \end{equation}
  However, just as with one robot, we can only control two states because $\mathcal{C}$ has rank two:
 \begin{equation}
-\mathcal{C}=\left\{ \begin{bmatrix} 
+\mathcal{C}=\left[ \begin{matrix} 
 0\\
 1\\
 \vdots\\
 0\\
 1
-\end{bmatrix}
-,
-  \begin{bmatrix} 
+\end{matrix}
+\,\middle\vert\,
+  \begin{matrix} 
 1\\
 0\\
 \vdots\\
 1\\
 0
-\end{bmatrix}
-,
-\begin{bmatrix} 
+\end{matrix}
+\,\middle\vert\,
+\begin{matrix} 
 0\\
 0\\
 \vdots\\
 0\\
 0
-\end{bmatrix}, 
-\ldots \right\}
+\end{matrix}
+\,\middle\vert\,
+\begin{matrix} 
+0\\
+0\\
+\vdots\\
+0\\
+0
+\end{matrix}\,\middle\vert\,, 
+\ldots \right]
 \end{equation}  
 \subsection{Controlling Mean Position}\label{sec:controlMeanPosition}
 This means \emph{any} number of robots controlled by a global command have just two controllable states in each axis. We can not control the position of all the robots, but what states are controllable? To answer this question we create the following reduced order system that represents the average position and velocity of the $n$ robots:
 \begin{align}
 \begin{bmatrix}\nonumber
-\dot{\bar{x}}_p \\
-\dot{\bar{x}}_v
+\dot{\bar{x}}_1 \\
+\dot{\bar{x}}_2
 \end{bmatrix} &= \frac{1}{n} \begin{bmatrix}
 0& 1& 0& 1& \ldots &0& 1 \\
 0& 0& 0& 0& \ldots &0& 0
@@ -186,49 +191,36 @@ x_{2n}
 Thus:
 \begin{equation}
 \begin{bmatrix}
-\dot{\bar{x}}_p \\
-\dot{\bar{x}}_v
+\dot{\bar{x}}_1 \\
+\dot{\bar{x}}_2
 \end{bmatrix} = \begin{bmatrix}
 0& 1 \\
 0& 0
 \end{bmatrix}
 \begin{bmatrix}
-\bar{x}_p\\
-\bar{x}_v
+\bar{x}_1\\
+\bar{x}_2
 \end{bmatrix} + \begin{bmatrix} 
 0\\
 1
-\end{bmatrix} u
+\end{bmatrix} u_x
 \end{equation}
 
 We again analyze $\mathcal{C}$:
 \begin{equation}
-\mathcal{C}=\left\{ \begin{bmatrix} 
+\mathcal{C}=\left[ \begin{matrix} 
 0\\
 1
-\end{bmatrix}
-,
- \begin{bmatrix} 
+\end{matrix}
+\,\middle\vert\,
+ \begin{matrix} 
 1\\
 0
-\end{bmatrix}
- \right\}
+\end{matrix}
+ \right]
 \end{equation}
-This matrix has rank two, and thus the controllable states of the swarm are the average position and average velocity.
-%\begin{equation}
-%a = K\begin{bmatrix}
-%\begin{bmatrix}
-%\dot{\bar{x}}_p \\
-%\dot{\bar{x}}_v
-%\end{bmatrix}
-%-
-%\begin{bmatrix}
-%x_{goal} \\
-%\dot{x}_{goal}
-%\end{bmatrix}
-%\end{bmatrix}
-%\end{equation}
-\hfill $\blacksquare$ 
+This matrix has rank two, and thus the average position and average velocity are controllable.
+
 
 Due to symmetry, only the mean position and mean velocity are controllable. However, there are several techniques for breaking symmetry, for example by allowing independent noise sources \cite{beckerIJRR2014}, or by using obstacles \cite{Becker2013b}.
 
@@ -252,16 +244,15 @@ where $W\bm{\varepsilon}(t)$ is a random perturbation produced by Brownian noise
 %\begin{equation}
 %P(x) = \frac{1}{\sigma \sqrt{2\pi } }e^{ -  \frac{\left( x - \mu  \right)^2 } {2\sigma ^2 }}
 %\end{equation}
-If the robots are in a bounded environment with sides of length $[\ell_x, \ell_y]$, the unforced variance asymptotically grows to the variance of a uniform distribution,
+If robots with radius $r$ are in a bounded environment with sides of length $[\ell_x, \ell_y]$, the unforced variance asymptotically grows to the variance of a uniform distribution,
 \begin{align}
 [\sigma_x^2,\sigma_y^2] = \frac{1}{12}[ (\ell_x - 2 r)^2,(\ell_y - 2 r)^2].\label{eq:VarianceUniformDistribution}
 \end{align}
- Therefore, to achieve a desired variance $\sigma^2_{goal}$, the swarm's mean position must be at least $r+\sqrt{3 \sigma^2_{goal}}$ from the nearest wall.
 
- A flat obstacle can be used to decrease variance. Pushing a group of dispersed robots against a flat obstacle will decrease their variance until the minimum-variance (maximum density) packing  is reached. For large $n$, Graham and Sloan showed that the minimum-variance packing  $\sigma^2_{optimal}(n,r)$ for $n$ circles with radius $r$ is $\approx 
-  n r^2 \frac{\sqrt{3}}{2 \pi} = 0.28$~\cite{graham1990penny}. 
-% $\approx 4 r^2 (\sqrt{3} n^2)/(4 \pi)=0.138 n^2 r^2$
-If we only need to reduce variance in a single axis, the variance can be reduced to zero, given sufficient space.
+ A flat obstacle can be used to decrease variance. Pushing a group of dispersed robots against a flat obstacle will decrease their variance until the minimum-variance (maximum density) packing  is reached.For large $n$, Graham and Sloan showed that the minimum-variance packing  $\sigma^2_{optimal}(n,r)$ for $n$ circles with radius $r$ is $\approx 
+  (n r)^2 \frac{\sqrt{3}}{\pi} \approx (n r)^2 0.55$~\cite{graham1990penny}. 
+% Sloan minimized second moment U = 1/d^2 \sum_{i=1}^{n} || P_i - P ||^2 = (\sqrt{3} n^2)/(4 \pi), where d = 2r.
+% Therefore the variance is d^2 (\sqrt{3} n^2)/(4 \pi), or 4^r^2 (\sqrt{3} n^2)/(4 \pi) = r^2 (\sqrt{3} n^2)/(\pi)If we only need to reduce variance in a single axis, the variance can be reduced to zero, given sufficient space.
 
 We will prove the origin is globally asymptotically stabilizable by using a control-Lyapunov function \cite{Lyapunov1992}.  A suitable Lyapunov function is squared variance error:
 \begin{align}
@@ -308,7 +299,7 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \State $x_{goal}  \gets x_{min}$
 \State $flag_x  \gets \TRUE$
 \Else {\bf~if} {$flag_x$ \textbf{and} $\sigma_x^2 < \sigma_{min}^2$}
-\State $y_{goal}  \gets  y_{target}$
+\State $x_{goal}  \gets  x_{target}$
 \State $flag_x  \gets false$
 \EndIf
 
