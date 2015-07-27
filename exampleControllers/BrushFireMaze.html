@@ -161,8 +161,14 @@ function Gradient(x,y)
 	}
 	else if(map[x][y-1] == -1 )
 	{
-		gradient_y[x][y]= map[x][y+1] - map[x][y];
+		if (map[x][y+1] - map[x][y] > 0)
+			gradient_y[x][y]= 0;
+			
+		else
+			gradient_y[x][y] = map[x][y+1] - map[x][y];
+		
 	}
+
 	else if(map[x][y+1] == -1 )
 	{
 		gradient_y[x][y]= map[x][y] - map[x][y-1];
