@@ -51,6 +51,12 @@ S.~Tottori, L.~Zhang, F.~Qiu, K.~Krawczyk, A.~Franco-Obreg{\'o}n, and B.~J.
 K.~E. Peyer, L.~Zhang, and B.~J. Nelson, ``Bio-inspired magnetic swimming
   microrobots for biomedical applications,'' \emph{Nanoscale}, 2013.
 
+\bibitem{Nunnally2012HSI}
+S.~Nunnally, P.~Walker, A.~Kolling, N.~Chakraborty, M.~Lewis, K.~Sycara, and
+  M.~Goodrich, ``Human influence of robotic swarms with bandwidth and
+  localization issues,'' in \emph{Systems, Man, and Cybernetics (SMC), 2012
+  IEEE International Conference on}, Oct 2012, pp. 333--338.
+
 \bibitem{Becker2013b}
 A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
   uniform manipulation: Controlling large populations of simple robots with a
@@ -128,8 +134,7 @@ A.~M. Lyapunov{, translated and edited by A.T. Fuller}, \emph{The General
 
 \bibitem{Sadraddini2015}
 S.~Sadraddini and C.~Belta, ``Swarm manipulation with a uniform magnetic
-  field,'' in \emph{{IEEE} International Conference on Robotics and Automation
-  {(ICRA)}}, 2015.
+  field,'' in \emph{unpublished}, 2015.
 
 \bibitem{kloetzer2007temporal}
 M.~Kloetzer and C.~Belta, ``Temporal logic planning and control of robotic
