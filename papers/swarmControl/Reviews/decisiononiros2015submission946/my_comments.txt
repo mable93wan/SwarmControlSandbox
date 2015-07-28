@@ -1,0 +1,37 @@
+
+
+
+I appreciate the discussion of the limitations of Algorithm 2, i.e., possible failure when a bi-modal distribution occurs.
+
+Something to consider for future work, it seems like one could design a pathological environment where variance alone might not be sufficient to guarantee success (using any motion planning algorithm) but using a bounding box around the swarm would guarantee success. Consider a maze-like environment that has the structure of a tree, in which the swarm starts at the root and must collectively push a box to a leaf. To reach the goal, the swarm must repeatedly (k times) choose the correct branch out of n>1 options at each intersection. For any variance you will likely loose some percentage of the swarm at each branch (they will go down the wrong branches). As a back of the envelope calculation, assume you only retain p proportion of the robots at each branch. If you require r robots to push the block, then you can calculate the maximum number of branches that a particular swarm can deal with by solving p^k < r for k.
+
+It seems like the discussion after equation (13) supports the previous paragraph.
+
+In future work you might consider controlling variance vs. mean more/less based on passage width.
+
+You could also mention that solving the complete piano mover's planning problem is well known to be P-Space hard. On one hand, your proposed idea is useful because, for the set of environments in which it is applicable, it is much nicer than solving the full-blown piano mover's problem. For large swarms, solving the complete motion planning problem is too computationally complex to solve in practice, and so any useful method will be incomplete. On the other hand, using a global control is incomplete in general. There are some problems (even more evil than the tree environment above) that would actually require separate control of each robot in order to be solved. An interesting question for future work might be: for what subset of environment classes and/or swarm classes is this method complete? Maybe proving this is impossible, but if not it would be a great result.
+
+In section III-A most variables are introduced without explicitly stating what they are. This makes the paper harder to read for people that are unaware of the standard control notation (me, for instance). In particular:
+
+- what are p and v? I assume they are position and velocity but making me play detective to figure this out breaks the flow of the paper (seeing new equations is hard enough for most readers, making the material easy for them to absorb will help them to understand your method better). 
+
+-What is m? 
+
+-The use of x both in subscript of p and v and for state is slightly confusing. 
+
+-The use of bold x and y in (2) does not appear to be related to the use of x and y in (1), or is it? 
+
+-I am not sure if x and y represent the two coordinates of the plane of if they represent position and velocity. 
+
+-u and v are two control inputs, but again I'm not sure if they are related to the first and second coordinates or if they are related to positional control and velocity control.
+
+-It looks like the controlability matrix C is a matrix of matrices, I'm not really sure how you got from (4) to (5) --- do commas mean the same thin in (4) as they do in (5), it appears not. I am assuming that (5) the left is for x and the right is for y.
+
+
+In Sections IV-V and Algorithm 2 there are a number of constant factors that are introduced without discussion. For example the 3 in equation (21), the 2.5, 1.5, and 0.1 on lines 16-19 of algorithm 2.
+
+
+
+
+
+
