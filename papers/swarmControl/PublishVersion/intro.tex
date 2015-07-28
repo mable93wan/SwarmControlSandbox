@@ -5,9 +5,16 @@
 Micro- and nanorobotics have diverse potential applications in targeted material delivery, construction, assembly, and surgery. % The same properties that promise breakthrough solutions---small size and large populations---present unique challenges to generating controlled motion.  
 Constraints on computation prevent autonomous operation, and direct control over individual units scales poorly with population size.
 Instead these systems often use global control signals broadcast to the entire robot population. 
-Additionally, it is not always possible to gather pose information on each robot for feedback control. Robots might be difficult or impossible to sense individually due to their size and location. However, it is often possible to sense global properties of the group, such as mean position and variance. 
+Additionally, it is not always possible to gather pose information on each robot for feedback control. 
+Robots might be difficult or impossible to sense individually due to their size and location. 
+For example, micro-robots are smaller than the minimum resolution of a clinical MRI-scanner~\cite{martel2014computer}.
+However, it is often possible to sense global properties of the group, such as mean position and variance. 
 To make progress in automatic control with global inputs, this paper presents swarm manipulation controllers requiring only mean and variance measurements of the robot's positions.  These controllers are used as primitives to perform a block-pushing task illustrated in Fig.~\ref{fig:bigPictureMeanAndVarianceForSwarm}.
 
+
+ %In collaboration with Paul Ruchhoeft's lab we designed and fabricated a variety of gold-covered, 200 nm-thick, magnetic micro-particles ranging in size from 400nm to 2.4 $\mu$m squares. Our goal is to steer them remotely using an MRI-scanner~\cite{becker2014simultaneously,vartholomeos2010simulation,Felfoul2011,martel2014computer,Martel2007}, but these particles are well below the MRI's minimum voxel size of 0.2 mm, so individual particles cannot be resolved.  However, we were able to detect these robots when the density per voxel was greater than  $\approx$1 $\mu$g/mm$^2$.  
+ 
+% To see nanocars~\cite{Chiang2011}, scientists fasten molecules that fluoresce light when activated by a strong light source~\cite{Khatua2009}. Unfortunately, multiple exposures can destroy these molecules, a process called \emph{photobleaching}. Photobleaching can be minimized by lowering the excitation light intensity, but this increases the probability of missed detections~\cite{Cazes2001}.  {\bf This task focuses on control laws that do not require full-state feedback, but achieve high performance using low-order feedback.}
 
 % Finally, many promising applications will require direct human control, but user interfaces to thousands---or millions---of robots is a daunting human-swarm interaction (HSI) challenge. 
 

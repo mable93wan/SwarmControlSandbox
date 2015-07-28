@@ -21,6 +21,12 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{martel2014computer}
+S.~Martel, S.~Taherkhani, M.~Tabrizian, M.~Mohammadi, D.~de~Lanauze, and
+  O.~Felfoul, ``Computer 3d controlled bacterial transports and aggregations of
+  microbial adhered nano-components,'' \emph{Journal of Micro-Bio Robotics},
+  vol.~9, no. 1-2, pp. 23--28, 2014.
+
 \bibitem{Donald2006}
 B.~Donald, C.~Levey, C.~McGray, I.~Paprotny, and D.~Rus, ``An untethered,
   electrostatic, globally controllable {MEMS} micro-robot,'' \emph{J. of
@@ -144,6 +150,17 @@ M.~Kloetzer and C.~Belta, ``Temporal logic planning and control of robotic
 \bibitem{einstein1956investigations}
 A.~Einstein, \emph{Investigations on the Theory of the Brownian
   Movement}.\hskip 1em plus 0.5em minus 0.4em\relax Courier Corporation, 1956.
+
+\bibitem{catto2010box2d}
+\BIBentryALTinterwordspacing
+E.~Catto, ``User manual, {Box2D}: A {2D} physics engine for games,
+  http://www.box2d.org,'' 2010. [Online]. Available: \url{http://www.box2d.org}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Shahrokhi2015}
+S.~Shahrokhi and A.~T. Becker, ``"{BlockPushingIROS2015}",
+  https://github.com/aabecker/swarmcontrolsandbox/blob/master/examplecontrollers/blockpushingiros2015.html,''
+  Jul. 2015.
 
 \bibitem{haldane1951simple}
 J.~Haldane, ``Simple tests for bimodality and bitangentiality,'' \emph{Annals
