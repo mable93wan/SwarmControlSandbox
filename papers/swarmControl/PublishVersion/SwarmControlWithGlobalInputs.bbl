@@ -158,9 +158,9 @@ E.~Catto, ``User manual, {Box2D}: A {2D} physics engine for games,
 \BIBentrySTDinterwordspacing
 
 \bibitem{Shahrokhi2015}
-S.~Shahrokhi and A.~T. Becker, ``"{BlockPushingIROS2015}",
-  https://github.com/aabecker/swarmcontrolsandbox/blob/master/examplecontrollers/blockpushingiros2015.html,''
-  Jul. 2015.
+S.~Shahrokhi and A.~T. Becker, ``{BlockPushingIROS2015},
+  https://github.com/aabecker/swarmcontrolsandbox/blob/
+  master/examplecontrollers/blockpushingiros2015.html,'' Jul. 2015.
 
 \bibitem{haldane1951simple}
 J.~Haldane, ``Simple tests for bimodality and bitangentiality,'' \emph{Annals
