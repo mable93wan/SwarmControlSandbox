@@ -19,7 +19,7 @@ here $K_{p}$ is the proportional gain, and $K_{d}$ is the derivative gain. We pe
 
 \begin{figure}
 \centering
-\begin{overpic}[width = \columnwidth * 11/10 ]{gainvaluespublish.eps}
+\begin{overpic}[width = \columnwidth ]{gains.eps}
 \end{overpic}
 \vspace{-1em}
 \caption{\label{fig:gainvalues} Tuning proportional ($K_p$, top) and derivative ($K_d$, bottom)  gain values in \eqref{eq:PDcontrolPosition} improves performance with $n$= 100 robots.
@@ -67,9 +67,9 @@ Fig. ~\ref{fig:hybrid} shows a simulation run of the hybrid controller in Alg.~\
 %\todo{plot showing 1.5 cycles of mean position, and a variance goal.  We might need a longer time}
 \begin{figure}
 \centering
-\begin{overpic}[scale=0.35]{MeanVariance2.eps}
+\begin{overpic}[width = \columnwidth]{meanVariance4.eps}
 \end{overpic}
-\vspace{-2em}
+\vspace{-1em}
 \caption{\label{fig:hybrid} Simulation result with 100 robots under hybrid control Alg.~\ref{alg:MeanVarianceControl}, which  controls both the mean position (top) and variance (bottom). For ease of analysis, only $x$ position and variance are shown.
 %\vspace{-2em}
 }
