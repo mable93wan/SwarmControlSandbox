@@ -226,10 +226,13 @@ Due to symmetry, only the mean position and mean velocity are controllable. Howe
 
 \subsection{Controlling the variance of many robots}\label{sec:VarianceControl}
 
-The variance, $\sigma_x^2$, of the swarm's position is computed:
+The variance, $\sigma_x^2,\sigma_y^2$, of the swarm's position is computed:
 \begin{align}
- \overline{x}_1(\mathbf{x}) = \frac{1}{n} \sum_{i=1}^n x_{1,i}, \qquad  %\nonumber \\ 
-\sigma_x^2(\mathbf{x}) &= \frac{1}{n} \sum_{i=1}^n (x_{1,i} - \overline{x}_1)^2.  %NOT 1/(N-1) because we are measuring the actual Variance, not the variance of samples drawn from a distribution
+ \overline{x}(\mathbf{x}) = \frac{1}{n} \sum_{i=1}^n x_{1,i}, \qquad  %\nonumber \\ 
+\sigma_x^2(\mathbf{x}) &= \frac{1}{n} \sum_{i=1}^n (x_{1,i} - \overline{x}_1)^2,  \nonumber \\ 
+ \overline{y}(\mathbf{x}) = \frac{1}{n} \sum_{i=1}^n x_{3,i}, \qquad  %\nonumber \\ 
+\sigma_y^2(\mathbf{x}) &= \frac{1}{n} \sum_{i=1}^n (x_{3,i} - \overline{y})^2.  
+%NOT 1/(N-1) because we are measuring the actual Variance, not the variance of samples drawn from a distribution
 \end{align}
 
 Controlling the variance requires being able to increase and decrease the variance.  We will list a sufficient condition for each. Both conditions are readily found at the micro and nanoscale. 
@@ -300,7 +303,7 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \State $flag_x  \gets \TRUE$
 \Else {\bf~if} {$flag_x$ \textbf{and} $\sigma_x^2 < \sigma_{min}^2$}
 \State $x_{goal}  \gets  x_{target}$
-\State $flag_x  \gets false$
+\State $flag_x  \gets  \FALSE$
 \EndIf
 
 \If{$\sigma_y^2 > \sigma_{max}^2$}
