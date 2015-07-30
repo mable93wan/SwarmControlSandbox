@@ -229,7 +229,7 @@ Due to symmetry, only the mean position and mean velocity are controllable. Howe
 The variance, $\sigma_x^2,\sigma_y^2$, of the swarm's position is computed:
 \begin{align}
  \overline{x}(\mathbf{x}) = \frac{1}{n} \sum_{i=1}^n x_{1,i}, \qquad  %\nonumber \\ 
-\sigma_x^2(\mathbf{x}) &= \frac{1}{n} \sum_{i=1}^n (x_{1,i} - \overline{x}_1)^2,  \nonumber \\ 
+\sigma_x^2(\mathbf{x}) &= \frac{1}{n} \sum_{i=1}^n (x_{1,i} - \overline{x})^2,  \nonumber \\ 
  \overline{y}(\mathbf{x}) = \frac{1}{n} \sum_{i=1}^n x_{3,i}, \qquad  %\nonumber \\ 
 \sigma_y^2(\mathbf{x}) &= \frac{1}{n} \sum_{i=1}^n (x_{3,i} - \overline{y})^2.  
 %NOT 1/(N-1) because we are measuring the actual Variance, not the variance of samples drawn from a distribution
