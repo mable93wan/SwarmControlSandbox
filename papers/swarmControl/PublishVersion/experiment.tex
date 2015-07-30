@@ -41,7 +41,7 @@ To our surprise, the results indicated the opposite: players with just the mean 
 \begin{algorithm}
 \caption{Block-pushing controller for a robotic swarm.}\label{alg:BlockPushing}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the moveable block's center of mass $\mathbf{b}$, a map of the environment, and the locations of all convex corners $\mathbf{C}$
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, variance $[\sigma_x^2, \sigma_y^2]$,  moveable block's center of mass $\mathbf{b}$, map of the environment, and the locations of all convex corners $\mathbf{C}$
 \Require Robot distribution is unimodal
 \Require Obstacle-free, straight-line path from swarm to moveable block
 \State Compute $\mathbf{M}$, the distance to goal, with breadth-first search
@@ -76,7 +76,7 @@ To our surprise, the results indicated the opposite: players with just the mean 
 \begin{figure*}
 \centering
 \renewcommand{\figwid}{0.4\columnwidth}
-\begin{overpic}[width =\figwid]{story1.png}\put(6,15){T = 5 s}
+\href{http://youtu.be/tCej-9e6-4o}{\begin{overpic}[width =\figwid]{story1.png}\put(6,15){T = 5 s}
 \end{overpic}
 \begin{overpic}[width =\figwid]{story2.png}\put(6,15){T = 12 s}
 \end{overpic}
@@ -85,9 +85,9 @@ To our surprise, the results indicated the opposite: players with just the mean 
 \begin{overpic}[width =\figwid]{story4.png}\put(6,15){T = 25 s}
 \end{overpic}
 \begin{overpic}[width =\figwid]{story5.png}\put(6,15){T = 33 s}
-\end{overpic}
+\end{overpic}}
 \vspace{-1em}
-\caption{\label{fig:story}Snapshots showing the block-pushing experiment with 200 robots under automatic control.  See the video attachment for an animation. 
+\caption{\label{fig:story}\href{http://youtu.be/tCej-9e6-4o}{Snapshots showing the block-pushing experiment with 200 robots under automatic control.  See the video attachment for an animation~\cite{ShivaVideo2015}.}
 %\vspace{-2em}
 }
 \end{figure*}

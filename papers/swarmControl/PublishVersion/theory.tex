@@ -292,11 +292,11 @@ The mean and variance of the swarm cannot be controlled simultaneously, however 
 \begin{algorithm}
 \caption{Hybrid mean and variance control}\label{alg:MeanVarianceControl}
 \begin{algorithmic}[1]
-\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, the locations of the rectangular boundary $\{x_{min}, x_{max}, y_{min}, y_{max}\}$, and the target mean position $[x_{target},y_{target}]$.%TODO: use  \AND, \OR, \XOR, \NOT, \TO, \TRUE, \FALSE \gets
+\Require Knowledge of swarm mean $[\bar{x},\bar{y}]$, variance $[\sigma_x^2, \sigma_y^2]$, the locations of the rectangular boundary $\{x_{min}, x_{max}, y_{min}, y_{max}\}$, and the target mean position $[x_{target},y_{target}]$.%TODO: use  \AND, \OR, \XOR, \NOT, \TO, \TRUE, \FALSE \gets
 \State $flag_x \gets \FALSE$,  $flag_y \gets \FALSE$ 
 \State $x_{goal} \gets  x_{target}$, $y_{goal} \gets y_{target}$
 \Loop
-\State  Compute $\sigma_x^2, \sigma_y^2$
+%\State  Compute $\sigma_x^2, \sigma_y^2$
 
 \If {$\sigma_x^2 > \sigma_{max}^2$}
 \State $x_{goal}  \gets x_{min}$
