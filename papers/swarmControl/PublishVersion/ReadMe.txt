@@ -1,9 +1,7 @@
 ======DESCRIPTION============================================================
- Video attachment for “Stochastic Swarm Control with Global Inputs“ by Shiva Shahrokhi and Aaron Becker, at University of Houston. 
+ Video attachment for “Stochastic Swarm Control with Global Inputs“ by Shiva Shahrokhi and Aaron T. Becker, at the University of Houston. 
 
- Video shows how the mean and variance of the robots are controlled with global inputs. First part the mean position of the swarm writes the word “swarm” to show that the mean position is controllable. Second part tries to keep the variance constant by moving to the wall if it is getting bigger than desired while its mean position is also controlled. Finally at the third part, the block pushing experience which uses a hybrid hysteresis mean and variance control is shown.
-
- 
+Micro- and nano-robots are usually controlled by “global inputs”, where all robots receive the same control inputs. Video shows how the mean and variance of the robot’s position are controlled with global inputs. First: to show that the mean position is controllable, the mean position of the swarm traces the word “swarm”. Second: the swarm variance is regulated by wall collisions while the mean position is also controlled. Last: demonstration of a block-pushing experiment, using our hybrid hysteresis mean and variance controller.
 
 A full resolution version is available at [http://youtu.be/tCej-9e6-4o], all code is available online at 
 [https://github.com/aabecker/SwarmControlSandbox/blob/master/exampleControllers/BlockPushingIROS2015.html].
