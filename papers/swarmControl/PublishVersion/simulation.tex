@@ -5,8 +5,7 @@
 %%  Variance Control      (image and plot(s) )
 %%  Hybrid control   (image and plot(s) )
 
-Our simulations use a Javascript port of \href{http://box2d.org/}{Box2D}, a popular 2D physics engine with support for rigid-body dynamics and fixed-timestep simulation. 
-
+Our simulations use a Javascript port of \href{http://box2d.org/}{Box2D}, a popular 2D physics engine with support for rigid-body dynamics and fixed-time step simulation~\cite{catto2010box2d}.  All experiments ran on a Chrome web browser on a 2.6 GHz Macbook.  \href{https://github.com/aabecker/SwarmControlSandbox/blob/master/exampleControllers/BlockPushingIROS2015.html}{All code is available at}~\cite{Shahrokhi2015}.
 
 \subsection{Controlling the mean position}
 
@@ -22,7 +21,7 @@ here $K_{p}$ is the proportional gain, and $K_{d}$ is the derivative gain. We pe
 \begin{overpic}[width = \columnwidth ]{gains.eps}
 \end{overpic}
 \vspace{-1em}
-\caption{\label{fig:gainvalues} Tuning proportional ($K_p$, top) and derivative ($K_d$, bottom)  gain values in \eqref{eq:PDcontrolPosition} improves performance with $n$= 100 robots.
+\caption{\label{fig:gainvalues} Tuning proportional ($K_p$, top) and derivative ($K_d$, bottom)  gain values in \eqref{eq:PDcontrolPosition} improves performance with $n = 100$ robots.
 %\vspace{-2em}
 }
 \end{figure}
@@ -48,7 +47,7 @@ The variance control law to regulate the variance to $\sigma^2_{ref}$ has three 
 u_x &= K_{p}(x_{goal}(\sigma^2_{ref}) - \bar{x}) - K_{d}\bar{v}_x + K_{i}(\sigma^2_{ref}-\sigma^2_{x}) \nonumber\\
 u_y &= K_{p}(y_{goal}(\sigma^2_{ref})  - \bar{y}) - K_{d}\bar{v}_y + K_{i}(\sigma^2_{ref}-\sigma^2_{y}).  \label{eq:PDcontrolVariance}
 \end{align}
-In a slight abuse of notation we call the gain scaling the variance error $K_i$ because the variance integrates over time.
+In a slight abuse of notation we call the gain scaling the variance error $K_i$ because the variance, if unregulated, integrates over time.
 Eq.~\eqref{eq:PDcontrolVariance} assumes the nearest wall is to the left of the robot at $x=0$, and chooses a reference goal position that in steady-state would have the correct variance according to \eqref{eq:VarianceUniformDistribution}:
 \begin{align}
 x_{goal}(\sigma^2_{ref}) = r + \sqrt{3\sigma^2_{ref}}
