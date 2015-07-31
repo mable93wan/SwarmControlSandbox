@@ -1,0 +1,31 @@
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\usepackage{xcolor}
+\newcommand\todo[1]{\textcolor{red}{#1}}   %I use this command to highlight areas that are unfinished
+%\renewcommand\todo[1]{}   % uncomment this to hide all \todo{} in the text.
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{overpic}
+\graphicspath{{./pictures/pdf/},{./pictures/ps/},{./pictures/png/},{./pictures/jpg/}}
+\begin{document}
+\author{}
+\title{Stochastic Swarm Control with Global Inputs}
+\maketitle
+
+
+Micro- and nanorobots can be built in large numbers, but controlling each robot individually is prohibitively difficult. Instead, micro- and nanorobots are often controlled by a global field. In previous work we conducted large-scale human-user experiments where humans played games that steered large swarms of simple robots to complete tasks such as manipulating blocks. One surprising result was that humans completed a block-pushing task faster when provided with only the mean and variance of the robot swarm than with full-state feedback. Inspired by human operators, this paper investigates controllers that use only the mean and variance of a robot swarm. We prove that the mean position is controllable, and show how an obstacle can make the variance controllable. We next derive automatic controllers for these and a hybrid, hysteresis-based switching control to regulate the first two moments of the robot distribution. Finally, we employ these controllers as primitives for a block-pushing task. 
+
+\begin{figure}
+\centering
+\begin{overpic}[width=0.9\columnwidth]{BlockPushing1.png}\end{overpic}
+%\todo{I like the 'target' symbol, but it is not self-documenting.  We need a legend explaining the min and max variance ellipses, the goal region, the variance, the mean, the object COM, and the target mean position.  I think these are easiest to make in powerpoint.
+%Please use the same color and line style for the variance min and max as you use in Figure 4.
+%}
+%{blockpushingImageWithMeanAndVarianceOverlay.png}
+\caption{\label{fig:bigPictureMeanAndVarianceForSwarm} A swarm of robots, all controlled by a uniform force field, can be effectively controlled by a hybrid controller that knows only the first and second moments of the robot distribution.  Here a swarm of simple robots (blue discs) pushes a black block toward the goal.}
+\end{figure}
+
+
+
+\end{document}
+
+ 
