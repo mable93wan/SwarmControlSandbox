@@ -1,0 +1,30 @@
+\documentclass{article}
+%\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\usepackage{xcolor}
+\newcommand\todo[1]{\textcolor{red}{#1}}   %I use this command to highlight areas that are unfinished
+%\renewcommand\todo[1]{}   % uncomment this to hide all \todo{} in the text.
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{overpic}
+\usepackage{wrapfig}
+\graphicspath{{./pictures/pdf/},{./pictures/ps/},{./pictures/png/},{./pictures/jpg/}}
+\begin{document}
+\author{Shiva Shahrokhi and  Aaron T. Becker\\ University of Houston, Houston, TX 77204-4005 USA\\ {\tt\small  sshahrokhi2@uh.edu, atbecker@uh.edu}}
+\title{How to Control a Swarm's Shape}
+\date{}
+\pagenumbering{gobble}
+\maketitle
+\begin{wrapfigure}{r}{7cm}
+\centering
+\begin{overpic}[width=7cm]{Covariance.png}\end{overpic}
+\caption{\label{fig:Covariance} A map which requires covariance control to reach the goals. Green ellipse is our first target covariance ellipse. Red ellipse is our current covariance ellipse. This paper explains how to use friction to control the swarm's shape.}
+\end{wrapfigure}
+
+Micro- and nano robots are often controlled by global-broadcast signal. This is because when human controls large number of robots, lots of limitations appears, like the number of robots that a human can control simultaneously. To remove this limitation, using global input to all the robots would be sufficient. In our previous work for block pushing task, one surprising result was that humans with less information played better. Inspired by that work, we proved that we can control mean position of the swarm and with an obstacle we can control variance of the swarm. We then wrote auto controllers which could complete the block pushing task, but with some limitations. First, if the swarm were fell apart to two swarms, we could not regroup them together. Second, if we had a not well shaped map that has some narrow corridors and we should change the swarm's shape to be able to pass that corridors, we were not able to do that. One solution to these problems is controlling swarm position covariances, $\sigma_{xy}$. For controlling $\sigma_{xy}$, we prove that the swarm position covariances $\sigma_{xy}$ is controllable given boundaries with non-zero friction second. We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots. We finally design controllers that efficiently regulates $\sigma_{xy}$.
+
+
+
+
+\end{document}
+
+ 
