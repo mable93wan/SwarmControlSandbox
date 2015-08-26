@@ -1,11 +1,11 @@
 % ******************Loading input Image**********************************
-cam = webcam(2); %Defines the webcam.
+cam = webcam(1); %Defines the webcam.
 % Read in a webcam snapshot.
 originalImage = snapshot(cam);
 % Crop the image to use ROI.
 originalImage = imcrop(originalImage,[864 230 525 370]);
 % make grayscale.
-originalImage = rgb2gray(originalImage);
+%originalImage = rgb2gray(originalImage);
 
 %originalImage = originalImage(33:33+550,250:250+810,:);  %ROI, you can use imrect to draw a rectangle using your mouse.
 imshow(originalImage)

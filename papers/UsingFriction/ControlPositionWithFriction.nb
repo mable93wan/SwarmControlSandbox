@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    128617,       3053]
-NotebookOptionsPosition[    126695,       2987]
-NotebookOutlinePosition[    127052,       3003]
-CellTagsIndexPosition[    127009,       3000]
+NotebookDataLength[    128717,       3056]
+NotebookOptionsPosition[    126795,       2990]
+NotebookOutlinePosition[    127152,       3006]
+CellTagsIndexPosition[    127109,       3003]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -341,7 +341,7 @@ Cell[BoxData[{
            RowBox[{"edge", ",", "walls"}], "}"}]}], "]"}]}], ",", 
        RowBox[{
         RowBox[{"#", "=!=", "False"}], "&"}]}], "]"}], "]"}]}], ";"}], 
-  "\n"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\n", 
  RowBox[{
   RowBox[{"moveParticleInWalls", "[", 
    RowBox[{"pos_", ",", "move_"}], "]"}], ":=", 
@@ -2026,7 +2026,7 @@ Cell[BoxData[
          ";"}], "*)"}], "\[IndentingNewLine]", 
        RowBox[{
         RowBox[{"path", " ", "=", " ", 
-         RowBox[{"achieveDesiredXspacing", "[", 
+         RowBox[{"achieveDesiredYspacing", "[", 
           RowBox[{"ps1", ",", "ps2", ",", "pe1", ",", "pe2"}], "]"}]}], ";", 
         "\[IndentingNewLine]", 
         RowBox[{"(*", 
@@ -2345,18 +2345,23 @@ Cell[BoxData[
    3.644762836920858*^9}, {3.644762882322543*^9, 3.644762892833354*^9}, {
    3.6447635709219847`*^9, 3.6447635785360126`*^9}, {3.6447643539946547`*^9, 
    3.644764361393894*^9}, {3.645207815626933*^9, 3.645207816711523*^9}, {
-   3.6452087647423077`*^9, 3.6452087724522867`*^9}, 3.6452088789501963`*^9}],
+   3.6452087647423077`*^9, 3.6452087724522867`*^9}, 3.6452088789501963`*^9, {
+   3.649503926109869*^9, 3.649503929104513*^9}}],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`pe1$$ = {0.25, 0.5}, $CellContext`pe2$$ = {
-    0.9359999999999999, 0.2450000000000001}, $CellContext`progress$$ = 
-    0.158, $CellContext`ps1$$ = {0.75, 0.5}, $CellContext`ps2$$ = {
-    0.07000000000000006, 0.25}, Typeset`show$$ = True, 
-    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
-    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
-    "\"untitled\"", Typeset`specs$$ = {{
+   DynamicModuleBox[{$CellContext`pe1$$ = {
+     Rational[1, 4], 
+     Rational[1, 2]}, $CellContext`pe2$$ = {
+     Rational[1, 5], 
+     Rational[1, 4]}, $CellContext`progress$$ = 0., $CellContext`ps1$$ = {
+     Rational[3, 4], 
+     Rational[1, 2]}, $CellContext`ps2$$ = {
+     Rational[2, 3], 
+     Rational[1, 4]}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{
       Hold[$CellContext`progress$$], 0, 1}, {{
        Hold[$CellContext`ps1$$], {
         Rational[3, 4], 
@@ -2370,11 +2375,10 @@ Cell[BoxData[
        Hold[$CellContext`pe2$$], {
         Rational[1, 5], 
         Rational[1, 4]}}, {-1, -1}, {1, 1}}}, Typeset`size$$ = {
-    360., {131., 135.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`progress$166015$$ = 
-    0, $CellContext`ps1$166016$$ = {0, 0}, $CellContext`ps2$166017$$ = {0, 
-    0}, $CellContext`pe1$166018$$ = {0, 0}, $CellContext`pe2$166019$$ = {0, 
-    0}}, 
+    360., {120., 124.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = True, $CellContext`progress$743$$ = 
+    0, $CellContext`ps1$744$$ = {0, 0}, $CellContext`ps2$745$$ = {0, 
+    0}, $CellContext`pe1$746$$ = {0, 0}, $CellContext`pe2$747$$ = {0, 0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`pe1$$ = {
           Rational[1, 4], 
@@ -2386,11 +2390,11 @@ Cell[BoxData[
           Rational[1, 2]}, $CellContext`ps2$$ = {
           Rational[2, 3], 
           Rational[1, 4]}}, "ControllerVariables" :> {
-        Hold[$CellContext`progress$$, $CellContext`progress$166015$$, 0], 
-        Hold[$CellContext`ps1$$, $CellContext`ps1$166016$$, {0, 0}], 
-        Hold[$CellContext`ps2$$, $CellContext`ps2$166017$$, {0, 0}], 
-        Hold[$CellContext`pe1$$, $CellContext`pe1$166018$$, {0, 0}], 
-        Hold[$CellContext`pe2$$, $CellContext`pe2$166019$$, {0, 0}]}, 
+        Hold[$CellContext`progress$$, $CellContext`progress$743$$, 0], 
+        Hold[$CellContext`ps1$$, $CellContext`ps1$744$$, {0, 0}], 
+        Hold[$CellContext`ps2$$, $CellContext`ps2$745$$, {0, 0}], 
+        Hold[$CellContext`pe1$$, $CellContext`pe1$746$$, {0, 0}], 
+        Hold[$CellContext`pe2$$, $CellContext`pe2$747$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -2425,10 +2429,8 @@ $CellContext`path2$ = {$CellContext`pm2$};
            For[$CellContext`i = 
              1, $CellContext`i <= $CellContext`progress$$ (
                Length[$CellContext`path$] - 1), 
-             
              Increment[$CellContext`i], $CellContext`mv$ = 
               Part[$CellContext`path$, $CellContext`i + 
-                
                 1]; $CellContext`pm1$ = \
 $CellContext`moveParticleInWalls[$CellContext`pm1$, $CellContext`mv$]; \
 $CellContext`pm2$ = $CellContext`moveParticleInWalls[$CellContext`pm2$, \
@@ -2468,7 +2470,7 @@ $CellContext`mv$]; AppendTo[$CellContext`path1$, $CellContext`pm1$];
            Rational[1, 5], 
            Rational[1, 4]}}, {-1, -1}, {1, 1}, ControlType -> Locator}}, 
       "Options" :> {}, "DefaultOptions" :> {}],
-     ImageSizeCache->{411., {178., 183.}},
+     ImageSizeCache->{411., {167., 172.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
@@ -2480,7 +2482,8 @@ $CellContext`mv$]; AppendTo[$CellContext`path1$, $CellContext`pm1$];
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
  CellChangeTimes->{{3.6452085981552477`*^9, 3.6452086156143723`*^9}, 
-   3.6452105743098307`*^9, 3.6452760944624968`*^9, 3.645276357480023*^9}]
+   3.6452105743098307`*^9, 3.6452760944624968`*^9, 3.645276357480023*^9, {
+   3.6495020703840714`*^9, 3.649502070798826*^9}}]
 }, Open  ]],
 
 Cell[BoxData[""], "Input",
@@ -3036,23 +3039,23 @@ Cell[76142, 1805, 386, 12, 28, "Input"],
 Cell[76531, 1819, 160, 2, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[76728, 1826, 22784, 521, 1134, "Input",
+Cell[76728, 1826, 22834, 522, 1134, "Input",
  InitializationCell->True],
-Cell[99515, 2349, 6806, 133, 378, "Output"]
+Cell[99565, 2350, 6856, 135, 356, "Output"]
 }, Open  ]],
-Cell[106336, 2485, 94, 1, 28, "Input"],
-Cell[106433, 2488, 8164, 179, 557, "Input",
+Cell[106436, 2488, 94, 1, 28, "Input"],
+Cell[106533, 2491, 8164, 179, 557, "Input",
  InitializationCell->True],
-Cell[114600, 2669, 6074, 137, 488, "Input"],
-Cell[120677, 2808, 113, 1, 46, "Input"],
+Cell[114700, 2672, 6074, 137, 488, "Input"],
+Cell[120777, 2811, 113, 1, 46, "Input"],
 Cell[CellGroupData[{
-Cell[120815, 2813, 145, 3, 28, "Input"],
-Cell[120963, 2818, 156, 3, 28, "Output"]
+Cell[120915, 2816, 145, 3, 28, "Input"],
+Cell[121063, 2821, 156, 3, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[121156, 2826, 3362, 95, 284, "Input"],
-Cell[124521, 2923, 1027, 20, 374, "Output"],
-Cell[125551, 2945, 1116, 38, 48, "Output"]
+Cell[121256, 2829, 3362, 95, 284, "Input"],
+Cell[124621, 2926, 1027, 20, 374, "Output"],
+Cell[125651, 2948, 1116, 38, 48, "Output"]
 }, Open  ]]
 }, Open  ]]
 }
