@@ -1,0 +1,49 @@
+\documentclass{article}
+%\documentclass[letterpaper, 10 pt, conference]{ieeeconf}
+\usepackage{xcolor}
+\newcommand\todo[1]{\textcolor{red}{#1}}   %I use this command to highlight areas that are unfinished
+%\renewcommand\todo[1]{}   % uncomment this to hide all \todo{} in the text.
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{overpic}
+\newcommand{\figwid}{0.22\columnwidth}
+\usepackage{wrapfig}
+\graphicspath{{./pictures/pdf/},{./pictures/ps/},{./pictures/png/},{./pictures/jpg/}}
+\begin{document}
+\author{Aaron T. Becker\\ University of Houston, Houston, TX 77204-4005 USA\\ {\tt\small  atbecker@uh.edu}, (217) 722-2058 (cell), (713) 743 6671 (office)}
+\title{\vspace{-4em}How a human operator should control 1000 robots \\{\large Human-Swarm Manipulation using SwarmControl.net}}
+\date{}
+\pagenumbering{gobble}
+\maketitle
+\begin{wrapfigure}{r}{7.2cm}
+\renewcommand{\figwid}{1.6cm}
+\begin{overpic}[width =\figwid]{VaryVisFS.pdf}\put(20,15){\tiny Full-state}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisCH.pdf}\put(10,15){\tiny Convex-hull}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisMV.pdf}\put(10,15){\tiny Mean + var}\end{overpic}
+\begin{overpic}[width =\figwid]{VaryVisMe.pdf}\put(30,15){\tiny Mean}\end{overpic}\\
+\vspace{1em}
+\centering
+\begin{overpic}[width = 7.2cm]{ResVaryVis.pdf}\end{overpic}
+\caption{\label{fig:Visualization} 
+Screenshots from a block-pushing task with human users. This experiment challenged players to quickly steer 100 robots (blue discs) to push an object (green hexagon) into a goal region. 
+Completion-time results for the four levels of visual feedback. 
+%\vspace{-2em}
+}
+%\centering
+%\begin{overpic}[width=7cm]{Covariance.png}\end{overpic}
+%\caption{\label{fig:Covariance} A workspace requiring covariance control to reach goal regions. The red ellipse is the current covariance ellipse.
+%Green ellipse is a target covariance ellipse needed to pass through a narrow passage.  Our poster explains how friction can be exploited to control the swarm's shape.}
+\end{wrapfigure}
+Larger and larger numbers of robots are being fielded, but it is unclear how human operators should manage these large swarms of robots.  Operator overload is a real concern.
+We want to use large swarms of robots to perform manipulation tasks; unfortunately, human-swarm interaction studies as conducted today are limited in sample size, are difficult to reproduce, and are prone to hardware failures. We present an alternative.
+My lab is examinng the perils, pitfalls, and possibilities we discovered by launching \href{http://www.swarmcontrol.net}{SwarmControl.net}, an online game where players steer swarms of up to 500 robots to complete manipulation challenges. We record statistics from thousands of players, and use the game to explore aspects of large-population robot control. We present the game framework as a new, open-source tool for large-scale user experiments. Our results have potential applications in human control of micro- and nanorobots, supply insight for automatic controllers, and provide a template for large online robotic research experiments.
+
+At right are results from an experiment that  explores manipulation with varying amounts of sensing information: {\bf full-state} sensing provides the most information by showing the position of all robots; {\bf convex-hull} draws a convex hull around the outermost robots; {\bf mean} provides the average position of the population; and {\bf mean + variance} adds a confidence ellipse. Our hypothesis predicted a steady decay in performance as the amount of visual feedback decreased.
+
+To our surprise, our experiment indicates the opposite: players  with just the mean completed the task faster than those with full-state feedback.    Anecdotal evidence from beta-testers who played the game suggests that tracking 100 robots is overwhelming---similar to schooling phenomenons that confuse predators---while working with just the mean + variance is like using a ``spongy'' manipulator. Our beta-testers found convex-hull feedback confusing and irritating.  A single robot left behind an obstacle will stretch the entire hull, obscuring the majority of the swarm.
+
+%\bibliographystyle{IEEEtran}
+%\bibliography{IEEEabrv,SwarmControlWithGlobalInputs}%,../../../ensemble/bib/aaronrefs}%,../aaronrefs}
+\end{document}
+
+ 

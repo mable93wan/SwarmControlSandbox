@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    230687,       4674]
-NotebookOptionsPosition[    228367,       4592]
-NotebookOutlinePosition[    228839,       4610]
-CellTagsIndexPosition[    228796,       4607]
+NotebookDataLength[    231842,       4692]
+NotebookOptionsPosition[    229482,       4609]
+NotebookOutlinePosition[    229951,       4627]
+CellTagsIndexPosition[    229908,       4624]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -2468,6 +2468,8 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell[BoxData[{
+ RowBox[{"SetDirectory", "[", 
+  RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"numMinMaxVar", "=", " ", 
    RowBox[{"{", 
@@ -2490,9 +2492,8 @@ Cell[BoxData[{
       RowBox[{"100", ",", "3", ",", "5"}], "}"}]}], "}"}]}], 
   ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{
-   RowBox[{"r", " ", "=", " ", 
-    FractionBox["1", "10"]}], ";"}], 
+  RowBox[{"r", " ", "=", " ", 
+   FractionBox["1", "10"]}], ";", 
   RowBox[{"(*", 
    RowBox[{"r", " ", "=", 
     RowBox[{"the", " ", "radius", " ", "of", " ", "our", " ", 
@@ -2550,9 +2551,8 @@ Cell[BoxData[{
        RowBox[{"2", "r"}], ")"}], "2"], 
      SqrtBox["3"], " ", 
      SuperscriptBox["n", "2"]}], 
-    RowBox[{"2", " ", "n", " ", "4", " ", "\[Pi]", " "}]], 
-   "*)"}]}], "\[IndentingNewLine]", 
- RowBox[{
+    RowBox[{"2", " ", "n", " ", "4", " ", "\[Pi]", " "}]], "*)"}], 
+  "\[IndentingNewLine]", 
   RowBox[{"slope", " ", "=", " ", 
    FractionBox[
     SqrtBox["3"], 
@@ -2660,8 +2660,8 @@ FontSlant->\"Italic\"]\), Number of Robots\>\"", ",", " ",
        RowBox[{
         RowBox[{"Style", "[", 
          RowBox[{
-         "\"\<n \!\(\*SuperscriptBox[\(r\), \(2\)]\) \
-\!\(\*SqrtBox[\(3\)]\)/(2\[Pi])\>\"", ",", 
+         "\"\<n \!\(\*SuperscriptBox[\(r\), \(2\)]\) \!\(\*SqrtBox[\(3\)]\)/\
+\[Pi]\>\"", ",", 
           RowBox[{"FontFamily", "\[Rule]", "\"\<Times\>\""}], ",", 
           RowBox[{"FontSize", "\[Rule]", "FontSz"}]}], "]"}], ",", 
         RowBox[{"{", 
@@ -2723,7 +2723,7 @@ FontSlant->\"Italic\"]\), Number of Robots\>\"", ",", " ",
   "\[IndentingNewLine]", "]"}], "\n", 
  RowBox[{
   RowBox[{"Export", "[", 
-   RowBox[{"\"\<../pictures/pdf/VarianceMinMaxBand2.pdf\>\"", ",", "%"}], 
+   RowBox[{"\"\<../pictures/pdf/VarianceMinMaxBand2v2.pdf\>\"", ",", "%"}], 
    "]"}], ";"}], "\[IndentingNewLine]"}], "Input",
  CellChangeTimes->{{3.634382630564986*^9, 3.634382978003866*^9}, {
    3.634383143698983*^9, 3.634383222594808*^9}, {3.634383267305876*^9, 
@@ -2755,7 +2755,22 @@ FontSlant->\"Italic\"]\), Number of Robots\>\"", ",", " ",
    3.634521029543538*^9, 3.634521043006729*^9}, {3.634521075707316*^9, 
    3.634521076011468*^9}, {3.634521175773505*^9, 3.6345212127995243`*^9}, {
    3.634521245176605*^9, 3.6345212960679398`*^9}, {3.634521341607877*^9, 
-   3.634521438704685*^9}, {3.634523389422309*^9, 3.634523392654228*^9}}],
+   3.634521438704685*^9}, {3.634523389422309*^9, 3.634523392654228*^9}, {
+   3.647305952738536*^9, 3.6473059647263803`*^9}, {3.647306216440441*^9, 
+   3.647306224055423*^9}, {3.6473062610108433`*^9, 3.64730626738873*^9}}],
+
+Cell[BoxData["\<\"/Users/ab55/Desktop/git/SwarmControlSandbox/papers/\
+swarmControl/PublishVersion/code\"\>"], "Output",
+ CellChangeTimes->{{3.6344063144925327`*^9, 3.634406429281002*^9}, 
+   3.6344070934865227`*^9, 3.634407188266944*^9, 3.634407221538204*^9, {
+   3.6344073179225063`*^9, 3.634407336707981*^9}, {3.634407373042418*^9, 
+   3.63440745209632*^9}, 3.634407484065668*^9, 3.6344076479355307`*^9, 
+   3.634408399267436*^9, 3.634521044497107*^9, 3.634521076617023*^9, {
+   3.634521178687861*^9, 3.634521213204618*^9}, {3.634521256175168*^9, 
+   3.634521296947999*^9}, {3.63452134286408*^9, 3.634521439005682*^9}, 
+   3.634523396419742*^9, {3.634523556074833*^9, 3.634523567335292*^9}, 
+   3.6473060557418747`*^9, 3.647306118287438*^9, 3.64730622512074*^9, 
+   3.647306269134181*^9}],
 
 Cell[BoxData[
  GraphicsBox[{{
@@ -3147,7 +3162,7 @@ tI6lvoLdF9RXIENu2b06mfpKdn9QXwmdFF/ZlWXUV7L7hPpK1C6Tveauob6S
      FormBox[
       StyleBox[
       "\"n \\!\\(\\*SuperscriptBox[\\(r\\), \\(2\\)]\\) \\!\\(\\*SqrtBox[\\(3\
-\\)]\\)/(2\[Pi])\"", FontFamily -> "Times", FontSize -> 16, StripOnInput -> 
+\\)]\\)/\[Pi]\"", FontFamily -> "Times", FontSize -> 16, StripOnInput -> 
        False], TraditionalForm], {170, 0.25}, Automatic, Automatic, {9, 1}]},
   Frame->{True, True, False, False},
   FrameLabel->{
@@ -3226,7 +3241,9 @@ Number of Robots\"", TraditionalForm],
    3.634408399267436*^9, 3.634521044497107*^9, 3.634521076617023*^9, {
    3.634521178687861*^9, 3.634521213204618*^9}, {3.634521256175168*^9, 
    3.634521296947999*^9}, {3.63452134286408*^9, 3.634521439005682*^9}, 
-   3.634523396419742*^9, {3.634523556074833*^9, 3.634523567335292*^9}}]
+   3.634523396419742*^9, {3.634523556074833*^9, 3.634523567335292*^9}, 
+   3.6473060557418747`*^9, 3.647306118287438*^9, 3.64730622512074*^9, 
+   3.6473062692064667`*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4591,7 +4608,7 @@ Cell["Null", "Output"]
 }, Open  ]]
 },
 WindowSize->{824, 679},
-WindowMargins->{{Automatic, -69}, {-24, Automatic}},
+WindowMargins->{{21, Automatic}, {Automatic, 0}},
 PrivateNotebookOptions->{"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
 Magnification->1.100000023841858,
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September 9, \
@@ -4652,26 +4669,27 @@ Cell[110298, 2446, 398, 8, 31, "Output"],
 Cell[110699, 2456, 400, 8, 31, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[111136, 2469, 11489, 288, 911, "Input"],
-Cell[122628, 2759, 26662, 469, 222, "Output"]
+Cell[111136, 2469, 11714, 290, 929, "Input"],
+Cell[122853, 2761, 791, 11, 50, "Output"],
+Cell[123647, 2774, 26758, 471, 202, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[149327, 3233, 210, 5, 55, "Input"],
-Cell[149540, 3240, 76, 1, 34, "Output"]
+Cell[150442, 3250, 210, 5, 50, "Input"],
+Cell[150655, 3257, 76, 1, 31, "Output"]
 }, Open  ]],
-Cell[149631, 3244, 1597, 50, 94, "Input"],
-Cell[151231, 3296, 637, 14, 224, "Text"],
+Cell[150746, 3261, 1597, 50, 86, "Input"],
+Cell[152346, 3313, 637, 14, 204, "Text"],
 Cell[CellGroupData[{
-Cell[151893, 3314, 1108, 34, 154, "Input"],
-Cell[153004, 3350, 15001, 263, 291, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[168042, 3618, 298, 7, 40, "Input"],
-Cell[168343, 3627, 59889, 952, 288, "Output"]
+Cell[153008, 3331, 1108, 34, 140, "Input"],
+Cell[154119, 3367, 15001, 263, 265, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[228269, 4584, 21, 0, 34, "Input"],
-Cell[228293, 4586, 22, 0, 34, "Output"]
+Cell[169157, 3635, 298, 7, 37, "Input"],
+Cell[169458, 3644, 59889, 952, 262, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[229384, 4601, 21, 0, 31, "Input"],
+Cell[229408, 4603, 22, 0, 31, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
