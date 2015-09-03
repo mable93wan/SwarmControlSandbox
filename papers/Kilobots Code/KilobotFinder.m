@@ -1,17 +1,18 @@
 % ******************Loading input Image**********************************
-cam = webcam(1); %Defines the webcam.
+cam = webcam(2); %Defines the webcam.
 % Read in a webcam snapshot.
 originalImage = snapshot(cam);
 % Crop the image to use ROI.
-originalImage = imcrop(originalImage,[864 230 525 370]);
+originalImage = imcrop(originalImage,[345 60 1110 850]);
 % make grayscale.
-%originalImage = rgb2gray(originalImage);
+originalImage = rgb2gray(originalImage);
 
 %originalImage = originalImage(33:33+550,250:250+810,:);  %ROI, you can use imrect to draw a rectangle using your mouse.
 imshow(originalImage)
-% Too easy, from http://www.mathworks.com/help/images/examples/detect-and-measure-circular-objects-in-an-image.html
+% Too easy, from
+% http://www.mathworks.com/help/images/examples/detect-and-measure-circular-objects-in-an-image.tml
 tic
-[centers, radii] = imfindcircles(originalImage,[16 26],'ObjectPolarity','dark','Sensitivity',0.97);
+[centers, radii] = imfindcircles(originalImage,[12 19],'ObjectPolarity','dark','Sensitivity',0.91 );
 toc
 M = mean(centers);
 V = var(centers);

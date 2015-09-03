@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    128717,       3056]
-NotebookOptionsPosition[    126795,       2990]
-NotebookOutlinePosition[    127152,       3006]
-CellTagsIndexPosition[    127109,       3003]
+NotebookDataLength[    127581,       3028]
+NotebookOptionsPosition[    125741,       2964]
+NotebookOutlinePosition[    126098,       2980]
+CellTagsIndexPosition[    126055,       2977]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -146,32 +146,6 @@ Cell[BoxData[
    3.642619457307364*^9, 3.642619498138268*^9, {3.642619577120837*^9, 
    3.64261959177497*^9}, {3.642619639762658*^9, 3.642619642529171*^9}, {
    3.642619749975976*^9, 3.6426197780037127`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Infinity", "::", "indet"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Indeterminate expression \[NoBreak]\\!\\(0\\\\ \
-ComplexInfinity\\)\[NoBreak] encountered. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/indet\\\", ButtonNote -> \
-\\\"Infinity::indet\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.645208597913817*^9, 3.645210574012641*^9, 
-  3.645276094210047*^9, 3.645276357226818*^9}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox[
-   RowBox[{"Infinity", "::", "indet"}], "MessageName"], 
-  RowBox[{
-  ":", " "}], "\<\"Indeterminate expression \[NoBreak]\\!\\(0\\\\ \
-ComplexInfinity\\)\[NoBreak] encountered. \\!\\(\\*ButtonBox[\\\"\
-\[RightSkeleton]\\\", ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
-ButtonData:>\\\"paclet:ref/message/General/indet\\\", ButtonNote -> \
-\\\"Infinity::indet\\\"]\\)\"\>"}]], "Message", "MSG",
- CellChangeTimes->{3.645208597913817*^9, 3.645210574012641*^9, 
-  3.645276094210047*^9, 3.6452763572744207`*^9}],
 
 Cell[BoxData[
  RowBox[{"If", "[", 
@@ -2376,9 +2350,9 @@ Cell[BoxData[
         Rational[1, 5], 
         Rational[1, 4]}}, {-1, -1}, {1, 1}}}, Typeset`size$$ = {
     360., {120., 124.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`progress$743$$ = 
-    0, $CellContext`ps1$744$$ = {0, 0}, $CellContext`ps2$745$$ = {0, 
-    0}, $CellContext`pe1$746$$ = {0, 0}, $CellContext`pe2$747$$ = {0, 0}}, 
+    Typeset`skipInitDone$$ = True, $CellContext`progress$15179$$ = 
+    0, $CellContext`ps1$15180$$ = {0, 0}, $CellContext`ps2$15181$$ = {0, 
+    0}, $CellContext`pe1$15182$$ = {0, 0}, $CellContext`pe2$15183$$ = {0, 0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`pe1$$ = {
           Rational[1, 4], 
@@ -2390,11 +2364,11 @@ Cell[BoxData[
           Rational[1, 2]}, $CellContext`ps2$$ = {
           Rational[2, 3], 
           Rational[1, 4]}}, "ControllerVariables" :> {
-        Hold[$CellContext`progress$$, $CellContext`progress$743$$, 0], 
-        Hold[$CellContext`ps1$$, $CellContext`ps1$744$$, {0, 0}], 
-        Hold[$CellContext`ps2$$, $CellContext`ps2$745$$, {0, 0}], 
-        Hold[$CellContext`pe1$$, $CellContext`pe1$746$$, {0, 0}], 
-        Hold[$CellContext`pe2$$, $CellContext`pe2$747$$, {0, 0}]}, 
+        Hold[$CellContext`progress$$, $CellContext`progress$15179$$, 0], 
+        Hold[$CellContext`ps1$$, $CellContext`ps1$15180$$, {0, 0}], 
+        Hold[$CellContext`ps2$$, $CellContext`ps2$15181$$, {0, 0}], 
+        Hold[$CellContext`pe1$$, $CellContext`pe1$15182$$, {0, 0}], 
+        Hold[$CellContext`pe2$$, $CellContext`pe2$15183$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -2403,7 +2377,7 @@ Cell[BoxData[
       Module[{$CellContext`path$, $CellContext`pm1$, $CellContext`pm2$, \
 $CellContext`mv$, $CellContext`\[CapitalDelta]xy$, $CellContext`path1$, \
 $CellContext`path2$}, $CellContext`path$ = \
-$CellContext`achieveDesiredXspacing[$CellContext`ps1$$, $CellContext`ps2$$, \
+$CellContext`achieveDesiredYspacing[$CellContext`ps1$$, $CellContext`ps2$$, \
 $CellContext`pe1$$, $CellContext`pe2$$]; Graphics[{Black, 
            Rectangle[(-0.1) {1, 1}, 1.1 {1, 1}], White, 
            Rectangle[{0, 0}, {1, 1}], 
@@ -2483,7 +2457,7 @@ $CellContext`mv$]; AppendTo[$CellContext`path1$, $CellContext`pm1$];
   Manipulate`InterpretManipulate[1]]], "Output",
  CellChangeTimes->{{3.6452085981552477`*^9, 3.6452086156143723`*^9}, 
    3.6452105743098307`*^9, 3.6452760944624968`*^9, 3.645276357480023*^9, {
-   3.6495020703840714`*^9, 3.649502070798826*^9}}]
+   3.6495020703840714`*^9, 3.649502070798826*^9}, 3.649507530198319*^9}]
 }, Open  ]],
 
 Cell[BoxData[""], "Input",
@@ -3021,41 +2995,39 @@ Cell[3844, 129, 143, 2, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[4024, 136, 519, 11, 28, "Input"],
-Cell[4546, 149, 544, 11, 24, "Message"],
-Cell[5093, 162, 546, 11, 24, "Message"],
-Cell[5642, 175, 1549, 46, 76, "Output"]
+Cell[4546, 149, 1549, 46, 76, "Output"]
 }, Open  ]],
-Cell[7206, 224, 14280, 350, 835, "Input",
+Cell[6110, 198, 14280, 350, 835, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[21511, 578, 668, 19, 28, "Input"],
-Cell[22182, 599, 205, 4, 28, "Output"]
+Cell[20415, 552, 668, 19, 28, "Input"],
+Cell[21086, 573, 205, 4, 28, "Output"]
 }, Open  ]],
-Cell[22402, 606, 20503, 451, 1168, "Input"],
-Cell[42908, 1059, 10978, 251, 777, "Input"],
-Cell[53889, 1312, 22228, 489, 1406, "Input"],
+Cell[21306, 580, 20503, 451, 1168, "Input"],
+Cell[41812, 1033, 10978, 251, 777, "Input"],
+Cell[52793, 1286, 22228, 489, 1406, "Input"],
 Cell[CellGroupData[{
-Cell[76142, 1805, 386, 12, 28, "Input"],
-Cell[76531, 1819, 160, 2, 28, "Output"]
+Cell[75046, 1779, 386, 12, 28, "Input"],
+Cell[75435, 1793, 160, 2, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[76728, 1826, 22834, 522, 1134, "Input",
+Cell[75632, 1800, 22834, 522, 1134, "Input",
  InitializationCell->True],
-Cell[99565, 2350, 6856, 135, 356, "Output"]
+Cell[98469, 2324, 6898, 135, 390, "Output"]
 }, Open  ]],
-Cell[106436, 2488, 94, 1, 28, "Input"],
-Cell[106533, 2491, 8164, 179, 557, "Input",
+Cell[105382, 2462, 94, 1, 28, "Input"],
+Cell[105479, 2465, 8164, 179, 557, "Input",
  InitializationCell->True],
-Cell[114700, 2672, 6074, 137, 488, "Input"],
-Cell[120777, 2811, 113, 1, 46, "Input"],
+Cell[113646, 2646, 6074, 137, 488, "Input"],
+Cell[119723, 2785, 113, 1, 46, "Input"],
 Cell[CellGroupData[{
-Cell[120915, 2816, 145, 3, 28, "Input"],
-Cell[121063, 2821, 156, 3, 28, "Output"]
+Cell[119861, 2790, 145, 3, 28, "Input"],
+Cell[120009, 2795, 156, 3, 28, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[121256, 2829, 3362, 95, 284, "Input"],
-Cell[124621, 2926, 1027, 20, 374, "Output"],
-Cell[125651, 2948, 1116, 38, 48, "Output"]
+Cell[120202, 2803, 3362, 95, 284, "Input"],
+Cell[123567, 2900, 1027, 20, 374, "Output"],
+Cell[124597, 2922, 1116, 38, 48, "Output"]
 }, Open  ]]
 }, Open  ]]
 }
