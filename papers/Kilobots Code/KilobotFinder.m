@@ -12,7 +12,9 @@ imshow(originalImage)
 % Too easy, from
 % http://www.mathworks.com/help/images/examples/detect-and-measure-circular-objects-in-an-image.tml
 tic
-[centers, radii] = imfindcircles(originalImage,[12 19],'ObjectPolarity','dark','Sensitivity',0.91 );
+BW = im2bw(originalImage, 0.25);  %threshold the image to remove shadows (and only show dark parts of kilobots)
+    [centers, radii] = imfindcircles(BW,[12 19],'ObjectPolarity','dark','Sensitivity',0.94 );
+%[centers, radii] = imfindcircles(originalImage,[12 19],'ObjectPolarity','dark','Sensitivity',0.91 );
 toc
 M = mean(centers);
 V = var(centers);
