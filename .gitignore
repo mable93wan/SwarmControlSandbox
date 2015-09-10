@@ -6,3 +6,5 @@
 papers/IROS2015automaticSwarm/SwarmControlWithGlobalInputs.pdf
 
 *.blg
+
+*.m~
