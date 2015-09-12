@@ -39,29 +39,36 @@ $(0,0)$ is bottom corner, $s_1$ is topmost robot,
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Getting desired Y-space}\label{alg:YControl}
+\caption{GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)}\label{alg:YControl}
 \begin{algorithmic}[1]
-\Require Knowledge of the starting and ending positions  of the two robots $s_1$ (right robot) \& $s_2$ (left robot)  \& $e_1$  \& $e_2$  and $L$ length of the walls. Current position of the robot will be showed as $r$.
-\Ensure $\Delta x(t) = \Delta x(0)$ 
-\State $e_{1y} - e_{2y} = \Delta e_y$
-\State $s_{1y} - s_{2y} = \Delta s_y$
-\If {$\Delta e < 0 $ }
-\State Move almost to up wall
-\Else \\Move almost to down wall
+\Require Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
+$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
+ $L$ is length of the walls. Current position of the robots are $(r_1,r_2)$.
+\Ensure   $ r_{1x} - r_{2x}  \equiv s_{1x} - s_{2x} $   %$\Delta y(t) \equiv \Delta y(0)$ 
+\State $ \Delta s_y  \gets s_{1y} - s_{2y} $
+\State $ \Delta e_y \gets e_{1y} - e_{2y} $
+\State $ r_1 \gets s_1$, $ r_2 \gets s_2$
+\If {$\Delta e_y < 0 $ }
+\State $ m \gets ( L-\max( r_{1y},r_{2y}) ,0)   $ \Comment{Move to top wall}
+\Else 
+\State  $ m \gets ( -\min( r_{1y},r_{2y}),0 )    $ \Comment{Move to bottom wall}
 \EndIf
-\State Move to right
-\If {$\Delta e_y - \Delta s_y > 0 $}
-\State Update current position of the robots: $r_1$ , $r_2$
-\State Go right for $min(\|\Delta e_y - \Delta s_y \|, L- r_{1y})$
-\Else \\Go left for $-min(\|\Delta e - \Delta s_y \|, r_{1y})$
+\State $m  \gets  m + (0, -\min( r_{1x},r_{2x} ))$ \Comment{Move to left}
+\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+\If {$\Delta e_y - (r_{1y} - r_{2y} ) > 0 $}
+\State $ m \gets (\min(\|\Delta e_y - \Delta s_y \|, L- r_{1y}), 0)$  \Comment{Move top}
+\Else
+\State $ m \gets (-\min(\|\Delta e_y - \Delta s_y \|, r_{1y}), 0)$\Comment{Move bottom}
 \EndIf 
-\State Move $\epsilon$ left
-\State Update current position of the robots: $r_1$ , $r_2$
+\State $m  \gets  m + (0, \epsilon)$ \Comment{Move right}
+\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
 \State $\Delta r_y = r_{1y} - r_{2y}$
-\If {$\Delta r_y = \Delta e_y$}
-\State Go to $e_1$, $e_2$
-\State Return
-\Else \\Do the algorithm again with the inputs of $r_1$, $r_2$, $e_1$, $e_2$
+\If {$\Delta r_y \equiv \Delta e_y$} 
+\State   $ m \gets (e_{1x}-r_{1x}, e_{1y}-r_{1y})$
+\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+\State  \Return $(r_1,r_2)$
+\Else   
+\State \Return GenerateDesired$y$-spacing($r_1,r_2,e_1,e_2,L$)
 \EndIf
 \end{algorithmic}
 \end{algorithm}
