@@ -16,14 +16,14 @@ $(0,0)$ is bottom corner, $s_1$ is topmost robot,
 \If {$\Delta e_x < 0 $ }
 \State $ m \gets ( L-\max( r_{1x},r_{2x}) ,0)   $ \Comment{Move to right wall}
 \Else 
-\State  $ m \gets ( -\min( r_{1x},r_{2x},0 )    $ \Comment{Move to left wall}
+\State  $ m \gets ( -\min( r_{1x},r_{2x}),0 )    $ \Comment{Move to left wall}
 \EndIf
 \State $m  \gets  m + (0, -\min( r_{1y},r_{2y} ))$ \Comment{Move to bottom}
 \State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
 \If {$\Delta e_x - (r_{1x} - r_{2x} ) > 0 $}
-\State $ m \gets (min(\|\Delta e_x - \Delta s_x \|, L- r_{1x}), 0)$  \Comment{Move right}
+\State $ m \gets (\min(\|\Delta e_x - \Delta s_x \|, L- r_{1x}), 0)$  \Comment{Move right}
 \Else
-\State $ m \gets (-min(\|\Delta e_x - \Delta s_x \|, r_{1x}), 0)$\Comment{Move left}
+\State $ m \gets (-\min(\|\Delta e_x - \Delta s_x \|, r_{1x}), 0)$\Comment{Move left}
 \EndIf 
 \State $m  \gets  m + (0, \epsilon)$ \Comment{Move up}
 \State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
