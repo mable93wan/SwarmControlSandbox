@@ -20,67 +20,32 @@
 
 In this algorithm we want to control two position of two robots using friction. For ease of proof, we assume that we want to \emph{x} position of the robots, and \emph{y} of the robots are not the same and will remain the initial $\Delta y $ as we go through the algorithm.
 \begin{algorithm}
-\caption{Getting desired X-space}\label{alg:CovarianceControl}
+\caption{Getting desired X-space}\label{alg:XControl}
 \begin{algorithmic}[1]
-\Require Knowledge of the starting and ending positions  of the two robots $s_1$ (topper robot) \& $s_2$ (lower robot)  \& $e_1$ (topper robot) \& $e_2$ (lower robot) and $L$ length of the bottom wall. Current position of the robot will be showed as $r$.
-%\Input Global velocity of robots (unless they touch side)
-%\Assume $\Delta y \neq 0$ 
+\Require Knowledge of the starting and ending positions  of the two robots $s_1$ (topper robot) \& $s_2$ (lower robot)  \& $e_1$  \& $e_2$  and $L$ length of the bottom wall. Current position of the robot will be showed as $r$.
 \Ensure $\Delta y(t) = \delta y(0)$ 
-%\Assume $max(s_{1y} , s_{2y}) < L - \epsilon $
 \State $e_{1x} - e_{2x} = \Delta e_x$
 \State $s_{1x} - s_{2x} = \Delta s_x$
-\Loop
-
-\If {$\Delta x >= 0$ \emph{AND} $\Delta e > 0$}
-\While  {$L - r_2 > \Delta e$}
-\State Go left
-\EndWhile
-
-\State Go down until lower robot touch bottom wall
-\If {$\Delta e < \Delta x$}
-\State Go left until $\Delta e = \Delta x$
-\Else Go right until $\Delta e = \Delta x$
+\If {$\Deltae < 0 $ }
+\State Move almost to right wall
+\Else Move almost to left wall
 \EndIf
-\State Go to desired position
-\EndIf
-
-\If {$\Delta x >= 0$ \emph{AND} $\Delta e < 0$}
-\While  {$r_2 < \|\Delta e\| $}
-\State Go right
-\EndWhile
-\If {$r_2 = L$ \emph{OR} $r_1 = L$}
-\State Go $\epsilon$ left 
-\EndIf
-\State Go down until lower robot touch bottom wall
-\State Go right until $\Delta e = \Delta x$
-\State Go to desired position
+\State Move to bottom
+\If $\Delta e - \Delta x > 0 $
+\State Update current position of the robots: $r_1$ , $r_2$
+\State Go right for $min(\|\Delta e - \Delta x \|, L- r_1)$
+\Else Go left for $-min(\|\Delta e - \Delta x \|, r_1)$
+\EndIf 
+\State Move $\epsilon$ up
+\State Update current position of the robots: $r_1$ , $r_2$
+\If $\Delta r_x = \Delta e_x$ 
+\State Go to $e_1$, $e_2$
+\State Return
+\Else Do the algorithm again with the inputs of $r_1$, $r_2$, $e_1$, $e_2$
 \EndIf
 
-\If {$\Delta x < 0$ \emph{AND} $\Delta e < 0$}
-\While  {$r_2 > \|\Delta e\|$}
-\State Go right
-\EndWhile
-\State Go down until lower robot touch bottom wall
-\If {$\|\Delta e\| < \|\Delta x\|$}
-\State Go right until $\|\Delta e\| = \|\Delta x\|$
-\Else Go left until $\|\Delta e\| = \|\Delta x\|$
-\EndIf
-\State Go to desired position
-\EndIf
-\newpage
-\If {$\Delta x < 0$ \emph{AND} $\Delta e > 0$}
-\While  {$L < \Delta e + r_2 $}
-\State Go left
-\EndWhile
-\If {$r_2 = L$ \emph{OR} $r_1 = L$}
-\State Go $\epsilon$ left 
-\EndIf
-\State Go down until lower robot touch bottom wall
-\State Go right until $\Delta e = \Delta x$
-\State Go to desired position
-\EndIf
 
-\EndLoop
+
 \end{algorithmic}
 \end{algorithm}
 

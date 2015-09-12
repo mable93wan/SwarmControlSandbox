@@ -140,7 +140,7 @@ function init()
 	//create the robots
 	bodyDef.type = b2Body.b2_dynamicBody;
 	var robotrad = 0.1; //for SwarmControl.net, we used 0.2;
-	var numrobots = 10;//Math.floor(20/(4*robotrad*robotrad));
+	var numrobots = 200;//Math.floor(20/(4*robotrad*robotrad));
 	if(BFSDebugMode || Gradient_DebugMode)
 	{
 		numrobots = 0;
@@ -355,9 +355,9 @@ function init()
 	var varianceGoalX = new Array(2);
 	var varianceGoalY = new Array(2);
 	varianceGoalX[0] = 18.9;
-	varianceGoalY[0] = 1.1;
-	varianceGoalX[1] = 1.1;
-	varianceGoalY[1] = 1.1;
+	varianceGoalY[0] = 6;
+	varianceGoalX[1] = 6;
+	varianceGoalY[1] = 6;
 
 
 	if(elapsedTimeSec%cycleInSec > cycleInSec/2 )

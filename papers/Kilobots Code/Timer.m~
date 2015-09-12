@@ -13,7 +13,7 @@ tHandle = timer('TimerFcn',...
 start(tHandle);
 
 
-pause(10);
+pause(10);  %this is where the control loop and image processing go
 
 stop(tHandle)
  

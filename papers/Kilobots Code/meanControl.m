@@ -38,7 +38,7 @@ goal1x = 700;
 goal2x = 600;
 goalX = goal1x;
 
-T = 60;
+T = 100;
 numberOfIteration = 10;
 numberOfSeconds = T * numberOfIteration;
 accuracy = 10;
@@ -48,7 +48,7 @@ drawTime=[goalX,0,goalX];
 
 t = timer('TimerFcn',...
     'goalX = my_callback_fcn(goalX, goal1x, goal2x);' , ...
-    'Period' , T, 'TasksToExecute' , 10, 'ExecutionMode', 'fixedSpacing');
+    'Period' , T, 'TasksToExecute' , 10, 'ExecutionMode', 'fixedDelay');
  
 start(t);
 t0 = tic;
@@ -108,7 +108,7 @@ while success == false
         again = true;
     end
 end
-    if(toc(t0) > 210)
+    if(toc(t0) > 310)
         success = true;
         figure
         plot(drawTime(:,2), drawTime(:,1));
