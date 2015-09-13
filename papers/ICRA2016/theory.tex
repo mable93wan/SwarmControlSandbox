@@ -74,7 +74,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Getting desired Space}\label{alg:PosControl}
+\caption{Getting desired Space}\label{alg:PosControl2Robots}
 \begin{algorithmic}[1]
 \Require Knowledge of the starting and ending positions  of the two robots $s_1$  \& $s_2$  \& $e_1$  \& $e_2$  and $L$ length of the walls. Current position of the robot will be showed as $r$.
 \State $e_{1x} - e_{2x} = \Delta e_x$
@@ -100,6 +100,40 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \caption{\label{fig:covFriction} We can control covariance of the swarm by using friction.
 }\vspace{-1em}
 \end{figure}
+
+
+\section{Position Control of $n$ robots using wall friction}
+Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. Assume an open workspace with four axis-aligned walls with infinite friction.
+The axis-aligned rectangle of dimension $(w_f, h_f)$ containing the final configuration of $n$ robots must be disjoint from the axis-aligned rectangle of dimension $(w_s, h_s)$  containing the starting configuration of $n$ robots. Without loss of generality, assume the final configuration is above the starting configuration. 
+Furthermore, there must be at least $\epsilon$ space above the final configuration, $\epsilon$ below the starting configuration, and $\epsilon + w_r$ to the left of the final and start configurations, where $w_r$ is the width of a robot.  The workspace is at least $(\epsilon + w_r + \max(w_f,w_s), 2\epsilon + h_s,h_f)$.
+
+Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position of the $k$th robot, and $f_k$ the final $x,y$ position of the $k$th robot.
+
+\begin{algorithm}
+\caption{PositionControl$n$RobotsUsingWallFriction($k$)}\label{alg:PosControl2Robots}
+\begin{algorithmic}[1]
+\State move( $-\epsilon, -r_{k,y}$) % move  away from right wall and down till robot k touches bottom
+\State drift move left until $r_k \equiv (0,0)$
+\State drift move up until  $r_{ky} \equiv f_{ky}$
+
+$f_{kx}-f_{(k-1)x}$
+$p_{kx}-p_{(k-1)x}$
+
+\State move (  ,0)
+
+\end{algorithmic}
+\end{algorithm}
+
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=1.0\columnwidth]{construction2dv2.pdf}
+\end{center}
+\caption{\label{fig:construction2d}
+Illustration of algorithm for position control of $n$ robots using wall friction.
+}
+\end{figure}
+
 
 
 
