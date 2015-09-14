@@ -74,19 +74,23 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \end{algorithm}
 
 \begin{algorithm}
-\caption{MoveTwo$y$-spacing($s_1,s_2,e_1,e_2,L$)}\label{alg:PosControl2Robots}
+\caption{WallFrictionArrange2Robots($s_1,s_2,e_1,e_2,L$)}\label{alg:PosControl2Robots}
 \begin{algorithmic}[1]
-\Require Knowledge of the starting and ending positions  of the two robots $s_1$  \& $s_2$  \& $e_1$  \& $e_2$  and $L$ length of the walls. Current position of the robot will be showed as $r$.
-\State $e_{1x} - e_{2x} = \Delta e_x$
-\State $e_{1y} - e_{2y} = \Delta e_y$
-\State $s_{1x} - s_{2x} = \Delta s_x$
-\State $s_{1y} - s_{2y} = \Delta s_y$
+\Require 
+Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
+$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
+ $L$ is length of the walls. 
+ Current position of the robots are $(r_1,r_2)$.
+\State $\Delta s_x \gets s_{1x} - s_{2x}$
+\State $\Delta s_y \gets s_{1y} - s_{2y}$
+\State $\Delta e_x \gets  e_{1x} - e_{2x} $
+\State $ \Delta e_y \gets e_{1y} - e_{2y}$
 \If {$\Delta s_x < \Delta s_y$}
-\State Do XSpace
-\State Do YSpace
+\State GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
+\State GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)
 \Else
-\State Do YSpace
-\State Do XSpace
+\State GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)
+\State GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
 \EndIf
 
 \end{algorithmic}
