@@ -74,7 +74,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \end{algorithm}
 
 \begin{algorithm}
-\caption{Getting desired Space}\label{alg:PosControl2Robots}
+\caption{MoveTwo$y$-spacing($s_1,s_2,e_1,e_2,L$)}\label{alg:PosControl2Robots}
 \begin{algorithmic}[1]
 \Require Knowledge of the starting and ending positions  of the two robots $s_1$  \& $s_2$  \& $e_1$  \& $e_2$  and $L$ length of the walls. Current position of the robot will be showed as $r$.
 \State $e_{1x} - e_{2x} = \Delta e_x$
@@ -127,7 +127,7 @@ $p_{kx}-p_{(k-1)x}$
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=1.0\columnwidth]{construction2dv2.pdf}
+%	\includegraphics[width=1.0\columnwidth]{construction2dv2.pdf}
 \end{center}
 \caption{\label{fig:construction2d}
 Illustration of algorithm for position control of $n$ robots using wall friction.
