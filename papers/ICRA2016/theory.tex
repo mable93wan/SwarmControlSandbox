@@ -12,8 +12,15 @@ F_f &= \mu_f N
 \\N &= F cos\theta \nonumber\\
 F_{forward} &= F sin\theta - F_f \nonumber
 \end{align}
-where $F$ is our control input. We have different forces for different robots although they are receiving the same input. For ease of analysis, we assume $\mu$ is near 1 and we have infinite friction that stops the robot in the direction of the wall. It means that if one robot is touching the wall and another robot is free, if the control input is along the wall direction, the touching robot will not move. With this system, it is possible to have any relative position in the wall direction for the free robot.
+where $F$ is our control input. Fig. ~\ref{fig:friction} shows all the forces to the robot when it touches a wall. Therefore, we have different forces for different robots although they are receiving the same input. For ease of analysis, we assume $\mu$ is near 1 and we have infinite friction that stops the robot in the direction of the wall. It means that if one robot is touching the wall and another robot is free, if the control input is along the wall direction, the touching robot will not move. With this system, it is possible to have any relative position in the wall direction for the free robot.
 
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\columnwidth/2]{friction.png}
+\caption{When the robot is near the wall, the overall force for going forward is less than a free robot because of the friction.}
+\label{fig:friction}
+\end{center}
+\end{figure} 
 
 
 
