@@ -3,11 +3,10 @@
 %%% Shahrokhi and Aaron T. Becker @ University of Houston, Robotic Swarm
 %%% Control Lab.
 
-
-function HandCovariance()
+function HandCov()
 %Define webcam --the input may be 1 or 2 depending on which webcam of your laptop
 %is the default webcam.
-cam = webcam(2);
+cam = webcam(1);
 global q goalX
 % this is the mean y goal
 goalYM = 434;
@@ -38,15 +37,30 @@ while success == false
 
     
     % Read in a webcam snapshot.
-    originalImage = snapshot(cam);
-    imwrite(originalImage,'FailImage.png');
+    rgbIm = snapshot(cam);
+    %imwrite(rgbIm,'FailImage6.png');
     %crop to have just the table view.
-    originalImage = imcrop(originalImage,[345 60 1110 850]);
-    % make grayscale.
-    originalImage = rgb2gray(originalImage);
-    BW = im2bw(originalImage, 0.2);  %threshold the image to remove shadows (and only show dark parts of kilobots)
-    [centers, radii] = imfindcircles(BW,[13 19],'ObjectPolarity','dark','Sensitivity',0.95 );
-   %Mean
+originalImage = imcrop(rgbIm,[345 60 1110 850]);
+% make grayscale.
+I = rgb2hsv(originalImage);
+% Define thresholds for channel 1 based on histogram settings
+channel1Min = 0.184;
+channel1Max = 0.423;
+% Define thresholds for channel 2 based on histogram settings
+channel2Min = 0.184;
+channel2Max = 0.753;
+% Define thresholds for channel 3 based on histogram settings
+channel3Min = 0.400;
+channel3Max = 1.000;
+% Create mask based on chosen histogram thresholds
+BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
+    (I(:,:,2) >= channel2Min ) & (I(:,:,2) <= channel2Max) & ...
+    (I(:,:,3) >= channel3Min ) & (I(:,:,3) <= channel3Max);
+
+  %threshold the image to remove shadows (and only show dark parts of kilobots)
+    [centers, radii] = imfindcircles(BW,[10 19],'ObjectPolarity','bright','Sensitivity',0.92 );
+    
+    % %Mean
     M = mean(centers);
     %Variance
     V = var(centers);

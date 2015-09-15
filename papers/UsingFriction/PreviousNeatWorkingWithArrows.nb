@@ -1,19 +1,12 @@
-(* Content-type: application/vnd.wolfram.mathematica *)
-
-(*** Wolfram Notebook File ***)
-(* http://www.wolfram.com/nb *)
-
-(* CreatedBy='Mathematica 10.0' *)
-
 (*CacheID: 234*)
 (* Internal cache information:
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
-NotebookDataPosition[       158,          7]
-NotebookDataLength[     70320,       1559]
-NotebookOptionsPosition[     69773,       1535]
-NotebookOutlinePosition[     70130,       1551]
-CellTagsIndexPosition[     70087,       1548]
+NotebookDataPosition[         0,          0]
+NotebookDataLength[     70328,       1559]
+NotebookOptionsPosition[     69623,       1528]
+NotebookOutlinePosition[     69980,       1544]
+CellTagsIndexPosition[     69937,       1541]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1365,10 +1358,10 @@ Cell[BoxData[
   StyleBox[
    DynamicModuleBox[{$CellContext`pe1$$ = {0.125, 
     0.14285714285714285`}, $CellContext`pe2$$ = {0.2, 
-    0.1111111111111111}, $CellContext`progress$$ = 
-    0.632, $CellContext`ps1$$ = {0.3880000000000001, 
-    0.51}, $CellContext`ps2$$ = {0.9020000000000001, 0.565}, Typeset`show$$ = 
-    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    0.1111111111111111}, $CellContext`progress$$ = 1., $CellContext`ps1$$ = {
+    0.9219999999999999, 0.3900000000000001}, $CellContext`ps2$$ = {
+    0.6666666666666666, 0.25}, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
     Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
     "\"untitled\"", Typeset`specs$$ = {{
       Hold[$CellContext`progress$$], 0, 1}, {{
@@ -1385,9 +1378,9 @@ Cell[BoxData[
         Rational[1, 5], 
         Rational[1, 9]}}, {-1, -1}, {1, 1}}}, Typeset`size$$ = {
     360., {177., 182.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`progress$719794$$ = 
-    0, $CellContext`ps1$719795$$ = {0, 0}, $CellContext`ps2$719796$$ = {0, 
-    0}, $CellContext`pe1$719797$$ = {0, 0}, $CellContext`pe2$719798$$ = {0, 
+    Typeset`skipInitDone$$ = True, $CellContext`progress$784960$$ = 
+    0, $CellContext`ps1$784961$$ = {0, 0}, $CellContext`ps2$784962$$ = {0, 
+    0}, $CellContext`pe1$784963$$ = {0, 0}, $CellContext`pe2$784964$$ = {0, 
     0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`pe1$$ = {
@@ -1400,11 +1393,11 @@ Cell[BoxData[
           Rational[1, 8]}, $CellContext`ps2$$ = {
           Rational[2, 3], 
           Rational[1, 4]}}, "ControllerVariables" :> {
-        Hold[$CellContext`progress$$, $CellContext`progress$719794$$, 0], 
-        Hold[$CellContext`ps1$$, $CellContext`ps1$719795$$, {0, 0}], 
-        Hold[$CellContext`ps2$$, $CellContext`ps2$719796$$, {0, 0}], 
-        Hold[$CellContext`pe1$$, $CellContext`pe1$719797$$, {0, 0}], 
-        Hold[$CellContext`pe2$$, $CellContext`pe2$719798$$, {0, 0}]}, 
+        Hold[$CellContext`progress$$, $CellContext`progress$784960$$, 0], 
+        Hold[$CellContext`ps1$$, $CellContext`ps1$784961$$, {0, 0}], 
+        Hold[$CellContext`ps2$$, $CellContext`ps2$784962$$, {0, 0}], 
+        Hold[$CellContext`pe1$$, $CellContext`pe1$784963$$, {0, 0}], 
+        Hold[$CellContext`pe2$$, $CellContext`pe2$784964$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -1529,7 +1522,7 @@ $CellContext`mv$]; Point[{$CellContext`pm1$}]; Arrow[$CellContext`pmpast1$];
    Deployed->True,
    StripOnInput->False],
   Manipulate`InterpretManipulate[1]]], "Output",
- CellChangeTimes->{3.6512746910707483`*^9}]
+ CellChangeTimes->{3.651274958231537*^9}]
 }, Open  ]]
 }, Open  ]]
 },
@@ -1551,18 +1544,17 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[580, 22, 133, 1, 44, "Subsection"],
-Cell[716, 25, 668, 13, 189, "Text"],
-Cell[1387, 40, 37852, 876, 2382, "Input",
+Cell[422, 15, 133, 1, 44, "Subsection"],
+Cell[558, 18, 668, 13, 189, "Text"],
+Cell[1229, 33, 37852, 876, 2382, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[39264, 920, 21533, 440, 1219, "Input",
+Cell[39106, 913, 21533, 440, 1219, "Input",
  InitializationCell->True],
-Cell[60800, 1362, 8945, 169, 470, "Output"]
+Cell[60642, 1355, 8953, 169, 470, "Output"]
 }, Open  ]]
 }, Open  ]]
 }
 ]
 *)
 
-(* End of internal cache information *)

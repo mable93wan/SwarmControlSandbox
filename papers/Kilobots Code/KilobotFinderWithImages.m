@@ -1,33 +1,42 @@
-% http://www.mathworks.com/matlabcentral/answers/195257-how-can-i-detect-round-objects-and-remove-other-objects-in-an-image-using-matlab
-% ould use blob properties
-
+% Used http://www.mathworks.com/help/images/image-segmentation-using-the-color-thesholder-app.html
+% if they overlap:http://www.mathworks.com/help/images/ref/imerode.html
 
 % ******************Loading input Image**********************************
 %fn = 'BadResult.png';  % robots are 14 px in diameter in this
-%fn = 'TestImage2.png';
-fn = 'FailImage.png';
-originalImage = imread(fn);
+fn = 'FailImageGreen.png';
+fn = 'FailImageClump.png';
+rgbIm = imread(fn);
 % Crop the image to use ROI.
-originalImage = imcrop(originalImage,[345 60 1110 850]);
+rgbIm = imcrop(rgbIm,[345 60 1110 850]);
 % make grayscale.
-originalImage = rgb2gray(originalImage);
-
-%originalImage = originalImage(33:33+550,250:250+810,:);  %ROI, you can use imrect to draw a rectangle using your mouse.
-
+I = rgb2hsv(rgbIm);
+% Define thresholds for channel 1 based on histogram settings
+channel1Min = 0.184;
+channel1Max = 0.423;
+% Define thresholds for channel 2 based on histogram settings
+channel2Min = 0.184;
+channel2Max = 0.753;
+% Define thresholds for channel 3 based on histogram settings
+channel3Min = 0.400;
+channel3Max = 1.000;
+% Create mask based on chosen histogram thresholds
+BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
+    (I(:,:,2) >= channel2Min ) & (I(:,:,2) <= channel2Max) & ...
+    (I(:,:,3) >= channel3Min ) & (I(:,:,3) <= channel3Max);
 % Too easy, from
 % http://www.mathworks.com/help/images/examples/detect-and-measure-circular-objects-in-an-image.tml
 tic
-BW = im2bw(originalImage, 0.15);  %threshold the image to remove shadows (and only show dark parts of kilobots)
-    [centers, radii] = imfindcircles(BW,[12 22],'ObjectPolarity','dark','Sensitivity',0.94 );
-%[centers, radii] = imfindcircles(originalImage,[12 19],'ObjectPolarity','dark','Sensitivity',0.91 );
-toc
+  %threshold the image to remove shadows (and only show dark parts of kilobots)
+    [centers, radii] = imfindcircles(BW,[10 19],'ObjectPolarity','bright','Sensitivity',0.92 );
+     toc
 M = mean(centers);
 V = var(centers);
 C = cov(centers);
 
 %figure(1);BW = im2bw(originalImage, 0.19); imshow(BW);
-imshow(originalImage)
-%imline measure size
+figure(1)
+imshow(rgbIm)
+title([num2str(numel(radii)),' kilobots'])
 %Draw the circles
 h = viscircles(centers,radii);
 hold on
@@ -36,9 +45,13 @@ plot_gaussian_ellipsoid(M,C);
 plot(centers(:,1),centers(:,2),'+','Markersize',16)
 hold off
 
-
 return
-
+%li = imline
+%imline measure size
+%BW2= imfill(BW,'holes')
+%se = strel('disk',4);
+%I2 = imdilate(BW,se);
+%[centers, radii] = imfindcircles(originalImage,[12 19],'ObjectPolarity','dark','Sensitivity',0.91 );
 
 %%
 I = rgb2gray(imread('FailImage.png'));

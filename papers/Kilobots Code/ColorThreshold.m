@@ -21,7 +21,7 @@ if( nargin > 0)
 else
     %%%%%%%%%%%%% YOU CAN EDIT THIS PART WITH A DEFAULT IMAGE NAME %%%%%%
     %Original_img = imread('can2RGB.bmp');      %red pop can
-    Original_img = imread('kilobotTop.png');    %orange & blue golf balls
+    Original_img = imread('FailImageGreen.png');    %orange & blue golf balls
     %Original_img = imread('lena.bmp');         %famous image
     %%%%%%%%%%%%%     END EDIT    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end 

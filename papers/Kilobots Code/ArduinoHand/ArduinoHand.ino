@@ -10,7 +10,7 @@ void setup() {
   int rightLight = 5;
   int downLight = 4;
   int upLight = 3;
-  pinMode(7, OUTPUT);
+  pinMode(5, OUTPUT);
 
 }
 
