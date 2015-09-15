@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     71137,       1591]
-NotebookOptionsPosition[     70195,       1553]
-NotebookOutlinePosition[     70554,       1569]
-CellTagsIndexPosition[     70511,       1566]
+NotebookDataLength[     70024,       1549]
+NotebookOptionsPosition[     69238,       1516]
+NotebookOutlinePosition[     69595,       1532]
+CellTagsIndexPosition[     69552,       1529]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -211,27 +211,30 @@ Cell[BoxData[
                  "\[RightDoubleBracket]"}]}], "]"}]}], "+", 
              "my\[Epsilon]"}]}], "]"}], ",", "0"}], "}"}]}], ";", 
        "\[IndentingNewLine]", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
-       RowBox[{"currPosTop", "+=", "\[CapitalDelta]r"}], ";", " ", 
-       RowBox[{"currPosBottom", "+=", "\[CapitalDelta]r"}], ";", " ", 
-       "\[IndentingNewLine]", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"pathTop", " ", ",", " ", "currPosTop"}], "]"}], ";", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"pathBottom", " ", ",", "currPosBottom"}], "]"}], ";", 
-       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
+         RowBox[{"currPosTop", "+=", "\[CapitalDelta]r"}], ";", " ", 
+         RowBox[{"currPosBottom", "+=", "\[CapitalDelta]r"}], ";", " ", 
+         "\[IndentingNewLine]", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"pathTop", " ", ",", " ", "currPosTop"}], "]"}], ";", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"pathBottom", " ", ",", "currPosBottom"}], "]"}], ";"}], 
+        "*)"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
        RowBox[{"(*", 
         RowBox[{
         "2.", " ", "move", " ", "bottom", " ", "robot", " ", "to", " ", 
          "touch", " ", "bottom", " ", "wall"}], "*)"}], "\[IndentingNewLine]", 
        RowBox[{"\[CapitalDelta]r", "=", 
-        RowBox[{"{", " ", 
-         RowBox[{"0", ",", " ", 
-          RowBox[{"-", 
-           RowBox[{
-           "currPosBottom", "\[LeftDoubleBracket]", "2", 
-            "\[RightDoubleBracket]"}]}]}], "}"}]}], ";", 
+        RowBox[{"\[CapitalDelta]r", "+", 
+         RowBox[{"{", " ", 
+          RowBox[{"0", ",", " ", 
+           RowBox[{"-", 
+            RowBox[{
+            "currPosBottom", "\[LeftDoubleBracket]", "2", 
+             "\[RightDoubleBracket]"}]}]}], "}"}]}]}], ";", 
        "\[IndentingNewLine]", 
        RowBox[{"AppendTo", "[", 
         RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
@@ -307,34 +310,36 @@ Cell[BoxData[
           "positions"}], ",", " ", 
          RowBox[{"and", " ", "starting", " ", "y", " ", "positions"}]}], 
         "*)"}], "\[IndentingNewLine]", 
-       RowBox[{"\[CapitalDelta]r", " ", "=", " ", 
-        RowBox[{"{", 
-         RowBox[{
-          RowBox[{
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"\[CapitalDelta]r", " ", "=", " ", 
+          RowBox[{"{", 
            RowBox[{
-           "endPosTop", "\[LeftDoubleBracket]", "1", 
-            "\[RightDoubleBracket]"}], "-", " ", 
-           RowBox[{
-           "currPosTop", "\[LeftDoubleBracket]", "1", 
-            "\[RightDoubleBracket]"}]}], ",", 
-          RowBox[{
-           RowBox[{
-           "startTop", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}],
-            "-", 
-           RowBox[{
-           "currPosTop", "\[LeftDoubleBracket]", "2", 
-            "\[RightDoubleBracket]"}]}]}], "}"}]}], ";", 
-       "\[IndentingNewLine]", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
-       RowBox[{"currPosTop", "+=", "\[CapitalDelta]r"}], ";", " ", 
-       RowBox[{"currPosBottom", "+=", "\[CapitalDelta]r"}], ";", 
-       "\[IndentingNewLine]", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"pathTop", " ", ",", " ", "currPosTop"}], "]"}], ";", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"pathBottom", " ", ",", "currPosBottom"}], "]"}], ";", 
-       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{
+             "endPosTop", "\[LeftDoubleBracket]", "1", 
+              "\[RightDoubleBracket]"}], "-", " ", 
+             RowBox[{
+             "currPosTop", "\[LeftDoubleBracket]", "1", 
+              "\[RightDoubleBracket]"}]}], ",", 
+            RowBox[{
+             RowBox[{
+             "startTop", "\[LeftDoubleBracket]", "2", 
+              "\[RightDoubleBracket]"}], "-", 
+             RowBox[{
+             "currPosTop", "\[LeftDoubleBracket]", "2", 
+              "\[RightDoubleBracket]"}]}]}], "}"}]}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
+         RowBox[{"currPosTop", "+=", "\[CapitalDelta]r"}], ";", " ", 
+         RowBox[{"currPosBottom", "+=", "\[CapitalDelta]r"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"pathTop", " ", ",", " ", "currPosTop"}], "]"}], ";", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"pathBottom", " ", ",", "currPosBottom"}], "]"}], ";"}], 
+        "*)"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
        RowBox[{"\[CapitalDelta]s", " ", "=", " ", 
         RowBox[{
          RowBox[{
@@ -402,8 +407,8 @@ Cell[BoxData[
            RowBox[{
            "moves", ",", "currPosTop", ",", "currPosBottom", ",", "endPosTop",
              ",", "endPosBottom", ",", "pathTop", ",", "pathBottom"}], "}"}], 
-          "]"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
-   "\[IndentingNewLine]", "\n", 
+          "]"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"achieveDesiredYspacing", "[", 
      RowBox[{"ps1_", ",", "ps2_", ",", "pe1_", ",", "pe2_"}], "]"}], ":=", 
@@ -562,27 +567,30 @@ Cell[BoxData[
                 "currPosLeft", "\[LeftDoubleBracket]", "2", 
                  "\[RightDoubleBracket]"}]}], "]"}]}], "+", 
              "my\[Epsilon]"}]}], "]"}]}], "}"}]}], ";", "\[IndentingNewLine]", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
-       RowBox[{"currPosRight", "+=", "\[CapitalDelta]r"}], ";", " ", 
-       RowBox[{"currPosLeft", "+=", "\[CapitalDelta]r"}], ";", 
-       "\[IndentingNewLine]", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"pathRight", " ", ",", " ", "currPosRight"}], "]"}], ";", 
-       RowBox[{"AppendTo", "[", 
-        RowBox[{"pathLeft", " ", ",", "currPosLeft"}], "]"}], ";", " ", 
-       "\[IndentingNewLine]", "\[IndentingNewLine]", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
+         RowBox[{"currPosRight", "+=", "\[CapitalDelta]r"}], ";", " ", 
+         RowBox[{"currPosLeft", "+=", "\[CapitalDelta]r"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"pathRight", " ", ",", " ", "currPosRight"}], "]"}], ";", 
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"pathLeft", " ", ",", "currPosLeft"}], "]"}], ";"}], " ", 
+        "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
        RowBox[{"(*", 
         RowBox[{
         "2.", " ", "move", " ", "left", " ", "robot", " ", "to", " ", "touch",
           " ", "left", " ", "wall"}], "*)"}], "\[IndentingNewLine]", 
        RowBox[{"\[CapitalDelta]r", "=", 
-        RowBox[{"{", " ", 
-         RowBox[{
-          RowBox[{"-", 
-           RowBox[{
-           "currPosLeft", "\[LeftDoubleBracket]", "1", 
-            "\[RightDoubleBracket]"}]}], ",", "0"}], "}"}]}], ";", 
+        RowBox[{"\[CapitalDelta]r", "+", 
+         RowBox[{"{", " ", 
+          RowBox[{
+           RowBox[{"-", 
+            RowBox[{
+            "currPosLeft", "\[LeftDoubleBracket]", "1", 
+             "\[RightDoubleBracket]"}]}], ",", "0"}], "}"}]}]}], ";", 
        "\[IndentingNewLine]", 
        RowBox[{"AppendTo", "[", 
         RowBox[{"moves", " ", ",", " ", "\[CapitalDelta]r"}], "]"}], ";", 
@@ -668,7 +676,7 @@ Cell[BoxData[
          RowBox[{
           RowBox[{
            RowBox[{
-           "startRight", "\[LeftDoubleBracket]", "1", 
+           "endPosRight", "\[LeftDoubleBracket]", "1", 
             "\[RightDoubleBracket]"}], "-", 
            RowBox[{
            "currPosRight", "\[LeftDoubleBracket]", "1", 
@@ -812,55 +820,9 @@ Cell[BoxData[
    3.651312848950192*^9}, {3.6513129075806293`*^9, 3.651312918880103*^9}, {
    3.651313843873683*^9, 3.651314006160321*^9}, {3.6513140937453814`*^9, 
    3.651314115833103*^9}, {3.6513158125956593`*^9, 3.651315822085253*^9}, 
-   3.651321061059537*^9}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[{
- RowBox[{
-  RowBox[{"a", " ", "=", " ", 
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"1", ",", "1"}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"2", ",", "2"}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"3", ",", "3"}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"4", ",", "4"}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"5", ",", "5"}], "}"}]}], "}"}]}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"progress", " ", "=", " ", "0"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{"i", " ", "=", " ", 
-  RowBox[{
-   RowBox[{"Floor", "[", 
-    RowBox[{"progress", "*", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"Length", "[", "a", "]"}], "-", "1"}], ")"}]}], "]"}], "+", 
-   "1"}]}], "\[IndentingNewLine]", 
- RowBox[{"a", "[", 
-  RowBox[{"[", 
-   RowBox[{";;", "i"}], "]"}], "]"}]}], "Input",
- CellChangeTimes->{{3.651314223575946*^9, 3.651314348799281*^9}, {
-  3.651314445613707*^9, 3.6513144460745993`*^9}, {3.6513144822358227`*^9, 
-  3.651314518373117*^9}}],
-
-Cell[BoxData["1"], "Output",
- CellChangeTimes->{
-  3.651314251059071*^9, {3.651314281405357*^9, 3.651314349424749*^9}, 
-   3.651314446901965*^9, {3.651314483120908*^9, 3.6513145189395847`*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{"{", 
-   RowBox[{"1", ",", "1"}], "}"}], "}"}]], "Output",
- CellChangeTimes->{
-  3.651314251059071*^9, {3.651314281405357*^9, 3.651314349424749*^9}, 
-   3.651314446901965*^9, {3.651314483120908*^9, 3.651314518948145*^9}}]
-}, Open  ]],
+   3.651321061059537*^9, {3.651321397300353*^9, 3.6513214082433987`*^9}, {
+   3.651321457604948*^9, 3.651321464067905*^9}, 3.651321561536064*^9, 
+   3.65132161127604*^9}],
 
 Cell[CellGroupData[{
 
@@ -1341,11 +1303,11 @@ Cell[BoxData[
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`pe1$$ = {0.926, 
-    0.9460000000000001}, $CellContext`pe2$$ = {0.042, 
-    0.07}, $CellContext`progress$$ = 1., $CellContext`ps1$$ = {0.07, 
-    0.018000000000000002`}, $CellContext`ps2$$ = {0.859, 0.972}, 
-    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+   DynamicModuleBox[{$CellContext`pe1$$ = {0.785, 
+    0.9500000000000001}, $CellContext`pe2$$ = {0.338, 
+    0.47200000000000003`}, $CellContext`progress$$ = 
+    1., $CellContext`ps1$$ = {0.76, 0.528}, $CellContext`ps2$$ = {0.367, 
+    0.902}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
        Hold[$CellContext`progress$$], 0.2}, 0, 1}, {{
@@ -1362,9 +1324,9 @@ Cell[BoxData[
         Rational[1, 5], 
         Rational[1, 9]}}, {0, 0}, {1, 1}}}, Typeset`size$$ = {
     360., {177., 182.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`progress$1371940$$ = 
-    0, $CellContext`ps1$1371941$$ = {0, 0}, $CellContext`ps2$1371942$$ = {0, 
-    0}, $CellContext`pe1$1371943$$ = {0, 0}, $CellContext`pe2$1371944$$ = {0, 
+    Typeset`skipInitDone$$ = True, $CellContext`progress$1377083$$ = 
+    0, $CellContext`ps1$1377084$$ = {0, 0}, $CellContext`ps2$1377085$$ = {0, 
+    0}, $CellContext`pe1$1377086$$ = {0, 0}, $CellContext`pe2$1377087$$ = {0, 
     0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`pe1$$ = {
@@ -1376,11 +1338,11 @@ Cell[BoxData[
           Rational[1, 8]}, $CellContext`ps2$$ = {
           Rational[2, 3], 
           Rational[1, 4]}}, "ControllerVariables" :> {
-        Hold[$CellContext`progress$$, $CellContext`progress$1371940$$, 0], 
-        Hold[$CellContext`ps1$$, $CellContext`ps1$1371941$$, {0, 0}], 
-        Hold[$CellContext`ps2$$, $CellContext`ps2$1371942$$, {0, 0}], 
-        Hold[$CellContext`pe1$$, $CellContext`pe1$1371943$$, {0, 0}], 
-        Hold[$CellContext`pe2$$, $CellContext`pe2$1371944$$, {0, 0}]}, 
+        Hold[$CellContext`progress$$, $CellContext`progress$1377083$$, 0], 
+        Hold[$CellContext`ps1$$, $CellContext`ps1$1377084$$, {0, 0}], 
+        Hold[$CellContext`ps2$$, $CellContext`ps2$1377085$$, {0, 0}], 
+        Hold[$CellContext`pe1$$, $CellContext`pe1$1377086$$, {0, 0}], 
+        Hold[$CellContext`pe2$$, $CellContext`pe2$1377087$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -1487,7 +1449,8 @@ $CellContext`achieveDesiredYspacing[
    3.6513143942482777`*^9, 3.6513145484117203`*^9, 3.651315839211656*^9, 
    3.651315903695211*^9, 3.651315951333675*^9, 3.6513159865222282`*^9, 
    3.651316027926013*^9, 3.651316163579673*^9, 3.6513161960807533`*^9, {
-   3.6513162550406647`*^9, 3.6513162741322927`*^9}, 3.6513211072597523`*^9}]
+   3.6513162550406647`*^9, 3.6513162741322927`*^9}, 3.6513211072597523`*^9, 
+   3.65132141765718*^9, 3.651321481800065*^9, 3.651321568876031*^9}]
 }, Open  ]],
 
 Cell[BoxData[
@@ -1552,7 +1515,7 @@ Cell[BoxData[
 }, Open  ]]
 },
 WindowSize->{1263, 694},
-WindowMargins->{{Automatic, -80}, {Automatic, 0}},
+WindowMargins->{{8, Automatic}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September 9, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -1571,20 +1534,15 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[422, 15, 256, 5, 78, "Subsection"],
 Cell[681, 22, 668, 13, 189, "Text"],
-Cell[1352, 37, 35482, 777, 2069, "Input",
+Cell[1352, 37, 35969, 787, 2069, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[36859, 818, 1017, 30, 80, "Input"],
-Cell[37879, 850, 193, 3, 28, "Output"],
-Cell[38075, 855, 260, 6, 28, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[38372, 866, 22433, 472, 692, "Input",
+Cell[37346, 828, 22433, 472, 692, "Input",
  InitializationCell->True],
-Cell[60808, 1340, 7639, 149, 470, "Output"]
+Cell[59782, 1302, 7708, 150, 470, "Output"]
 }, Open  ]],
-Cell[68462, 1492, 203, 4, 28, "Input"],
-Cell[68668, 1498, 1511, 52, 80, "Input"]
+Cell[67505, 1455, 203, 4, 28, "Input"],
+Cell[67711, 1461, 1511, 52, 80, "Input"]
 }, Open  ]]
 }
 ]
