@@ -46,12 +46,15 @@ I = rgb2hsv(originalImage);
 % Define thresholds for channel 1 based on histogram settings
 channel1Min = 0.184;
 channel1Max = 0.423;
+
 % Define thresholds for channel 2 based on histogram settings
 channel2Min = 0.184;
 channel2Max = 0.753;
+
 % Define thresholds for channel 3 based on histogram settings
 channel3Min = 0.400;
 channel3Max = 1.000;
+
 % Create mask based on chosen histogram thresholds
 BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     (I(:,:,2) >= channel2Min ) & (I(:,:,2) <= channel2Max) & ...
@@ -96,7 +99,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
         figure(2)
        plot(q(:,1),q(:,2));
         xlabel('time (s)');
-        ylabel('k pixels');
+        ylabel('Covariance (pixels)');
         
         hold on 
         plot(drawTime(:,2), drawTime(:,1));
