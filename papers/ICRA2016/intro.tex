@@ -1,10 +1,12 @@
 \section{Introduction}\label{sec:Intro}
-
-
-
-Micro- and nano-robots can be manufactured in large numbers. Large numbers of micro robots are required in order to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
-In our previous work we focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. 
-Inspired by that work, we proved that we can control the mean position of a swarm and that with an obstacle we can control the swarm's position variance ($\sigma_x$ and $\sigma_y$). 
+Micro- and nano-robots can be manufactured in large numbers.
+Our vision is for large swarms of robots remotely guided 1) through the human body, to cure disease, heal tissue, and prevent infection and 2) ex vivo to assemble structures in parallel. 
+ Large numbers of micro robots are required in order to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
+ The biggest barrier to this vision is a lack of control techniques that can reliably exploit large populations despite incredible under-actuation.  
+ 
+Our previous work focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. 
+%One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. 
+We proved the mean position of a swarm is controllable and that with an obstacle the swarm's position variance ($\sigma_x$ and $\sigma_y$) is also controllable. 
 We then wrote automatic controllers which could complete a block pushing task, but these controllers had some limitations~\cite{ShahrokhiIROS2015}. 
 One of the limitations was that we could only compress our swarm along the world $x$ and $y$ axes, and could not navigate workspaces with narrow corridors with other orientations. 
 One solution to these problems would be a controller that regulates the swarm's position covariance, $\sigma_{xy}$. 
@@ -12,9 +14,24 @@ For controlling $\sigma_{xy}$, we prove that the swarm position covariance $\sig
 We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots. 
 We conclude by designing controllers that efficiently regulate $\sigma_{xy}$.
 
+
+This paper
+(1) proves that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction, 
+(2) proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position two robots, 
+(3) proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots, 
+(4) shows full-state position control with 2 or more robots using  extensive simulations, and
+(5) demonstrate covariance control on our hardware platform with a large number of hardware robots.
+%TODO JOURNAL: design controllers that efficiently regulate $\sigma_{xy}$.
+%TODO JOURNAL: We will design Lyapunov-inspired controllers for $\sigma_{xy}$ to prove controllability. 
+%TODO JOURNAL:  and rank controllability as a function of friction.
+% TODO: JOURNAL: and vary wall friction by laser-cutting boundary walls with a variety of profiles. 
+
+
+
+
 \begin{figure}
 \centering
-\begin{overpic}[width=0.9\columnwidth]{leaf.png}\end{overpic}
+\begin{overpic}[width=0.9\columnwidth]{leaf.pdf}\end{overpic}
 \caption{\label{fig:vascularNetwork}Vascular networks are common in biology such as the circulatory system and cerebrospinal spaces, as well as in porous media including sponges and pumice stone.  Navigating a swarm using global inputs, where each member receives the same control inputs, is challenging
 due to the many obstacles. This paper demonstrates how friction with walls can be used to change the shape of a swarm.} %TODO: save this as a pdf
 \end{figure}

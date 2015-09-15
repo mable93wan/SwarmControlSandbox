@@ -55,7 +55,7 @@ Though steps (i) and (ii) are similar from an algorithmic point of view, the fol
 \end{itemize}
 
 \subsection{Step (ii): Fixing $\Delta r_y$}
-Now that we have adjusted the difference in robots' positions along one axis, we focus to do the same on the other axis as well. Therefore, similar to Section \ref{alg:step1}, we employ the following steps:
+Now that we have adjusted the difference in robots' positions along one axis, we focus to do the same on the other axis as well. Therefore, similar to Section \ref{theory:step1}, we employ the following steps:
 \begin{itemize}
 \item Let $s'_1$ and $s'_2$ be the points we derived at the end of the steps in Section \ref{theory:step1}. 
 \item Define $e''_1=(s'_{1x},e_{1y})$ and $e''_2=(s'_{2x},e_{2y})$. We define $e''_1$ and $e''_2$ to understand the direction to which robots should move in order to adjust $\Delta r_y$. Let $e''_{\rm{right}} = \arg \max_i e''_{ix}$ and $e''_{\rm{left}} = \arg \min_i e'_{ix}$. Now if $e''_{\rm{right},y}-e''_{\rm{left},y}>0$, then the global input to both robots would be toward down direction and if $e''_{\rm{right},y}-e''_{\rm{left},y}<0$, then the global input to both robots would be toward up direction. The two robots continue their vertical path until one of them reaches the $\epsilon$-neighborhood of one of the top or bottom walls.
@@ -220,8 +220,8 @@ Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position 
 \end{algorithm}
 Algorithm \ref{alg:PosControlNRobots} procedes as follows:  
 First, the robots are moved  away from right wall and down so robot $k$ touches bottom.
-Second, a set of $\operatorname{DriftMove}$s are executed that  move the $k$ robot to the left wall with no net movement on the other robots.
-Third, a set of $\operatorname{DriftMove}$s are executed that  move the $k$ robot to it's target height and return the other robots to their initial heights. 
+Second, a set of $\operatorname{DriftMove()}$s are executed that  move the $k$ robot to the left wall with no net movement on the other robots.
+Third, a set of $\operatorname{DriftMove()}$s are executed that  move the $k$ robot to it's target height and return the other robots to their initial heights. 
 Fourth, all robots except the $k$ robot are pushed left until the $k$ robot is in the correct relative $x$ position compared to robots 1 to $k-1$.
 Finally, all robots are moved right until robot $k$ is in the desired target position.
 \begin{figure}
