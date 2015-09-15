@@ -6,7 +6,7 @@
 function HandCov()
 %Define webcam --the input may be 1 or 2 depending on which webcam of your laptop
 %is the default webcam.
-cam = webcam(1);
+cam = webcam(2);
 global q goalX
 % this is the mean y goal
 goalYM = 434;
@@ -27,7 +27,7 @@ success = false;
 
 tHandle = timer('TimerFcn',...
     {@sqWave_callback_fcn, goal1x, goal2x,t0}, ...
-    'Period' , 100, 'TasksToExecute' , 4, 'ExecutionMode', 'fixedDelay');
+    'Period' , 200, 'TasksToExecute' , 4, 'ExecutionMode', 'fixedDelay');
  
 start(tHandle);
 
@@ -91,7 +91,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     end
     end
 
-    if(toc(t0) > 410)
+    if(toc(t0) > 800)
         success = true;
         figure(2)
        plot(q(:,1),q(:,2));

@@ -6,11 +6,8 @@ void setup() {
   //pin 3 is the up light
   //put wanted pin as an output here.
   //hit upload
-  int leftLight = 7;
-  int rightLight = 5;
-  int downLight = 4;
-  int upLight = 3;
-  pinMode(5, OUTPUT);
+
+  pinMode(6, OUTPUT);
 
 }
 
