@@ -5,19 +5,22 @@
 \subsection{Controlling covariance using friction}
 
 Controlling covariance needs the swarm to break symmetry when we are using global inputs. We can use an obstacle like a corner, but for having positive and negative covariances, one corner is not enough and for any covariances we should have a special obstacle which is very hard and make us very dependent to the environment. Instead, walls have friction that is sufficient to break the symmetry. The robots which are touching the wall will have negative friction force as shown in Eq. ~\ref{eq:frictioneqn}, causing them to slow down in comparison to the free robots. This is enough for breaking symmetry and enables us to control covariance with any horizontal and vertical wall. 
-
+  
+ Let the control input be a vector force $\vec{F}$ with magnitude $F$ and orientation $\theta$.  The force of friction $F_f$ is
 \begin{align}
-\label{eq:frictioneqn}
-F_f &= \mu_f N 
-\\N &= F cos\theta \nonumber\\
-F_{forward} &= F sin\theta - F_f \nonumber
+N &= F \cos(\theta) \nonumber\\
+F_f &= \begin{cases}  \mu_f N, &  \mu_f N < F \sin(\theta))  \label{eq:frictionmodel} \\ 
+F \sin(\theta)), & \text{else} \end{cases}  \\%\sign(F \sin(\theta) ) \cdot  \max(0, | F sin\theta |- |F_f|)
+F_{forward} &=  F \sin(\theta) - F_f  \nonumber
 \end{align}
-where $F$ is our control input. Fig. ~\ref{fig:friction} shows all the forces to the robot when it touches a wall. Therefore, we have different forces for different robots although they are receiving the same input. For ease of analysis, we assume $\mu$ is near 1 and we have infinite friction that stops the robot in the direction of the wall. It means that if one robot is touching the wall and another robot is free, if the control input is along the wall direction, the touching robot will not move. With this system, it is possible to have any relative position in the wall direction for the free robot.
-
+ Fig.~\ref{fig:friction} shows  forces on two robots when one is touching a wall. As shown, there are different forces for different robots although they are receiving the same input.
+  For ease of analysis, the following algorithms assume $\mu$ is infinite and robots touching the wall are prevented from sliding along the wall.
+This means that if one robot is touching the wall and another robot is free, if the control input is parallel or into the wall, the touching robot will not move. 
+The next section shows how a system with friction model \eqref{eq:frictionmodel} and two walls are sufficient to arbitrarily position two robots. 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\columnwidth/2]{friction.png}
-\caption{When the robot is near the wall, the overall force for going forward is less than a free robot because of the friction.}
+\includegraphics[width=\columnwidth/2]{friction.png} 
+\caption{Wall friction reduces the force for going forward $F_{forward}$ on a robot near a wall, but not for a free robot.}
 \label{fig:friction}
 \end{center}
 \end{figure} 
@@ -26,9 +29,21 @@ where $F$ is our control input. Fig. ~\ref{fig:friction} shows all the forces to
 
 
 \section{Position control of $2$ robots using wall friction}
-In this section we focus on describing the algorithm we have developed for positioning the robots. Although the generalization of the proposed positioning algorithm in here is rather straightforward for multi robot systems, for the sake of simplicity we describe the algorithm designed for two robots. Therefore, we assume that we have two robots located at $s_1$ and $s_2$ and we aim to move them toward their corresponding destinations $e_1$ and $e_2$, respectively. We denote the current positions of the robots by $r_1$ and $r_2$. In addition, we use subscripts $x$ and $y$ to denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$, respectively. As it is clear from swarm setting, our algorithm works with one global input at every instance. As a result, our goal is to adjust $\Delta r_x = r_{2x}-r_{1x}$ from $\Delta s_x = s_{2x}-s_{1x}$ to $\Delta e_x = e_{2x}-e_{1x}$ and similarly adjust $\Delta r_y = r_{2y}-r_{1y}$ from $\Delta s_y = s_{2y}-s_{1y}$ to $\Delta e_y = e_{2y}-e_{1y}$ with one global input at every instance. The key to our algorithm is employing the assumption we have made earlier about the walls' friction. 
+This section focuses on describing an algorithm for positioning two robots in introduces concepts that will be used for multi-robot positioning.
+%Although the generalization of the proposed positioning algorithm in here is rather straightforward for multi robot systems, for the sake of simplicity we describe the algorithm designed for two robots. 
+Therefore,  assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
+Denote the current positions of the robots  $r_1$ and $r_2$. 
+Let the subscripts $x$ and $y$ denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$. 
+The algorithm assigns a global control input at every instance.
+ As a result, our goal is to adjust 
+ $\Delta r_x = r_{2x}-r_{1x}$ from $\Delta s_x = s_{2x}-s_{1x}$ to $\Delta e_x = e_{2x}-e_{1x}$ and similarly adjust 
+ $\Delta r_y = r_{2y}-r_{1y}$ from $\Delta s_y = s_{2y}-s_{1y}$ to $\Delta e_y = e_{2y}-e_{1y}$ with one global input at every instance. 
+ The key to the algorithm is employing the assumption we have made earlier about the walls' friction. 
 
-Our algorithm uses divide and conquer method to solve the positioning problem. It finds the final position of the robots in two steps: (i) First, our algorithm adjusts $\Delta r_x$ while it keeps $\Delta r_y$ constant. (ii) Having fixed $\Delta r_x$ to $\Delta e_x$ as desired, our algorithm keeps $\Delta r_x$ constant and adjusts $\Delta r_y$ to $\Delta e_y$, as desired. Although both of the steps (i) and (ii) are similar to each other from the algorithmic point of view, we give a detailed description of each of them in the following subsections.
+Our algorithm uses a divide and conquer method to solve the positioning problem. 
+It finds the final position of the robots in two steps: (i) First, $\Delta r_x$ is reduces to zero while  $\Delta r_y$ is kept constant. 
+(ii) Having fixed $\Delta r_x$ to $\Delta e_x$ as desired, the  algorithm next keeps $\Delta r_x$ constant and adjusts $\Delta r_y$ to $\Delta e_y$, as desired. 
+Though steps (i) and (ii) are similar from an algorithmic point of view, the following subsections describe the process in detail. 
 
 \subsection{Step (i): Fixing $\Delta r_x$}
 \label{theory:step1}
@@ -51,7 +66,28 @@ Now that we have adjusted the difference in robots' positions along one axis, we
 Once $\Delta r_x$ and $\Delta r_y$ are set to $\Delta e_x$ and $\Delta e_y$, we can use global input to easily move both robots from $r_1$ and $r_2$ toward $e_1$ and $e_2$. 
 
 
+\begin{algorithm}
+\caption{WallFrictionArrange2Robots($s_1,s_2,e_1,e_2,L$)}\label{alg:PosControl2Robots}
+\begin{algorithmic}[1]
+\Require 
+Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
+$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
+ $L$ is length of the walls. 
+ Current position of the robots are $(r_1,r_2)$.
+\State $\Delta s_x \gets s_{1x} - s_{2x}$
+\State $\Delta s_y \gets s_{1y} - s_{2y}$
+\State $\Delta e_x \gets  e_{1x} - e_{2x} $
+\State $ \Delta e_y \gets e_{1y} - e_{2y}$
+\If {$\Delta s_x < \Delta s_y$}
+\State GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
+\State GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)
+\Else
+\State GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)
+\State GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
+\EndIf
 
+\end{algorithmic}
+\end{algorithm}
 
 
 \begin{algorithm}
@@ -125,35 +161,13 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}
-\caption{WallFrictionArrange2Robots($s_1,s_2,e_1,e_2,L$)}\label{alg:PosControl2Robots}
-\begin{algorithmic}[1]
-\Require 
-Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
-$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
- $L$ is length of the walls. 
- Current position of the robots are $(r_1,r_2)$.
-\State $\Delta s_x \gets s_{1x} - s_{2x}$
-\State $\Delta s_y \gets s_{1y} - s_{2y}$
-\State $\Delta e_x \gets  e_{1x} - e_{2x} $
-\State $ \Delta e_y \gets e_{1y} - e_{2y}$
-\If {$\Delta s_x < \Delta s_y$}
-\State GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
-\State GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)
-\Else
-\State GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)
-\State GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
-\EndIf
-
-\end{algorithmic}
-\end{algorithm}
 
 
 \begin{figure}
 \centering
 \begin{overpic}[width = \columnwidth]{Covariance.png}\end{overpic}
 \vspace{-1em}
-\caption{\label{fig:covFriction} We can control covariance of the swarm by using friction.
+\caption{\label{fig:covFriction} Maintaining group cohesion while steering a swarm through an arbitrary maze requires covariance control.
 }\vspace{-1em}
 \end{figure}
 
@@ -161,7 +175,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \section{Position Control of $n$ robots using wall friction}
 Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. Assume an open workspace with four axis-aligned walls with infinite friction.
 The axis-aligned rectangle of dimension $(w_f, h_f)$ containing the final configuration of $n$ robots must be disjoint from the axis-aligned rectangle of dimension $(w_s, h_s)$  containing the starting configuration of $n$ robots. Without loss of generality, assume the final configuration is above the starting configuration. 
-Furthermore, there must be at least $\epsilon$ space above the final configuration, $\epsilon$ below the starting configuration, and $\epsilon + w_r$ to the left of the final and start configurations, where $w_r$ is the width of a robot.  The workspace is at least $(\epsilon + w_r + \max(w_f,w_s), 2\epsilon + h_s,h_f)$.
+Furthermore, there must be at least $\epsilon$ space above the final configuration, $\epsilon$ below the starting configuration, and $\epsilon + w_r$ to the left of the final and start configurations, where $w_r$ is the width of a robot.  The minimum workspace is then $(\epsilon + w_r + \max(w_f,w_s), 2\epsilon + h_s,h_f)$.
 
 Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position of the $k$th robot, and $f_k$ the final $x,y$ position of the $k$th robot.
 
