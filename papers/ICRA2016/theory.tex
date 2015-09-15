@@ -2,7 +2,23 @@
 \section{Theory}
 \label{sec:theory}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Position Control of $2$ robots using wall friction}
+\subsection{Controlling covariance using friction}
+
+Controlling covariance needs the swarm to break symmetry when we are using global inputs. We can use an obstacle like a corner, but for having positive and negative covariances, one corner is not enough and for any covariances we should have a special obstacle which is very hard and make us very dependent to the environment. Instead, walls have friction that is sufficient to break the symmetry. The robots which are touching the wall will have negative friction force as shown in Eq. ~\ref{eq:frictioneqn}, causing them to slow down in comparison to the free robots. This is enough for breaking symmetry and enables us to control covariance with any horizontal and vertical wall. 
+
+\begin{align}
+\label{eq:frictioneqn}
+F_f &= \mu_f N 
+\\N &= F cos\theta \nonumber\\
+F_{forward} &= F sin\theta - F_f \nonumber
+\end{align}
+where $F$ is our control input. We have different forces for different robots although they are receiving the same input. For ease of analysis, we assume $\mu$ is near 1 and we have infinite friction that stops the robot in the direction of the wall. It means that if one robot is touching the wall and another robot is free, if the control input is along the wall direction, the touching robot will not move. With this system, it is possible to have any relative position in the wall direction for the free robot.
+
+
+
+
+
+\section{Position control of $2$ robots using wall friction}
 In this section we focus on describing the algorithm we have developed for positioning the robots. Although the generalization of the proposed positioning algorithm in here is rather straightforward for multi robot systems, for the sake of simplicity we describe the algorithm designed for two robots. Therefore, we assume that we have two robots located at $s_1$ and $s_2$ and we aim to move them toward their corresponding destinations $e_1$ and $e_2$, respectively. We denote the current positions of the robots by $r_1$ and $r_2$. In addition, we use subscripts $x$ and $y$ to denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$, respectively. As it is clear from swarm setting, our algorithm works with one global input at every instance. As a result, our goal is to adjust $\Delta r_x = r_{2x}-r_{1x}$ from $\Delta s_x = s_{2x}-s_{1x}$ to $\Delta e_x = e_{2x}-e_{1x}$ and similarly adjust $\Delta r_y = r_{2y}-r_{1y}$ from $\Delta s_y = s_{2y}-s_{1y}$ to $\Delta e_y = e_{2y}-e_{1y}$ with one global input at every instance. The key to our algorithm is employing the assumption we have made earlier about the walls' friction. 
 
 Our algorithm uses divide and conquer method to solve the positioning problem. It finds the final position of the robots in two steps: (i) First, our algorithm adjusts $\Delta r_x$ while it keeps $\Delta r_y$ constant. (ii) Having fixed $\Delta r_x$ to $\Delta e_x$ as desired, our algorithm keeps $\Delta r_x$ constant and adjusts $\Delta r_y$ to $\Delta e_y$, as desired. Although both of the steps (i) and (ii) are similar to each other from the algorithmic point of view, we give a detailed description of each of them in the following subsections.
