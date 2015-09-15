@@ -166,7 +166,7 @@ Furthermore, there must be at least $\epsilon$ space above the final configurati
 Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position of the $k$th robot, and $f_k$ the final $x,y$ position of the $k$th robot.
 
 \begin{algorithm}
-\caption{PositionControl$n$RobotsUsingWallFriction($k$)}\label{alg:PosControl2Robots}
+\caption{PositionControl$n$RobotsUsingWallFriction($k$)}\label{alg:PosControlNRobots}
 \begin{algorithmic}[1]
 \State move( $-\epsilon, -r_{k,y}$) % move  away from right wall and down till robot k touches bottom
 \State drift move left until $r_k \equiv (0,0)$

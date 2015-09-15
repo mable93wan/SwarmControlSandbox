@@ -178,16 +178,18 @@ Shaping a Swarm Using Wall Friction and a Shared Control Input
 \maketitle
 
 \begin{abstract}
-
-Micro- and nano-robots can be manufactured in large numbers. Large numbers of micro robots are required in order to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
-In our previous work we focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. 
-Inspired by that work, we proved that we can control the mean position of a swarm and that with an obstacle we can control the swarm's position variance ($\sigma_x$ and $\sigma_y$). 
-We then wrote automatic controllers which could complete a block pushing task, but these controllers had some limitations~\cite{ShahrokhiIROS2015}. 
-One of the limitations was that we could only compress our swarm along the world $x$ and $y$ axes, and could not navigate workspaces with narrow corridors with other orientations. 
-One solution to these problems would be a controller that regulates the swarm's position covariance, $\sigma_{xy}$. 
-For controlling $\sigma_{xy}$, we prove that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction. 
-We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots. 
-We conclude by designing controllers that efficiently regulate $\sigma_{xy}$.
+Micro- and nano-robots hold promise for targeted drug delivery and micro-scale manufacturing.
+Due to their small size, large numbers of micro-robots are required to deliver sufficient payloads, but their small size makes it difficult to perform onboard computation or contain a power and propulsion source.  Nevertheless, these applications require precision control of the shape and position of the robot swarm. 
+%
+%Micro- and nano-robots can be manufactured in large numbers. Large numbers of micro robots are required in order to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
+%In our previous work we focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. 
+%Inspired by that work, we proved that we can control the mean position of a swarm and that with an obstacle we can control the swarm's position variance ($\sigma_x$ and $\sigma_y$). 
+%We then wrote automatic controllers which could complete a block pushing task, but these controllers had some limitations~\cite{ShahrokhiIROS2015}. 
+%One of the limitations was that we could only compress our swarm along the world $x$ and $y$ axes, and could not navigate workspaces with narrow corridors with other orientations. 
+%One solution to these problems would be a controller that regulates the swarm's position covariance, $\sigma_{xy}$. 
+%For controlling $\sigma_{xy}$, we prove that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction. 
+%We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots. 
+%We conclude by designing controllers that efficiently regulate $\sigma_{xy}$.
 \end{abstract}
 
 
