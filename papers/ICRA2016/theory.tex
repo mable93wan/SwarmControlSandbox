@@ -8,15 +8,16 @@
 \begin{algorithmic}[1]
 \Require Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
 $(0,0)$ is bottom corner, $s_1$ is topmost robot, 
- $L$ is length of the walls. Current position of the robots are $(r_1,r_2)$.
+ $L$ is length of the walls. Current robot positions are $(r_1,r_2)$.
 \Ensure   $ r_{1y} - r_{2y}  \equiv s_{1y} - s_{2y} $   %$\Delta y(t) \equiv \Delta y(0)$ 
+\State $\epsilon \gets $ small number
 \State $ \Delta s_x  \gets s_{1x} - s_{2x} $
 \State $ \Delta e_x \gets e_{1x} - e_{2x} $
 \State $ r_1 \gets s_1$, $ r_2 \gets s_2$
 \If {$\Delta e_x < 0 $ }
-\State $ m \gets ( L-\max( r_{1x},r_{2x}) ,0)   $ \Comment{Move to right wall}
+\State $ m \gets ( L-\epsilon-\max( r_{1x},r_{2x}) ,0)   $ \Comment{Move to right wall}
 \Else 
-\State  $ m \gets ( -\min( r_{1x},r_{2x}),0 )    $ \Comment{Move to left wall}
+\State  $ m \gets ( \epsilon-\min( r_{1x},r_{2x}),0 )    $ \Comment{Move to left wall}
 \EndIf
 \State $m  \gets  m + (0, -\min( r_{1y},r_{2y} ))$ \Comment{Move to bottom}
 \State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
