@@ -161,23 +161,23 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 
 
 \section{Position Control of $n$ robots using wall friction}\label{sec:PostionControlnRobots}
-Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from staging zone to the desired position in a build zone. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone.
+Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from a \emph{staging zone} to the desired position in a \emph{build zone}. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone.
 
-Assume an open workspace with four axis-aligned walls with infinite friction.
+
 
 \begin{figure}
 \begin{center}
 	\includegraphics[width=1.0\columnwidth]{driftmove.pdf}
 \end{center}
 \caption{\label{fig:driftmove}
-A  $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ consists of repeating a triangular movement sequence $\{ (\beta/2,-\epsilon),(\beta/2,\epsilon),(-\alpha,0)\}$. The robot $A$ touching a top wall will move right $\beta$ units, while robots not touching the top move right $\beta-\alpha$.
+A  $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ to the right consists of repeating a triangular movement sequence $\{ (\beta/2,-\epsilon),(\beta/2,\epsilon),(-\alpha,0)\}$. The robot $A$ touching a top wall will move right $\beta$ units, while robots not touching the top move right $\beta-\alpha$.
 }
 \end{figure}
 
 
-
-The axis-aligned build zone of dimension $(w_b, h_b)$ containing the final configuration of $n$ robots must be disjoint from the axis-aligned staging zone of dimension $(w_s, h_s)$  containing the starting configuration of $n$ robots. Without loss of generality, assume the build zone  is above the staging zone . 
-Furthermore, there must be at least $\epsilon$ space above the build zone, $\epsilon$ below the staging zone , and $\epsilon + 2r$ to the left of the build and staging zone, where $r$ is the radius of a robot.  The minimum workspace is then $(\epsilon + 2r + \max(w_f,w_s), 2\epsilon + h_s,h_f)$.
+Assume an open workspace with four axis-aligned walls with infinite friction.
+The axis-aligned build zone of dimension $(w_b, h_b)$ containing the final configuration of $n$ robots must be disjoint from the axis-aligned staging zone of dimension $(w_s, h_s)$  containing the starting configuration of $n$ robots. Without loss of generality, assume the build zone  is above the staging zone. 
+Furthermore, there must be at least $\epsilon$ space above the build zone, $\epsilon$ below the staging zone, and $\epsilon + 2r$ to the left of the build and staging zone, where $r$ is the radius of a robot.  The minimum workspace is then $(\epsilon + 2r + \max(w_f,w_s), 2\epsilon + h_s,h_f)$.
 
 The $n$ robot position control algorithm relies on a $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ control input, shown in Fig.\  \ref{fig:driftmove}.
 A drift move consists of repeating a triangular movement sequence $\{ (\beta/2,-\epsilon),(\beta/2,\epsilon),(-\alpha,0)\}$. The robot $A$ touching a top wall moves right $\beta$ units, while robots not touching the top move right $\beta-\alpha$.
@@ -194,7 +194,7 @@ Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position 
 \State $\operatorname{DriftMove}(0, \min(p_{k,x} - r,\epsilon), \epsilon)$ left   %drift move left until kth robot touches left wall
 \EndWhile
 
-\State $m \gets \operatorname{ceil}\frac{f_{ky}-r}{\epsilon}$
+\State $m \gets \operatorname{ceil}(\frac{f_{ky}-r}{\epsilon})$
 \State $\beta \gets \frac{f_{ky}-r}{m}$
 \State $\alpha \gets \beta - \frac{\epsilon}{m}$
 \For{ $m$ iterations}
