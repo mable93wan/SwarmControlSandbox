@@ -3,18 +3,22 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     79424,       1813]
-NotebookOptionsPosition[     78593,       1779]
-NotebookOutlinePosition[     78953,       1795]
-CellTagsIndexPosition[     78910,       1792]
+NotebookDataLength[     79553,       1817]
+NotebookOptionsPosition[     78722,       1783]
+NotebookOutlinePosition[     79082,       1799]
+CellTagsIndexPosition[     79039,       1796]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 
 Cell[CellGroupData[{
-Cell["Use Friction To control position of 2 robots.", "Subsection",
- CellChangeTimes->{{3.642115570787943*^9, 3.642115621242105*^9}}],
+Cell["\<\
+Use Friction To control position of 2 robots. For our first paper, we removed \
+the simulation because it is buggy.\
+\>", "Subsection",
+ CellChangeTimes->{{3.642115570787943*^9, 3.642115621242105*^9}, {
+  3.651402902589365*^9, 3.6514029170911627`*^9}}],
 
 Cell[TextData[{
  StyleBox["Shiva Shakrockhi and Aaron Becker", "Subsubsection"],
@@ -1795,18 +1799,18 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[422, 15, 133, 1, 44, "Subsection"],
-Cell[558, 18, 668, 13, 189, "Text"],
-Cell[1229, 33, 45958, 1065, 2705, "Input",
+Cell[422, 15, 262, 5, 44, "Subsection"],
+Cell[687, 22, 668, 13, 189, "Text"],
+Cell[1358, 37, 45958, 1065, 2705, "Input",
  InitializationCell->True],
-Cell[47190, 1100, 165, 3, 28, "Input"],
+Cell[47319, 1104, 165, 3, 28, "Input"],
 Cell[CellGroupData[{
-Cell[47380, 1107, 21077, 444, 828, "Input",
+Cell[47509, 1111, 21077, 444, 828, "Input",
  InitializationCell->True],
-Cell[68460, 1553, 8385, 162, 470, "Output"]
+Cell[68589, 1557, 8385, 162, 470, "Output"]
 }, Open  ]],
-Cell[76860, 1718, 203, 4, 28, "Input"],
-Cell[77066, 1724, 1511, 52, 80, "Input"]
+Cell[76989, 1722, 203, 4, 28, "Input"],
+Cell[77195, 1728, 1511, 52, 80, "Input"]
 }, Open  ]]
 }
 ]
