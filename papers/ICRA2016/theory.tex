@@ -12,16 +12,16 @@ Controlling covariance requires breaking this uniform symmetry.  A swarm inside 
 N &= F \cos(\theta) \nonumber\\
 F_f &= \begin{cases}  \mu_f N, &  \mu_f N < F \sin(\theta)  \label{eq:frictionmodel} \\ 
 F \sin(\theta), & \text{else} \end{cases}  \\%\sign(F \sin(\theta) ) \cdot  \max(0, | F sin\theta |- |F_f|)
-F_{forward} &=  F \sin(\theta) - F_f  \nonumber
+F_{\text{\emph{forward}}} &=  F \sin(\theta) - F_f  \nonumber
 \end{align}
  Fig.~\ref{fig:friction} shows the resultant forces on two robots when one is touching a wall. As illustrated, bot experiences different net forces although each receive the same inputs.
-  For ease of analysis, the following algorithms assume $\mu$ is infinite and robots touching the wall are prevented from sliding along the wall.
+  For ease of analysis, the following algorithms assume $\mu_f$ is infinite and robots touching the wall are prevented from sliding along the wall.
 This means that if one robot is touching the wall and another robot is free, if the control input is parallel or into the wall, the touching robot will not move. 
 The next section shows how a system with friction model \eqref{eq:frictionmodel} and two walls are sufficient to arbitrarily position two robots. 
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\columnwidth]{friction.pdf} 
-\caption{Wall friction reduces the force for going forward $F_{forward}$ on a robot near a wall, but not for a free robot.}
+\caption{Wall friction reduces the force for going forward $F_{\text{\emph{forward}}}$ on a robot near a wall, but not for a free robot.}
 \label{fig:friction}
 \end{center}
 \end{figure} 
