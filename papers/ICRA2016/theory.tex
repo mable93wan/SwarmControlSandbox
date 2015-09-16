@@ -180,7 +180,7 @@ The axis-aligned build zone of dimension $(w_b, h_b)$ containing the final confi
 Furthermore, there must be at least $\epsilon$ space above the build zone, $\epsilon$ below the staging zone, and $\epsilon + 2r$ to the left of the build and staging zone, where $r$ is the radius of a robot.  The minimum workspace is then $(\epsilon + 2r + \max(w_f,w_s), 2\epsilon + h_s,h_f)$.
 
 The $n$ robot position control algorithm relies on a $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ control input, shown in Fig.\  \ref{fig:driftmove}.
-A drift move consists of repeating a triangular movement sequence $\{ (\beta/2,-\epsilon),(\beta/2,\epsilon),(-\alpha,0)\}$. The robot $A$ touching a top wall moves right $\beta$ units, while robots not touching the top move right $\beta-\alpha$.
+A drift move consists of repeating a triangular movement sequence $\{ (\beta/2,-\epsilon),(\beta/2,\epsilon),(-\alpha,0)\}$. The robot touching a top wall moves right $\beta$ units, while robots not touching the top move right $\beta-\alpha$.
 
 Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position of the $k$th robot, and $f_k$ the final $x,y$ position of the $k$th robot. Label the robots in the staging zone from left-to-right and top-to-bottom, and the $f_k$ configurations right-to-left and top-to-bottom as shown in Fig.~\ref{fig:construction2d}.
 
@@ -207,10 +207,10 @@ Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position 
 \end{algorithmic}
 \end{algorithm}
 Algorithm \ref{alg:PosControlNRobots} procedes as follows:  
-First, the robots are moved  away from right wall and down so robot $k$ touches bottom.
-Second, a set of $\operatorname{DriftMove()}$s are executed that  move the $k$ robot to the left wall with no net movement on the other robots.
-Third, a set of $\operatorname{DriftMove()}$s are executed that  move the $k$ robot to it's target height and return the other robots to their initial heights. 
-Fourth, all robots except the $k$ robot are pushed left until the $k$ robot is in the correct relative $x$ position compared to robots 1 to $k-1$.
+First, the robots are moved left away from right wall, and down so robot $k$ touches the bottom wall.
+Second, a set of $\operatorname{DriftMove()}$s are executed that move robot $k$ to the left wall with no net movement of the other robots.
+Third, a set of $\operatorname{DriftMove()}$s are executed that  move robot $k$ to its target height and return the other robots to their initial heights. 
+Fourth, all robots except robot $k$ are pushed left until robot $k$ is in the correct relative $x$ position compared to robots 1 to $k-1$.
 Finally, all robots are moved right until robot $k$ is in the desired target position.
 \begin{figure}
 \begin{center}
