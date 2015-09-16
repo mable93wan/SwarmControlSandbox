@@ -61,12 +61,9 @@ B.~R. Munson, A.~P. Rothmayer, T.~H. Okiishi, and W.~W. Huebsch,
   0.4em\relax Wiley, 2012.
 
 \bibitem{spears2006physics}
-\BIBentryALTinterwordspacing
 D.~Spears, W.~Kerr, and W.~Spears, ``Physics-based robot swarms for coverage
   problems,'' \emph{The international journal of intelligent control and
-  systems}, vol.~11, no.~3, 2006. [Online]. Available:
-  \url{http://openurl.library.uiuc.edu/sfxlcl3?sid=google;auinit=D;aulast=Spears;atitle=Physics-based%20robot%20swarms%20for%20coverage%20problems;title=INTERNATIONAL%20JOURNAL%20OF%20INTELLIGENT%20CONTROL%20AND%20SYSTEMS;volume=11;issue=3;date=2006;spage=11;issn=0218-7965}
-\BIBentrySTDinterwordspacing
+  systems}, vol.~11, no.~3, 2006.
 
 \bibitem{sudsang+2001:for}
 A.~Sudsang and L.~E. Kavraki, ``A geometric approach to designing a
