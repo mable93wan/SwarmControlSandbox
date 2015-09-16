@@ -89,6 +89,11 @@ T.~H. Vose, P.~Umbanhowar, and K.~M. Lynch, ``Sliding manipulation of rigid
   bodies on a controlled 6-dof plate,'' \emph{The International Journal of
   Robotics Research}, vol.~31, no.~7, pp. 819--838, 2012.
 
+\bibitem{Shahrokhi2015GitHubShapeControl}
+S.~Shahrokhi and A.~T. Becker, ``"{Wall-Friction Swarm Shape Control}",
+  https://github.com/aabecker/swarmcontrolsandbox/
+  tree/master/papers/icra2016,'' Aug. 2015.
+
 \bibitem{Rubenstein2012}
 M.~Rubenstein, C.~Ahler, and R.~Nagpal, ``Kilobot: A low cost scalable robot
   system for collective behaviors,'' in \emph{IEEE Int. Conf. Rob. Aut.}, May
@@ -101,5 +106,18 @@ M.~Rubenstein, A.~Cornejo, and R.~Nagpal, ``Programmable self-assembly in a
 
 \bibitem{K-Team2015}
 K-Team, ``Kilobot, www.k-team.com/mobile-robotics-products/kilobot,'' 2015.
+
+\bibitem{Becker2013a}
+A.~Becker, Y.~Ou, P.~Kim, M.~Kim, and A.~Julius, ``Feedback control of many
+  magnetized tetrahymena pyriformis cells by exploiting phase inhomogeneity,''
+  in \emph{IEEE/RSJ International Conference on Intelligent Robots and Systems
+  (IROS)}, Nov. 2013, pp. 3317--3323.
+
+\bibitem{becker2014simultaneously}
+A.~Becker, O.~Felfoul, and P.~E. Dupont, ``Simultaneously powering and
+  controlling many actuators with a clinical mri scanner,'' in
+  \emph{Intelligent Robots and Systems (IROS 2014), 2014 IEEE/RSJ International
+  Conference on}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2014, pp.
+  2017--2023.
 
 \end{thebibliography}

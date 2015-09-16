@@ -19,17 +19,19 @@ The usefulness of these techniques was demonstrated by several automatic control
 One limitation was that variance control can only compress a swarm along the world $x$ and $y$ axes.  This means the swarm could not navigate workspaces with narrow corridors with other orientations, such as those shown in Fig.\ \ref{fig:covFriction}.
 Challenges like these require a controller that regulates the swarm's position covariance, $\sigma_{xy}$. 
 
-For controlling $\sigma_{xy}$, we prove that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction. 
-We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots. 
-We conclude by designing controllers that efficiently regulate $\sigma_{xy}$.
+This paper proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position two robots (Section \ref{sec:PostionControl2Robots}), extends this proof to proves that a rectangular workspace with high friction boundaries is sufficient to arbitrarily position a swarm of $n$ robots (Section \ref{sec:PostionControl2Robots}), implements these position control algorithms in simulation (Section \ref{sec:simulation}) and on a hardware setup with up to 64 robots (Section \ref{sec:expResults}), and ends with directions for future research.
+
+%For controlling $\sigma_{xy}$, we prove that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction. 
+%We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of $n$ robots. 
+%We conclude by designing controllers that efficiently regulate $\sigma_{xy}$.
 
 
-This paper
-(1) proves that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction, 
-(2) proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position two robots, 
-(3) proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots, 
-(4) shows full-state position control with 2 or more robots using  extensive simulations, and
-(5) demonstrate covariance control on our hardware platform with a large number of hardware robots.
+%This paper
+%(1) proves that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction,  %where do we do this?
+%(2) proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position two robots, 
+%(3) proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of $n$ robots, 
+%(4) shows full-state position control with 2 or more robots using  extensive simulations, and
+%(5) demonstrate covariance control on our hardware platform with a large number of hardware robots.
 %TODO JOURNAL: design controllers that efficiently regulate $\sigma_{xy}$.
 %TODO JOURNAL: We will design Lyapunov-inspired controllers for $\sigma_{xy}$ to prove controllability. 
 %TODO JOURNAL:  and rank controllability as a function of friction.

@@ -1,10 +1,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion and Future Work}\label{sec:conclusion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    Inspired by large-scale human experiments with swarms of robots under global control,  this paper investigated controllers that use only the mean and variance of a robot swarm. We proved that the mean position is controllable, and provided conditions under which variance is controllable.  We derived automatic controllers for each and a hysteresis-based switching control that controls the mean and variance of a robot swarm.  We employed these controllers as primitives for a block-pushing task. 
+
+
+This paper presented techniques for controlling the shape of a swarm of robots using global inputs and interaction boundary friction forces.  
+The paper provided algorithms for precise position control, as well as demonstrations of efficient covariance control. Future efforts should be directed toward improving the technology and tailoring it to specific robot applications.
+
+  With regard to technological advances, this includes designing controllers that efficiently regulate $\sigma_{xy}$, perhaps using Lyapunov-inspired controllers as in \cite{Becker2013a,becker2014simultaneously}.
+ Additionally, this paper assumed that wall friction was nearly infinite.  The algorithms require retooling to handle small $\mu_f$ friction coefficients.  It may be possible to rank controllability as a function of friction.
+  In hardware, friction could be modified by outfitting the kilobots with a skirt that avoid the almost infinite friction due to the triangular leg arrangement,  and laser-cutting boundary walls with a variety of profiles. 
+  
     
-    Future work should implement these controllers on a robot swarm and decrease completion time by avoiding counter-productive contact with the block while the swarm is lowering its variance.  We have also assumed the swarm is unimodal and has a straight-line path to the moveable block. Relaxing these assumptions requires solving the \emph{gathering problem}.  The gathering problem for a swarm with uniform inputs is largely unexplored, and must be examined probabilistically for nontrivial environments.
-    
+
+%TODO JOURNAL: design controllers that efficiently regulate $\sigma_{xy}$.
+%TODO JOURNAL: We will design Lyapunov-inspired controllers for $\sigma_{xy}$ to prove controllability. 
+%TODO JOURNAL:  and rank controllability as a function of friction.
+% TODO: JOURNAL: and vary wall friction by laser-cutting boundary walls with a variety of profiles. 
+
+
+%    Inspired by large-scale human experiments with swarms of robots under global control,  this paper investigated controllers that use only the mean and variance of a robot swarm. We proved that the mean position is controllable, and provided conditions under which variance is controllable.  We derived automatic controllers for each and a hysteresis-based switching control that controls the mean and variance of a robot swarm.  We employed these controllers as primitives for a block-pushing task. 
+%    
+%    Future work should implement these controllers on a robot swarm and decrease completion time by avoiding counter-productive contact with the block while the swarm is lowering its variance.  We have also assumed the swarm is unimodal and has a straight-line path to the moveable block. Relaxing these assumptions requires solving the \emph{gathering problem}.  The gathering problem for a swarm with uniform inputs is largely unexplored, and must be examined probabilistically for nontrivial environments.
+%    
     % We should also control the covariance $\sigma_xy$ and higher moments of the distribution
     
     

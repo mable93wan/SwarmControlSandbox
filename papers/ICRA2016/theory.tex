@@ -29,8 +29,8 @@ The next section shows how a system with friction model \eqref{eq:frictionmodel}
 
 
 
-\section{Position control of $2$ robots using wall friction}
-This section focuses on describing an algorithm for positioning two robots and introduces concepts that will be used for multi-robot positioning.
+\section{Position control of $2$ robots using wall friction}\label{sec:PostionControl2Robots}
+This section describes an algorithm for positioning two robots and introduces concepts that will be used for multi-robot positioning.
 %Although the generalization of the proposed positioning algorithm in here is rather straightforward for multi robot systems, for the sake of simplicity we describe the algorithm designed for two robots. 
 Assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
 Denote the current positions of the robots  $r_1$ and $r_2$. 
@@ -39,10 +39,11 @@ The algorithm assigns a global control input at every instance.
  As a result, our goal is to adjust 
  $\Delta r_x = r_{2x}-r_{1x}$ from $\Delta s_x = s_{2x}-s_{1x}$ to $\Delta e_x = e_{2x}-e_{1x}$ and similarly adjust 
  $\Delta r_y = r_{2y}-r_{1y}$ from $\Delta s_y = s_{2y}-s_{1y}$ to $\Delta e_y = e_{2y}-e_{1y}$ with one global input at every instance. 
- The key to the algorithm is employing the assumption we have made earlier about the walls' friction. 
+ The key to the algorithm is the position-dependent friction model \eqref{eq:frictionmodel}.
+ %employing the assumption we have made earlier about the walls' friction. 
 
 Our algorithm uses a divide and conquer method to solve the positioning problem. 
-It finds the final position of the robots in two steps: (i) First, $\Delta r_x$ is reduces to zero while  $\Delta r_y$ is kept constant. 
+It finds the final position of the robots in two steps: (i) First, $|\Delta r_x - \Delta e_x |$ is reduced to zero while  $\Delta r_y$ is kept constant. 
 (ii) Having fixed $\Delta r_x$ to $\Delta e_x$ as desired, the  algorithm next keeps $\Delta r_x$ constant and adjusts $\Delta r_y$ to $\Delta e_y$, as desired. 
 Though steps (i) and (ii) are similar from an algorithmic point of view, the following subsections describe the process in detail. 
 
@@ -167,7 +168,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \
 
 
-\section{Position Control of $n$ robots using wall friction}
+\section{Position Control of $n$ robots using wall friction}\label{sec:PostionControlnRobots}
 Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from staging zone to the desired position in a build zone. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone.
 
 Assume an open workspace with four axis-aligned walls with infinite friction.
