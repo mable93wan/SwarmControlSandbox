@@ -1,10 +1,22 @@
 
 \section{Simulation}\label{sec:simulation}
 
-Algorithms \ref{alg:PosControl2Robots}, \ref{alg:XControl}, \ref{alg:YControl}, were implemented in Mathematica using point robots (radius = $0$).  All code is available at  a public github repository~\cite{Shahrokhi2015GitHubShapeControl}.  Two trials are shown in Figs. \ref{fig:shapeControlMathematica1} and \ref{fig:shapeControlMathematica2}, showing the initial positions, goal positions, and the path derived by Alg. \ref{alg:PosControl2Robots}.
 
 
-\textcolor{red}{Shiva:  what is the complexity of this algorithm?  How many steps in the worst case?  When does worst case happen?}
+
+Algorithms \ref{alg:PosControl2Robots}, \ref{alg:XControl}, \ref{alg:YControl}, were implemented in Mathematica using point robots (radius = $0$).  All code is available at a public github repository~\cite{Shahrokhi2015GitHubShapeControl}.  Figs~\ref{fig:shapeControlMathematica1} and \ref{fig:shapeControlMathematica2} show the examples of the implementation of our algorithm. In both of these figures we have denoted the starting points and the destinations by small circles. However, destination points are surrounded by larger circles so as to be distinct from starting points. 
+
+In each of these figures we have five snapshots of the running of our algorithm taken every quarter second. For the sake of brevity we have replaced straight moves (e.g. upward, downward, etc) with oblique moves that shows a combination of two moves simultaneously (e.g. left and down together). 
+
+As we can see, in Fig.~\ref{fig:shapeControlMathematica1} $\Delta r_x$ is adjusted to $\Delta e_x$ in the second snapshot, i.e., at $t = t_1$ where $t_1<0.25$. The rest of the steps in this figure is dedicated to adjusting the $\Delta r_y$ to $\Delta e_y$. As it is clear from Fig.~\ref{fig:shapeControlMathematica1}, $\Delta r_y$ is also adjusted at $t = t_2$ where $0.75<t_2<1$. Finally, once $\Delta r_x$ and $\Delta r_y$ are adjusted, the algorithm gives a global input both of the robots so as to move them toward their corresponding destinations. This is happening in the time interval of $(t_2,1]$.
+
+Similarly, in Fig.~\ref{fig:shapeControlMathematica2} we can see that the $\Delta r_x$ is adjusted in the third snapshot, i.e., at $t=t_3$ where $0.25<t_3<0.5$ and $\Delta r_y$ is adjusted in the last snapshot at $t=t_4$ where $0.75<t_4<1$. The final positioning steps are happening in the time interval of $(t_4,1]$.
+
+As we pointed out earlier, adjusting each of $\Delta r_x$ and $\Delta r_y$ needs two iterations in the worst case. In other words, both of the Algorithm \ref{alg:XControl} and Algorithm \ref{alg:YControl} are executed two times in the worst case in positioning process of the robots. It is easy to see that we need two iterations of Algorithm \ref{alg:XControl} only if $|\Delta e_x - \Delta s_x|>L$. Similarly we need two iterations of Algorithm \ref{alg:YControl} only if $|\Delta e_y - \Delta s_y|>L$.
+
+
+
+%\textcolor{red}{Shiva:  what is the complexity of this algorithm?  How many steps in the worst case?  When does worst case happen?}
 
 
 
