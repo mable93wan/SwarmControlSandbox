@@ -8,19 +8,20 @@
 \subsection{Hardware system}
 
 
-Our experiments are on centimeter-scale hardware systems.  It allows us to emulate a variety of dynamics, while enabling a high degree of control over robot function, the environment, and data collection. The kilobot \cite{Rubenstein2012,rubenstein2014programmable} is a low-cost robot designed for testing collective algorithms with large numbers of robots. It is available commercially or as an open source platform~\cite{K-Team2015}.  Each robot is approximately 3 cm in diameter, 3 cm tall, and uses two vibration motors to move on a flat surface at speeds up to 1 cm/s.  Each robot has one ambient light sensor that is used to implement \emph{phototaxis},  moving towards a light source. 
-In these experiments as shown in Fig.~\ref{fig:setup} , we used $n$=64 kilobots, a 1.5 m$\times$1.2 m whiteboard as the workspace, and four 30W LED floodlights arranged at the $\{N,E,S,W\}$ vertices of a 6 m square centered on the workspace. The lights were controlled by using an Arduino Uno board connected to an 8 relay shield board. Also at top of the table, an overhead machine vision system was added to track the position of the swarm.
+Our experiments are on centimeter-scale hardware systems called \emph{kilobots}.  These allows us to emulate a variety of dynamics, while enabling a high degree of control over robot function, the environment, and data collection. The kilobot \cite{Rubenstein2012,rubenstein2014programmable} is a low-cost robot designed for testing collective algorithms with large numbers of robots. It is available commercially or as an open source platform~\cite{K-Team2015}.  Each robot is approximately 3 cm in diameter, 3 cm tall, and uses two vibration motors to move on a flat surface at speeds up to 1 cm/s.  Each robot has one ambient light sensor that is used to implement \emph{phototaxis},  moving towards a light source. 
+In these experiments as shown in Fig.~\ref{fig:setup} , we used $n$=64 kilobots, a 1.5 m$\times$1.2 m whiteboard as the workspace, and four 30W LED floodlights arranged 1.5 m above the plane of the table at the $\{N,E,S,W\}$ vertices of a 6 m square centered on the workspace. The lights were controlled using an Arduino Uno board connected to an 8 relay shield board.  At top of the table, an overhead machine vision system was added to track the position of the swarm. Laser-cut patterns for our neon green fiducial markers and our {\sc Matlab} tracking code are available at our github repository~\cite{Shahrokhi2015GitHubShapeControl}.
+
 
 \begin{figure}
 \begin{center}
 	\includegraphics[width=\columnwidth*2/3]{SetUp.png}
 \end{center}
 \caption{\label{fig:setup}
-Our workspace with a table of 1.5$\times$1.2 m and four 30W LED floodlights and an overhead machine vision system.
+Hardware platform:  table with 1.5$\times$1.2 m workspace, surrounded by four remotely triggered 30W LED floodlights, with an overhead machine vision system.
 }
 \end{figure}
 
-The walls of the hardware platform have almost infinite friction, due mostly because the kilobots have three legs, so if they turn in one direction towards the wall, they will pin themselves to the wall until the light changes direction and they begin turning in the other direction.  This wall is sufficient to enable independent position control of two kilobots, as shown in Fig.~\ref{fig:storyReal}.
+The walls of the hardware platform have almost infinite friction, due to the three legged design of the kilobots. When a kilobot is steered into the wall, they pin themselves to the wall until the light changes direction and they begin turning in the other direction.  This wall friction is sufficient to enable independent position control of two kilobots, as shown in Fig.~\ref{fig:storyReal}.
 
 
 
@@ -45,7 +46,8 @@ The walls of the hardware platform have almost infinite friction, due mostly bec
 
 
 
-To demonstrate covariance control $n=64$ robots where placed on the workspace and manually steered with a single light source, using friction with the boundary walls to vary the covariance from  -5000 to 10,000.  The resulting covariance is plotted in Fig.~\ref{fig:covExperiment}, along with snapshots of the swarm.
+To demonstrate covariance control $n=64$ robots were placed on the workspace and manually steered with a single light source, using friction with the boundary walls to vary the covariance from  -5000 to 10,000.  The resulting covariance is plotted in Fig.~\ref{fig:covExperiment}, along with snapshots of the swarm.
+
 
 
 
