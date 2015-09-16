@@ -3,17 +3,18 @@
 \label{sec:theory}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Controlling covariance using friction}
-
-Controlling covariance needs the swarm to break symmetry when we are using global inputs. We can use an obstacle like a corner, but for having positive and negative covariances, one corner is not enough and for any covariances we should have a special obstacle which is very hard and make us very dependent to the environment. Instead, walls have friction that is sufficient to break the symmetry. The robots which are touching the wall will have negative friction force as shown in Eq. ~\ref{eq:frictioneqn}, causing them to slow down in comparison to the free robots. This is enough for breaking symmetry and enables us to control covariance with any horizontal and vertical wall. 
+Global inputs move a swarm uniformly.  
+Controlling covariance requires breaking this uniform symmetry.  A swarm inside an axis-aligned rectangular workspace can reduce variance normal to a wall by simply pushing the swarm into the boundary. Directly controlling covariance by pushing the swarm into a boundary requires changing the boundary.  An obstacle in the lower-right corner is enough to generate positive covariance.  Generating both positive and negative covariance requires additional obstacles.  Requiring special obstacle configuration also makes covariance control dependent on the local environment. 
+  Instead of pushing our robots directly into a wall, this paper examines an oblique approach, by using boundaries that generate friction with the robots.  These frictional forces are  sufficient to break the symmetry caused by uniform inputs.  Robots touching a wall have a negative friction force that opposes movement along the boundary, as shown in Eq.\ \eqref{eq:frictionmodel}.  This  causes robots along the boundary to slow down compared to robots in free-space. This enables covariance control using  boundaries with arbitrary orientations. 
   
  Let the control input be a vector force $\vec{F}$ with magnitude $F$ and orientation $\theta$.  The force of friction $F_f$ is
 \begin{align}
 N &= F \cos(\theta) \nonumber\\
-F_f &= \begin{cases}  \mu_f N, &  \mu_f N < F \sin(\theta))  \label{eq:frictionmodel} \\ 
-F \sin(\theta)), & \text{else} \end{cases}  \\%\sign(F \sin(\theta) ) \cdot  \max(0, | F sin\theta |- |F_f|)
+F_f &= \begin{cases}  \mu_f N, &  \mu_f N < F \sin(\theta)  \label{eq:frictionmodel} \\ 
+F \sin(\theta), & \text{else} \end{cases}  \\%\sign(F \sin(\theta) ) \cdot  \max(0, | F sin\theta |- |F_f|)
 F_{forward} &=  F \sin(\theta) - F_f  \nonumber
 \end{align}
- Fig.~\ref{fig:friction} shows  forces on two robots when one is touching a wall. As shown, there are different forces for different robots although they are receiving the same input.
+ Fig.~\ref{fig:friction} shows the resultant forces on two robots when one is touching a wall. As illustrated, bot experiences different net forces although each receive the same inputs.
   For ease of analysis, the following algorithms assume $\mu$ is infinite and robots touching the wall are prevented from sliding along the wall.
 This means that if one robot is touching the wall and another robot is free, if the control input is parallel or into the wall, the touching robot will not move. 
 The next section shows how a system with friction model \eqref{eq:frictionmodel} and two walls are sufficient to arbitrarily position two robots. 
@@ -29,9 +30,9 @@ The next section shows how a system with friction model \eqref{eq:frictionmodel}
 
 
 \section{Position control of $2$ robots using wall friction}
-This section focuses on describing an algorithm for positioning two robots in introduces concepts that will be used for multi-robot positioning.
+This section focuses on describing an algorithm for positioning two robots and introduces concepts that will be used for multi-robot positioning.
 %Although the generalization of the proposed positioning algorithm in here is rather straightforward for multi robot systems, for the sake of simplicity we describe the algorithm designed for two robots. 
-Therefore,  assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
+Assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
 Denote the current positions of the robots  $r_1$ and $r_2$. 
 Let the subscripts $x$ and $y$ denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$. 
 The algorithm assigns a global control input at every instance.
@@ -163,13 +164,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 
 
 
-\begin{figure}
-\centering
-\begin{overpic}[width = \columnwidth]{Covariance.png}\end{overpic}
-\vspace{-1em}
-\caption{\label{fig:covFriction} Maintaining group cohesion while steering a swarm through an arbitrary maze requires covariance control.
-}\vspace{-1em}
-\end{figure}
+\
 
 
 \section{Position Control of $n$ robots using wall friction}

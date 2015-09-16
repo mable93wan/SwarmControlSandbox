@@ -1,15 +1,24 @@
 \section{Introduction}\label{sec:Intro}
 Micro- and nano-robots can be manufactured in large numbers.
 Our vision is for large swarms of robots remotely guided 1) through the human body, to cure disease, heal tissue, and prevent infection and 2) ex vivo to assemble structures in parallel. 
- Large numbers of micro robots are required in order to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
+ For each application, large numbers of micro robots are required  to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
  The biggest barrier to this vision is a lack of control techniques that can reliably exploit large populations despite incredible under-actuation.  
  
-Our previous work focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. 
-%One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. 
-We proved the mean position of a swarm is controllable and that with an obstacle the swarm's position variance ($\sigma_x$ and $\sigma_y$) is also controllable. 
-We then wrote automatic controllers which could complete a block pushing task, but these controllers had some limitations~\cite{ShahrokhiIROS2015}. 
-One of the limitations was that we could only compress our swarm along the world $x$ and $y$ axes, and could not navigate workspaces with narrow corridors with other orientations. 
-One solution to these problems would be a controller that regulates the swarm's position covariance, $\sigma_{xy}$. 
+
+\begin{figure}
+\centering
+\begin{overpic}[width=0.9\columnwidth]{leaf.pdf}\end{overpic}
+\caption{\label{fig:vascularNetwork}Vascular networks are common in biology such as the circulatory system and cerebrospinal spaces, as well as in porous media including sponges and pumice stone.  Navigating a swarm using global inputs, where each member receives the same control inputs, is challenging
+due to the many obstacles. This paper demonstrates how friction with walls can be used to change the shape of a swarm.} %TODO: save this as a pdf
+\end{figure}
+
+%One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. Our previous work focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. 
+In previous work, we proved the mean position of a swarm is controllable and that, with an obstacle, the swarm's position variance orthogonal to rectangular boundary walls  is also controllable
+($\sigma_x$ and $\sigma_y$ for a workspace with axis-aligned walls). 
+The usefulness of these techniques was demonstrated by several automatic controllers. One controller steered a swarm of robots to push a larger block through a 2D maze~\cite{ShahrokhiIROS2015}. 
+One limitation was that variance control can only compress a swarm along the world $x$ and $y$ axes.  This means the swarm could not navigate workspaces with narrow corridors with other orientations, such as those shown in Fig.\ \ref{fig:covFriction}.
+Challenges like these require a controller that regulates the swarm's position covariance, $\sigma_{xy}$. 
+
 For controlling $\sigma_{xy}$, we prove that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction. 
 We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of robots. 
 We conclude by designing controllers that efficiently regulate $\sigma_{xy}$.
@@ -28,12 +37,12 @@ This paper
 
 
 
-
-\begin{figure}
+\begin{figure}[t]
 \centering
-\begin{overpic}[width=0.9\columnwidth]{leaf.pdf}\end{overpic}
-\caption{\label{fig:vascularNetwork}Vascular networks are common in biology such as the circulatory system and cerebrospinal spaces, as well as in porous media including sponges and pumice stone.  Navigating a swarm using global inputs, where each member receives the same control inputs, is challenging
-due to the many obstacles. This paper demonstrates how friction with walls can be used to change the shape of a swarm.} %TODO: save this as a pdf
+\begin{overpic}[width = \columnwidth]{Covariance.png}\end{overpic}
+\vspace{-1em}
+\caption{\label{fig:covFriction} Maintaining group cohesion while steering a swarm through an arbitrary maze requires covariance control.
+}\vspace{-1em}
 \end{figure}
 
 
