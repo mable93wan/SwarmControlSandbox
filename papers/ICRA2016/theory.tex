@@ -103,16 +103,16 @@ $(0,0)$ is bottom corner, $s_1$ is topmost robot,
 \State $m  \gets  m + (0, -\min( r_{1y},r_{2y} ))$ \Comment{Move to bottom}
 \State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
 \If {$\Delta e_x - (r_{1x} - r_{2x} ) > 0 $}
-\State $ m \gets (\min(\|\Delta e_x - \Delta s_x \|, L- r_{1x}), 0)$  \Comment{Move right}
+\State $ m \gets (\min(|\Delta e_x - \Delta s_x |, L- r_{1x}), 0)$  \Comment{Move right}
 \Else
-\State $ m \gets (-\min(\|\Delta e_x - \Delta s_x \|, r_{1x}), 0)$\Comment{Move left}
+\State $ m \gets (-\min(|\Delta e_x - \Delta s_x |, r_{1x}), 0)$\Comment{Move left}
 \EndIf 
 \State $m  \gets  m + (0, \epsilon)$ \Comment{Move up}
 \State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
 \State $\Delta r_x = r_{1x} - r_{2x}$
 \If {$\Delta r_x \equiv \Delta e_x$} 
-\State   $ m \gets (e_{1x}-r_{1x}, e_{1y}-r_{1y})$
-\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+%\State   $ m \gets (e_{1x}-r_{1x}, e_{1y}-r_{1y})$
+%\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
 \State  \Return $(r_1,r_2)$
 \Else   
 \State \Return GenerateDesired$x$-spacing($r_1,r_2,e_1,e_2,L$)
@@ -138,9 +138,9 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \State $m  \gets  m + (0, -\min( r_{1x},r_{2x} ))$ \Comment{Move to left}
 \State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
 \If {$\Delta e_y - (r_{1y} - r_{2y} ) > 0 $}
-\State $ m \gets (\min(\|\Delta e_y - \Delta s_y \|, L- r_{1y}), 0)$  \Comment{Move top}
+\State $ m \gets (\min(|\Delta e_y - \Delta s_y |, L- r_{1y}), 0)$  \Comment{Move top}
 \Else
-\State $ m \gets (-\min(\|\Delta e_y - \Delta s_y \|, r_{1y}), 0)$\Comment{Move bottom}
+\State $ m \gets (-\min(|\Delta e_y - \Delta s_y |, r_{1y}), 0)$\Comment{Move bottom}
 \EndIf 
 \State $m  \gets  m + (0, \epsilon)$ \Comment{Move right}
 \State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
@@ -157,7 +157,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 
 
 
-\
+
 
 
 \section{Position Control of $n$ robots using wall friction}\label{sec:PostionControlnRobots}
