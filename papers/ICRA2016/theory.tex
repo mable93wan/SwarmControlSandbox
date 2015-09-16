@@ -206,7 +206,7 @@ Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position 
 
 \end{algorithmic}
 \end{algorithm}
-Algorithm \ref{alg:PosControlNRobots} procedes as follows:  
+Alg. \ref{alg:PosControlNRobots} procedes as follows:  
 First, the robots are moved  away from right wall and down so robot $k$ touches bottom.
 Second, a set of $\operatorname{DriftMove()}$s are executed that  move the $k$ robot to the left wall with no net movement on the other robots.
 Third, a set of $\operatorname{DriftMove()}$s are executed that  move the $k$ robot to it's target height and return the other robots to their initial heights. 
