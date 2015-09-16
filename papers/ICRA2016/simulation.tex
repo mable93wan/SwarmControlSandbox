@@ -1,28 +1,13 @@
 
 \section{Simulation}\label{sec:simulation}
 
-Algorithms \ref{alg:PosControl2Robots}, \ref{alg:XControl}, \ref{alg:YControl}, were implemented in Mathematica using point robots (radius = $0$).  All code is available at  (INSERT).  Two figure show...[describe].
+Algorithms \ref{alg:PosControl2Robots}, \ref{alg:XControl}, \ref{alg:YControl}, were implemented in Mathematica using point robots (radius = $0$).  All code is available at  a public github repository~\cite{Shahrokhi2015GitHubShapeControl}.  Two trials are shown in Figs. \ref{fig:shapeControlMathematica1} and \ref{fig:shapeControlMathematica2}, showing the initial positions, goal positions, and the path derived by Alg. \ref{alg:PosControl2Robots}.
+
+
+\textcolor{red}{Shiva:  what is the complexity of this algorithm?  How many steps in the worst case?  When does worst case happen?}
 
 
 
-\begin{figure*}
-\centering
-\renewcommand{\figwid}{0.4\columnwidth}
-{\begin{overpic}[width =\figwid]{twoR_1.png}\put(15,15){$t$  = 30 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{twoR_3.png}\put(15,15){$t$  = 60 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{twoR_2.png}\put(15,15){$t$  = 90 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{twoR_4.png}\put(15,15){$t$  = 120 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{twoR_5.png}\put(15,15){$t$  = 150 s}
-\end{overpic}}
-\vspace{-1em}
-\caption{\label{fig:storyReal}{Two robot positioning with using infinite friction for walls}
-%\vspace{-2em}
-}
-\end{figure*}
 
 
 \begin{figure*}
@@ -39,7 +24,9 @@ Algorithms \ref{alg:PosControl2Robots}, \ref{alg:XControl}, \ref{alg:YControl}, 
 \begin{overpic}[width =\figwid]{two_5.png}\put(45,75){$t$  = 1 s}
 \end{overpic}}
 \vspace{-1em}
-\caption{\label{fig:story1}{Two robot positioning with using walls with infinite friction}
+\caption{\label{fig:shapeControlMathematica1}{Frames from an implementation of Alg.\ \ref{alg:PosControl2Robots}: two robot positioning using walls with infinite friction.
+Robot initial positions are shown by a crosshair, and final positions by a circled crosshair.  Dashed lines show the shortest route if robots oculd be ocntrolled independently.  The path given by  Alg.\ \ref{alg:PosControl2Robots} is shown with solid arrows.
+}
 %\vspace{-2em}
 }
 \end{figure*}
@@ -58,7 +45,7 @@ Algorithms \ref{alg:PosControl2Robots}, \ref{alg:XControl}, \ref{alg:YControl}, 
 \begin{overpic}[width =\figwid]{one_5.png}\put(45,75){$t$  = 1 s}
 \end{overpic}}
 \vspace{-1em}
-\caption{\label{fig:story1}{Two robot positioning: switching positions. with using walls with infinite friction  Code available at github address}
+\caption{\label{fig:shapeControlMathematica2}{Two robot positioning: switching positions using walls with infinite friction.  Code available at~\cite{Shahrokhi2015GitHubShapeControl}.}
 %\vspace{-2em}
 }
 \end{figure*}
