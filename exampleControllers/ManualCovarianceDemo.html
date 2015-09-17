@@ -33,7 +33,7 @@
 	}; 
 	
       var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
-	  
+	  var mapScale = 30;
      
       function init() {
          var   b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -66,23 +66,23 @@
          var fixDef = new b2FixtureDef;
          fixDef.density = 1.0;
          fixDef.friction = .5;
-         fixDef.restitution = 0.2;  //bouncing value
+         fixDef.restitution = 1.0;  //bouncing value
          
          var bodyDef = new b2BodyDef;
          //create enclosing boundary rectangles
 	 bodyDef.userData = 'obstacle';  // canvas is {1120, 630}
          bodyDef.type = b2Body.b2_staticBody;
          fixDef.shape = new b2PolygonShape;
-         fixDef.shape.SetAsBox(1120/30, 2);//width, height
-         bodyDef.position.Set(10, 630/ 30 + 1.8); //bottom
+         fixDef.shape.SetAsBox(1120/mapScale, 2);//width, height
+         bodyDef.position.Set(10, 630/ mapScale + 1.8); //bottom
 	 var bodyBottom = world.CreateBody(bodyDef);
          bodyBottom.CreateFixture(fixDef);
          bodyDef.position.Set(2, -1.8); //top
          world.CreateBody(bodyDef).CreateFixture(fixDef);
-         fixDef.shape.SetAsBox(2, 630/30);//width, height
+         fixDef.shape.SetAsBox(2, 630/mapScale);//width, height
          bodyDef.position.Set(-1.8, 13); //left
          world.CreateBody(bodyDef).CreateFixture(fixDef);
-         bodyDef.position.Set(1120/30+1.8, 13); // right side
+         bodyDef.position.Set(1120/mapScale+1.8, 13); // right side
          world.CreateBody(bodyDef).CreateFixture(fixDef);
 		
          
@@ -95,20 +95,30 @@ function rnd2() {
 
           
 	  var robotrad = 0.2;
-	  var numrobots = Math.floor(20/(4*robotrad*robotrad));
-	  
+	  var numrobots = 144;// Math.floor(20/(4*robotrad*robotrad));
+	  var rowLength = 12//Math.floor(5/(2*robotrad));
+
+
 	   fixDef.density = 1.0;
          fixDef.friction = 5.0;
-         fixDef.restitution = 0.0;  //bouncing value
+         fixDef.restitution = 0.1;  //bouncing value
 	 var m_Robot = new Array();
-	 var rowLength = Math.floor(5/(2*robotrad));
+	 
          for(var i = 0; i < numrobots; ++i) {
             fixDef.shape = new b2CircleShape(
                   robotrad //Math.random() + 0.1 //radius
                );
             bodyDef.userData = 'robot';
-             bodyDef.position.x = 1120/60+10*rnd2();
-             bodyDef.position.y = 630/60+10*rnd2();
+
+            // start the robots in a Gaussian distribution
+            // bodyDef.position.x = 1120/60+10*rnd2();
+            // bodyDef.position.y = 630/60+10*rnd2();
+
+              ///  put the robots in a loose rectangle
+            bodyDef.position.x = 14+(i%rowLength)*4*robotrad;
+            bodyDef.position.y = 15-Math.floor(i/rowLength)*4*robotrad
+
+             ///  put the robots in a tight rectangle
          //   bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
          //   bodyDef.position.y = 19.5-Math.floor(i/rowLength)*2*robotrad;
 	    m_Robot[i] = world.CreateBody(bodyDef);
@@ -122,7 +132,7 @@ function rnd2() {
          //setup debug draw
          var debugDraw = new b2DebugDraw();
 			debugDraw.SetSprite(document.getElementById("canvas").getContext("2d"));
-			debugDraw.SetDrawScale(30.0);
+			debugDraw.SetDrawScale(mapScale);
 			debugDraw.SetFillAlpha(0.5);
 			debugDraw.SetLineThickness(1.0);
 			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
@@ -209,7 +219,7 @@ function rnd2() {
 
 		var impulseV=new b2Vec2(0,0);
 		var impulseVtemp=new b2Vec2(0,0);
-		var impulse = 50.0;
+		var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
 		stringCtl = "nothing";
 		
 		if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
@@ -226,18 +236,30 @@ function rnd2() {
 		//console.log(m_Robot[19].GetWorldPoint(new b2Vec2(0,0)));
 		//console.log(impulseV);
 		for(var i =0; i<m_Robot.length; i++) {
-			//addFriction(m_Robot[i]);
-			//m_Robot[i].mSetLinearVelocity(new b2Vec2(0,0));
+		
 			impulseVtemp.x = impulseV.x;
 			impulseVtemp.y = impulseV.y;
+			var rx = m_Robot[i].GetPosition().x;
+			var ry = m_Robot[i].GetPosition().y;
 			//TODO: add boundary-dependant friction HERE
-			if( m_Robot[i].GetPosition().x > 1100/30 && impulseV.x>= 0)
+		 	if( rx > 1050/mapScale && impulseV.x>= 0)
+		 	{	impulseVtemp.y = (1100/mapScale-rx)*(mapScale/50)*impulseVtemp.y/2;}
+		    if( rx < 50/mapScale && impulseV.x<= 0)
+		 	{	impulseVtemp.y = rx*mapScale/50*impulseVtemp.y/2;}
+		 	if( ry > 560/mapScale && impulseV.y>= 0)
+		 	{	impulseVtemp.x = (610/mapScale-ry)*(mapScale/50)*impulseVtemp.x/2;}
+		    if( ry < 50/mapScale && impulseV.y<= 0)
+		 	{	impulseVtemp.x = ry*mapScale/50*impulseVtemp.x/2;}
+
+// make walls sticky
+
+			if( rx > 1100/mapScale && impulseV.x>= 0)
 			{	impulseVtemp.y = 0;}
-		if( m_Robot[i].GetPosition().x < 20/30 && impulseV.x<= 0)
+		if( rx < 20/mapScale && impulseV.x<= 0)
 			{	impulseVtemp.y = 0;}
-		if( m_Robot[i].GetPosition().y > 610/30 && impulseV.y>= 0)
+		if( ry > 610/mapScale && impulseV.y>= 0)
 			{	impulseVtemp.x = 0;}
-		if( m_Robot[i].GetPosition().y < 20/30 && impulseV.y<= 0)
+		if( ry < 20/mapScale && impulseV.y<= 0)
 			{	impulseVtemp.x = 0;}
 
 			m_Robot[i].SetLinearVelocity( new b2Vec2(0,0) );
@@ -251,21 +273,46 @@ function rnd2() {
             world.DrawDebugData();
             world.ClearForces();
 	    
+	    	var sum_position_x = 0;
+	var sum_position_y = 0;
+	var sum2_x = 0;
+	var sum2_y = 0;
+	var desired_var_x;
+	var cov_xy = 0;
 	    // try http://gamedev.stackexchange.com/questions/1366/box2d-get-bounding-box-of-a-body
+	for(var i = 0; i < numrobots; ++i) {
+		sum_position_x += m_Robot[i].GetPosition().x;
+		sum_position_y += m_Robot[i].GetPosition().y;
+	}
+	var mean_position_x = sum_position_x / numrobots;
+	var mean_position_y = sum_position_y / numrobots;
+	for(var i = 0; i < numrobots; ++i) {
+		sum2_x += (m_Robot[i].GetPosition().x - mean_position_x) * (m_Robot[i].GetPosition().x - mean_position_x);
+		sum2_y += (m_Robot[i].GetPosition().y - mean_position_y) * (m_Robot[i].GetPosition().y - mean_position_y);
+		cov_xy=  cov_xy+ (m_Robot[i].GetPosition().x- mean_position_x)*(m_Robot[i].GetPosition().y - mean_position_y)/numrobots;
+	}
+	var var_x = sum2_x / numrobots;
+	var var_y = sum2_y / numrobots;
+	var diffeq = Math.sqrt( (var_x-var_y)*(var_x-var_y)/4 + cov_xy*cov_xy);
+	
+	var var_xp = (var_x+var_y)/2 + diffeq;
+	var var_yp = (var_x+var_y)/2 - diffeq;
 
+	 var angle2 = 180/Math.PI*1/2*Math.atan2( 2*cov_xy, var_x-var_y);
+	//console.log("angle is : " + angle2);
 		
 		
 		$("canvas").clearCanvas();
 			
 		$("canvas")
 					 .rotateCanvas({
-						  x: 5 * 30, y: 5 * 30,
+						  x: 5 * mapScale, y: 5 * mapScale,
 						  rotate: angle
 					  })
 					  .drawArc({
 						  fillStyle: "orange",						  
-						  x: 5 * 30, y: 5 * 30,
-						  radius: radius * 30
+						  x: 5 * mapScale, y: 5 * mapScale,
+						  radius: radius * mapScale
 					  })
 					  .restoreCanvas();
 		
@@ -278,19 +325,23 @@ function rnd2() {
 					
 				 if (b.GetUserData() == 'robot')
 				 {
-					 var radius = f.GetShape().GetRadius();
-					 var pos = b.GetPosition();
-					 $("canvas")
-					 .rotateCanvas({
-						  x: pos.x * 30, y: pos.y * 30,
-						  rotate: angle
-					  })
-					  .drawArc({
-						  fillStyle: "blue",						  
-						  x: pos.x * 30, y: pos.y * 30,
-						  radius: radius * 30
-					  })
-					  .restoreCanvas();
+				var radius = f.GetShape().GetRadius();
+				var pos = b.GetPosition();
+				$("canvas")
+				.rotateCanvas(
+				{
+					x: pos.x * mapScale, y: pos.y * mapScale,
+					rotate: angle
+				})
+				.drawArc(
+				{
+					strokeStyle: "lightblue",
+					strokeWidth: 1,
+					fillStyle: "blue",
+					x: pos.x * mapScale, y: pos.y * mapScale,
+					radius: radius * mapScale
+				})
+				.restoreCanvas();
 				  }
 			
 				  else if (b.GetUserData() == 'obstacle' || b.GetUserData() == 'moveable' || b.GetUserData() == 'rectangle_ground')
@@ -301,19 +352,19 @@ function rnd2() {
 					  var pos = b.GetPosition();
 					  var color = 'orange';
 					  if(b.GetUserData() == 'obstacle')
-					  	color = 'red';
+					  	color = 'brown';;
 					  if(b.GetUserData() == 'moveable')
 					  	color = 'green';
 					  $("canvas")
 					  .rotateCanvas({
-						  x: pos.x * 30, y: pos.y * 30,
+						  x: pos.x *mapScale, y: pos.y * mapScale,
 						  rotate: angle
 					  })
 					  .drawRect({
 						  fillStyle: color,
-						  x: pos.x * 30, y: pos.y * 30,
-						  width: X * 30,
-						  height: Y * 30,
+						  x: pos.x * mapScale, y: pos.y * mapScale,
+						  width: X * mapScale,
+						  height: Y * mapScale,
 						  cornerRadius: 0
 					  })
 					  .restoreCanvas();
@@ -321,8 +372,17 @@ function rnd2() {
 				   
 				}
 			}
-			    if( timeFinish == null &&  countRobotsAtGoal == m_Robot.length)
-	    { timeFinish = day.getTime();}
+
+			$("canvas").drawEllipse({
+			strokeStyle: "red",
+			strokeWidth: 5,
+			x: mean_position_x* mapScale, y: mean_position_y * mapScale,
+			width: 3 * mapScale*Math.sqrt(var_xp), height: 3 * mapScale*Math.sqrt(var_yp),
+			rotate: angle2
+		})
+		.restoreCanvas();
+
+
 	    	    
 
 	    
