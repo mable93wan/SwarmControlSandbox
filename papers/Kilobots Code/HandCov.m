@@ -71,7 +71,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     C = cov(centers);
     
     imshow(originalImage);
-    h = viscircles(centers,radii);
+    %h = viscircles(centers,radii);
     [s, l] = size(centers);
     goalC = [18000 goalX; goalX 18000];
     
@@ -86,15 +86,15 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     %Current Mean and Covariance Ellipse
     plot_gaussian_ellipsoid(M,C);
     %Goal Mean and Covariance Ellipse
-    plot_gaussian_ellipsoid([goalXM goalYM],goalC);
-    plot(centers(:,1),centers(:,2),'+','Markersize',16);
+    %plot_gaussian_ellipsoid([goalXM goalYM],goalC);
+    %plot(centers(:,1),centers(:,2),'+','Markersize',16);
     %Goal X.
-    line([goalXM goalXM], ylim,'color','green');
+    %line([goalXM goalXM], ylim,'color','green');
     hold off
     end
     end
 
-    if(toc(t0) > 800)
+    if(toc(t0) > 1800)
         success = true;
         figure(2)
        plot(q(:,1),q(:,2));

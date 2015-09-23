@@ -7,7 +7,7 @@ void setup() {
   //put wanted pin as an output here.
   //hit upload
 
-  pinMode(6, OUTPUT);
+  pinMode(5, OUTPUT);
 
 }
 
