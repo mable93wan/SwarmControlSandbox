@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     81664,       1808]
-NotebookOptionsPosition[     80869,       1775]
-NotebookOutlinePosition[     81229,       1791]
-CellTagsIndexPosition[     81186,       1788]
+NotebookDataLength[     81806,       1809]
+NotebookOptionsPosition[     81011,       1776]
+NotebookOutlinePosition[     81371,       1792]
+CellTagsIndexPosition[     81328,       1789]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -14,13 +14,14 @@ Notebook[{
 
 Cell[CellGroupData[{
 Cell[TextData[{
- StyleBox["WallFrictionArrange2Robots", "Section"],
+ StyleBox["WallFrictionArrange2Robots:  this code shows the coordinates.  I \
+am trying to replicate errors so we can fix the code.", "Section"],
  "\nUse Wall Friction to Control Position of 2 robots.\nAfter ICRA, we can \
 optimize the path length"
 }], "Subsection",
  CellChangeTimes->{{3.642115570787943*^9, 3.642115621242105*^9}, {
   3.651312162921667*^9, 3.651312180581348*^9}, {3.6513223762095423`*^9, 
-  3.651322388138562*^9}}],
+  3.651322388138562*^9}, {3.6517877009247503`*^9, 3.651787718134328*^9}}],
 
 Cell[TextData[{
  StyleBox["Shiva Shakrockhi and Aaron Becker", "Subsubsection"],
@@ -1791,17 +1792,17 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[422, 15, 354, 7, 103, "Subsection"],
-Cell[779, 24, 668, 13, 189, "Text"],
-Cell[1450, 39, 38251, 833, 2137, "Input",
+Cell[422, 15, 496, 8, 173, "Subsection"],
+Cell[921, 25, 668, 13, 189, "Text"],
+Cell[1592, 40, 38251, 833, 2749, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[39726, 876, 26326, 542, 879, "Input",
+Cell[39868, 877, 26326, 542, 879, "Input",
  InitializationCell->True],
-Cell[66055, 1420, 10091, 199, 686, "Output"]
+Cell[66197, 1421, 10091, 199, 686, "Output"]
 }, Open  ]],
-Cell[76161, 1622, 2412, 75, 165, "Input"],
-Cell[78576, 1699, 2277, 73, 148, "Input"]
+Cell[76303, 1623, 2412, 75, 165, "Input"],
+Cell[78718, 1700, 2277, 73, 148, "Input"]
 }, Open  ]]
 }
 ]
