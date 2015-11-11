@@ -75,13 +75,25 @@ originalImage = imcrop(rgbIm,[345 60 1110 850]);
 orig = originalImage;
 % make grayscale.
 I = rgb2hsv(originalImage);
+% % Define thresholds for channel 1 based on histogram settings
+% channel1Min = 0.184;
+% channel1Max = 0.423;
+% 
+% % Define thresholds for channel 2 based on histogram settings
+% channel2Min = 0.184;
+% channel2Max = 0.753;
+% 
+% % Define thresholds for channel 3 based on histogram settings
+% channel3Min = 0.400;
+% channel3Max = 1.000;
+
 % Define thresholds for channel 1 based on histogram settings
-channel1Min = 0.184;
-channel1Max = 0.423;
+channel1Min = 0.065;
+channel1Max = 0.567;
 
 % Define thresholds for channel 2 based on histogram settings
-channel2Min = 0.184;
-channel2Max = 0.753;
+channel2Min = 0.288;
+channel2Max = 1.000;
 
 % Define thresholds for channel 3 based on histogram settings
 channel3Min = 0.400;
@@ -117,7 +129,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
         again = false;
     hold on
     
-    plot(M(1,1) , M(1,2),'*','Markersize',16,'color','red', 'linewidth',3);
+    plot(M(1,1) , M(1,2),'*','Markersize',16,'color','green', 'linewidth',3);
     plot(goalX , goalY,'*','Markersize',16,'color','blue','linewidth',3);
     newDot = [M(1,1), toc(t0)];
     

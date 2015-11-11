@@ -30,18 +30,18 @@
 Large populations of micro- and nanorobots are being produced in laboratories around the world, with diverse potential applications in drug delivery and construction. These activities require robots that behave intelligently. Limited computation and communication rules out autonomous operation or direct control over individual units; instead we must rely on global control signals broadcast to the entire robot population. It is not always practical to gather pose information on individual robots for feedback control; the robots might be difficult or impossible to sense individually due to their size and location. 
 However, it is often possible to sense global properties of the group, such as mean position and variance. In our experiments, we showed that controlling mean is possible, and controlling variance with some constraints is possible. One of the constraints was that we had assumed that the swarm is clustered together and the swarm was trying to keep the variance small. Also, if during the experiment, a fraction of the swarm makes a new branch and put the swarm to two or more clusters by hitting the obstacles in their path, we could not gather them together again, and our algorithm for controlling variance was failed. So the next problem is to design an algorithm that will gather all the robots to an specific region with global input so that we can have the minimum variance. \\
 
-For a \emph{S} shaped maze it is easy to implement. Alg. ~\ref{alg:S-Shaped} shows how to gather all the particles of the swarm when we have a \emph{S} shaped maze. With the same algorithm, we have a non-optimal solution for a mirrored \emph{S} shaped maze. It is not an optimal way for a \emph{T} shaped map also, but works for it. The problem is: Is there a general way to gather all the particles in \emph{any} map?
+For a \emph{S} shaped maze it is easy to implement. Alg. ~\ref{alg:S-Shaped} shows how to gather all the particles of the swarm when we have a \emph{S} shaped maze. With the same algorithm, we have a  solution for a mirrored \emph{S} shaped maze. It is not an optimal way for a \emph{T} shaped map also, but works for it. The problem is: Is there a general way to gather all the particles in \emph{any} map?
 
 \begin{algorithm}
-\caption{Gather All the Robots in one of the corners in a \emph{S} shaped or mirrored \emph{S} shaped maze}\label{alg:S-Shaped}
+\caption{Gather Robots in One Corner of an S-shaped or inverse S-shape Maze}\label{alg:S-Shaped}
 \begin{algorithmic}[1]
 
 \Ensure   The maze is \emph{S}-shaped
 \While{$\sigma_x^2 > \sigma_{min}^2 \vee \sigma_y^2 > \sigma_{min}^2$}
-\State Go Left
-\State Go Down
-\State Go Right
-\State Go Down
+\State Go Maximal Left
+\State Go Maximal Down
+\State Go Maximal Right
+\State Go Maximal Down
 \EndWhile
 
 

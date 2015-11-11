@@ -3,22 +3,40 @@
 
 % ******************Loading input Image**********************************
 %fn = 'BadResult.png';  % robots are 14 px in diameter in this
-fn = 'FailImageGreen.png';
-fn = 'FailImageClump.png';
+%fn = 'FailImageGreen.png';
+fn = 'FailImage8.png';
 rgbIm = imread(fn);
 % Crop the image to use ROI.
 rgbIm = imcrop(rgbIm,[345 60 1110 850]);
 % make grayscale.
 I = rgb2hsv(rgbIm);
+
+% 
 % Define thresholds for channel 1 based on histogram settings
-channel1Min = 0.184;
-channel1Max = 0.423;
+channel1Min = 0.065;
+channel1Max = 0.567;
+
 % Define thresholds for channel 2 based on histogram settings
-channel2Min = 0.184;
-channel2Max = 0.753;
+channel2Min = 0.288;
+channel2Max = 1.000;
+
 % Define thresholds for channel 3 based on histogram settings
 channel3Min = 0.400;
 channel3Max = 1.000;
+
+% % Define thresholds for channel 1 based on histogram settings
+% channel1Min = 0.087;
+% channel1Max = 0.547;
+% 
+% % Define thresholds for channel 2 based on histogram settings
+% channel2Min = 0.057;
+% channel2Max = 1.000;
+% 
+% % Define thresholds for channel 3 based on histogram settings
+% channel3Min = 0.452;
+% channel3Max = 1.000;
+ 
+
 % Create mask based on chosen histogram thresholds
 BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     (I(:,:,2) >= channel2Min ) & (I(:,:,2) <= channel2Max) & ...
