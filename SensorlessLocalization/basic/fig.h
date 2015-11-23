@@ -224,7 +224,7 @@ public:
 	double toHorizontalInches(double x);
 
 protected:
-	static const double FigUnitsPerInch =  1200;
+	static const int FigUnitsPerInch =  1200;
 
 	ostream &out;
 

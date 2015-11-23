@@ -7,13 +7,15 @@
 
 #ifndef INCLUDE_UTIL_H
 #define INCLUDE_UTIL_H
-using namespace std;
+
 
 #include <math.h>
 #include <string>
 #include <iostream>
 #include <sstream>
 #include <assert.h>
+
+using namespace std;
 
 #define sign(x) (((x)>0)?1:(((x)==0)?0:-1))
 //#define max(a, b) (((a)>(b))?(a):(b))

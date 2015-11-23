@@ -66,7 +66,7 @@ int argmin3(double a, double b, double c) {
 double *canonicalColor(int i) {
 // Successive calls to this function return different "nice-looking" colors.
 	const int number = 7;
-	double colors[7][3] = {
+	double static colors[7][3] = {
 		{ 1, 0, 0 }, // red
 		{ 0, 1, 0 }, // green
 		{ 0, 0, 1 }, // blue
