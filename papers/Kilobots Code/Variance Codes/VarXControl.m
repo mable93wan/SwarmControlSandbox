@@ -10,7 +10,7 @@ a = arduino('/dev/tty.usbmodem1411','uno');
 %Define webcam --the input may be 1 or 2 depending on which webcam of your laptop
 %is the default webcam.
 cam = webcam(2);
-global q goalX goalVarX goalVarY
+global q goalX goalY goalVarX goalVarY
 
 % We have 8 Relays.
 %west
@@ -40,10 +40,13 @@ epsilon = 10;
 
 goal1x = 800;
 goal2x = 600;
+goal1y = 400;
+goal2y = 600;
 goalVarX1 = 600;
 goalVarX2 = 300;
 goalVarX = goalVarX1;
 goalX = goal1x;
+goalY = goal1y;
 t0 = tic;
 q = zeros(1,2);
 
@@ -116,10 +119,10 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     %Current Mean and Covariance Ellipse
     plot_gaussian_ellipsoid(M,C);
     %Goal Mean and Covariance Ellipse
-    %plot_gaussian_ellipsoid([goalXM goalYM],goalC);
+    plot_gaussian_ellipsoid([goalX goalY],goalC);
     %plot(centers(:,1),centers(:,2),'+','Markersize',16);
     %Goal X.
-    line([goalX goalX], ylim,'color','green','linewidth', 3.0);
+    %line([goalX goalX], ylim,'color','green','linewidth', 3.0);
     hold off
         if M(1,1) > goalX+epsilon
         writeDigitalPin(a,RELAY3,1);
