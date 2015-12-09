@@ -1,4 +1,4 @@
-OUTPUT		../prob8.mpeg
+OUTPUT		../prob7.mpeg
 PATTERN		I
 
 # mpeg_encode really only accepts 3 different file formats, but using a
