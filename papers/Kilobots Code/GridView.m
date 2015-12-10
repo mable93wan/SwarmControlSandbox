@@ -1,3 +1,8 @@
+%%%%%%%%% By Shiva Shahrokhi Dec 2015: This code takes a snapshot of the
+%%%%%%%%% webcam, then process it to find obstacles, gives that map to MDP
+%%%%%%%%% and gets the result.
+
+
 % img = imread('peppers.png');  %# Load a sample 3-D RGB image
 % img(10:10:end,:,:) = 0;  %# Change every tenth row to black
 % 

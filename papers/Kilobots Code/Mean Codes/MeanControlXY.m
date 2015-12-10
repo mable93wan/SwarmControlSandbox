@@ -115,7 +115,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     C = cov(centers);
     
     imshow(originalImage);
-    h = viscircles(centers,radii);
+    h = viscircles(centers,radii,'Color','b');
     [s, l] = size(centers);
     %goalC = [18000 goalX; goalX 18000];
     
@@ -129,8 +129,8 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
         again = false;
     hold on
     
-    plot(M(1,1) , M(1,2),'*','Markersize',16,'color','green', 'linewidth',3);
-    plot(goalX , goalY,'*','Markersize',16,'color','blue','linewidth',3);
+    plot(M(1,1) , M(1,2),'*','Markersize',16,'color','red', 'linewidth',3);
+    plot(goalX , goalY,'*','Markersize',16,'color','green','linewidth',3);
     newDot = [M(1,1), toc(t0)];
     
     drawTime = [drawTime;newDot];
