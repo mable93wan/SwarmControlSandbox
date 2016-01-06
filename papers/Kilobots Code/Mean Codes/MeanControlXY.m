@@ -115,7 +115,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     C = cov(centers);
     
     imshow(originalImage);
-    h = viscircles(centers,radii,'Color','b');
+    h = viscircles(centers,radii,'EdgeColor','b');
     [s, l] = size(centers);
     %goalC = [18000 goalX; goalX 18000];
     
