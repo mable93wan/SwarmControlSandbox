@@ -1,22 +1,16 @@
-%%%%%%%%% By Shiva Shahrokhi Dec 2015: This code takes a snapshot of the
+%%%%%%%%% By Shiva Shahrokhi Dec 2015-Jan 2016: This code takes a snapshot of the
 %%%%%%%%% webcam, then process it to find obstacles, gives that map to MDP
-%%%%%%%%% and gets the result.
+%%%%%%%%% and gets the result and draw the gradients. 
 
+webcamShot = false;
+if webcamShot
+cam = webcam(2);
+ originalImage = snapshot(cam);
+ img = imcrop(originalImage,[345 60 1110 850]);
 
-% img = imread('peppers.png');  %# Load a sample 3-D RGB image
-% img(10:10:end,:,:) = 0;  %# Change every tenth row to black
-% 
-% img(:,10:10:end,:) = 0;       %# Change every tenth column to black
-% imshow(img);                  %# Display the image
-% 
-% cam = webcam(2);
-% % 
-%  originalImage = snapshot(cam);
-%  img = imcrop(originalImage,[345 60 1110 850]);
-% filename = 'testImage15';
-% imwrite(img,strcat(filename,'.png'));
-
+else
 img = imread('testImage12.png');  % Load a jpeg image
+end
 % Convert RGB image to chosen color space
 I = rgb2hsv(img);
 
@@ -37,37 +31,59 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     (I(:,:,2) >= channel2Min ) & (I(:,:,2) <= channel2Max) & ...
     (I(:,:,3) >= channel3Min ) & (I(:,:,3) <= channel3Max);
 
-goalX = 10;
-goalY = 10;
+goalX = 4;
+goalY = 4;
 s = size(BW);
-sizeOfMap = floor(s/10);
+scale = 30;
+sizeOfMap = floor(s/scale);
 map = zeros(sizeOfMap(1),sizeOfMap(2));
+corners =[];
 map(1,:) = 1;
 map(:,1) = 1;
 map(sizeOfMap(1),:) = 1;
 map(:,sizeOfMap(2)) = 1;
 for i= 1:sizeOfMap(1)-1
     for j = 1:sizeOfMap(2)-1
-        for k = 0:9
-            for l = 0:9
-                if BW(i*10+k, j*10+l,1) > 0
-                    map(i,j) = 1;
-                    img(i*10:i*10+10,j*10:j*10+10,1) = 0;  % Change the red value for the first pixel
-                    img(i*10:i*10+10,j*10:j*10+10,2) = 0;    % Change the green value for the first pixel
-                    img(i*10:i*10+10,j*10:j*10+10,3) = 255;    % Change the blue value for the first pixel
+        for k = 0:scale-1
+            for l = 0:scale-1
+                if BW(i*scale+k, j*scale+l,1) > 0
+                    map(i,j) = 1; %%% points the obstacles.
+                    img(i*scale:i*scale+scale,j*scale:j*scale+scale,1) = 0;  % Change the red value for the first pixel
+                    img(i*scale:i*scale+scale,j*scale:j*scale+scale,2) = 0;    % Change the green value for the first pixel
+                    img(i*scale:i*scale+scale,j*scale:j*scale+scale,3) = 255;    % Change the blue value for the first pixel
                 end
             end
         end
     end
 end
-imwrite(img,'new.jpeg');
+
+for i = 2:sizeOfMap(1)-1
+    for j = 2:sizeOfMap(2)-1
+        if map(i,j) ~=1 
+            if (map(i-1,j) == 1 && map(i,j-1) ==1) || (map(i+1,j) == 1 && map(i,j+1) ==1) ...
+                    || (map(i+1,j) == 1 && map(i,j-1) ==1) ||(map(i-1,j) == 1 && map(i,j+1) ==1)
+                corners = [corners; j i];           
+            end
+        end
+    end
+end
+
+imwrite(img,'Obstacle.jpeg');
 [probability, movesX, movesY] = MDPgridworldExampleBADWALLS(map,goalX,goalY);
+save('Map1', 'movesX', 'movesY','corners');
+
 figure
 imshow(img)
 [X,Y] = meshgrid(1:size(map,2),1:size(map,1));
- hold on; hq=quiver(X*10,Y*10,movesY,movesX,0.5,'color',[0,0,0]); hold off
+ hold on; hq=quiver(X*scale,Y*scale,movesY,movesX,0.5,'color',[0,0,0]); hold off
 set(hq,'linewidth',2);
-%clear('cam'); % (*turns of the camera*)
+hold on
+for i= 1: size(corners)
+    plot(corners(i,1)*scale , corners(i,2)*scale,'*','Markersize',16,'color','red', 'linewidth',3);
+end
+if webcamShot
+clear('cam'); % (*turns off the camera*)
+end
 
 % % img = imread('testImage2.png');  % Load a jpeg image
 % test = 550;
@@ -78,12 +94,3 @@ set(hq,'linewidth',2);
 % img(test:test+10,test2:test2+10,2)= 0;
 % img(test:test+10,test2:test2+10,3)= 0;
 % % imshow(img)
-%  clear('cam');  
-% img(10:10,1:10,1) = 255;
-% img(1:10,1:10,2) = 0;
-% img(1:10,1:10,3) = 0;
-% imwrite(img,'new.jpeg');
-% img(1:10,:,1) = 255;  % Change the red value for the first pixel
-% img(1:10,:,2) = 0;    % Change the green value for the first pixel
-% img(1:10,:,3) = 0;    % Change the blue value for the first pixel
-% imwrite(img,'new.jpeg');  % Save modified image

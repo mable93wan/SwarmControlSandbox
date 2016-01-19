@@ -6,9 +6,8 @@ RELAY3 = 5;
 RELAY4 = 4;
 RELAY5 = 3;
 RELAY6 = 2;
-RELAY7 = 1;
-RELAY8 = 0;
-for i = 1:10
-      writeDigitalPin(a, RELAY3, 0);
+RELAY7 = 8;
+RELAY8 = 9;
+
+      writeDigitalPin(a, RELAY8, 0);
       pause(2);
-end

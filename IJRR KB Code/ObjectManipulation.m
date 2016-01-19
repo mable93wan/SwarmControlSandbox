@@ -101,11 +101,17 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     (I(:,:,2) >= channel2Min ) & (I(:,:,2) <= channel2Max) & ...
     (I(:,:,3) >= channel3Min ) & (I(:,:,3) <= channel3Max);
 
-[B,L] = bwboundaries(BW, 'noholes');
 
 %  Determine objects properties
-STATS = regionprops(L, 'all');
-ObjectCentroid = STATS.Centroid;
+[B,L] = bwboundaries(BW, 'noholes');
+
+
+stat = regionprops(L,'Centroid','Area','PixelIdxList');
+
+[maxValue,index] = max([stat.Area]);
+ObjCentroid = stat(index).Centroid;
+
+BW(stat(index).PixelIdxList)=0;
   %threshold the image to remove shadows (and only show dark parts of kilobots)
     [centers, radii] = imfindcircles(BW,[10 19],'ObjectPolarity','bright','Sensitivity',0.92 );
     
@@ -132,8 +138,8 @@ ObjectCentroid = STATS.Centroid;
     %%%%%TODO: find the goal With the policy.
     indX = floor(M(1,1)/scale);
     indY = floor(M(1,2)/scale);
-    currgoalX = indX + movesX(indY,indX);
-    currgoalY = indY + movesY(indY,indX);
+    currgoalX = M(1,1) + movesX(indY,indX);
+    currgoalY = M(1,2) + movesY(indY,indX);
     
     if M(1,1) > currgoalX* scale+epsilon
         writeDigitalPin(a,RELAY3,1);
