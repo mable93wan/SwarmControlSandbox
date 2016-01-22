@@ -229,9 +229,19 @@ Illustration of Alg.\ \ref{alg:PosControlNRobots}, $n$ robot position control  u
 
 
 \subsection{Controlling Covariance Using Wall Friction}
+We can use friction to control covariance of the swarm. 
 
-
-
+\begin{algorithm}
+\caption{Swarm Covariance Control With Wall Friction}\label{alg:CovCont}
+\begin{algorithmic}[1]
+\Require Swarm is Gaussian Distributed(in limit it is uniformly distributed)
+\Require L is the length of the $x$ of the workspace
+\While $\bar{x}< L - \sigma_x(t)$
+\State Go Left
+\EndWhile
+\State Go Up for ...
+\end{algorithmic}
+\end{algorithm}
 
 
 
