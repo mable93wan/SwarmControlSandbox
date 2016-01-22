@@ -61,7 +61,7 @@ while success == false
     end
     end
 end
-    if(toc(t0) > 310)
+    if(toc(t0) >800)
         success = true;
         figure
         plot(drawTime(:,2), drawTime(:,1));
