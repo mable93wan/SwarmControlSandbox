@@ -1,4 +1,4 @@
-\begin{thebibliography}{16}
+\begin{thebibliography}{21}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -30,10 +30,27 @@ Aaron Becker, Ouajdi Felfoul, and Pierre~E Dupont.
 \newblock In \emph{Intelligent Robots and Systems (IROS 2014), 2014 IEEE/RSJ
   International Conference on}, pages 2017--2023. IEEE, 2014.
 
-\bibitem[EGERSTEDT(2001)]{egerstedt2001formation}
-M~EGERSTEDT.
+\bibitem[Donald et~al.(2013)Donald, Levey, Paprotny, and Rus]{Donald2013}
+Bruce~R Donald, Christopher~G Levey, Igor Paprotny, and Daniela Rus.
+\newblock Planning and control for microassembly of structures composed of
+  stress-engineered mems microrobots.
+\newblock \emph{The International Journal of Robotics Research}, 32\penalty0
+  (2):\penalty0 218--246, 2013.
+\newblock URL \url{http://ijr.sagepub.com/content/32/2/218.abstract}.
+
+\bibitem[Egerstedt and Hu(2001)]{egerstedt2001formation}
+Magnus Egerstedt and Xiaoming Hu.
 \newblock Formation constrained multi-agent control.
 \newblock \emph{IEEE Trans. Robotics Automat.}, 17:\penalty0 947--951, 2001.
+
+\bibitem[Ghosh and Fischer(2009)]{Ghosh2009}
+Ambarish Ghosh and Peer Fischer.
+\newblock Controlled propulsion of artificial magnetic nanostructured
+  propellers.
+\newblock \emph{Nano Letters}, 9\penalty0 (6):\penalty0 2243--2245, 2011/10/23
+  2009.
+\newblock \doi{10.1021/nl900186w}.
+\newblock URL \url{http://dx.doi.org/10.1021/nl900186w}.
 
 \bibitem[Hsieh et~al.(2008)Hsieh, Kumar, and
   Chaimowicz]{hsieh2008decentralized}
@@ -50,6 +67,20 @@ Sylvain Martel.
 \newblock Magnetotactic bacteria for the manipulation and transport of
   micro-and nanometer-sized objects.
 \newblock \emph{Micro-and Nanomanipulation Tools}, 2015.
+
+\bibitem[Martel et~al.(2014)Martel, Taherkhani, Tabrizian, Mohammadi,
+  de~Lanauze, and Felfoul]{martel2014computer}
+Sylvain Martel, Samira Taherkhani, Maryam Tabrizian, Mahmood Mohammadi, Dominic
+  de~Lanauze, and Ouajdi Felfoul.
+\newblock Computer 3d controlled bacterial transports and aggregations of
+  microbial adhered nano-components.
+\newblock \emph{Journal of Micro-Bio Robotics}, 9\penalty0 (1-2):\penalty0
+  23--28, 2014.
+
+\bibitem[Munoz et~al.(2014)Munoz, Alici, and Li]{munoz2014review}
+Fredy Munoz, Gursel Alici, and Weihua Li.
+\newblock A review of drug delivery systems for capsule endoscopy.
+\newblock \emph{Advanced drug delivery reviews}, 71:\penalty0 77--85, 2014.
 
 \bibitem[Munson et~al.(2012)Munson, Rothmayer, Okiishi, and
   Huebsch]{Munson2013}
@@ -73,6 +104,16 @@ Shiva Shahrokhi and Aaron~T. Becker.
 \newblock Stochastic swarm control with global inputs.
 \newblock In \emph{IEEE/RSJ International Conference on Intelligent Robots and
   Systems (IROS)}, page tbd, September 2015.
+
+\bibitem[Sitti et~al.(2015)Sitti, Ceylan, Hu, Giltinan, Turan, Yim, and
+  Diller]{sitti2015biomedical}
+Metin Sitti, Hakan Ceylan, Wenqi Hu, Joshua Giltinan, Mehmet Turan, Sehyuk Yim,
+  and Eric Diller.
+\newblock Biomedical applications of untethered mobile milli/microrobots.
+\newblock \emph{Proceedings of the IEEE}, 103\penalty0 (2):\penalty0 205--224,
+  Feb 2015.
+\newblock ISSN 0018-9219.
+\newblock \doi{10.1109/JPROC.2014.2385105}.
 
 \bibitem[Spears et~al.(2006)Spears, Kerr, and Spears]{spears2006physics}
 Diana Spears, Wesley Kerr, and William Spears.

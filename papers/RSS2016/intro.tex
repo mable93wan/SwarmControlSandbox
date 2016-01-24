@@ -1,6 +1,6 @@
 \section{Introduction}\label{sec:Intro}
-Micro- and nano-robots can be manufactured in large numbers.
-Our vision is for large swarms of robots remotely guided 1) through the human body, to cure disease, heal tissue, and prevent infection and 2) ex vivo to assemble structures in parallel. 
+Micro- and nano-robots can be manufactured in large numbers, see recent examples in~\citet{Donald2013},\citet{Ghosh2009}, or \citet{martel2014computer}.
+Our vision is for large swarms of robots remotely guided 1) through the human body, to cure disease, heal tissue, and prevent infection  and 2) ex vivo to assemble structures in parallel. %Both tasks are high   as described in \citet{munoz2014review} \citet{sitti2015biomedical} . 
  For each application, large numbers of micro robots are required  to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
  The biggest barrier to this vision is a lack of control techniques that can reliably exploit large populations despite high under-actuation.  
  
@@ -15,7 +15,7 @@ due to the many obstacles. This paper demonstrates how friction with walls can b
 %One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. Our previous work focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. 
 The mean position of a swarm is controllable and that, with an obstacle, the swarm's position variance orthogonal to rectangular boundary walls is also controllable
 ($\sigma_x$ and $\sigma_y$ for a workspace with axis-aligned walls). 
-The usefulness of these techniques was demonstrated by several automatic controllers. One controller steered a swarm of robots to push a larger block through a 2D maze~\citet{ShahrokhiIROS2015}. 
+The usefulness of these techniques was recently demonstrated by several automatic controllers. One controller steered a swarm of robots to push a larger block through a 2D maze~\citet{ShahrokhiIROS2015}. 
 A limitation is that variance control could only compress a swarm along the world $x$ and $y$ axes.  This means the swarm could not navigate workspaces with narrow corridors with other orientations, such as those shown in Fig.\ \ref{fig:covFriction}.
 Challenges like these require a controller that regulates the swarm's position covariance, $\sigma_{xy}$. 
 This paper proves that two orthogonal boundaries with high friction are sufficient to arbitrarily position two robots, extends this proof to prove that a rectangular workspace with high friction boundaries is sufficient to arbitrarily position a swarm of $n$ robots, implements these position control algorithms in simulation and on a hardware setup with up to 97 robots, and ends with directions for future research.
