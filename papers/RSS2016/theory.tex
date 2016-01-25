@@ -11,14 +11,14 @@ Global inputs move a swarm uniformly.
 Controlling covariance requires breaking this uniform symmetry.  A swarm inside an axis-aligned rectangular workspace can reduce variance normal to a wall by simply pushing the swarm into the boundary. Directly controlling covariance by pushing the swarm into a boundary requires changing the boundary.  An obstacle in the lower-right corner is enough to generate positive covariance.  Generating both positive and negative covariance requires additional obstacles.  Requiring special obstacle configuration also makes covariance control dependent on the local environment. 
   Instead of pushing our robots directly into a wall, this paper examines an oblique approach, by using boundaries that generate friction with the robots.  These frictional forces are  sufficient to break the symmetry caused by uniform inputs.  Robots touching a wall have a negative friction force that opposes movement along the boundary, as shown in Eq.\ \eqref{eq:frictionmodel}.  This  causes robots along the boundary to slow down compared to robots in free-space. This enables covariance control using  boundaries with arbitrary orientations. 
   
- Let the control input be a vector force $\vec{F}$ with magnitude $F$ and orientation $\theta$.  The force of friction $F_f$ is
+ Let the control input be a vector force $\vec{F}$ with magnitude $F$ and orientation $\theta$. N is the normal or perpendicular force pushing the robot and the wall together. The force of friction $F_f$ is
 \begin{align}
 N &= F \cos(\theta) \nonumber\\
 F_f &= \begin{cases}  \mu_f N, &  \mu_f N < F \sin(\theta)  \label{eq:frictionmodel} \\ 
 F \sin(\theta), & \text{else} \end{cases}  \\%\sign(F \sin(\theta) ) \cdot  \max(0, | F sin\theta |- |F_f|)
 F_{\text{\emph{forward}}} &=  F \sin(\theta) - F_f  \nonumber
 \end{align}
- Fig.~\ref{fig:friction} shows the resultant forces on two robots when one is touching a wall. As illustrated, bot experiences different net forces although each receive the same inputs.
+ Fig.~\ref{fig:friction} shows the resultant forces on two robots when one is touching a wall. As illustrated, both experiences different net forces although each receives the same inputs.
   For ease of analysis, the following algorithms assume $\mu_f$ is infinite and robots touching the wall are prevented from sliding along the wall.
 This means that if one robot is touching the wall and another robot is free, if the control input is parallel or into the wall, the touching robot will not move. 
 The next section shows how a system with friction model \eqref{eq:frictionmodel} and two walls are sufficient to arbitrarily position two robots. 
@@ -48,7 +48,7 @@ The algorithm assigns a global control input at every instance.
 
 Our algorithm uses a divide and conquer method to solve the positioning problem. 
 It finds the final position of the robots in two steps: (i) First, $|\Delta r_x - \Delta e_x |$ is reduced to zero while  $\Delta r_y$ is kept constant in Alg.~\ref{alg:XControl}. 
-(ii) Having fixed $\Delta r_x$ to $\Delta e_x$ as desired, the  algorithm next keeps $\Delta r_x$ constant and adjusts $\Delta r_y$ to $\Delta e_y$, as desired in Alg..~\ref{alg:YControl}. 
+(ii) Having fixed $\Delta r_x$ to $\Delta e_x$ as desired, the  algorithm next keeps $\Delta r_x$ constant and adjusts $\Delta r_y$ to $\Delta e_y$, as desired in Alg.~\ref{alg:YControl}. 
 Though steps (i) and (ii) are similar from an algorithmic point of view, the following subsections describe the process in detail. 
 
 Step (i): Fixing $\Delta r_x$
@@ -200,7 +200,7 @@ Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position 
 
 \State $m \gets \operatorname{ceil}(\frac{f_{ky}-r}{\epsilon})$
 \State $\beta \gets \frac{f_{ky}-r}{m}$
-\State $\alpha \gets \beta - \frac{\epsilon}{m}$
+\State $\alpha \gets \beta - \frac{r - p_{k,y}-\epsilon}{m}$
 \For{ $m$ iterations}
 \State $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ up   %move kth robot to f_{ky} and leave the rest in position.
 \EndFor
