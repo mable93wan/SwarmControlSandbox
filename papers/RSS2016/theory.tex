@@ -2,8 +2,18 @@
 \section{Theory}
 \label{sec:theory}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure*}[!htb]
+\begin{center}
+\includegraphics[width=\linewidth]{CircleFill.pdf} 
+\caption{Pushing the swarm against a circular boundary wall allows limited control of the shape of the swarm, as a function of the fill level $h$ and the commanded movement direction $\beta$. See interactive demonstration at [withheld for double-blind review].}
+\label{fig:friction}
+\end{center}
+\end{figure*} 
+
 \subsection{Controlling Covariance: Fluid Settling In a Tank}
-One very simple idea to control the shape is using the corners and walls. Smashing the swarm to the corner walls will cause some correlation between \emph{x} and \emph{y} axes. Eq. ~\ref{eq:Wall} shows the relation between number of robots and area provided and the correlation we can reach with it.
+One method to control the shape is to simply push the swarm in a given direction until the swarm conforms to the boundary.
+Smashing the swarm to the corner walls will cause some correlation between \emph{x} and \emph{y} axes. Eq. ~\ref{eq:Wall} shows the relation between number of robots and area provided and the correlation we can reach with it.
 %TODO: ADD the equation for showing the correlation Vs area, vs number of robots
  This equation shows that we are not able to reach high correlations bigger than $|0.5|$. Fig. ~\ref{fig:wallCorrelation} shows the different mean positions and correlations we are able to reach. There are ways and corridors that the swarm needs to pass and also to keep the majority of it. If we use the wall corners technique and the way needs a very high correlation to pass, a remarkable number of the swarm members will be lost, and we may lose track of them due to their small size. Meanwhile, the variance of the swarm would get bigger and bigger that it would not anymore be able to deliver sufficient payloads. For this reason we have thought another idea which uses \emph{friction} to make correlations.
 \subsection{Friction}
