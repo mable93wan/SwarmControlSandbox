@@ -151,7 +151,7 @@
 
 
 \pdfinfo{
-   /Author (Homer Simpson)
+   /Author (withheld for double-blind review)
    /Title  (Shaping a Swarm Using Wall Friction and a Shared Control Input)
    /CreationDate (D:20160129120000)
    /Subject (Simple Robots)
@@ -161,7 +161,7 @@
 \begin{document}
 
 % paper title
-\title{Shaping a Swarm\\ Using Wall Friction and a Shared Control Input}
+\title{Shaping a Swarm With a Shared Control Input\\ Using Boundary Walls and Wall Friction}
 
 % You will get a Paper-ID when submitting a pdf file to the conference system
 \author{Paper-ID [add your ID here]}
@@ -210,8 +210,22 @@
 
 \begin{abstract}
 Micro- and nano-robots hold promise for targeted drug delivery and micro-scale manufacturing.
-Due to their small size, large numbers of micro-robots are required to deliver sufficient payloads, but their small size makes it difficult to perform onboard computation or contain a power and propulsion source.  For this reason these robots are usually powered and controlled by global inputs, such as a uniform external electric or magnetic field. 
-Nevertheless, these applications require precision control of the shape and position of the robot swarm. There are different ways to control shape of the swarm, like using corner walls to make correlations in the axes of the swarm. However; with this method the correlation that can be maid is limited and we can not control the shape precisely. This paper focuses on using friction with boundary walls to break the symmetry caused by the global input.  Wall friction is used to steer two robots to arbitrary positions, and this technique is then extended to control the position of $n$ robots which are demonstrated with simulations. Finally, wall friction is used to efficiently control the covariance of a swarm of 97 hardware robots. 
+Due to their small size, large numbers of micro-robots are required to deliver sufficient payloads, but their small size makes it difficult to perform onboard computation or contain a power and propulsion source.  
+For this reason these robots are usually powered and controlled by global inputs, such as a uniform external electric or magnetic field, and every robot receives exactly the same control inputs.
+Nevertheless, these applications require precision control of the shape and position of the robot swarm. 
+Precision control requires breaking the symmetry caused by the global input.  
+
+A promising technique uses collisions with boundary walls to shape the swarm, however, the range of configurations created by conforming a swarm to a boundary wall is limited. 
+In this paper we described the set of stable configurations of a swarm in two canonical workspaces, a circle and a square. 
+
+To increase the diversity of configurations, we add wall friction to our model.  
+We provide algorithms using friction with walls to place two robots at arbitrary locations in a rectangular workspace.
+Next, we extend this algorithm to place $n$ robots at desired locations.
+We conclude with efficient techniques to control the variance of a swarm along directions not orthogonal to the boundary walls, something not possible without wall-friction. Hardware implementations with 97 robots, and simulations validate these results.
+%This paper focuses on using boundary walls and to break the symmetry caused by the global input.
+
+
+%There are different ways to control shape of the swarm, like using corner walls to make correlations in the axes of the swarm. However; with this method the correlation that can be maid is limited and we can not control the shape precisely.   Wall friction is used to steer two robots to arbitrary positions, and this technique is then extended to control the position of $n$ robots which are demonstrated with simulations. Finally, wall friction is used to efficiently control the covariance of a swarm of 97 hardware robots. 
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -233,6 +247,7 @@ Nevertheless, these applications require precision control of the shape and posi
 \input{conclusion}
 %%%%%%%%%%%%%%%
 \section*{Acknowledgments}
+Withheld for double-blind review
 %% Use plainnat to work nicely with natbib. 
 \bibliographystyle{plainnat}
 \bibliography{IEEEabrv,ShapingSwarmFrictionSharedInput,../../../RoboticSwarmControlLab/bib/aaronrefs}

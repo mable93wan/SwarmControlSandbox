@@ -1,34 +1,9 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{16}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
-
-\bibitem[Becker et~al.(2013{\natexlab{a}})Becker, Habibi, Werfel, Rubenstein,
-  and McLurkin]{Becker2013b}
-Aaron Becker, Golnaz Habibi, Justin Werfel, Michael Rubenstein, and
-  J.~McLurkin.
-\newblock Massive uniform manipulation: Controlling large populations of simple
-  robots with a common input signal.
-\newblock In \emph{IEEE/RSJ International Conference on Intelligent Robots and
-  Systems (IROS)}, pages 520--527, November 2013{\natexlab{a}}.
-
-\bibitem[Becker et~al.(2013{\natexlab{b}})Becker, Ou, Kim, Kim, and
-  Julius]{Becker2013a}
-Aaron Becker, Yan Ou, Paul Kim, MinJun Kim, and Agung Julius.
-\newblock Feedback control of many magnetized tetrahymena pyriformis cells by
-  exploiting phase inhomogeneity.
-\newblock In \emph{IEEE/RSJ International Conference on Intelligent Robots and
-  Systems (IROS)}, pages 3317--3323, November 2013{\natexlab{b}}.
-
-\bibitem[Becker et~al.(2014)Becker, Felfoul, and
-  Dupont]{becker2014simultaneously}
-Aaron Becker, Ouajdi Felfoul, and Pierre~E Dupont.
-\newblock Simultaneously powering and controlling many actuators with a
-  clinical {MRI} scanner.
-\newblock In \emph{Intelligent Robots and Systems (IROS 2014), 2014 IEEE/RSJ
-  International Conference on}, pages 2017--2023. IEEE, 2014.
 
 \bibitem[Donald et~al.(2013)Donald, Levey, Paprotny, and Rus]{Donald2013}
 Bruce~R Donald, Christopher~G Levey, Igor Paprotny, and Daniela Rus.
@@ -62,6 +37,13 @@ M~Ani Hsieh, Vijay Kumar, and Luiz Chaimowicz.
 K-Team.
 \newblock Kilobot, www.k-team.com/mobile-robotics-products/kilobot, 2015.
 
+\bibitem[Kim et~al.(2015)Kim, Becker, Ou, Julius, and Kim]{kim2015imparting}
+Paul Seung~Soo Kim, Aaron Becker, Yan Ou, Anak~Agung Julius, and Min~Jun Kim.
+\newblock Imparting magnetic dipole heterogeneity to internalized iron oxide
+  nanoparticles for microorganism swarm control.
+\newblock \emph{Journal of Nanoparticle Research}, 17\penalty0 (3):\penalty0
+  1--15, 2015.
+
 \bibitem[Martel(2015)]{martel2015magnetotactic}
 Sylvain Martel.
 \newblock Magnetotactic bacteria for the manipulation and transport of
@@ -76,11 +58,6 @@ Sylvain Martel, Samira Taherkhani, Maryam Tabrizian, Mahmood Mohammadi, Dominic
   microbial adhered nano-components.
 \newblock \emph{Journal of Micro-Bio Robotics}, 9\penalty0 (1-2):\penalty0
   23--28, 2014.
-
-\bibitem[Munoz et~al.(2014)Munoz, Alici, and Li]{munoz2014review}
-Fredy Munoz, Gursel Alici, and Weihua Li.
-\newblock A review of drug delivery systems for capsule endoscopy.
-\newblock \emph{Advanced drug delivery reviews}, 71:\penalty0 77--85, 2014.
 
 \bibitem[Munson et~al.(2012)Munson, Rothmayer, Okiishi, and
   Huebsch]{Munson2013}
@@ -98,22 +75,6 @@ M.~Rubenstein, C.~Ahler, and R.~Nagpal.
 Michael Rubenstein, Alejandro Cornejo, and Radhika Nagpal.
 \newblock Programmable self-assembly in a thousand-robot swarm.
 \newblock \emph{Science}, 345\penalty0 (6198):\penalty0 795--799, 2014.
-
-\bibitem[Shahrokhi and Becker(2015)]{ShahrokhiIROS2015}
-Shiva Shahrokhi and Aaron~T. Becker.
-\newblock Stochastic swarm control with global inputs.
-\newblock In \emph{IEEE/RSJ International Conference on Intelligent Robots and
-  Systems (IROS)}, page tbd, September 2015.
-
-\bibitem[Sitti et~al.(2015)Sitti, Ceylan, Hu, Giltinan, Turan, Yim, and
-  Diller]{sitti2015biomedical}
-Metin Sitti, Hakan Ceylan, Wenqi Hu, Joshua Giltinan, Mehmet Turan, Sehyuk Yim,
-  and Eric Diller.
-\newblock Biomedical applications of untethered mobile milli/microrobots.
-\newblock \emph{Proceedings of the IEEE}, 103\penalty0 (2):\penalty0 205--224,
-  Feb 2015.
-\newblock ISSN 0018-9219.
-\newblock \doi{10.1109/JPROC.2014.2385105}.
 
 \bibitem[Spears et~al.(2006)Spears, Kerr, and Spears]{spears2006physics}
 Diana Spears, Wesley Kerr, and William Spears.
