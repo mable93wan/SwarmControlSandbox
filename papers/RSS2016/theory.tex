@@ -58,7 +58,7 @@ TODO...
 %
 
 
-\subsection{Wall-Friction}\label{subsec:WallFriction}
+\subsection{Friction with Boundary Wall}\label{subsec:WallFriction}
 Global inputs move a swarm uniformly.  
 Controlling covariance requires breaking this uniform symmetry.  A swarm inside an axis-aligned rectangular workspace can reduce variance normal to a wall by simply pushing the swarm into the boundary. Directly controlling covariance by pushing the swarm into a boundary requires changing the boundary.  An obstacle in the lower-right corner is enough to generate positive covariance.  Generating both positive and negative covariance requires additional obstacles.  Requiring special obstacle configuration also makes covariance control dependent on the local environment. 
   Instead of pushing our robots directly into a wall, this paper examines an oblique approach, by using boundaries that generate friction with the robots.  These frictional forces are  sufficient to break the symmetry caused by uniform inputs.  Robots touching a wall have a negative friction force that opposes movement along the boundary, as shown in Eq.\ \eqref{eq:frictionmodel}.  This  causes robots along the boundary to slow down compared to robots in free-space. This enables covariance control using  boundaries with arbitrary orientations. 
@@ -86,9 +86,9 @@ The next section shows how a system with friction model \eqref{eq:frictionmodel}
 
 
 \subsection{Position control of $2$ robots using wall friction}\label{sec:PostionControl2Robots}
-This section describes an algorithm for positioning two robots and introduces concepts that will be used for multi-robot positioning.
-%Although the generalization of the proposed positioning algorithm in here is rather straightforward for multi robot systems, for the sake of simplicity we describe the algorithm designed for two robots. 
-As we can see in Alg.~\ref{alg:PosControl2Robots}, assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
+This section describes Alg.~\ref{alg:PosControl2Robots}, an algorithm that uses wall-friction to arbitrarily position two robots in a rectangular workspaces.  This algorithm  introduces concepts that will be used for multi-robot positioning. It only requires collisions with two orthogonal walls, in this case, the bottom and left walls. 
+
+Assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
 Denote the current positions of the robots  $r_1$ and $r_2$. 
 Let the subscripts $x$ and $y$ denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$. 
 The algorithm assigns a global control input at every instance.
@@ -98,29 +98,28 @@ The algorithm assigns a global control input at every instance.
  The key to the algorithm is the position-dependent friction model \eqref{eq:frictionmodel}.
  %employing the assumption we have made earlier about the walls' friction. 
 
-Our algorithm uses a divide and conquer method to solve the positioning problem. 
-It finds the final position of the robots in two steps: (i) First, $|\Delta r_x - \Delta e_x |$ is reduced to zero while  $\Delta r_y$ is kept constant in Alg.~\ref{alg:XControl}. 
-(ii) Having fixed $\Delta r_x$ to $\Delta e_x$ as desired, the  algorithm next keeps $\Delta r_x$ constant and adjusts $\Delta r_y$ to $\Delta e_y$, as desired in Alg.~\ref{alg:YControl}. 
-Though steps (i) and (ii) are similar from an algorithmic point of view, the following subsections describe the process in detail. 
+Our algorithm solves the positioning problem in two steps: 
+(i) First, $|\Delta r_x - \Delta e_x |$ is reduced to zero while  $\Delta r_y$ is kept constant in Alg.~\ref{alg:XControl}. 
+(ii) Second $|\Delta r_y - \Delta e_y |$ is reduced to zero while  $\Delta r_x$ is kept constant in Alg.~\ref{alg:YControl}. 
 
 Step (i): Fixing $\Delta r_x$
 \label{theory:step1}
-\begin{itemize}
+\begin{enumerate}
 \item Define $e'_1=(e_{1x},s_{1y})$ and $e'_2=(e_{2x},s_{2y})$. Our goal for defining $e'_1$ and $e'_2$ is to understand the direction to which robots should move in order to adjust $\Delta r_x$. Let $e'_{\rm{top}} = \arg \max_i e'_{iy}$ and $e'_{\rm{bottom}} = \arg \min_i e'_{iy}$. Now if $e'_{\rm{top},x}-e'_{\rm{bottom},x}>0$, then the global input to both robots would be toward left direction and if $e'_{\rm{top},x}-e'_{\rm{bottom},x}<0$, then the global input to both robots would be toward right direction. The two robots continue their horizontal path until one of them reaches the $\epsilon$-neighborhood of one of the left or right walls.
 \item At this step, let $y_{\min} = \min_i r_{iy}$, i.e., $y_{\min}$ is the minimum height of the two robots. We move both robots downward by the amount of $y_{\min}$ such that one of the robots would touch the bottom wall and hence friction force will not let that robot to move left or right.
 \item The fact that the friction force of the bottom wall would not let the lower robot to move right or left will let the other robot to move to right and left freely to adjust $\Delta r_x $ according to $\Delta e_x$.
-\item Finally, even if with the free move of the upper robot $\Delta r_x$ is not set to the $\Delta e_x$, we can run the Step (i) (as described in the previous paragraphs) again to adjust the $\Delta r_x$. It is easy to show that it is guaranteed that we can adjust $\Delta r_x$ to $\Delta e_x$ in only two iterations.
-\end{itemize}
+\item  If after the free move of the upper robot $\Delta r_x$ is not $\Delta e_x$, Step (i) will be repeated.  No more than two iterations of step (i) are required.
+\end{enumerate}
 
 Step (ii): Fixing $\Delta r_y$
-Now that we have adjusted the difference in robots' positions along one axis, we focus to do the same on the other axis as well. Therefore, similar to Section \ref{theory:step1}, we employ the following steps:
-\begin{itemize}
-\item Let $s'_1$ and $s'_2$ be the points we derived at the end of the steps in Section \ref{theory:step1}. 
+Now that $\Delta r_x$ is corrected, $\Delta r_y$ must be corrected:
+\begin{enumerate}
+\item Let $s'_1$ and $s'_2$ be the points derived at the end of  step 1. 
 \item Define $e''_1=(s'_{1x},e_{1y})$ and $e''_2=(s'_{2x},e_{2y})$. We define $e''_1$ and $e''_2$ to understand the direction to which robots should move in order to adjust $\Delta r_y$. Let $e''_{\rm{right}} = \arg \max_i e''_{ix}$ and $e''_{\rm{left}} = \arg \min_i e'_{ix}$. Now if $e''_{\rm{right},y}-e''_{\rm{left},y}>0$, then the global input to both robots would be toward down direction and if $e''_{\rm{right},y}-e''_{\rm{left},y}<0$, then the global input to both robots would be toward up direction. The two robots continue their vertical path until one of them reaches the $\epsilon$-neighborhood of one of the top or bottom walls.
 \item At this step, let $x_{\min} = \min_i r_{ix}$, i.e., $x_{\min}$ is the minimum distance of the two robots from the origin along the $x$-axis. We move both robots to the left by the amount of $x_{\min}$ such that one of the robots would touch the left wall and hence friction force will not let that robot to move up or down.
 \item The fact that the friction force of the left wall would not let one of the robots to move up or down will let the other robot to move to up or down freely to adjust $\Delta r_y $ according to $\Delta e_y$.
-\item Finally, even if with the free move of the robot which is not touching the wall  $\Delta r_y$ is not set to the $\Delta e_y$, we can run the Step (i) (as described in the previous paragraphs) again to adjust the $\Delta r_y$. It is easy to show that it is guaranteed that we can adjust $\Delta r_y$ to $\Delta e_y$ in only two iterations.
-\end{itemize}
+\item  If after the free move of the upper robot $\Delta r_y$ is not $\Delta e_y$, Step (ii) will be repeated.  No more than two iterations of step (ii) are required.
+\end{enumerate}
 Once $\Delta r_x$ and $\Delta r_y$ are set to $\Delta e_x$ and $\Delta e_y$, we can use global input to easily move both robots from $r_1$ and $r_2$ toward $e_1$ and $e_2$. 
 
 
