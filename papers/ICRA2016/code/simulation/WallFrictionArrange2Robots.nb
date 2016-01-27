@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     69083,       1494]
-NotebookOptionsPosition[     68378,       1463]
-NotebookOutlinePosition[     68735,       1479]
-CellTagsIndexPosition[     68692,       1476]
+NotebookDataLength[     69159,       1495]
+NotebookOptionsPosition[     68452,       1464]
+NotebookOutlinePosition[     68811,       1480]
+CellTagsIndexPosition[     68768,       1477]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -410,8 +410,8 @@ Cell[BoxData[
            RowBox[{
            "moves", ",", "currPosTop", ",", "currPosBottom", ",", "endPosTop",
              ",", "endPosBottom", ",", "pathTop", ",", "pathBottom"}], "}"}], 
-          "]"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
-   "\[IndentingNewLine]", "\n", 
+          "]"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], "\n", 
+   "\[IndentingNewLine]", 
    RowBox[{
     RowBox[{"achieveDesiredYspacing", "[", 
      RowBox[{"ps1_", ",", "ps2_", ",", "pe1_", ",", "pe2_"}], "]"}], ":=", 
@@ -1310,10 +1310,11 @@ Cell[BoxData[
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`pe1$$ = {0.389, 
-    0.666}, $CellContext`pe2$$ = {0.891, 0.432}, $CellContext`progress$$ = 
-    1., $CellContext`ps1$$ = {0.393, 0.314}, $CellContext`ps2$$ = {0.211, 
-    0.538}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+   DynamicModuleBox[{$CellContext`pe1$$ = {0.919, 
+    0.9500000000000001}, $CellContext`pe2$$ = {0.026000000000000002`, 
+    0.05}, $CellContext`progress$$ = 1., $CellContext`ps1$$ = {
+    0.051000000000000004`, 0.022}, $CellContext`ps2$$ = {0.9540000000000001, 
+    0.914}, Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
     Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
     1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
        Hold[$CellContext`progress$$], 0.2}, 0, 1}, {{
@@ -1330,9 +1331,9 @@ Cell[BoxData[
         Rational[1, 5], 
         Rational[1, 9]}}, {0, 0}, {1, 1}}}, Typeset`size$$ = {
     360., {177., 182.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
-    Typeset`skipInitDone$$ = True, $CellContext`progress$1412737$$ = 
-    0, $CellContext`ps1$1412738$$ = {0, 0}, $CellContext`ps2$1412739$$ = {0, 
-    0}, $CellContext`pe1$1412740$$ = {0, 0}, $CellContext`pe2$1412741$$ = {0, 
+    Typeset`skipInitDone$$ = True, $CellContext`progress$756834$$ = 
+    0, $CellContext`ps1$756835$$ = {0, 0}, $CellContext`ps2$756836$$ = {0, 
+    0}, $CellContext`pe1$756837$$ = {0, 0}, $CellContext`pe2$756838$$ = {0, 
     0}}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      1, StandardForm, "Variables" :> {$CellContext`pe1$$ = {
@@ -1344,11 +1345,11 @@ Cell[BoxData[
           Rational[1, 8]}, $CellContext`ps2$$ = {
           Rational[2, 3], 
           Rational[1, 4]}}, "ControllerVariables" :> {
-        Hold[$CellContext`progress$$, $CellContext`progress$1412737$$, 0], 
-        Hold[$CellContext`ps1$$, $CellContext`ps1$1412738$$, {0, 0}], 
-        Hold[$CellContext`ps2$$, $CellContext`ps2$1412739$$, {0, 0}], 
-        Hold[$CellContext`pe1$$, $CellContext`pe1$1412740$$, {0, 0}], 
-        Hold[$CellContext`pe2$$, $CellContext`pe2$1412741$$, {0, 0}]}, 
+        Hold[$CellContext`progress$$, $CellContext`progress$756834$$, 0], 
+        Hold[$CellContext`ps1$$, $CellContext`ps1$756835$$, {0, 0}], 
+        Hold[$CellContext`ps2$$, $CellContext`ps2$756836$$, {0, 0}], 
+        Hold[$CellContext`pe1$$, $CellContext`pe1$756837$$, {0, 0}], 
+        Hold[$CellContext`pe2$$, $CellContext`pe2$756838$$, {0, 0}]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -1457,12 +1458,12 @@ $CellContext`achieveDesiredYspacing[
    3.6513162550406647`*^9, 3.6513162741322927`*^9}, 3.6513211072597523`*^9, 
    3.65132141765718*^9, 3.651321481800065*^9, 3.651321568876031*^9, {
    3.651322114007799*^9, 3.651322130060381*^9}, 3.651322487525815*^9, 
-   3.6513226938260593`*^9}]
+   3.6513226938260593`*^9, 3.662916127409278*^9}]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{1263, 694},
-WindowMargins->{{8, Automatic}, {Automatic, 0}},
+WindowMargins->{{Automatic, -26}, {Automatic, 0}},
 FrontEndVersion->"10.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September 9, \
 2014)",
 StyleDefinitions->"Default.nb"
@@ -1486,7 +1487,7 @@ Cell[1450, 39, 36477, 792, 2069, "Input",
 Cell[CellGroupData[{
 Cell[37952, 835, 22733, 472, 658, "Input",
  InitializationCell->True],
-Cell[60688, 1309, 7662, 150, 470, "Output"]
+Cell[60688, 1309, 7736, 151, 470, "Output"]
 }, Open  ]]
 }, Open  ]]
 }

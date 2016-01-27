@@ -93,6 +93,14 @@
          bodyDef.position.Set(1120/mapScale+1.8, 13); // right side
          world.CreateBody(bodyDef).CreateFixture(fixDef);
 
+          //block bottom right
+          fixDef.shape.SetAsBox(4,4);//width, height
+          bodyDef.position.Set(34, 18); 
+          world.CreateBody(bodyDef).CreateFixture(fixDef);
+         // //block bottom left
+          bodyDef.position.Set(3.5, 18); //left
+          world.CreateBody(bodyDef).CreateFixture(fixDef);
+
          
          //create some robots
          bodyDef.type = b2Body.b2_dynamicBody;
@@ -102,12 +110,12 @@
          }
 
 
-         var robotrad = 0.2;
-	  var numrobots = 144;// Math.floor(20/(4*robotrad*robotrad));
-	  var rowLength = 12;//Math.floor(5/(2*robotrad));
+         var robotrad = 0.5;
+	  var numrobots = 80;// Math.floor(20/(4*robotrad*robotrad));
+	  var rowLength = 15;//Math.floor(5/(2*robotrad));
 
 
-	  fixDef.density = 1.0;
+	  fixDef.density = 0.10;
 	  fixDef.friction = 5.0;
          fixDef.restitution = 0.1;  //bouncing value
          var m_Robot = new Array();
@@ -123,8 +131,8 @@
             // bodyDef.position.y = 630/60+10*rnd2();
 
               ///  put the robots in a loose rectangle
-              bodyDef.position.x = 14+(i%rowLength)*4*robotrad;
-              bodyDef.position.y = 15-Math.floor(i/rowLength)*4*robotrad
+              bodyDef.position.x = 2+(i%rowLength)*3*robotrad;
+              bodyDef.position.y = 12-Math.floor(i/rowLength)*3*robotrad
 
              ///  put the robots in a tight rectangle
          //   bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
@@ -227,45 +235,6 @@
 
          	var impulseV=new b2Vec2(0,0);
          	var impulseVtemp=new b2Vec2(0,0);
-<<<<<<< HEAD
-=======
-         	var day = new Date();
-         	var CycleForCov = 18;
-         	var speed = 50;
-
-			if(overall_time == null) // set the start time
-			{
-				overall_time = day.getTime();
-			}
-			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
-         	if(elapsedTimeSec< CycleForCov/9)
-			{
-					impulseV.x = 0;
-					impulseV.y = 100;
-					//console.log("something")
-
-			}
-			else if (elapsedTimeSec< CycleForCov/3)
-			{
-					impulseV.x = -speed;
-					impulseV.y = 0;
-			}
-			else if (elapsedTimeSec < CycleForCov/2)
-			{
-					impulseV.x = 0;
-					impulseV.y = -speed;
-			}
-			else if (elapsedTimeSec<CycleForCov*3/4)
-			{
-					impulseV.x = -speed*2;
-					impulseV.y = speed;
-			}
-			else if (elapsedTimeSec<CycleForCov+2)
-			{
-					impulseV.x = 0;
-					impulseV.y = -speed;
-			}
->>>>>>> origin/master
 		var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
 		stringCtl = "nothing";
 		
@@ -290,30 +259,30 @@
 			var ry = m_Robot[i].GetPosition().y;
 			//TODO: add boundary-dependant friction HERE
 			var fricDist = 50;
-			var xSize = 1100;
+			var xSize = 1110;
 			var ySize = 610;
 			var fricZone=20;
 			var fricC = 0.0;  //must be between 0 and 1.fricC==0 inf friction, fricC==1 no wall friction
 
-			if( rx > (xSize-fricDist)/mapScale && impulseV.x>= 0)
-				{	impulseVtemp.y -= impulseVtemp.y*(1-fricC)
-					*(rx-(xSize-fricDist)/mapScale)
-					*(mapScale/fricDist);}
-			if( rx < fricDist/mapScale && impulseV.x<= 0)
-				{	impulseVtemp.y -= impulseVtemp.y*(1-fricC)*rx*mapScale/fricDist;}
-			if( ry > (ySize-fricDist)/mapScale && impulseV.y>= 0)
-				{	impulseVtemp.x -= impulseVtemp.x*(1-fricC)
-					*(ry-(ySize-fricDist)/mapScale)
-					*(mapScale/fricDist);}
-			if( ry < fricDist/mapScale && impulseV.y<= 0)
-				{	impulseVtemp.x -= impulseVtemp.x*(1-fricC)*ry*mapScale/fricDist;}
+			// if( rx > (xSize-fricDist)/mapScale && impulseV.x>= 0)
+			// 	{	impulseVtemp.y -= impulseVtemp.y*(1-fricC)
+			// 		*(rx-(xSize-fricDist)/mapScale)
+			// 		*(mapScale/fricDist);}
+			// if( rx < fricDist/mapScale && impulseV.x<= 0)
+			// 	{	impulseVtemp.y -= impulseVtemp.y*(1-fricC)*rx*mapScale/fricDist;}
+			// if( ry > (ySize-fricDist)/mapScale && impulseV.y>= 0)
+			// 	{	impulseVtemp.x -= impulseVtemp.x*(1-fricC)
+			// 		*(ry-(ySize-fricDist)/mapScale)
+			// 		*(mapScale/fricDist);}
+			// if( ry < fricDist/mapScale && impulseV.y<= 0)
+			// 	{	impulseVtemp.x -= impulseVtemp.x*(1-fricC)*ry*mapScale/fricDist;}
 
 			// make walls sticky [works]
-			if( rx > xSize/mapScale && impulseV.x>= 0)
+			if( rx > (xSize-fricZone)/mapScale && impulseV.x>= 0)
 				{	impulseVtemp.y *= fricC;}
 			if( rx < fricZone/mapScale && impulseV.x<= 0)
 				{	impulseVtemp.y *= fricC;}
-			if( ry > ySize/mapScale && impulseV.y>= 0)
+			if( ry > (ySize-fricZone)/mapScale && impulseV.y>= 0)
 				{	impulseVtemp.x *= fricC;}
 			if( ry < fricZone/mapScale && impulseV.y<= 0)
 				{	impulseVtemp.x *= fricC;}
@@ -486,24 +455,24 @@
 				rotate: angle2
 			})
 			.restoreCanvas();
-			if(cov_desired == cov_desired_positive){
-				$("canvas").drawEllipse({
-					strokeStyle: "green",
-					strokeWidth: 5,
-					x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
-					width: 3 * 30*Math.sqrt(minvar_xp1), height: 3 * 30*Math.sqrt(minvar_yp1),
-					rotate: angle_min_variance1
-				}).restoreCanvas();
-			}
-			else{
-				$("canvas").drawEllipse({
-					strokeStyle: "green",
-					strokeWidth: 5,
-					x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
-					width: 3 * 30*Math.sqrt(minvar_xp2), height: 3 * 30*Math.sqrt(minvar_yp2),
-					rotate: angle_min_variance2
-				}).restoreCanvas();
-			}
+			// if(cov_desired == cov_desired_positive){
+			// 	$("canvas").drawEllipse({
+			// 		strokeStyle: "green",
+			// 		strokeWidth: 5,
+			// 		x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
+			// 		width: 3 * 30*Math.sqrt(minvar_xp1), height: 3 * 30*Math.sqrt(minvar_yp1),
+			// 		rotate: angle_min_variance1
+			// 	}).restoreCanvas();
+			// }
+			// else{
+			// 	$("canvas").drawEllipse({
+			// 		strokeStyle: "green",
+			// 		strokeWidth: 5,
+			// 		x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
+			// 		width: 3 * 30*Math.sqrt(minvar_xp2), height: 3 * 30*Math.sqrt(minvar_yp2),
+			// 		rotate: angle_min_variance2
+			// 	}).restoreCanvas();
+			// }
 
 
 
