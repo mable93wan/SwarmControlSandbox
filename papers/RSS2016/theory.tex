@@ -18,28 +18,29 @@ This section examines the mean, variance,  covariance and correlation of a very 
 
 The range of possible angles for the global input angle $\beta $ is [0,2$\pi $). In this range of angles, the swarm assumes eight different polygonal shapes. The shapes alternate between triangles and trapezoids when the area $A$$<$1/2, and alternate between squares with one corner removed and trapezoids when $A$$>$1/2.
 
-Computing the means, variances, covariance, and correlation requires integrating over the area containing the swarm.  One way is to use an indicator function $f(x,y)$ that returns 1 if inside the region containing the swarm, and 0 else. The formulas are as follows, integrated over the unit square with $x$ and $y$ from 0 to 1:
+Computing the means, variances, covariance, and correlation requires integrating over the area containing the swarm.  One way is to use an indicator function $\bm{1}_A(x,y)$ that returns 1 if inside the region containing the swarm, and 0 else. The formulas for means $(\bar{x},\bar{y})$, covariance $(\sigma^2_x,\sigma^2_y,\sigma_{xy})$, and correlation $\rho_{xy}$ are as follows, integrated over the unit square with $x$ and $y$ from 0 to 1:
+
 \begin{equation}\label{eq:meanInSquareWorkspace}
-\text{mean}_x=\frac{\int \int x f(x,y)dxdy}{A}
+\bar{x} =\frac{\iint x \bm{1}_A(x,y)dxdy}{A}
 \text{, }
-\text{mean}_y=\frac{\int \int y f(x,y)dxdy}{A}
+\bar{y}=\frac{\iint y \bm{1}_A(x,y)dxdy}{A}
 \end{equation}
 
 \begin{align}\label{eq:varInSquareWorkspace}
-\text{variance}_x &=\frac{\int \int \left(x-\text{mean}_x\right)^2 f(x,y) dx dy}{A}, \\
-\text{variance}_y &=\frac{\int \int \left(y-\text{mean}_y\right)^2 f(x,y) dx dy}{A}
+\sigma^2_x &=\frac{\iint \left(x-\bar{x}\right)^2 \bm{1}_A(x,y) dx dy}{A}, \\
+\sigma^2_y &=\frac{\iint  \left(y-\bar{y}\right)^2 \bm{1}_A(x,y) dx dy}{A}
 \end{align}
 
 \begin{align}\label{eq:covAndcorrInSquareWorkspace}
-\text{covariance}_{xy} &= \frac{\int \int \left(x-\text{mean}_x\right) \left(y-\text{mean}_y\right) f(x,y) dx dy}{A},\\
-\text{corellation}_{xy} &= \frac{\text{covariance}_{xy}}{\sqrt{\text{variance}_x} \sqrt{\text{variance}_y}}
+\sigma_{xy} &= \frac{\iint  \left(x-\bar{x}_x\right) \left(y-\bar{y}\right) \bm{1}_A(x,y) dx dy}{A},\\
+\rho_{xy} &= \frac{\sigma^2_x}{\sigma_x\sigma_y}
 \end{align}
 
 Rather than using an indicator function, the region of integration can be changed to only include the polygon containing the swarm. If the force angle is $\beta$, the mean when the swarm is in the lower-left corner is:
 \begin{align}\label{eq:meanInSquareWorkspaceLL}
-x(A,\beta) &= \frac{\int_0^{\sqrt{2} \sqrt{-A \tan (\beta )}} \left(\int_0^{\sqrt{2} \sqrt{-A \cot (\beta )}+x \cot (\beta )} x \, dy\right) \, dx}{A} \nonumber \\
+\bar{x}(A,\beta) &= \frac{\int_0^{\sqrt{2} \sqrt{-A \tan (\beta )}} \left(\int_0^{\sqrt{2} \sqrt{-A \cot (\beta )}+x \cot (\beta )} x \, dy\right) \, dx}{A} \nonumber \\
 	&=\frac{1}{3} \sqrt{2} \sqrt{A \tan (\beta )}\\
-y(A,\beta) &= \frac{\int_0^{\sqrt{2} \sqrt{-A \tan (\beta )}} \left(\int_0^{\sqrt{2} \sqrt{-A \cot (\beta )}+x \cot (\beta )} y \, dy\right) \, dx}{A} \nonumber\\
+\bar{y}(A,\beta) &= \frac{\int_0^{\sqrt{2} \sqrt{-A \tan (\beta )}} \left(\int_0^{\sqrt{2} \sqrt{-A \cot (\beta )}+x \cot (\beta )} y \, dy\right) \, dx}{A} \nonumber\\
 	&=\frac{1}{3} \sqrt{2} \sqrt{A \cot (\beta )}
 \end{align}
 The full equations are included in the appendix, and are summarized in Fig.~\ref{fig:CircleFill}. A few highlights are that the correlation is maximized when the swarm is in a triangular shape, and is $\pm$1/2. The covariance of triangle is always $\pm(A/18)$. Variance is maximized in one direction and minimized in the other when the swarm is in a rectangular shape. The range of mean positions are maximized when $A$ is small.
