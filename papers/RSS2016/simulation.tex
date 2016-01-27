@@ -30,17 +30,6 @@ As we pointed out earlier, adjusting each of $\Delta r_x$ and $\Delta r_y$ needs
 \begin{figure*}
 \centering
 \renewcommand{\figwid}{0.4\columnwidth}
-{\begin{overpic}[width =\figwid]{two_1.jpg}\put(45,75){$t$  = 0 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{two_2.jpg}\put(45,75){$t$  = 0.25 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{two_3.jpg}\put(45,75){$t$  = 0.5 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{two_4.jpg}\put(45,75){$t$  = 0.75 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{two_5.jpg}\put(45,75){$t$  = 1 s}
-\end{overpic}}\\
-\vspace{.5em}
 {\begin{overpic}[width =\figwid]{one_1.jpg}\put(45,75){$t$ = 0 s}
 \end{overpic}
 \begin{overpic}[width =\figwid]{one_2.jpg}\put(45,75){$t$ = 0.25 s}
@@ -50,10 +39,31 @@ As we pointed out earlier, adjusting each of $\Delta r_x$ and $\Delta r_y$ needs
 \begin{overpic}[width =\figwid]{one_4.jpg}\put(45,75){$t$  = 0.75 s}
 \end{overpic}
 \begin{overpic}[width =\figwid]{one_5.jpg}\put(45,75){$t$  = 1 s}
+\end{overpic}}\\
+%{\begin{overpic}[width =\figwid]{two_1.jpg}\put(45,75){$t$  = 0 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_2.jpg}\put(45,75){$t$  = 0.25 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_3.jpg}\put(45,75){$t$  = 0.5 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_4.jpg}\put(45,75){$t$  = 0.75 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_5.jpg}\put(45,75){$t$  = 1 s}
+%\end{overpic}}\\
+\vspace{.5em}
+{\begin{overpic}[width =\figwid]{S3_1.jpg}\put(45,75){$t$ = 0 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_2.jpg}\put(45,75){$t$ = 0.25 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_3.jpg}\put(45,75){$t$  = 0.5 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_4.jpg}\put(45,75){$t$  = 0.75 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_5.jpg}\put(45,75){$t$  = 1 s}
 \end{overpic}}
 \vspace{-1em}
 
-\caption{\label{fig:shapeControlMathematica1}{Frames from an implementation of Alg.\ \ref{alg:PosControl2Robots}: two robot positioning using walls with infinite friction.
+\caption{\label{fig:shapeControlMathematica1}{Frames from an implementation of Alg.\ \ref{alg:PosControl2Robots}: two robot positioning using walls with infinite friction. The algorithm only requires friction along the bottom and left walls.
 Robot initial positions are shown by a crosshair, and final positions by a circled crosshair.  Dashed lines show the shortest route if robots could be controlled independently.  The path given by  Alg.\ \ref{alg:PosControl2Robots} is shown with solid arrows.
 The bottom row shows an extreme case where the robots must switch position.
 }
