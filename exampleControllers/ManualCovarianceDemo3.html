@@ -162,33 +162,33 @@
         	update();
         })();
 
-        document.addEventListener( "keydown", function(e){
-        	console.log(e.keyCode);
-        	if ( timeStart == null)
-        		{	var day = new Date();
-        			timeStart= day.getTime();
-        		}
-        		switch (e.keyCode) {
-        			case 37 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-        			case 39 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-        			case 38 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-        			case 40 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-        			case 65 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-        			case 68 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-        			case 87 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-        			case 83 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-        		}} , false );
-        document.addEventListener( "keyup", function(e){
-        	switch (e.keyCode) {
-        		case 37 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-        		case 39 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-        		case 38 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-        		case 40 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-        		case 65 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-        		case 68 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-        		case 87 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-        		case 83 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-        	}} , false );
+        // document.addEventListener( "keydown", function(e){
+        // 	console.log(e.keyCode);
+        // 	if ( timeStart == null)
+        // 		{	var day = new Date();
+        // 			timeStart= day.getTime();
+        // 		}
+        // 		switch (e.keyCode) {
+        // 			case 37 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
+        // 			case 39 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 			case 38 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
+        // 			case 40 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
+        // 			case 65 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
+        // 			case 68 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 			case 87 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
+        // 			case 83 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
+        // 		}} , false );
+        // document.addEventListener( "keyup", function(e){
+        // 	switch (e.keyCode) {
+        // 		case 37 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
+        // 		case 39 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 		case 38 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
+        // 		case 40 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
+        // 		case 65 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
+        // 		case 68 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 		case 87 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
+        // 		case 83 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
+        // 	}} , false );
 
 	 // AREA QUERY
 
@@ -227,8 +227,7 @@
 
          	var impulseV=new b2Vec2(0,0);
          	var impulseVtemp=new b2Vec2(0,0);
-<<<<<<< HEAD
-=======
+
          	var day = new Date();
          	var CycleForCov = 18;
          	var speed = 50;
@@ -265,18 +264,18 @@
 					impulseV.x = 0;
 					impulseV.y = -speed;
 			}
->>>>>>> origin/master
-		var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
-		stringCtl = "nothing";
+
+		//var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
+		//stringCtl = "nothing";
 		
-		if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
-			{impulseV.x -= impulse;stringCtl = stringCtl+" left";} 
-		if(m_controlState & ROBOT_INPUT.ROBOT_RIGHT)
-			{impulseV.x += impulse;stringCtl = stringCtl+" right";}
-		if(m_controlState & ROBOT_INPUT.ROBOT_FWD)
-		{impulseV.y -= impulse;stringCtl = stringCtl+" fwd";} // y-axis is inverted in webpage
-	if(m_controlState & ROBOT_INPUT.ROBOT_BWD)
-		{impulseV.y += impulse;stringCtl = stringCtl+" bwd";}
+	// 	if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
+	// 		{impulseV.x -= impulse;stringCtl = stringCtl+" left";} 
+	// 	if(m_controlState & ROBOT_INPUT.ROBOT_RIGHT)
+	// 		{impulseV.x += impulse;stringCtl = stringCtl+" right";}
+	// 	if(m_controlState & ROBOT_INPUT.ROBOT_FWD)
+	// 	{impulseV.y -= impulse;stringCtl = stringCtl+" fwd";} // y-axis is inverted in webpage
+	// if(m_controlState & ROBOT_INPUT.ROBOT_BWD)
+	// 	{impulseV.y += impulse;stringCtl = stringCtl+" bwd";}
 
 		//console.log(m_Robot.length);  there are 20.
 		// apply the control policy to all robots
