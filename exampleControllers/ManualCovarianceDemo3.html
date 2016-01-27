@@ -23,6 +23,7 @@
       // detect when robots at goals, stop timer
       var ROBOT_INPUT = {
       	ROBOT_IDLE : 0x0,
+      	//ROBOT_PROP : 0x01, //proportional control
       	ROBOT_LEFT    : 0x1,
       	ROBOT_RIGHT   : 0x2,
       	ROBOT_FWD     : 0x4,
@@ -30,10 +31,14 @@
       	IMPULSE_ROT   : 0x10,
       	IMPULSE_TRANS : 0x20,
       	WAIT          : 0x40
+
       }; 
 
       var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
+      var m_ControlInputX = 0;
+      var m_ControlInputY = 0;
       var mapScale = 30;
+
 
       function init() {
       	
@@ -162,33 +167,33 @@
         	update();
         })();
 
-        document.addEventListener( "keydown", function(e){
-        	console.log(e.keyCode);
-        	if ( timeStart == null)
-        		{	var day = new Date();
-        			timeStart= day.getTime();
-        		}
-        		switch (e.keyCode) {
-        			case 37 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-        			case 39 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-        			case 38 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-        			case 40 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-        			case 65 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-        			case 68 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-        			case 87 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-        			case 83 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-        		}} , false );
-        document.addEventListener( "keyup", function(e){
-        	switch (e.keyCode) {
-        		case 37 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-        		case 39 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-        		case 38 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-        		case 40 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-        		case 65 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-        		case 68 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-        		case 87 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-        		case 83 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-        	}} , false );
+        // document.addEventListener( "keydown", function(e){
+        // 	console.log(e.keyCode);
+        // 	if ( timeStart == null)
+        // 		{	var day = new Date();
+        // 			timeStart= day.getTime();
+        // 		}
+        // 		switch (e.keyCode) {
+        // 			case 37 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
+        // 			case 39 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 			case 38 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
+        // 			case 40 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
+        // 			case 65 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
+        // 			case 68 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 			case 87 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
+        // 			case 83 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
+        // 		}} , false );
+        // document.addEventListener( "keyup", function(e){
+        // 	switch (e.keyCode) {
+        // 		case 37 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
+        // 		case 39 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 		case 38 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
+        // 		case 40 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
+        // 		case 65 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
+        // 		case 68 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
+        // 		case 87 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
+        // 		case 83 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
+        // 	}} , false );
 
 	 // AREA QUERY
 
@@ -227,17 +232,54 @@
 
          	var impulseV=new b2Vec2(0,0);
          	var impulseVtemp=new b2Vec2(0,0);
+         	var day = new Date();
+         	var CycleForCov = 18;
+         	var speed = 50;
+
+			if(overall_time == null) // set the start time
+			{
+				overall_time = day.getTime();
+			}
+			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
+         	if(elapsedTimeSec< CycleForCov/9)
+			{
+					impulseV.x = 0;
+					impulseV.y = speed*2;
+					//console.log("something")
+
+			}
+			else if (elapsedTimeSec< CycleForCov/3)
+			{
+					impulseV.x = -speed;
+					impulseV.y = 0;
+			}
+			else if (elapsedTimeSec < CycleForCov/2)
+			{
+					impulseV.x = 0;
+					impulseV.y = -speed;
+			}
+			else if (elapsedTimeSec<CycleForCov*3/4)
+			{
+					impulseV.x = -speed*2;
+					impulseV.y = speed;
+			}
+			else if (elapsedTimeSec<CycleForCov+2)
+			{
+					impulseV.x = 0;
+					impulseV.y = -speed;
+			}
 		var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
 		stringCtl = "nothing";
+
 		
-		if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
-			{impulseV.x -= impulse;stringCtl = stringCtl+" left";} 
-		if(m_controlState & ROBOT_INPUT.ROBOT_RIGHT)
-			{impulseV.x += impulse;stringCtl = stringCtl+" right";}
-		if(m_controlState & ROBOT_INPUT.ROBOT_FWD)
-		{impulseV.y -= impulse;stringCtl = stringCtl+" fwd";} // y-axis is inverted in webpage
-	if(m_controlState & ROBOT_INPUT.ROBOT_BWD)
-		{impulseV.y += impulse;stringCtl = stringCtl+" bwd";}
+	// 	if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
+	// 		{impulseV.x -= impulse;stringCtl = stringCtl+" left";} 
+	// 	if(m_controlState & ROBOT_INPUT.ROBOT_RIGHT)
+	// 		{impulseV.x += impulse;stringCtl = stringCtl+" right";}
+	// 	if(m_controlState & ROBOT_INPUT.ROBOT_FWD)
+	// 	{impulseV.y -= impulse;stringCtl = stringCtl+" fwd";} // y-axis is inverted in webpage
+	// if(m_controlState & ROBOT_INPUT.ROBOT_BWD)
+	// 	{impulseV.y += impulse;stringCtl = stringCtl+" bwd";}
 
 		//console.log(m_Robot.length);  there are 20.
 		// apply the control policy to all robots
@@ -254,7 +296,7 @@
 			var xSize = 1100;
 			var ySize = 610;
 			var fricZone=20;
-			var fricC = 0.0;  //must be between 0 and 1.fricC==0 inf friction, fricC==1 no wall friction
+			var fricC = 0.33;  //must be between 0 and 1.fricC==0 inf friction, fricC==1 no wall friction
 
 			if( rx > (xSize-fricDist)/mapScale && impulseV.x>= 0)
 				{	impulseVtemp.y -= impulseVtemp.y*(1-fricC)
@@ -289,6 +331,9 @@
 		world.Step(1 / 60, 10, 10);
 		world.DrawDebugData();
 		world.ClearForces();
+		var day = new Date();
+
+	
 
 		var sum_position_x = 0;
 		var sum_position_y = 0;
@@ -308,6 +353,9 @@
 	    	sum2_y += (m_Robot[i].GetPosition().y - mean_position_y) * (m_Robot[i].GetPosition().y - mean_position_y);
 	    	cov_xy=  cov_xy+ (m_Robot[i].GetPosition().x- mean_position_x)*(m_Robot[i].GetPosition().y - mean_position_y)/numrobots;
 	    }
+	    console.log(cov_xy + " " + elapsedTimeSec);
+	    //console.log(cov_xy + elapsedTimeSec);
+	
 	    var var_x = sum2_x / numrobots;
 	    var var_y = sum2_y / numrobots;
 	    var min_desired_var_x = 3;
@@ -405,13 +453,7 @@
 				}
 			}
 			var cycleInSec = 40;
-			var day = new Date();
-
-			if(overall_time == null) // set the start time
-			{
-				overall_time = day.getTime();
-			}
-			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
+			
 
 			if(elapsedTimeSec%cycleInSec > cycleInSec/2 )
 			{
@@ -424,7 +466,7 @@
 				{
 					if(cov_desired == cov_desired_positive)
 					{
-						cov_desired = cov_desired_negative
+						cov_desired = cov_desired_negative;
 
 						done = true;
 					}
@@ -438,6 +480,8 @@
 				
 
 			}
+			
+
 
 			$("canvas").drawEllipse({
 				strokeStyle: "red",
