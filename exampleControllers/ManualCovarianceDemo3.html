@@ -227,6 +227,45 @@
 
          	var impulseV=new b2Vec2(0,0);
          	var impulseVtemp=new b2Vec2(0,0);
+<<<<<<< HEAD
+=======
+         	var day = new Date();
+         	var CycleForCov = 18;
+         	var speed = 50;
+
+			if(overall_time == null) // set the start time
+			{
+				overall_time = day.getTime();
+			}
+			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
+         	if(elapsedTimeSec< CycleForCov/9)
+			{
+					impulseV.x = 0;
+					impulseV.y = 100;
+					//console.log("something")
+
+			}
+			else if (elapsedTimeSec< CycleForCov/3)
+			{
+					impulseV.x = -speed;
+					impulseV.y = 0;
+			}
+			else if (elapsedTimeSec < CycleForCov/2)
+			{
+					impulseV.x = 0;
+					impulseV.y = -speed;
+			}
+			else if (elapsedTimeSec<CycleForCov*3/4)
+			{
+					impulseV.x = -speed*2;
+					impulseV.y = speed;
+			}
+			else if (elapsedTimeSec<CycleForCov+2)
+			{
+					impulseV.x = 0;
+					impulseV.y = -speed;
+			}
+>>>>>>> origin/master
 		var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
 		stringCtl = "nothing";
 		
