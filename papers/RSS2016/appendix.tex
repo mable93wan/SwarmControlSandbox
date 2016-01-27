@@ -1,3 +1,4 @@
+
 \documentclass[conference]{IEEEtran}
 \usepackage{times}
 
@@ -161,95 +162,65 @@
 \begin{document}
 
 % paper title
-\title{Shaping a Swarm With a Shared Control Input\\ Using Boundary Walls and Wall Friction}
+\title{Supplement to
+\large{Shaping a Swarm With a Shared Control Input\\ Using Boundary Walls and Wall Friction}}
 
 % You will get a Paper-ID when submitting a pdf file to the conference system
 \author{Paper-ID [add your ID here]}
-
-%\author{\authorblockN{Michael Shell}
-%\authorblockA{School of Electrical and\\Computer Engineering\\
-%Georgia Institute of Technology\\
-%Atlanta, Georgia 30332--0250\\
-%Email: mshell@ece.gatech.edu}
-%\and
-%\authorblockN{Homer Simpson}
-%\authorblockA{Twentieth Century Fox\\
-%Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\and
-%\authorblockN{James Kirk\\ and Montgomery Scott}
-%\authorblockA{Starfleet Academy\\
-%San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212\\
-%Fax: (888) 555--1212}}
-
-
-% avoiding spaces at the end of the author lines is not a problem with
-% conference papers because we don't use \thanks or \IEEEmembership
-
-
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\authorblockN{Michael Shell\authorrefmark{1},
-%Homer Simpson\authorrefmark{2},
-%James Kirk\authorrefmark{3}, 
-%Montgomery Scott\authorrefmark{3} and
-%Eldon Tyrell\authorrefmark{4}}
-%\authorblockA{\authorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: mshell@ece.gatech.edu}
-%\authorblockA{\authorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\authorblockA{\authorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\authorblockA{\authorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
 
 
 \maketitle
 
 \begin{abstract}
-Micro- and nano-robots hold promise for targeted drug delivery and micro-scale manufacturing.
-Due to their small size, large numbers of micro-robots are required to deliver sufficient payloads, but their small size makes it difficult to perform onboard computation or contain a power and propulsion source.  
-For this reason these robots are usually powered and controlled by global inputs, such as a uniform external electric or magnetic field, and every robot receives exactly the same control inputs.
-Nevertheless, these applications require precision control of the shape and position of the robot swarm. 
-Precision control requires breaking the symmetry caused by the global input.  
-
-A promising technique uses collisions with boundary walls to shape the swarm, however, the range of configurations created by conforming a swarm to a boundary wall is limited. 
-In this paper we described the set of stable configurations of a swarm in two canonical workspaces, a circle and a square. 
-
-To increase the diversity of configurations, we add wall friction to our model.  
-We provide algorithms using friction with walls to place two robots at arbitrary locations in a rectangular workspace.
-Next, we extend this algorithm to place $n$ robots at desired locations.
-We conclude with efficient techniques to control the variance of a swarm along directions not orthogonal to the boundary walls, something not possible without wall-friction. Hardware implementations with 97 robots, and simulations validate these results.
-%This paper focuses on using boundary walls and to break the symmetry caused by the global input.
-
-
-%There are different ways to control shape of the swarm, like using corner walls to make correlations in the axes of the swarm. However; with this method the correlation that can be maid is limited and we can not control the shape precisely.   Wall friction is used to steer two robots to arbitrary positions, and this technique is then extended to control the position of $n$ robots which are demonstrated with simulations. Finally, wall friction is used to efficiently control the covariance of a swarm of 97 hardware robots. 
+Includes algorithms and equations too lengthy for main paper, but potentially useful for the community.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
 
-%%%%%%%%%%%%%%%
-\input{intro}
-%%%%%%%%%%%%%%%
-\input{relatedWork}
-%%%%%%%%%%%%%%%
-\input{theory}
-%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
-\input{simulation}
-%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
-\input{experiment}
-%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
-\input{conclusion}
-%%%%%%%%%%%%%%%
-\section*{Acknowledgments}
-Withheld for double-blind review
+\section{ Calculations for modeling swarm as fluid in a simple planar workspace}
+
+
+\section{ Algorithm for generating desired $y$ spacing between two robots using wall friction}
+\begin{algorithm}
+\caption{GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)}\label{alg:YControl}
+\begin{algorithmic}[1]
+\Require Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
+$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
+ $L$ is length of the walls. Current position of the robots are $(r_1,r_2)$.
+\Ensure   $ r_{1x} - r_{2x}  \equiv s_{1x} - s_{2x} $   %$\Delta y(t) \equiv \Delta y(0)$ 
+\State $ \Delta s_y  \gets s_{1y} - s_{2y} $
+\State $ \Delta e_y \gets e_{1y} - e_{2y} $
+\State $ r_1 \gets s_1$, $ r_2 \gets s_2$
+\If {$\Delta e_y < 0 $ }
+\State $ m \gets ( L-\max( r_{1y},r_{2y}) ,0)   $ \Comment{Move to top wall}
+\Else 
+\State  $ m \gets ( -\min( r_{1y},r_{2y}),0 )    $ \Comment{Move to bottom wall}
+\EndIf
+\State $m  \gets  m + (0, -\min( r_{1x},r_{2x} ))$ \Comment{Move to left}
+\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+\If {$\Delta e_y - (r_{1y} - r_{2y} ) > 0 $}
+\State $ m \gets (\min(|\Delta e_y - \Delta s_y |, L- r_{1y}), 0)$  \Comment{Move top}
+\Else
+\State $ m \gets (-\min(|\Delta e_y - \Delta s_y |, r_{1y}), 0)$\Comment{Move bottom}
+\EndIf 
+\State $m  \gets  m + (0, \epsilon)$ \Comment{Move right}
+\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+\State $\Delta r_y = r_{1y} - r_{2y}$
+\If {$\Delta r_y \equiv \Delta e_y$} 
+\State   $ m \gets (e_{1x}-r_{1x}, e_{1y}-r_{1y})$
+\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+\State  \Return $(r_1,r_2)$
+\Else   
+\State \Return GenerateDesired$y$-spacing($r_1,r_2,e_1,e_2,L$)
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
 %%%%%%%%%%%%%%%
 %% Use plainnat to work nicely with natbib. 
 \bibliographystyle{plainnat}
 \bibliography{IEEEabrv,ShapingSwarmFrictionSharedInput,../../../RoboticSwarmControlLab/bib/aaronrefs}
 \end{document}
+
+
+
