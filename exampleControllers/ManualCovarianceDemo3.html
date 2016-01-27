@@ -244,7 +244,7 @@
          	if(elapsedTimeSec< CycleForCov/9)
 			{
 					impulseV.x = 0;
-					impulseV.y = speed*2;
+					impulseV.y = 100;
 					//console.log("something")
 
 			}
@@ -296,7 +296,7 @@
 			var xSize = 1100;
 			var ySize = 610;
 			var fricZone=20;
-			var fricC = 0.33;  //must be between 0 and 1.fricC==0 inf friction, fricC==1 no wall friction
+			var fricC = 0.0;  //must be between 0 and 1.fricC==0 inf friction, fricC==1 no wall friction
 
 			if( rx > (xSize-fricDist)/mapScale && impulseV.x>= 0)
 				{	impulseVtemp.y -= impulseVtemp.y*(1-fricC)
