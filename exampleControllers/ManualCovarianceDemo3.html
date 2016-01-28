@@ -227,8 +227,7 @@
 
          	var impulseV=new b2Vec2(0,0);
          	var impulseVtemp=new b2Vec2(0,0);
-<<<<<<< HEAD
-=======
+
          	var day = new Date();
          	var CycleForCov = 18;
          	var speed = 50;
@@ -265,7 +264,7 @@
 					impulseV.x = 0;
 					impulseV.y = -speed;
 			}
->>>>>>> origin/master
+
 		var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
 		stringCtl = "nothing";
 		
@@ -485,25 +484,25 @@
 				width: 3 * mapScale*Math.sqrt(var_xp), height: 3 * mapScale*Math.sqrt(var_yp),
 				rotate: angle2
 			})
-			.restoreCanvas();
-			if(cov_desired == cov_desired_positive){
-				$("canvas").drawEllipse({
-					strokeStyle: "green",
-					strokeWidth: 5,
-					x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
-					width: 3 * 30*Math.sqrt(minvar_xp1), height: 3 * 30*Math.sqrt(minvar_yp1),
-					rotate: angle_min_variance1
-				}).restoreCanvas();
-			}
-			else{
-				$("canvas").drawEllipse({
-					strokeStyle: "green",
-					strokeWidth: 5,
-					x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
-					width: 3 * 30*Math.sqrt(minvar_xp2), height: 3 * 30*Math.sqrt(minvar_yp2),
-					rotate: angle_min_variance2
-				}).restoreCanvas();
-			}
+			// .restoreCanvas();
+			// if(cov_desired == cov_desired_positive){
+			// 	$("canvas").drawEllipse({
+			// 		strokeStyle: "green",
+			// 		strokeWidth: 5,
+			// 		x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
+			// 		width: 3 * 30*Math.sqrt(minvar_xp1), height: 3 * 30*Math.sqrt(minvar_yp1),
+			// 		rotate: angle_min_variance1
+			// 	}).restoreCanvas();
+			// }
+			// else{
+			// 	$("canvas").drawEllipse({
+			// 		strokeStyle: "green",
+			// 		strokeWidth: 5,
+			// 		x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
+			// 		width: 3 * 30*Math.sqrt(minvar_xp2), height: 3 * 30*Math.sqrt(minvar_yp2),
+			// 		rotate: angle_min_variance2
+			// 	}).restoreCanvas();
+			// }
 
 
 
