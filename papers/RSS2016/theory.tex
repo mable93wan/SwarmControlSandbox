@@ -5,14 +5,14 @@
 \begin{figure*}[!htb]
 \begin{center}
 \includegraphics[width=\linewidth]{SquareFill.pdf} 
-\caption{Pushing the swarm against a square boundary wall allows limited control of the shape of the swarm, as a function of swarm area $A$ and the commanded movement direction $\beta$. The locus of possible mean positions morphs from a square to a circle as $A$ increases. See online interactive demonstration at [withheld for double-blind review].}
+\caption{Pushing the swarm against a square boundary wall allows limited control of the shape of the swarm, as a function of swarm area $A$ and the commanded movement direction $\beta$. Left plot shows locus of possible mean positions for five values of $A$.  The locus morphs from a square to a circle as $A$ increases.  The covariance ellipse for each $A$ is shown with a dashed line. Center shows two corresponding arrangements of kilobots.  At right is $\bar{x}(A), \sigma_{xy}(A), \sigma_x^2(A),$ and $\rho(A)$ for a range of $\beta values$. See online interactive demonstration at [withheld for double-blind review].}
 \label{fig:CircleFill}
 \end{center}
 \end{figure*} 
 \begin{figure*}[!htb]
 \begin{center}
 \includegraphics[width=\linewidth]{CircleFill.pdf} 
-\caption{Pushing the swarm against a circular boundary wall allows limited control of the shape of the swarm, as a function of the fill level $h$ and the commanded movement direction $\beta$. The locus of possible mean positions are concentric circles. See online interactive demonstration at [withheld for double-blind review].}
+\caption{Pushing the swarm against a circular boundary wall allows limited control of the shape of the swarm, as a function of the fill level $h$ and the commanded movement direction $\beta$. Left plot shows locus of possible mean positions for four values of $h$. The locus of possible mean positions are concentric circles. See online interactive demonstration at [withheld for double-blind review].}
 \label{fig:CircleFill}
 \end{center}
 \end{figure*} 
@@ -99,39 +99,86 @@ The next section shows how a system with friction model \eqref{eq:frictionmodel}
 
 
 \subsection{Position control of $2$ robots using wall friction}\label{sec:PostionControl2Robots}
-This section describes Alg.~\ref{alg:PosControl2Robots}, an algorithm that uses wall-friction to arbitrarily position two robots in a rectangular workspaces.  This algorithm  introduces concepts that will be used for multi-robot positioning. It only requires collisions with two orthogonal walls, in this case, the bottom and left walls. 
+\begin{figure*}
+\centering
+\renewcommand{\figwid}{0.4\columnwidth}
+{\begin{overpic}[width =\figwid]{one_1.jpg}\put(45,75){$t$ = 0 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{one_2.jpg}\put(45,75){$t$ = 0.25 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{one_3.jpg}\put(45,75){$t$  = 0.5 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{one_4.jpg}\put(45,75){$t$  = 0.75 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{one_5.jpg}\put(45,75){$t$  = 1 s}
+\end{overpic}}\\
+%{\begin{overpic}[width =\figwid]{two_1.jpg}\put(45,75){$t$  = 0 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_2.jpg}\put(45,75){$t$  = 0.25 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_3.jpg}\put(45,75){$t$  = 0.5 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_4.jpg}\put(45,75){$t$  = 0.75 s}
+%\end{overpic}
+%\begin{overpic}[width =\figwid]{two_5.jpg}\put(45,75){$t$  = 1 s}
+%\end{overpic}}\\
+\vspace{.5em}
+{\begin{overpic}[width =\figwid]{S3_1.jpg}\put(45,75){$t$ = 0 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_2.jpg}\put(45,75){$t$ = 0.25 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_3.jpg}\put(45,75){$t$  = 0.5 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_4.jpg}\put(45,75){$t$  = 0.75 s}
+\end{overpic}
+\begin{overpic}[width =\figwid]{S3_5.jpg}\put(45,75){$t$  = 1 s}
+\end{overpic}}
+\vspace{-1em}
+
+\caption{\label{fig:shapeControlMathematica1}{Frames from an implementation of Alg.\ \ref{alg:PosControl2Robots}: two robot positioning using walls with infinite friction. The algorithm only requires friction along the bottom and left walls.
+Robot initial positions are shown by a crosshair, and final positions by a circled crosshair.  Dashed lines show the shortest route if robots could be controlled independently.  The path given by  Alg.\ \ref{alg:PosControl2Robots} is shown with solid arrows.
+The bottom row shows an extreme case where the robots must switch position.
+}
+%\vspace{-2em}
+}
+\end{figure*}
+
+This section describes Alg.~\ref{alg:PosControl2Robots}, an algorithm that uses wall-friction to arbitrarily position two robots in a rectangular workspace.  This algorithm  introduces concepts that will be used for multi-robot positioning. It only requires collisions with two orthogonal walls, in this case, the bottom and left walls. Fig.~\label{fig:shapeControlMathematica1} shows a Mathematica implementation of the algorithm, and is useful as a visual reference for the following description.
 
 Assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
 Denote the current positions of the robots  $r_1$ and $r_2$. 
-Let the subscripts $x$ and $y$ denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$. 
+Subscripts $_x$ and $_y$ denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$. 
 The algorithm assigns a global control input at every instance.
  As a result, our goal is to adjust 
- $\Delta r_x = r_{2x}-r_{1x}$ from $\Delta s_x = s_{2x}-s_{1x}$ to $\Delta e_x = e_{2x}-e_{1x}$ and similarly adjust 
- $\Delta r_y = r_{2y}-r_{1y}$ from $\Delta s_y = s_{2y}-s_{1y}$ to $\Delta e_y = e_{2y}-e_{1y}$ with one global input at every instance. 
- The key to the algorithm is the position-dependent friction model \eqref{eq:frictionmodel}.
+ $\Delta r_x = r_{2x}-r_{1x}$ from $\Delta s_x = s_{2x}-s_{1x}$ to $\Delta e_x = e_{2x}-e_{1x}$ and  adjust 
+ $\Delta r_y = r_{2y}-r_{1y}$ from $\Delta s_y = s_{2y}-s_{1y}$ to $\Delta e_y = e_{2y}-e_{1y}$ using a shared global control input. 
+ This algorithm exploits the position-dependent friction model \eqref{eq:frictionmodel}.
  %employing the assumption we have made earlier about the walls' friction. 
 
 Our algorithm solves the positioning problem in two steps: 
-(i) First, $|\Delta r_x - \Delta e_x |$ is reduced to zero while  $\Delta r_y$ is kept constant in Alg.~\ref{alg:XControl}. 
-(ii) Second $|\Delta r_y - \Delta e_y |$ is reduced to zero while  $\Delta r_x$ is kept constant in Alg.~\ref{alg:YControl}. 
+First, $|\Delta r_x - \Delta e_x |$ is reduced to zero while  $\Delta r_y$ is kept constant in Alg.~\ref{alg:XControl}. 
+Second $|\Delta r_y - \Delta e_y |$ is reduced to zero while  $\Delta r_x$ is kept constant in Alg.~\ref{alg:YControl}. 
 
 Step (i): Fixing $\Delta r_x$
 \label{theory:step1}
 \begin{enumerate}
-\item Define $e'_1=(e_{1x},s_{1y})$ and $e'_2=(e_{2x},s_{2y})$. Our goal for defining $e'_1$ and $e'_2$ is to understand the direction to which robots should move in order to adjust $\Delta r_x$. Let $e'_{\rm{top}} = \arg \max_i e'_{iy}$ and $e'_{\rm{bottom}} = \arg \min_i e'_{iy}$. Now if $e'_{\rm{top},x}-e'_{\rm{bottom},x}>0$, then the global input to both robots would be toward left direction and if $e'_{\rm{top},x}-e'_{\rm{bottom},x}<0$, then the global input to both robots would be toward right direction. The two robots continue their horizontal path until one of them reaches the $\epsilon$-neighborhood of one of the left or right walls.
-\item At this step, let $y_{\min} = \min_i r_{iy}$, i.e., $y_{\min}$ is the minimum height of the two robots. We move both robots downward by the amount of $y_{\min}$ such that one of the robots would touch the bottom wall and hence friction force will not let that robot to move left or right.
-\item The fact that the friction force of the bottom wall would not let the lower robot to move right or left will let the other robot to move to right and left freely to adjust $\Delta r_x $ according to $\Delta e_x$.
+\item Define $ \Delta s_x  = s_{1x} - s_{2x} $ and $ \Delta e_x = e_{1x} - e_{2x}$.
+If $\Delta e_x$ is negative, the robots will be commanded to move toward the left wall and halt $\epsilon$ distance from the left wall.
+If $\Delta e_x \ge 0$, the robots will be commanded to move toward the right wall and halt $\epsilon$ distance from the right wall. The epsilon distance prevents the robots from experiencing friction along the vertical wall.
+\item  let $y_{\min} = \min_i r_{iy}$, i.e., $y_{\min}$ be the minimum height of the two robots. Move both robots downward  $y_{\min}$ such that one of the robots touches the bottom wall and hence friction force will prevent this robot from moving left or right.
+\item friction force holds the lower robot in place while the upper robot may move right and left freely to change $\Delta r_x $ to $\Delta e_x$.
 \item  If after the free move of the upper robot $\Delta r_x$ is not $\Delta e_x$, Step (i) will be repeated.  No more than two iterations of step (i) are required.
 \end{enumerate}
 
 Step (ii): Fixing $\Delta r_y$
 Now that $\Delta r_x$ is corrected, $\Delta r_y$ must be corrected:
 \begin{enumerate}
-\item Let $s'_1$ and $s'_2$ be the points derived at the end of  step 1. 
-\item Define $e''_1=(s'_{1x},e_{1y})$ and $e''_2=(s'_{2x},e_{2y})$. We define $e''_1$ and $e''_2$ to understand the direction to which robots should move in order to adjust $\Delta r_y$. Let $e''_{\rm{right}} = \arg \max_i e''_{ix}$ and $e''_{\rm{left}} = \arg \min_i e'_{ix}$. Now if $e''_{\rm{right},y}-e''_{\rm{left},y}>0$, then the global input to both robots would be toward down direction and if $e''_{\rm{right},y}-e''_{\rm{left},y}<0$, then the global input to both robots would be toward up direction. The two robots continue their vertical path until one of them reaches the $\epsilon$-neighborhood of one of the top or bottom walls.
-\item At this step, let $x_{\min} = \min_i r_{ix}$, i.e., $x_{\min}$ is the minimum distance of the two robots from the origin along the $x$-axis. We move both robots to the left by the amount of $x_{\min}$ such that one of the robots would touch the left wall and hence friction force will not let that robot to move up or down.
-\item The fact that the friction force of the left wall would not let one of the robots to move up or down will let the other robot to move to up or down freely to adjust $\Delta r_y $ according to $\Delta e_y$.
-\item  If after the free move of the upper robot $\Delta r_y$ is not $\Delta e_y$, Step (ii) will be repeated.  No more than two iterations of step (ii) are required.
+\item Define  $ \Delta s_y  = s_{1y} - s_{2y} $ and  $ \Delta e_y = e_{1y} - e_{2y}.$
+If $\Delta e_y$ is negative, the robots will be commanded to move toward the top wall and halt $\epsilon$ distance from the top wall.
+If $\Delta e_y \ge 0$, the robots will be commanded to move toward the bottom wall and halt $\epsilon$ distance from the bottom wall. The epsilon distance prevents the robots from experiencing friction along the horizontal wall.
+\item  let $x_{\min} = \min_i r_{ix}$, i.e., $x_{\min}$ be the minimum distance of the two robots from the origin along the $x$-axis. Move both robots to the left $x_{\min}$ such that one of the robots  touches the left wall and hence friction force will prevent this robot from moving up or down.
+\item  friction force holds the left robot in place while the right robot may move up or down freely to change $\Delta r_y $  to $\Delta e_y$.
+\item  If after the free move of the right robot $\Delta r_y$ is not $\Delta e_y$, Step (ii) will be repeated.  No more than two iterations of step (ii) are required.
 \end{enumerate}
 Once $\Delta r_x$ and $\Delta r_y$ are set to $\Delta e_x$ and $\Delta e_y$, we can use global input to easily move both robots from $r_1$ and $r_2$ toward $e_1$ and $e_2$. 
 
@@ -229,7 +276,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 
 
 \subsection{Position Control of $n$ robots using wall friction}\label{sec:PostionControlnRobots}
-Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from a \emph{staging zone} to the desired position in a \emph{build zone}. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone.
+Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from a \emph{staging zone} to the desired position in a \emph{build zone}. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone. See Fig.~\ref{fig:construction2d} for a schematic of the build and staging zones.
 
 
 
@@ -239,6 +286,14 @@ Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position o
 \end{center}
 \caption{\label{fig:driftmove}
 A  $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ to the right consists of repeating a triangular movement sequence $\{ (\beta/2,-\epsilon),(\beta/2,\epsilon),(-\alpha,0)\}$. The robot $A$ touching a top wall will move right $\beta$ units, while robots not touching the top move right $\beta-\alpha$.
+}
+\end{figure}
+\begin{figure}
+\begin{center}
+	\includegraphics[width=1.0\columnwidth]{PositionNrobots.pdf}
+\end{center}
+\caption{\label{fig:construction2d}
+Illustration of Alg.\ \ref{alg:PosControlNRobots}, $n$ robot position control  using wall friction.
 }
 \end{figure}
 
@@ -282,14 +337,6 @@ Third, a set of $\operatorname{DriftMove()}$s are executed that  move robot $k$ 
 Fourth, all robots except robot $k$ are pushed left until robot $k$ is in the correct relative $x$ position compared to robots 1 to $k-1$.
 
 Finally, all robots are moved right until robot $k$ is in the desired target position.
-\begin{figure}
-\begin{center}
-	\includegraphics[width=1.0\columnwidth]{PositionNrobots.pdf}
-\end{center}
-\caption{\label{fig:construction2d}
-Illustration of Alg.\ \ref{alg:PosControlNRobots}, $n$ robot position control  using wall friction.
-}
-\end{figure}
 
 
 \subsection{Controlling Covariance Using Wall Friction}

@@ -27,49 +27,6 @@ Similarly,  two iterations of Alg. \ref{alg:YControl} are only required if $|\De
 
 
 
-\begin{figure*}
-\centering
-\renewcommand{\figwid}{0.4\columnwidth}
-{\begin{overpic}[width =\figwid]{one_1.jpg}\put(45,75){$t$ = 0 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{one_2.jpg}\put(45,75){$t$ = 0.25 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{one_3.jpg}\put(45,75){$t$  = 0.5 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{one_4.jpg}\put(45,75){$t$  = 0.75 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{one_5.jpg}\put(45,75){$t$  = 1 s}
-\end{overpic}}\\
-%{\begin{overpic}[width =\figwid]{two_1.jpg}\put(45,75){$t$  = 0 s}
-%\end{overpic}
-%\begin{overpic}[width =\figwid]{two_2.jpg}\put(45,75){$t$  = 0.25 s}
-%\end{overpic}
-%\begin{overpic}[width =\figwid]{two_3.jpg}\put(45,75){$t$  = 0.5 s}
-%\end{overpic}
-%\begin{overpic}[width =\figwid]{two_4.jpg}\put(45,75){$t$  = 0.75 s}
-%\end{overpic}
-%\begin{overpic}[width =\figwid]{two_5.jpg}\put(45,75){$t$  = 1 s}
-%\end{overpic}}\\
-\vspace{.5em}
-{\begin{overpic}[width =\figwid]{S3_1.jpg}\put(45,75){$t$ = 0 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{S3_2.jpg}\put(45,75){$t$ = 0.25 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{S3_3.jpg}\put(45,75){$t$  = 0.5 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{S3_4.jpg}\put(45,75){$t$  = 0.75 s}
-\end{overpic}
-\begin{overpic}[width =\figwid]{S3_5.jpg}\put(45,75){$t$  = 1 s}
-\end{overpic}}
-\vspace{-1em}
-
-\caption{\label{fig:shapeControlMathematica1}{Frames from an implementation of Alg.\ \ref{alg:PosControl2Robots}: two robot positioning using walls with infinite friction. The algorithm only requires friction along the bottom and left walls.
-Robot initial positions are shown by a crosshair, and final positions by a circled crosshair.  Dashed lines show the shortest route if robots could be controlled independently.  The path given by  Alg.\ \ref{alg:PosControl2Robots} is shown with solid arrows.
-The bottom row shows an extreme case where the robots must switch position.
-}
-%\vspace{-2em}
-}
-\end{figure*}
 
 %\begin{figure*}
 %\centering
@@ -117,7 +74,7 @@ Control performance is sensitive to the desired clearance $\epsilon$.  As $\epsi
 \end{figure}
 
 \subsection{Efficient Control of Covariance}
-A set of simulations were conducted to demonstrate the importance of boundary friction.  These simulations use  the 2D pysics engine Box2D, by \citet {Box2D}.
+A set of simulations were conducted to demonstrate the importance of boundary friction.  These simulations use  the 2D pysics engine Box2D, by \citet{catto2010box2d}.
  144 disc-shaped robots were controlled by an open-loop control input.  All robots had  the same initial conditions, but in four tests the boundary friction was $F_f = \{0,1/3 F, 2/3F, F\}$.
  Without friction, covariance is unchangeable.  As friction increases, the covariance can be manipulated to greater degrees.
 
