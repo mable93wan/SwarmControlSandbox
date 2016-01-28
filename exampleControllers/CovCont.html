@@ -47,6 +47,8 @@
       	var covChange = false;
       	var goCenter = false;
       	var lessVariance = true;
+      	var GoalRecieved = false;
+      	var goButtom = false;
 
       	var   b2Vec2 = Box2D.Common.Math.b2Vec2
       	,  b2AABB = Box2D.Collision.b2AABB
@@ -226,8 +228,8 @@
 	    }
 	    var var_x = sum2_x / numrobots;
 	    var var_y = sum2_y / numrobots;
-	    var min_desired_var_x = 3;
-	    var min_desired_var_y = 8;
+	    var min_desired_var_x = 6;
+	    var min_desired_var_y = 4;
 	    var goalX = 18.5;
 	    var goalY = 10.5;
 
@@ -340,13 +342,24 @@
 				{
 					if(cov_desired == cov_desired_positive)
 					{
-						cov_desired = cov_desired_negative
+						cov_desired = cov_desired_negative;
+						if (GoalRecieved == true){
+							GoalRecieved = false;
+							lessVariance = true;
+
+						}
+							
 
 						done = true;
 					}
 					else 
 					{
 						cov_desired = cov_desired_positive;	
+						if (GoalRecieved == true){
+							GoalRecieved = false
+							lessVariance = true;
+
+						}
 						done = true;
 					}
 
@@ -372,22 +385,22 @@
          	var day = new Date();
          	var CycleForCov = 18;
          	var speed = 50;
+         	var epsilon = 1;
+
 
 			if(overall_time == null) // set the start time
 			{
 				overall_time = day.getTime();
 			}
 			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
-			minVarNeeded = 1;
+			var minVarNeeded = min_desired_var_x/10;
+			if(!GoalRecieved){
          	if(var_x > minVarNeeded && lessVariance == true)
 			{
 				//Go Left
 					impulseV.x = -speed;
 					impulseV.y = 0;
 					goCenter= true;
-
-			
-
 			}
 			else if (goCenter)
 			{
@@ -395,41 +408,61 @@
 				//Go to Center
 				impulseV.x =  Kgain*(xSize/2/mapScale - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 				impulseV.y = Kgain*( ySize/2/mapScale- mean_position_y) + Kderivative*(0-mean_velocity_y) ;
-				var epsilon = 1;
-				
+								
 				if (mean_position_y <ySize/2/mapScale + epsilon && mean_position_y >ySize/2/mapScale - epsilon && mean_position_x < xSize/2/mapScale+epsilon && mean_position_x > xSize/2/mapScale-epsilon)
 				{
 					goCenter = false;
+					goButtom = true;
 				}
+			}
+			else if (goButtom)
+			{
+				var y_required = ySize/mapScale - Math.sqrt(var_y)*1.2;
+				impulseV.x =  Kgain*(xSize/2/mapScale - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
+				impulseV.y = Kgain*( y_required- mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+				if (mean_position_y <y_required + epsilon && mean_position_y >y_required - epsilon && mean_position_x < xSize/2/mapScale+epsilon && mean_position_x > xSize/2/mapScale-epsilon)
+				{
+					goButtom = false;
+				}
+
 			}
 			else if (var_y >min_desired_var_y && !goCenter)
 			{
 					impulseV.x = 0;
-					impulseV.y = speed;
+					impulseV.y = speed/2;
 			}
-			else if (cov_xy < Math.abs(cov_desired))
+			
+			else if (cov_xy < Math.abs(cov_desired) )
 			{
-				if (cov_xy - cov_desired > 0){
+				if (cov_xy - cov_desired > 0.05){
 					impulseV.x = speed;
 					impulseV.y = 0;
 				}
-				else if (cov_xy - cov_desired<0)
+				else if (cov_xy - cov_desired<-0.05)
 				{
 					impulseV.x = -speed;
 					impulseV.y = 0;
 				}
 				else 
 				{
-					impulseV.x = 0;
-					impulseV.y = 0;
+					impulseV.x =  Kgain*(xSize/2/mapScale - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
+					impulseV.y = Kgain*( ySize/2/mapScale- mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+					if (mean_position_y <ySize/2/mapScale + epsilon && mean_position_y >ySize/2/mapScale - epsilon && mean_position_x < xSize/2/mapScale+epsilon && mean_position_x > xSize/2/mapScale-epsilon)
+					{
+						GoalRecieved = true;
+					}
 				}
 			}
 			else 
 			{
-					impulseV.x =  Kgain*(xSize/2/mapScale - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
+				impulseV.x =  Kgain*(xSize/2/mapScale - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
 				impulseV.y = Kgain*( ySize/2/mapScale- mean_position_y) + Kderivative*(0-mean_velocity_y) ;
-				lessVariance = true;
+				if (mean_position_y <ySize/2/mapScale + epsilon && mean_position_y >ySize/2/mapScale - epsilon && mean_position_x < xSize/2/mapScale+epsilon && mean_position_x > xSize/2/mapScale-epsilon)
+				{
+					GoalRecieved = true;
+				}
 			}
+		}
 
 		
 		for(var i =0; i<m_Robot.length; i++) {
@@ -470,6 +503,7 @@
 			m_Robot[i].SetLinearVelocity( new b2Vec2(0,0) );
 			m_Robot[i].ApplyForce(impulseVtemp,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
 		}
+		console.log(elapsedTimeSec + " " + cov_xy + " " + cov_desired);
 
 			$("canvas").drawEllipse({
 				strokeStyle: "red",
