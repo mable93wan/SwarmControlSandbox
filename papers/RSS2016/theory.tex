@@ -314,7 +314,7 @@ Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position 
 
 
 \While{ $p_{k,x} > r$} 
-\State $\operatorname{DriftMove}(0, \min(p_{k,x} - r,\epsilon), \epsilon)$ left   %drift move left until kth robot touches left wall
+\State $\operatorname{DriftMove}(\epsilon, \min(p_{k,x} - r,\epsilon), \epsilon)$ left   %drift move left until kth robot touches left wall
 \EndWhile
 
 \State $m \gets \operatorname{ceil}(\frac{f_{k,y}-r}{\epsilon})$
