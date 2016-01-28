@@ -177,7 +177,26 @@ Includes algorithms and equations too lengthy for main paper, but potentially us
 
 \IEEEpeerreviewmaketitle
 
-\section{ Calculations for modeling swarm as fluid in a simple planar workspace}
+\section{Calculations for modeling swarm as fluid in a simple planar workspace}
+Two workspaces are used, a square and a circular workspace.
+
+\subsection{Square Workspace}
+This section provides formulas for the mean, variance,  covariance and correlation of a very large swarm of robots as they move inside a square workplace under the influence of gravity pointing in the direction $\beta$. The swarm is large, but the robots are small in comparison, and together cover an area of constant volume $A$. Under a global input such as gravity, they flow like water, moving to a side of the workplace and forming a polygonal shape. The workspace is 
+
+The range of possible angles for the global input angle $\beta $ is [0,2$\pi $). In this range of angles, the swarm assumes eight different polygonal shapes. The shapes alternate between triangles and trapezoids when the area $A$$<$1/2, and alternate between squares with one corner removed and trapezoids when $A$$>$1/2.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=\columnwidth]{SquarePlotPositions.pdf} 
+\caption{A swarm in a }
+\label{fig:friction}
+\end{center}
+\end{figure} 
+
+
+\subsection{Circle Workspace}
+
+
 
 
 \section{ Algorithm for generating desired $y$ spacing between two robots using wall friction}
