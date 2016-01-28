@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[   1093793,      21215]
-NotebookOptionsPosition[   1087821,      21037]
-NotebookOutlinePosition[   1089479,      21088]
-CellTagsIndexPosition[   1089127,      21076]
+NotebookDataLength[   1092754,      21195]
+NotebookOptionsPosition[   1086874,      21020]
+NotebookOutlinePosition[   1088532,      21071]
+CellTagsIndexPosition[   1088180,      21059]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -918,20 +918,7 @@ Cell[BoxData[{
     StyleBox[",", "Input"], 
     StyleBox["\[IndentingNewLine]", "Input"], 
     RowBox[{"A", "==", "1"}], ",", 
-    FractionBox["1", "2"]}], "]"}]}]}], "Input",
- InitializationCell->True,
- CellChangeTimes->{{3.656126923474448*^9, 3.656127049845388*^9}, {
-   3.6561270820382557`*^9, 3.656127380949277*^9}, {3.656127431761403*^9, 
-   3.656127573176221*^9}, {3.6561728615164843`*^9, 3.656172959147731*^9}, {
-   3.6561731010405416`*^9, 3.656173112062104*^9}, {3.656173710771494*^9, 
-   3.656173717858397*^9}, 3.656174571339066*^9, 3.656174619323966*^9, 
-   3.65617600893959*^9, 3.656318843543408*^9, {3.65631949561733*^9, 
-   3.656319581939105*^9}, {3.656319917517877*^9, 3.656319925387534*^9}, {
-   3.6565999126125727`*^9, 3.6565999133307037`*^9}, {3.659659362473517*^9, 
-   3.65965937302573*^9}},
- CellID->1833685998],
-
-Cell[BoxData[{
+    FractionBox["1", "2"]}], "]"}]}], "\n", 
  RowBox[{
   RowBox[{"Varx", "[", 
    RowBox[{"\[Beta]_", ",", "A_"}], "]"}], ":=", 
@@ -4091,19 +4078,15 @@ Cell[BoxData[{
  RowBox[{" "}]}], "Input",
  InitializationCell->True,
  CellChangeTimes->{{3.656126923474448*^9, 3.656127049845388*^9}, {
-   3.6561270820382557`*^9, 3.656127380949277*^9}, {3.656128816724283*^9, 
-   3.6561288981736593`*^9}, {3.656128935608615*^9, 3.656128993305216*^9}, 
-   3.656129052823098*^9, 3.6561539269331627`*^9, 3.656154060846611*^9, {
-   3.656169243491387*^9, 3.656169260646834*^9}, {3.6561692907555017`*^9, 
-   3.656169336360855*^9}, {3.656169442366085*^9, 3.6561694573502007`*^9}, {
-   3.656172737150484*^9, 3.656172788128112*^9}, 3.656173626578017*^9, {
-   3.656174461336894*^9, 3.656174510053617*^9}, 3.656202735153874*^9, {
-   3.656319636323*^9, 3.656319681886567*^9}, {3.656319866282278*^9, 
-   3.6563198806085787`*^9}, 3.656768968869563*^9, {3.656795295128141*^9, 
-   3.6567953527653112`*^9}, {3.659659473496552*^9, 3.659659486987575*^9}, 
-   3.659659682845127*^9, 3.659659720844659*^9, {3.6596598050518703`*^9, 
-   3.659659814424629*^9}},
- CellID->222750289]
+   3.6561270820382557`*^9, 3.656127380949277*^9}, {3.656127431761403*^9, 
+   3.656127573176221*^9}, {3.6561728615164843`*^9, 3.656172959147731*^9}, {
+   3.6561731010405416`*^9, 3.656173112062104*^9}, {3.656173710771494*^9, 
+   3.656173717858397*^9}, 3.656174571339066*^9, 3.656174619323966*^9, 
+   3.65617600893959*^9, 3.656318843543408*^9, {3.65631949561733*^9, 
+   3.656319581939105*^9}, {3.656319917517877*^9, 3.656319925387534*^9}, {
+   3.6565999126125727`*^9, 3.6565999133307037`*^9}, {3.659659362473517*^9, 
+   3.65965937302573*^9}, 3.662954275445801*^9},
+ CellID->1833685998]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -21048,41 +21031,41 @@ StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Demonstration.nb",
 (*CellTagsOutline
 CellTagsIndex->{
  "ResizeImages"->{
-  Cell[1076098, 20703, 353, 9, 29, "ControlSuggestions",
+  Cell[1075151, 20686, 353, 9, 29, "ControlSuggestions",
    CellTags->"ResizeImages"]},
  "RotateAndZoomIn3D"->{
-  Cell[1076454, 20714, 678, 16, 29, "ControlSuggestions",
+  Cell[1075507, 20697, 678, 16, 29, "ControlSuggestions",
    CellTags->"RotateAndZoomIn3D"]},
  "DragLocators"->{
-  Cell[1077135, 20732, 406, 12, 29, "ControlSuggestions",
+  Cell[1076188, 20715, 406, 12, 29, "ControlSuggestions",
    CellTags->"DragLocators"]},
  "CreateAndDeleteLocators"->{
-  Cell[1077544, 20746, 637, 15, 29, "ControlSuggestions",
+  Cell[1076597, 20729, 637, 15, 29, "ControlSuggestions",
    CellTags->"CreateAndDeleteLocators"]},
  "SliderZoom"->{
-  Cell[1078184, 20763, 885, 22, 29, "ControlSuggestions",
+  Cell[1077237, 20746, 885, 22, 29, "ControlSuggestions",
    CellTags->"SliderZoom"]},
  "GamepadControls"->{
-  Cell[1079072, 20787, 369, 9, 29, "ControlSuggestions",
+  Cell[1078125, 20770, 369, 9, 29, "ControlSuggestions",
    CellTags->"GamepadControls"]},
  "AutomaticAnimation"->{
-  Cell[1079444, 20798, 1507, 32, 29, "ControlSuggestions",
+  Cell[1078497, 20781, 1507, 32, 29, "ControlSuggestions",
    CellTags->"AutomaticAnimation"]},
  "BookmarkAnimation"->{
-  Cell[1080954, 20832, 908, 21, 29, "ControlSuggestions",
+  Cell[1080007, 20815, 908, 21, 29, "ControlSuggestions",
    CellTags->"BookmarkAnimation"]}
  }
 *)
 (*CellTagsIndex
 CellTagsIndex->{
- {"ResizeImages", 1088204, 21049},
- {"RotateAndZoomIn3D", 1088316, 21052},
- {"DragLocators", 1088429, 21055},
- {"CreateAndDeleteLocators", 1088548, 21058},
- {"SliderZoom", 1088665, 21061},
- {"GamepadControls", 1088774, 21064},
- {"AutomaticAnimation", 1088890, 21067},
- {"BookmarkAnimation", 1089010, 21070}
+ {"ResizeImages", 1087257, 21032},
+ {"RotateAndZoomIn3D", 1087369, 21035},
+ {"DragLocators", 1087482, 21038},
+ {"CreateAndDeleteLocators", 1087601, 21041},
+ {"SliderZoom", 1087718, 21044},
+ {"GamepadControls", 1087827, 21047},
+ {"AutomaticAnimation", 1087943, 21050},
+ {"BookmarkAnimation", 1088063, 21053}
  }
 *)
 (*NotebookFileOutline
@@ -21091,130 +21074,127 @@ Cell[CellGroupData[{
 Cell[580, 22, 143, 1, 76, "DemoTitle"],
 Cell[CellGroupData[{
 Cell[748, 27, 33, 0, 275, "InitializationSection"],
-Cell[784, 29, 33497, 902, 1168, "Input",
+Cell[784, 29, 152178, 4059, 5036, "Input",
  InitializationCell->True,
- CellID->1833685998],
-Cell[34284, 933, 119625, 3172, 3321, "Input",
- InitializationCell->True,
- CellID->222750289]
+ CellID->1833685998]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[153946, 4110, 29, 0, 243, "ManipulateSection"],
+Cell[152999, 4093, 29, 0, 243, "ManipulateSection"],
 Cell[CellGroupData[{
-Cell[154000, 4114, 30471, 647, 1202, "Input",
+Cell[153053, 4097, 30471, 647, 1202, "Input",
  InitializationCell->True,
  CellID->518614895],
-Cell[184474, 4763, 176119, 3120, 539, "Output",
+Cell[183527, 4746, 176119, 3120, 539, "Output",
  CellID->1932770913]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[360642, 7889, 36, 0, 181, "ManipulateCaptionSection"],
-Cell[360681, 7891, 867, 15, 55, "ManipulateCaption"]
+Cell[359695, 7872, 36, 0, 181, "ManipulateCaptionSection"],
+Cell[359734, 7874, 867, 15, 55, "ManipulateCaption"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[361585, 7911, 28, 0, 179, "ThumbnailSection"],
-Cell[361616, 7913, 176075, 3119, 565, "Output",
+Cell[360638, 7894, 28, 0, 179, "ThumbnailSection"],
+Cell[360669, 7896, 176075, 3119, 565, "Output",
  CellID->2014523610]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[537728, 11037, 28, 0, 149, "SnapshotsSection"],
-Cell[537759, 11039, 176067, 3119, 539, "Output",
+Cell[536781, 11020, 28, 0, 149, "SnapshotsSection"],
+Cell[536812, 11022, 176067, 3119, 539, "Output",
  CellID->1764343477],
-Cell[713829, 14160, 176084, 3120, 539, "Output",
+Cell[712882, 14143, 176084, 3120, 539, "Output",
  CellID->866620163],
-Cell[889916, 17282, 176066, 3119, 539, "Output",
+Cell[888969, 17265, 176066, 3119, 539, "Output",
  CellID->1040084770]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1066019, 20406, 26, 0, 357, "DetailsSection"],
-Cell[1066048, 20408, 786, 18, 55, "DetailNotes",
+Cell[1065072, 20389, 26, 0, 357, "DetailsSection"],
+Cell[1065101, 20391, 786, 18, 55, "DetailNotes",
  CellID->883014364],
-Cell[1066837, 20428, 644, 11, 55, "DetailNotes",
+Cell[1065890, 20411, 644, 11, 55, "DetailNotes",
  CellID->1955218255],
-Cell[1067484, 20441, 1237, 35, 35, "DetailNotes",
+Cell[1066537, 20424, 1237, 35, 35, "DetailNotes",
  CellID->1586126686],
-Cell[1068724, 20478, 1439, 42, 38, "DetailNotes",
+Cell[1067777, 20461, 1439, 42, 38, "DetailNotes",
  CellID->253922543],
-Cell[1070166, 20522, 932, 27, 34, "DetailNotes",
+Cell[1069219, 20505, 932, 27, 34, "DetailNotes",
  CellID->1804300666],
-Cell[1071101, 20551, 631, 18, 37, "DetailNotes",
+Cell[1070154, 20534, 631, 18, 37, "DetailNotes",
  CellID->1538211981],
-Cell[1071735, 20571, 610, 11, 39, "DetailNotes",
+Cell[1070788, 20554, 610, 11, 39, "DetailNotes",
  CellID->280812446],
-Cell[1072348, 20584, 2783, 90, 54, "DetailNotes",
+Cell[1071401, 20567, 2783, 90, 54, "DetailNotes",
  CellID->771703571],
-Cell[1075134, 20676, 887, 20, 62, "DetailNotes",
+Cell[1074187, 20659, 887, 20, 62, "DetailNotes",
  CellID->1623788303]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1076058, 20701, 37, 0, 131, "ControlSuggestionsSection"],
-Cell[1076098, 20703, 353, 9, 29, "ControlSuggestions",
+Cell[1075111, 20684, 37, 0, 131, "ControlSuggestionsSection"],
+Cell[1075151, 20686, 353, 9, 29, "ControlSuggestions",
  CellTags->"ResizeImages"],
-Cell[1076454, 20714, 678, 16, 29, "ControlSuggestions",
+Cell[1075507, 20697, 678, 16, 29, "ControlSuggestions",
  CellTags->"RotateAndZoomIn3D"],
-Cell[1077135, 20732, 406, 12, 29, "ControlSuggestions",
+Cell[1076188, 20715, 406, 12, 29, "ControlSuggestions",
  CellTags->"DragLocators"],
-Cell[1077544, 20746, 637, 15, 29, "ControlSuggestions",
+Cell[1076597, 20729, 637, 15, 29, "ControlSuggestions",
  CellTags->"CreateAndDeleteLocators"],
-Cell[1078184, 20763, 885, 22, 29, "ControlSuggestions",
+Cell[1077237, 20746, 885, 22, 29, "ControlSuggestions",
  CellTags->"SliderZoom"],
-Cell[1079072, 20787, 369, 9, 29, "ControlSuggestions",
+Cell[1078125, 20770, 369, 9, 29, "ControlSuggestions",
  CellTags->"GamepadControls"],
-Cell[1079444, 20798, 1507, 32, 29, "ControlSuggestions",
+Cell[1078497, 20781, 1507, 32, 29, "ControlSuggestions",
  CellTags->"AutomaticAnimation"],
-Cell[1080954, 20832, 908, 21, 29, "ControlSuggestions",
+Cell[1080007, 20815, 908, 21, 29, "ControlSuggestions",
  CellTags->"BookmarkAnimation"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1081899, 20858, 30, 0, 165, "SearchTermsSection"],
-Cell[1081932, 20860, 116, 2, 23, "SearchTerms",
+Cell[1080952, 20841, 30, 0, 165, "SearchTermsSection"],
+Cell[1080985, 20843, 116, 2, 23, "SearchTerms",
  CellID->688956524],
-Cell[1082051, 20864, 171, 3, 23, "SearchTerms",
+Cell[1081104, 20847, 171, 3, 23, "SearchTerms",
  CellID->630853877],
-Cell[1082225, 20869, 171, 3, 23, "SearchTerms",
+Cell[1081278, 20852, 171, 3, 23, "SearchTerms",
  CellID->247227338],
-Cell[1082399, 20874, 173, 3, 23, "SearchTerms",
+Cell[1081452, 20857, 173, 3, 23, "SearchTerms",
  CellID->448916323],
-Cell[1082575, 20879, 171, 3, 23, "SearchTerms",
+Cell[1081628, 20862, 171, 3, 23, "SearchTerms",
  CellID->1646131624],
-Cell[1082749, 20884, 121, 2, 23, "SearchTerms",
+Cell[1081802, 20867, 121, 2, 23, "SearchTerms",
  CellID->1526825818],
-Cell[1082873, 20888, 118, 2, 23, "SearchTerms",
+Cell[1081926, 20871, 118, 2, 23, "SearchTerms",
  CellID->2103676052],
-Cell[1082994, 20892, 121, 2, 23, "SearchTerms",
+Cell[1082047, 20875, 121, 2, 23, "SearchTerms",
  CellID->1824992530],
-Cell[1083118, 20896, 126, 2, 23, "SearchTerms",
+Cell[1082171, 20879, 126, 2, 23, "SearchTerms",
  CellID->1086509384],
-Cell[1083247, 20900, 172, 3, 23, "SearchTerms",
+Cell[1082300, 20883, 172, 3, 23, "SearchTerms",
  CellID->2112517744],
-Cell[1083422, 20905, 121, 2, 23, "SearchTerms",
+Cell[1082475, 20888, 121, 2, 23, "SearchTerms",
  CellID->985590839]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1083580, 20912, 31, 0, 149, "RelatedLinksSection"],
-Cell[1083614, 20914, 318, 7, 23, "RelatedLinks",
+Cell[1082633, 20895, 31, 0, 149, "RelatedLinksSection"],
+Cell[1082667, 20897, 318, 7, 23, "RelatedLinks",
  CellID->1707439263],
-Cell[1083935, 20923, 472, 11, 23, "RelatedLinks",
+Cell[1082988, 20906, 472, 11, 23, "RelatedLinks",
  CellID->1197588473],
-Cell[1084410, 20936, 430, 10, 23, "RelatedLinks",
+Cell[1083463, 20919, 430, 10, 23, "RelatedLinks",
  CellID->1652726027],
-Cell[1084843, 20948, 467, 11, 23, "RelatedLinks",
+Cell[1083896, 20931, 467, 11, 23, "RelatedLinks",
  CellID->282291417],
-Cell[1085313, 20961, 433, 10, 23, "RelatedLinks",
+Cell[1084366, 20944, 433, 10, 23, "RelatedLinks",
  CellID->680469296],
-Cell[1085749, 20973, 311, 7, 23, "RelatedLinks",
+Cell[1084802, 20956, 311, 7, 23, "RelatedLinks",
  CellID->1297037597],
-Cell[1086063, 20982, 309, 7, 23, "RelatedLinks",
+Cell[1085116, 20965, 309, 7, 23, "RelatedLinks",
  CellID->204392082],
-Cell[1086375, 20991, 301, 6, 23, "RelatedLinks",
+Cell[1085428, 20974, 301, 6, 23, "RelatedLinks",
  CellID->816594964],
-Cell[1086679, 20999, 324, 7, 23, "RelatedLinks",
+Cell[1085732, 20982, 324, 7, 23, "RelatedLinks",
  CellID->2091055618]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1087040, 21011, 25, 0, 149, "AuthorSection"],
-Cell[1087068, 21013, 725, 20, 23, "Author"]
+Cell[1086093, 20994, 25, 0, 149, "AuthorSection"],
+Cell[1086121, 20996, 725, 20, 23, "Author"]
 }, Open  ]]
 }, Open  ]]
 }
