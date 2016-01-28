@@ -5,15 +5,25 @@ Our vision is for large swarms of robots remotely guided 1) through the human bo
  The biggest barrier to this vision is a lack of control techniques that can reliably exploit large populations despite high under-actuation.  
  
 
+%\begin{figure}
+%\centering
+%\begin{overpic}[width=0.9\columnwidth]{Leaf.jpg}\end{overpic}
+%\caption{\label{fig:vascularNetwork}
+%Vascular networks are common in biology such as the circulatory system and cerebrospinal spaces, as well as in porous media including sponges and pumice stone.  Navigating a swarm using global inputs, where each member receives the same control inputs, is challenging
+%due to the many obstacles. 
+%This paper focuses on using boundary walls and wall friction to break the symmetry caused by the global input and control the shape of a swarm.} 
+%\end{figure}
+
 \begin{figure}
 \centering
 \begin{overpic}[width=0.9\columnwidth]{Leaf.jpg}\end{overpic}
 \caption{\label{fig:vascularNetwork}
-Vascular networks are common in biology such as the circulatory system and cerebrospinal spaces, as well as in porous media including sponges and pumice stone.  Navigating a swarm using global inputs, where each member receives the same control inputs, is challenging
-due to the many obstacles. 
+Swarm of kilobots programmed to move toward the brightest light source.  Navigating a swarm using global inputs is challenging
+because each member receives the same control inputs,
 This paper focuses on using boundary walls and wall friction to break the symmetry caused by the global input and control the shape of a swarm.} 
 \end{figure}
-\todo{ Figure 1: 1.) save this as a pdf 2.) use brighter colors.  These are hard to see.}
+
+
 %One surprising result was that humans that only knew the swarm's mean and covariance completed the task faster that humans who knew the position of every robot~\cite{Becker2013b}. Our previous work focused on a block-pushing task, where a swarm of robots pushed a larger block through a 2D maze. 
 Even without obstacles or boundaries, the mean position of a swarm is controllable.  By adding rectangular boundary walls, some higher-order moments such as the swarm's position variance orthogonal to the boundary walls ($\sigma_x$ and $\sigma_y$ for a workspace with axis-aligned walls) are also controllable. 
 %The usefulness of these techniques was recently demonstrated by several automatic controllers. One controller steered a swarm of robots to push a larger block through a 2D maze~\citet{ShahrokhiIROS2015}. 
