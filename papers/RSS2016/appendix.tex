@@ -404,7 +404,7 @@ A=1:&\left(
 
 
 \subsection{Circle Workspace}
-The area under a chord of a circle is the area of a sector less the area of the triangle originating at the circle center: provement of area formula:
+The area under a chord of a circle is the area of a sector less the area of the triangle originating at the circle center: 
 $A=S(sector)-S(triangle)=1/2 LR-1/2 C(1-h)$, thus
 \begin{align}
 A=(1/2)\left[LR-c(R-h)\right]
@@ -434,42 +434,42 @@ For a circular workspace, with $\beta = 0$, the variance of $x$ and $y$ are:
 
 For $\beta = 0$, $\sigma_{xy}=0$. These values can be rotated to calculate $\sigma_x^2(\beta,h),\sigma_y^2(\beta,h),$ and $\sigma_{xy}(\beta,h)$.
 
-
-\section{ Algorithm for generating desired $y$ spacing between two robots using wall friction}
-\begin{algorithm}
-\caption{GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)}\label{alg:YControl}
-\begin{algorithmic}[1]
-\Require Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
-$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
- $L$ is length of the walls. Current position of the robots are $(r_1,r_2)$.
-\Ensure   $ r_{1x} - r_{2x}  \equiv s_{1x} - s_{2x} $   %$\Delta y(t) \equiv \Delta y(0)$ 
-\State $ \Delta s_y  \gets s_{1y} - s_{2y} $
-\State $ \Delta e_y \gets e_{1y} - e_{2y} $
-\State $ r_1 \gets s_1$, $ r_2 \gets s_2$
-\If {$\Delta e_y < 0 $ }
-\State $ m \gets ( L-\max( r_{1y},r_{2y}) ,0)   $ \Comment{Move to top wall}
-\Else 
-\State  $ m \gets ( -\min( r_{1y},r_{2y}),0 )    $ \Comment{Move to bottom wall}
-\EndIf
-\State $m  \gets  m + (0, -\min( r_{1x},r_{2x} ))$ \Comment{Move to left}
-\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
-\If {$\Delta e_y - (r_{1y} - r_{2y} ) > 0 $}
-\State $ m \gets (\min(|\Delta e_y - \Delta s_y |, L- r_{1y}), 0)$  \Comment{Move top}
-\Else
-\State $ m \gets (-\min(|\Delta e_y - \Delta s_y |, r_{1y}), 0)$\Comment{Move bottom}
-\EndIf 
-\State $m  \gets  m + (0, \epsilon)$ \Comment{Move right}
-\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
-\State $\Delta r_y = r_{1y} - r_{2y}$
-\If {$\Delta r_y \equiv \Delta e_y$} 
-\State   $ m \gets (e_{1x}-r_{1x}, e_{1y}-r_{1y})$
-\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
-\State  \Return $(r_1,r_2)$
-\Else   
-\State \Return GenerateDesired$y$-spacing($r_1,r_2,e_1,e_2,L$)
-\EndIf
-\end{algorithmic}
-\end{algorithm}
+%
+%\section{ Algorithm for generating desired $y$ spacing between two robots using wall friction}
+%\begin{algorithm}
+%\caption{GenerateDesired$y$-spacing($s_1,s_2,e_1,e_2,L$)}\label{alg:YControl}
+%\begin{algorithmic}[1]
+%\Require Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
+%$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
+% $L$ is length of the walls. Current position of the robots are $(r_1,r_2)$.
+%\Ensure   $ r_{1x} - r_{2x}  \equiv s_{1x} - s_{2x} $   %$\Delta y(t) \equiv \Delta y(0)$ 
+%\State $ \Delta s_y  \gets s_{1y} - s_{2y} $
+%\State $ \Delta e_y \gets e_{1y} - e_{2y} $
+%\State $ r_1 \gets s_1$, $ r_2 \gets s_2$
+%\If {$\Delta e_y < 0 $ }
+%\State $ m \gets ( L-\max( r_{1y},r_{2y}) ,0)   $ \Comment{Move to top wall}
+%\Else 
+%\State  $ m \gets ( -\min( r_{1y},r_{2y}),0 )    $ \Comment{Move to bottom wall}
+%\EndIf
+%\State $m  \gets  m + (0, -\min( r_{1x},r_{2x} ))$ \Comment{Move to left}
+%\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+%\If {$\Delta e_y - (r_{1y} - r_{2y} ) > 0 $}
+%\State $ m \gets (\min(|\Delta e_y - \Delta s_y |, L- r_{1y}), 0)$  \Comment{Move top}
+%\Else
+%\State $ m \gets (-\min(|\Delta e_y - \Delta s_y |, r_{1y}), 0)$\Comment{Move bottom}
+%\EndIf 
+%\State $m  \gets  m + (0, \epsilon)$ \Comment{Move right}
+%\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+%\State $\Delta r_y = r_{1y} - r_{2y}$
+%\If {$\Delta r_y \equiv \Delta e_y$} 
+%\State   $ m \gets (e_{1x}-r_{1x}, e_{1y}-r_{1y})$
+%\State $ r_1 \gets r_1+m$, $ r_2 \gets r_2+m$ \Comment{Apply move}
+%\State  \Return $(r_1,r_2)$
+%\Else   
+%\State \Return GenerateDesired$y$-spacing($r_1,r_2,e_1,e_2,L$)
+%\EndIf
+%\end{algorithmic}
+%\end{algorithm}
 
 
 %%%%%%%%%%%%%%%
