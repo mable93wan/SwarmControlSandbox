@@ -1,5 +1,5 @@
 \section{Introduction}\label{sec:Intro}
-Micro- and nano-robots can be manufactured in large numbers, see recent examples in~\citet{Donald2013}, \citet{Ghosh2009}, \citet{kim2015imparting}, or \citet{martel2014computer}.
+Micro- and nano-robots can be manufactured in large numbers, see recent examples in~\citet{Donald2013}, \citet{Ghosh2009}, \citet{kim2015imparting}, \citet{qiu2015magnetic}, or \citet{martel2014computer}.
 Our vision is for large swarms of robots remotely guided 1) through the human body, to cure disease, heal tissue, and prevent infection  and 2) ex vivo to assemble structures in parallel. %Both tasks are high   as described in \citet{munoz2014review} \citet{sitti2015biomedical} . 
  For each application, large numbers of micro robots are required  to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
  The biggest barrier to this vision is a lack of control techniques that can reliably exploit large populations despite high under-actuation.  
@@ -18,8 +18,7 @@ Our vision is for large swarms of robots remotely guided 1) through the human bo
 \centering
 \begin{overpic}[width=0.95\columnwidth]{IntroSwarmPic.pdf}\end{overpic}
 \caption{\label{fig:IntroPic}
-Swarm of kilobots programmed to move toward the brightest light source. The current covariance ellipse and mean are shown in red, the desired covariance is shown in green.  Navigating a swarm using global inputs is challenging
-because each member receives the same control inputs,
+Swarm of kilobots programmed to move toward the brightest light source. The current covariance ellipse and mean are shown in red, the desired covariance is shown in green.  Navigating a swarm using global inputs is challenging because each member receives the same control inputs. 
 This paper focuses on using boundary walls and wall friction to break the symmetry caused by the global input and control the shape of a swarm.} 
 \end{figure}
 

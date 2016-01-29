@@ -1,4 +1,4 @@
-\begin{thebibliography}{18}
+\begin{thebibliography}{19}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -12,7 +12,7 @@ Erin Catto.
 \newblock URL \url{http://www.box2d.org}.
 
 \bibitem[Chowdhury et~al.(2015)Chowdhury, Jing, and Cappelleri]{Chowdhury2015}
-Sagar Chowdhury, Wuming Jing, and DavidJ. Cappelleri.
+Sagar Chowdhury, Wuming Jing, and David~J. Cappelleri.
 \newblock Controlling multiple microrobots: recent progress and future
   challenges.
 \newblock \emph{Journal of Micro-Bio Robotics}, 10\penalty0 (1-4):\penalty0
@@ -78,7 +78,13 @@ Sylvain Martel, Samira Taherkhani, Maryam Tabrizian, Mahmood Mohammadi, Dominic
   Huebsch]{Munson2013}
 Bruce~R. Munson, Alric~P. Rothmayer, Theodore~H. Okiishi, and Wade~W. Huebsch.
 \newblock \emph{Fundamentals of Fluid Mechanics}.
-\newblock Wiley, 7 edition, 2012.
+\newblock Wiley, 7th edition, 2012.
+
+\bibitem[Qiu and Nelson(2015)]{qiu2015magnetic}
+Famin Qiu and Bradley~J Nelson.
+\newblock Magnetic helical micro-and nanorobots: Toward their biomedical
+  applications.
+\newblock \emph{Engineering}, 1\penalty0 (1):\penalty0 21--26, 2015.
 
 \bibitem[Rubenstein et~al.(2012)Rubenstein, Ahler, and Nagpal]{Rubenstein2012}
 M.~Rubenstein, C.~Ahler, and R.~Nagpal.

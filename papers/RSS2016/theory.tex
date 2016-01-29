@@ -103,7 +103,7 @@ The next section shows how a system with friction model \eqref{eq:frictionmodel}
 
 
 
-\subsection{Position control of $2$ robots using wall friction}\label{sec:PostionControl2Robots}
+\subsection{Position Control of $2$ Robots Using Wall Friction}\label{sec:PostionControl2Robots}
 \begin{figure*}
 \centering
 \renewcommand{\figwid}{0.4\columnwidth}
@@ -278,15 +278,16 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 
 
 
-\subsection{Position Control of $n$ robots using wall friction}\label{sec:PostionControlnRobots}
+\subsection{Position Control of $n$ Robots Using Wall Friction}\label{sec:PostionControlnRobots}
 Alg. \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from a \emph{staging zone} to the desired position in a \emph{build zone}. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone. See Fig.~\ref{fig:construction2d} for a schematic of the build and staging zones.
 
 
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=1.0\columnwidth]{driftmove.pdf}
+	\includegraphics[width=.9\columnwidth]{driftmove.pdf}
 \end{center}
+\vspace{-1em}
 \caption{\label{fig:driftmove}
 A  $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ to the right consists of repeating a triangular movement sequence $\{ (\beta/2,-\epsilon),(\beta/2,\epsilon),(-\alpha,0)\}$. The robot $A$ touching a top wall will move right $\beta$ units, while robots not touching the top move right $\beta-\alpha$.
 }
@@ -295,6 +296,7 @@ A  $\operatorname{DriftMove}(\alpha, \beta, \epsilon)$ to the right consists of 
 \begin{center}
 	\includegraphics[width=1.0\columnwidth]{PositionNrobots.pdf}
 \end{center}
+\vspace{-1em}
 \caption{\label{fig:construction2d}
 Illustration of Alg.\ \ref{alg:PosControlNRobots}, $n$ robot position control  using wall friction.
 }
@@ -343,7 +345,7 @@ Finally, all robots are moved right until robot $k$ is in the desired target pos
 
 
 \subsection{Controlling Covariance Using Wall Friction}\label{subsec:ClosedLoopCovarianceControl}
-Assume an open workspace with infinite boundary friction. Goal variances and covariance are  $(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy}$ and mean, variances and covariance of the swarm  are $( \bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$. 
+Assume an open workspace with infinite boundary friction. Goal variances and covariance are  $(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy}$ and mean, variances and covariance of the swarm  are $( \bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$. For our experiments, $c_1 = 0.1$.
 %$\sigma_x^2$ decreases when the swarm is pushed into vertical walls, and $\sigma_y^2$ decreases when the swarm is pushed into horizontal walls. Alg.~\ref{alg:CovCont} procedes as follows:
 \begin{enumerate}
 \item swarm is pushed into the left wall until $\sigma_x^2< c_1\sigma_{goalx}^2$.  
@@ -353,7 +355,7 @@ Assume an open workspace with infinite boundary friction. Goal variances and cov
 else swarm slides left until $\sigma_{xy} \le \sigma_{goalxy}$ 
 \item  swarm's mean position is moved to the center of the workspace
 \end{enumerate}
-For our experiments, $c_1 = 0.1$.
+
 
 %\begin{algorithm}
 %\caption{Swarm Covariance Control With Wall Friction}\label{alg:CovCont}
