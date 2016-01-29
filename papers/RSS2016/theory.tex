@@ -6,7 +6,7 @@
 \begin{center}
 \includegraphics[width=\linewidth]{SquareFill.pdf} 
 \caption{Pushing the swarm against a square boundary wall allows limited control of the shape of the swarm, as a function of swarm area $A$ and the commanded movement direction $\beta$. Left plot shows locus of possible mean positions for five values of $A$.  The locus morphs from a square to a circle as $A$ increases.  The covariance ellipse for each $A$ is shown with a dashed line. Center shows two corresponding arrangements of kilobots.  At right is $\bar{x}(A), \sigma_{xy}(A), \sigma_x^2(A),$ and $\rho(A)$ for a range of $\beta$ values. See online interactive demonstration at [withheld for double-blind review].}
-\label{fig:CircleFill}
+\label{fig:SquareFill}
 \end{center}
 \end{figure*} 
 \begin{figure*}[!htb]
@@ -20,7 +20,7 @@
 \subsection{Controlling Covariance: Fluid Settling In a Tank}\label{subsec:FluidInTank}
 One method to control a swarm's shape in a bounded workspace is to simply push in a given direction until the swarm conforms to the boundary.
 \paragraph{Square workplace}
-This section examines the mean, variance,  covariance and correlation of a very large swarm of robots as they move inside a square workplace under the influence of gravity pointing in the direction $\beta$. The swarm is large, but the robots are small in comparison, and together cover an area of constant volume $A$. Under a global input such as gravity, they flow like water, moving to a side of the workplace and forming a polygonal shape, as shown in Fig.~\ref{fig:CircleFill}. 
+This section examines the mean, variance,  covariance and correlation of a very large swarm of robots as they move inside a square workplace under the influence of gravity pointing in the direction $\beta$. The swarm is large, but the robots are small in comparison, and together cover an area of constant volume $A$. Under a global input such as gravity, they flow like water, moving to a side of the workplace and forming a polygonal shape, as shown in Fig.~\ref{fig:SquareFill}. 
 
 The range of possible angles for the global input angle $\beta $ is [0,2$\pi $). In this range of angles, the swarm assumes eight different polygonal shapes. The shapes alternate between triangles and trapezoids when the area $A$$<$1/2, and alternate between squares with one corner removed and trapezoids when $A$$>$1/2.
 
@@ -49,7 +49,7 @@ Rather than using an indicator function, the region of integration can be change
 \bar{y}(A,\beta) &= \frac{\int_0^{\sqrt{2} \sqrt{-A \tan (\beta )}} \left(\int_0^{\sqrt{2} \sqrt{-A \cot (\beta )}+x \cot (\beta )} y \, dy\right) \, dx}{A} \nonumber\\
 	&=\frac{1}{3} \sqrt{2} \sqrt{A \cot (\beta )}
 \end{align}
-The full equations are included in the appendix, and are summarized in Fig.~\ref{fig:CircleFill}. A few highlights are that the correlation is maximized when the swarm is in a triangular shape, and is $\pm$1/2. The covariance of a triangle is always $\pm(A/18)$. Variance is minimized in the direction of $\beta$ and maximized orthogonal to $\beta$ when the swarm is in a rectangular shape. The range of mean positions are maximized when $A$ is small.
+The full equations are included in the appendix, and are summarized in Fig.~\ref{fig:SquareFill}. A few highlights are that the correlation is maximized when the swarm is in a triangular shape, and is $\pm$1/2. The covariance of a triangle is always $\pm(A/18)$. Variance is minimized in the direction of $\beta$ and maximized orthogonal to $\beta$ when the swarm is in a rectangular shape. The range of mean positions are maximized when $A$ is small.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Circular workplace}
@@ -276,7 +276,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 
 
 \subsection{Position Control of $n$ robots using wall friction}\label{sec:PostionControlnRobots}
-Algorithm \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from a \emph{staging zone} to the desired position in a \emph{build zone}. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone. See Fig.~\ref{fig:construction2d} for a schematic of the build and staging zones.
+Alg. \ref{alg:PosControl2Robots}  can be extended to control the position of $n$ robots using wall friction under several constraints. The solution described here is an iterative procedure with $n$ loops. The $k$th loop moves the $k$th robot from a \emph{staging zone} to the desired position in a \emph{build zone}. At the end the $k$th loop, robots 1 through $k$ are in their desired final configuration in the build zone, and robots $k+1$ to $n$ are in the staging zone. See Fig.~\ref{fig:construction2d} for a schematic of the build and staging zones.
 
 
 

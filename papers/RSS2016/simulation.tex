@@ -43,7 +43,7 @@ Similarly,  two iterations of Alg. \ref{alg:YControl} are only required if $|\De
 
 
 \subsection{Position Control of $n$ Robots}
-Algorithm \ref{alg:PosControlNRobots}  was simulated in {\sc Matlab} using square block robots with unity width.
+Alg. \ref{alg:PosControlNRobots}  was simulated in {\sc Matlab} using square block robots with unity width.
 Simulation results are shown in Fig.~\ref{fig:4diagramsplots.pdf} for arrangements with an increasing number of robots,  $n$= [8, 46, 130, 390, 862]. 
 The distance moved grows quadratically with the number of robots $n$. A best-fit line $210 n^2 + 1200n-10,000$ is overlaid by the data..
 
@@ -64,7 +64,7 @@ Control performance is sensitive to the desired clearance.  As $\epsilon$ increa
 	\includegraphics[width=\columnwidth]{5diagramsplots2.pdf}
 \end{center}
 \caption{\label{fig:4diagramsplots.pdf}
-The required number of moves under Algorithm \ref{alg:PosControlNRobots}  using wall-friction to rearrange $n$ square-shaped 
+The required number of moves under Alg. \ref{alg:PosControlNRobots}  using wall-friction to rearrange $n$ square-shaped 
 robots.  %The plot compares  \emph{Total distance}---the sum of the moves made by every robot, with \emph{LAP distance}---the shortest distance according to the Linear Assignment Problem using Manhattan distance.  
 See hardware implementation and simulation at [link withheld for review].
 }
