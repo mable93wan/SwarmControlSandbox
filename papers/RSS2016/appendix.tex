@@ -172,21 +172,29 @@ Shaping a Swarm With a Shared Control Input\\ Using Boundary Walls and Wall Fric
 \maketitle
 
 \begin{abstract}
-Includes algorithms and equations too lengthy for main paper, but potentially useful for the community.
+Describes videos.
+Also includes algorithms and equations too lengthy for main paper, but potentially useful for the community.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
 
 \section{Video Attachments}
+Five videos animate the key algorithms in this paper.
 
-\subsection{Using walls for controlling covariance in square workspace}
-In this video the limits of the mean position that the swarm can achieve is observable when we have a particular number of robots. It also illustrates how covariance and correlation is changed when the swarm hits the walls and when the swarm has more or less area filled by the robots.
-\subsection{Two robots positioning}
-Algs. 1,2,3 has been implemented in mathematica to show how two robots are positioned in a square workspace. In this video the initial and ending position of the two robots has been changed to any place of the workspace, and the path that the robots should follow to get to ending position is drawn. The last position of the robots is one the most challenging one that the algorithm will give the solution for that.
-\subsection{n robots positioning}
-Alg. 4 has been implemented in MATLAB to show how the two robots positioning is extendable to more robots. In this video each block will reach its goal while all the robots gets the same input using the algorithm.
-\subsection{Covariance Control}
-Alg. 5 has been implemented with box2D simulator. In this video the green ellipse is the desired covariance ellipse, the red ellipse is the current covariance ellipse of the swarm and the red dot is the mean position of the robots. Robots follow the algorithm to achieve the desired values for $\sigma_{goalxy}$, $\sigma_x^2$ and $\sigma_y^2$.
+\subsection{CircleSwarmAnalytical.mov}
+The video \emph{CircleSwarmAnalytical.mov} shows the stable configuration of a swarm under a constant global input.  Animated plots show mean, variance, covariance, and correlation for a swarm in a circular workspace.
+
+\subsection{SquareSwarmAnalytical.mov}
+The video \emph{SquareSwarmAnalytical.mov} shows the stable configuration of a swarm under a constant global input.  Animated plots show mean, variance, covariance, and correlation for a swarm in a square workspace.
+
+\subsection{TwoRobotPosition.mp4}
+Animates Algs. 1, 2, 3 in Mathematica to show how two robots can be arbitrarily positioned in a square workspace. In this video the desired initial and ending positions of the two robots are manipulated, and the path that the robots should follow is drawn. The video ends with an extreme case where the robots must exchange positions. 
+
+\subsection{nRobotPostionPacman.mp4}
+An implementation of Alg. 4  in {\sc Matlab} that illustrates how the two robots positioning algorithm is extendable to $n$ robots. In this video all  robots gets the same input, but by exploiting wall friction each robot reaches its goal.
+
+\subsection{AutomaticCovControl.mp4}
+A closed-loop controller that steers a swarm of particles to a desired covariance,  implemented with a box2D simulator. In this video the green ellipse is the desired covariance ellipse, the red ellipse is the current covariance ellipse of the swarm and the red dot is the mean position of the robots. Robots follow the algorithm to achieve the desired values for $\sigma_{goalxy}$, $\sigma_x^2$ and $\sigma_y^2$.
 
 \section{Calculations for modeling swarm as fluid in a simple planar workspace}
 Two workspaces are used, a square and a circular workspace.
@@ -204,7 +212,7 @@ Two representative formulas are attached, the outline of the swarm shapes in \eq
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\columnwidth]{SquarePlotPositions.pdf} 
-\caption{A swarm in a }
+\caption{A swarm in a square workspace under a constant global input assumes either a triangular or a trapezoidal shape if $A<1/2$.  If $A>1/2$ the swarm is either a squares with one corner removed or a trapezoidal  shape.}
 \label{fig:friction}
 \end{center}
 \end{figure} 
@@ -411,7 +419,7 @@ Therefore the area under a chord is
 \cos ^{-1}(1-h)-(1-h) \sqrt{(2-h) h}
 \end{align}
 
-The variance of $x$ and $y$ are:
+For a circular workspace, with $\beta = 0$, the variance of $x$ and $y$ are:
 {\tiny
 \begin{align}
 &\sigma_x^2(h)=\frac{64 (h-2)^3 h^3}{144 \left(\sqrt{-(h-2) h} (h-1)+\arccos(1-h)\right)^2} +\nonumber\\
@@ -423,6 +431,9 @@ The variance of $x$ and $y$ are:
 \sigma_y^2(h)=
 \frac{12 \arccos(1-h)-8 \sin \left(2 \arccos(1-h)\right)+\sin \left(4 \arccos(1-h)\right)}{48 \left(\sqrt{-(h-2) h} (h-1)+\arccos(1-h)\right)}
 \end{align}}
+
+For $\beta = 0$, $\sigma_{xy}=0$. These values can be rotated to calculate $\sigma_x^2(\beta,h),\sigma_y^2(\beta,h),$ and $\sigma_{xy}(\beta,h)$.
+
 
 \section{ Algorithm for generating desired $y$ spacing between two robots using wall friction}
 \begin{algorithm}
