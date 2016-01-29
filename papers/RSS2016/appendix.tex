@@ -177,6 +177,17 @@ Includes algorithms and equations too lengthy for main paper, but potentially us
 
 \IEEEpeerreviewmaketitle
 
+\section{Video Attachments}
+
+\subsection{Using walls for controlling covariance in square workspace}
+In this video the limits of the mean position that the swarm can achieve is observable when we have a particular number of robots. It also illustrates how covariance and correlation is changed when the swarm hits the walls and when the swarm has more or less robots.
+\subsection{Two robots positioning}
+Alg 1,2,3 has been implemented in mathematica to show how two robots are positioned in a square workspace. In this video the initial and ending position of the two robots has been changed to any place of the workspace, and the path that the robots should follow to get to ending position is drawn. The last position of the robots is one the most challenging one that the algorithm will give the solution for that.
+\subsection{n robots positioning}
+Alg 4 has been implemented in MATLAB to show how the two robots positioning is extendable to more robots. In this video each block will reach its goal while all the robots gets the same input using the algorithm.
+\subsection{Covariance Control}
+Alg. 5 has been implemented with box2D simulator. In this video the green ellipse is the desired covariance ellipse, the red ellipse is the current covariance ellipse of the swarm and the red dot is the mean position of the robots. Robots follow the algorithm to achieve the desired values for $\sigma_{goalxy}$, $\sigma_x^2$ and $\sigma_y^2$.
+
 \section{Calculations for modeling swarm as fluid in a simple planar workspace}
 Two workspaces are used, a square and a circular workspace.
 
@@ -448,6 +459,7 @@ $(0,0)$ is bottom corner, $s_1$ is rightmost robot,
 \EndIf
 \end{algorithmic}
 \end{algorithm}
+
 
 %%%%%%%%%%%%%%%
 %% Use plainnat to work nicely with natbib. 
