@@ -340,7 +340,8 @@ Finally, all robots are moved right until robot $k$ is in the desired target pos
 
 
 \subsection{Controlling Covariance Using Wall Friction}
-Friction is sufficient to control covariance of the swarm. Assume an open workspace with boundary friction. The wall has infinite friction for simplicity. Variance in $x$ axis would shrink if the swarm hit the 
+Assume an open workspace with boundary friction. The wall has infinite friction for simplicity. Variance($\sigma_x^2$) in $x$ axis would shrink if the swarm hits the vertical walls, and variance($\sigma_y^2$) in $y$ axis would shrink if the swarm hits the horizontal walls. Alg. \ref{alg:CovCont} works as follows:
+As the first step, the robots are moved to the left wall to shrink $\sigma_x^2$. After the robots reach a comparatively smaller $\sigma_x^2$ than the goal variance, they will go to the center of the workspace. This is because after they hit the horizontal wall, their $\sigma_x^2$ will increase and it will keep them from growing highly in $\sigma_x^2$. Then the robots will move to the bottom wall until they reach the desired $\sigma_y^2$. The last step is siding the robots to left or right depending on the sign of the desired covariance to make the covariance needed. At the end robots return to the center to avoid any other influence of the high friction boundary. 
 
 \begin{algorithm}
 \caption{Swarm Covariance Control With Wall Friction}\label{alg:CovCont}
