@@ -57,14 +57,14 @@ The full equations are included in the appendix, and are summarized in Fig.~\ref
 \paragraph{Circular workplace}
 Though rectangular boundaries are common in artificial workspaces, biological workspaces are usually rounded.
 Similar calculations can be computed for a circular workspace.  The workspace is a circle centered at (0,0) with radius 1 and thus area $\pi$.
-For notational simplicity, the swarm will be parameterized by the global control input signal $\beta$ and the fill-level $h$.  
+For notational simplicity, the swarm is parameterized by the global control input signal $\beta$ and the fill-level $h$.  
 Under a global input, the robot swarm fills the region under a chord with area
 \begin{align}
-A(h) = \cos^{-1}(1-h)-(1-h) \sqrt{(2-h) h}.
+A(h) = \arccos(1-h)-(1-h) \sqrt{(2-h) h}.
 \end{align}
 For a circular workspace, the locus of mean positions are aligned with $\beta$ and the mean position is at radius $r(h)$ from the center:
 \begin{align}
-r(h) = \frac{2 (-(h-2) h)^{3/2}}{3 \left(\sqrt{-(h-2) h} (h-1)+\cos ^{-1}(1-h)\right)}
+r(h) = \frac{2 (-(h-2) h)^{3/2}}{3 \left(\sqrt{-(h-2) h} (h-1)+\arccos(1-h)\right)}
 \end{align}
 Variance $\sigma^2_x(\beta,h)$ is maximized at $\beta = \pi/2+n \pi$ and $h\approx1.43$, while covariance is maximized at $\beta = \pi/2+n \pi$ and $h\approx0.92.$ For small $h$ values, correlation approaches $\pm1$. Results are summarized in Fig.~\ref{fig:CircleFill}.
 
