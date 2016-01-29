@@ -5,7 +5,7 @@
 \begin{figure*}[!htb]
 \begin{center}
 \includegraphics[width=\linewidth]{SquareFill.pdf} 
-\caption{Pushing the swarm against a square boundary wall allows limited control of the shape of the swarm, as a function of swarm area $A$ and the commanded movement direction $\beta$. Left plot shows locus of possible mean positions for five values of $A$.  The locus morphs from a square to a circle as $A$ increases.  The covariance ellipse for each $A$ is shown with a dashed line. Center shows two corresponding arrangements of kilobots.  At right is $\bar{x}(A), \sigma_{xy}(A), \sigma_x^2(A),$ and $\rho(A)$ for a range of $\beta values$. See online interactive demonstration at [withheld for double-blind review].}
+\caption{Pushing the swarm against a square boundary wall allows limited control of the shape of the swarm, as a function of swarm area $A$ and the commanded movement direction $\beta$. Left plot shows locus of possible mean positions for five values of $A$.  The locus morphs from a square to a circle as $A$ increases.  The covariance ellipse for each $A$ is shown with a dashed line. Center shows two corresponding arrangements of kilobots.  At right is $\bar{x}(A), \sigma_{xy}(A), \sigma_x^2(A),$ and $\rho(A)$ for a range of $\beta$ values. See online interactive demonstration at [withheld for double-blind review].}
 \label{fig:CircleFill}
 \end{center}
 \end{figure*} 
@@ -20,11 +20,11 @@
 \subsection{Controlling Covariance: Fluid Settling In a Tank}\label{subsec:FluidInTank}
 One method to control a swarm's shape in a bounded workspace is to simply push in a given direction until the swarm conforms to the boundary.
 \paragraph{Square workplace}
-This section examines the mean, variance,  covariance and correlation of a very large swarm of robots as they move inside a square workplace under the influence of gravity pointing in the direction $\beta$. The swarm is large, but the robots are small in comparison, and together cover an area of constant volume $A$. Under a global input such as gravity, they flow like water, moving to a side of the workplace and forming a polygonal shape. 
+This section examines the mean, variance,  covariance and correlation of a very large swarm of robots as they move inside a square workplace under the influence of gravity pointing in the direction $\beta$. The swarm is large, but the robots are small in comparison, and together cover an area of constant volume $A$. Under a global input such as gravity, they flow like water, moving to a side of the workplace and forming a polygonal shape, as shown in Fig.~\ref{fig:CircleFill}. 
 
 The range of possible angles for the global input angle $\beta $ is [0,2$\pi $). In this range of angles, the swarm assumes eight different polygonal shapes. The shapes alternate between triangles and trapezoids when the area $A$$<$1/2, and alternate between squares with one corner removed and trapezoids when $A$$>$1/2.
 
-Computing the means, variances, covariance, and correlation requires integrating over the area containing the swarm.  One way is to use an indicator function $\bm{1}_A(x,y)$ that returns 1 if inside the region containing the swarm, and 0 else. The formulas for means $(\bar{x},\bar{y})$, covariance $(\sigma^2_x,\sigma^2_y,\sigma_{xy})$, and correlation $\rho_{xy}$ are as follows, integrated over the unit square with $x$ and $y$ from 0 to 1:
+Computing the means, variances, covariance, and correlation requires integrating over the area containing the swarm.  This is simplified using an indicator function $\bm{1}_A(x,y)$ that returns 1 if inside the region containing the swarm, and 0 else. The formulas for means $(\bar{x},\bar{y})$, covariance $(\sigma^2_x,\sigma^2_y,\sigma_{xy})$, and correlation $\rho_{xy}$ are as follows, integrated over the unit square with $x$ and $y$ from 0 to 1:
 
 \begin{equation}\label{eq:meanInSquareWorkspace}
 \bar{x} =\frac{\iint x \bm{1}_A(x,y)dxdy}{A}
@@ -49,15 +49,16 @@ Rather than using an indicator function, the region of integration can be change
 \bar{y}(A,\beta) &= \frac{\int_0^{\sqrt{2} \sqrt{-A \tan (\beta )}} \left(\int_0^{\sqrt{2} \sqrt{-A \cot (\beta )}+x \cot (\beta )} y \, dy\right) \, dx}{A} \nonumber\\
 	&=\frac{1}{3} \sqrt{2} \sqrt{A \cot (\beta )}
 \end{align}
-The full equations are included in the appendix, and are summarized in Fig.~\ref{fig:CircleFill}. A few highlights are that the correlation is maximized when the swarm is in a triangular shape, and is $\pm$1/2. The covariance of a triangle is always $\pm(A/18)$. Variance is minimized in the direction of $\beta$ and minimized orthogonal to $\beta$ when the swarm is in a rectangular shape. The range of mean positions are maximized when $A$ is small.
+The full equations are included in the appendix, and are summarized in Fig.~\ref{fig:CircleFill}. A few highlights are that the correlation is maximized when the swarm is in a triangular shape, and is $\pm$1/2. The covariance of a triangle is always $\pm(A/18)$. Variance is minimized in the direction of $\beta$ and maximized orthogonal to $\beta$ when the swarm is in a rectangular shape. The range of mean positions are maximized when $A$ is small.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \paragraph{Circular workplace}
 Though rectangular boundaries are common in artificial workspaces, biological workspaces are usually rounded.
-Similar calculations can be computed for a circular workspace.  
-For notational simplicity, the swarm will be parameterized by the global control input signal $\beta$ and the fill-level $h$, and the workspace is a circle centered at (0,0) with radius 1 and thus area $\pi$.
+Similar calculations can be computed for a circular workspace.  The workspace is a circle centered at (0,0) with radius 1 and thus area $\pi$.
+For notational simplicity, the swarm will be parameterized by the global control input signal $\beta$ and the fill-level $h$.  
 Under a global input, the robot swarm fills the region under a chord with area
 \begin{align}
-A(h) = \cos^{-1}(1-h)-(1-h) \sqrt{(2-h) h}
+A(h) = \cos^{-1}(1-h)-(1-h) \sqrt{(2-h) h}.
 \end{align}
 For a circular workspace, the locus of mean positions are aligned with $\beta$ and the mean position is at radius $r(h)$ from the center:
 \begin{align}
@@ -73,10 +74,10 @@ Variance $\sigma^2_x(\beta,h)$ is maximized at $\beta = \pi/2+n \pi$ and $h\appr
 
 \subsection{Friction with Boundary Wall}\label{subsec:WallFriction}
 Global inputs move a swarm uniformly.  
-Controlling covariance requires breaking this uniform symmetry.  A swarm inside an axis-aligned rectangular workspace can reduce variance normal to a wall by simply pushing the swarm into the boundary. Directly controlling covariance by pushing the swarm into a boundary requires changing the boundary.  An obstacle in the lower-right corner is enough to generate positive covariance.  Generating both positive and negative covariance requires additional obstacles.  Requiring special obstacle configuration also makes covariance control dependent on the local environment. 
-  Instead of pushing our robots directly into a wall, this paper examines an oblique approach, by using boundaries that generate friction with the robots.  These frictional forces are  sufficient to break the symmetry caused by uniform inputs.  Robots touching a wall have a negative friction force that opposes movement along the boundary, as shown in Eq.\ \eqref{eq:frictionmodel}.  This  causes robots along the boundary to slow down compared to robots in free-space. This enables covariance control using  boundaries with arbitrary orientations. 
-  
- Let the control input be a vector force $\vec{F}$ with magnitude $F$ and orientation $\theta$ with respect to a line perpendicular to and into the nearest boundary. $N$ is the normal or perpendicular force between the robot and the boundary. The force of friction $F_f$ is nonzero if the robot is in contact with the boundary and  $|\theta| < \pi/2$. The resulting net force on the robot, $F_{\text{\emph{forward}}}$, is aligned with the wall and given by
+Controlling covariance requires breaking this uniform symmetry.  A swarm inside an axis-aligned rectangular workspace can reduce variance normal to a wall by simply pushing the swarm into the boundary. Directly controlling covariance by pushing the swarm into a boundary requires changes to the boundary.  An obstacle in the lower-right corner is enough to generate positive covariance.  Generating both positive and negative covariance requires additional obstacles.  Requiring special obstacle configuration also makes covariance control dependent on the local environment. 
+  Instead of pushing our robots directly into a wall, this paper examines an oblique approach, by using boundaries that generate friction with the robots.  These frictional forces are  sufficient to break the symmetry caused by uniform inputs.  Robots touching a wall have a negative friction force that opposes movement along the boundary.  This  causes robots along the boundary to slow down compared to robots in free-space. 
+
+Let the control input be a vector force $\vec{F}$ with magnitude $F$ and orientation $\theta$ with respect to a line perpendicular to and into the nearest boundary. $N$ is the normal or perpendicular force between the robot and the boundary. The force of friction $F_f$ is nonzero if the robot is in contact with the boundary and  $|\theta| < \pi/2$. The resulting net force on the robot, $F_{\text{\emph{forward}}}$, is aligned with the wall and given by
 \begin{align}
 F_{\text{\emph{forward}}} &=  F \sin(\theta) - F_f  \nonumber \\
 \text{where }  F_f &= \begin{cases}  \mu_f N, &  \mu_f N < F \sin(\theta)  \label{eq:frictionmodel}  \\
@@ -143,13 +144,13 @@ The bottom row shows an extreme case where the robots must switch position.
 }
 \end{figure*}
 
-This section describes Alg.~\ref{alg:PosControl2Robots}, an algorithm that uses wall-friction to arbitrarily position two robots in a rectangular workspace.  This algorithm  introduces concepts that will be used for multi-robot positioning. It only requires collisions with two orthogonal walls, in this case, the bottom and left walls. Fig.~\label{fig:shapeControlMathematica1} shows a Mathematica implementation of the algorithm, and is useful as a visual reference for the following description.
+This section describes Alg.~\ref{alg:PosControl2Robots}, an algorithm that uses wall-friction to arbitrarily position two robots in a rectangular workspace.  This algorithm  introduces concepts that will be used for multi-robot positioning. It only requires collisions with two orthogonal walls, in this case, the bottom and left walls. Fig.~\ref{fig:shapeControlMathematica1} shows a Mathematica implementation of the algorithm, and is useful as a visual reference for the following description.
 
 Assume two robots are initialized at $s_1$ and $s_2$ with corresponding goal destinations $e_1$ and $e_2$. 
 Denote the current positions of the robots  $r_1$ and $r_2$. 
 Subscripts $_x$ and $_y$ denote the $x$ and $y$ coordinates, i.e., $s_{1x}$ and $s_{1y}$ denote the $x$ and $y$ locations of $s_1$. 
 The algorithm assigns a global control input at every instance.
- As a result, our goal is to adjust 
+The goal is to adjust 
  $\Delta r_x = r_{2x}-r_{1x}$ from $\Delta s_x = s_{2x}-s_{1x}$ to $\Delta e_x = e_{2x}-e_{1x}$ and  adjust 
  $\Delta r_y = r_{2y}-r_{1y}$ from $\Delta s_y = s_{2y}-s_{1y}$ to $\Delta e_y = e_{2y}-e_{1y}$ using a shared global control input. 
  This algorithm exploits the position-dependent friction model \eqref{eq:frictionmodel}.
@@ -162,7 +163,7 @@ Second $|\Delta r_y - \Delta e_y |$ is reduced to zero while  $\Delta r_x$ is ke
 Step (i): Fixing $\Delta r_x$
 \label{theory:step1}
 \begin{enumerate}
-\item Define $ \Delta s_x  = s_{1x} - s_{2x} $ and $ \Delta e_x = e_{1x} - e_{2x}$.
+\item
 If $\Delta e_x$ is negative, the robots will be commanded to move toward the left wall and halt $\epsilon$ distance from the left wall.
 If $\Delta e_x \ge 0$, the robots will be commanded to move toward the right wall and halt $\epsilon$ distance from the right wall. The epsilon distance prevents the robots from experiencing friction along the vertical wall.
 \item  let $y_{\min} = \min_i r_{iy}$, i.e., $y_{\min}$ be the minimum height of the two robots. Move both robots downward  $y_{\min}$ such that one of the robots touches the bottom wall and hence friction force will prevent this robot from moving left or right.
@@ -173,21 +174,20 @@ If $\Delta e_x \ge 0$, the robots will be commanded to move toward the right wal
 Step (ii): Fixing $\Delta r_y$
 Now that $\Delta r_x$ is corrected, $\Delta r_y$ must be corrected:
 \begin{enumerate}
-\item Define  $ \Delta s_y  = s_{1y} - s_{2y} $ and  $ \Delta e_y = e_{1y} - e_{2y}.$
+\item 
 If $\Delta e_y$ is negative, the robots will be commanded to move toward the top wall and halt $\epsilon$ distance from the top wall.
 If $\Delta e_y \ge 0$, the robots will be commanded to move toward the bottom wall and halt $\epsilon$ distance from the bottom wall. The epsilon distance prevents the robots from experiencing friction along the horizontal wall.
 \item  let $x_{\min} = \min_i r_{ix}$, i.e., $x_{\min}$ be the minimum distance of the two robots from the origin along the $x$-axis. Move both robots to the left $x_{\min}$ such that one of the robots  touches the left wall and hence friction force will prevent this robot from moving up or down.
 \item  friction force holds the left robot in place while the right robot may move up or down freely to change $\Delta r_y $  to $\Delta e_y$.
 \item  If after the free move of the right robot $\Delta r_y$ is not $\Delta e_y$, Step (ii) will be repeated.  No more than two iterations of step (ii) are required.
 \end{enumerate}
-Once $\Delta r_x$ and $\Delta r_y$ are set to $\Delta e_x$ and $\Delta e_y$, we can use global input to easily move both robots from $r_1$ and $r_2$ toward $e_1$ and $e_2$. 
+Once $\Delta r_x$ and $\Delta r_y$ are set to $\Delta e_x$ and $\Delta e_y$, a straight-line global input moves both robots from $r_1$ and $r_2$ to $e_1$ and $e_2$. 
 
 
 \begin{algorithm}
 \caption{WallFrictionArrange2Robots($s_1,s_2,e_1,e_2,L$)}\label{alg:PosControl2Robots}
 \begin{algorithmic}[1]
-\Require 
-Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
+\Require starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
 $(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
  $L$ is length of the walls. 
  Current position of the robots are $(r_1,r_2)$.
@@ -240,7 +240,7 @@ $(0,0)$ is bottom corner, $s_1$ is topmost robot,
 \begin{algorithmic}[1]
 \Require Knowledge of starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
 $(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
- $L$ is length of the walls. Current position of the robots are $(r_1,r_2)$.
+ $L$ is length of the walls. Current robot positions are $(r_1,r_2)$.
 \Ensure   $ r_{1x} - r_{2x}  \equiv s_{1x} - s_{2x} $   %$\Delta y(t) \equiv \Delta y(0)$ 
 \State $ \Delta s_y  \gets s_{1y} - s_{2y} $
 \State $ \Delta e_y \gets e_{1y} - e_{2y} $
@@ -331,7 +331,7 @@ Let $(0,0)$ be the lower left corner of the workspace, $p_k$ the $x,y$ position 
 \end{algorithm}
 
 Alg. \ref{alg:PosControlNRobots} procedes as follows:  
-First, the robots are moved left away from right wall, and down so robot $k$ touches the bottom wall.
+First, the robots are moved left away from the right wall, and down so robot $k$ touches the bottom wall.
 Second, a set of $\operatorname{DriftMove()}$s are executed that move robot $k$ to the left wall with no net movement of the other robots.
 Third, a set of $\operatorname{DriftMove()}$s are executed that  move robot $k$ to its target height and return the other robots to their initial heights. 
 Fourth, all robots except robot $k$ are pushed left until robot $k$ is in the correct relative $x$ position compared to robots 1 to $k-1$.
@@ -340,13 +340,13 @@ Finally, all robots are moved right until robot $k$ is in the desired target pos
 
 
 \subsection{Controlling Covariance Using Wall Friction}
-Assume an open workspace with boundary friction. The wall has infinite friction for simplicity. Variance($\sigma_x^2$) in $x$ axis would shrink if the swarm hits the vertical walls, and variance($\sigma_y^2$) in $y$ axis would shrink if the swarm hits the horizontal walls. Alg. \ref{alg:CovCont} works as follows:
+Assume an open workspace with infinite boundary friction. $\sigma_x^2$ decreases when the swarm is pushed into vertical walls, and $\sigma_y^2$ decreases when the swarm is pushed into horizontal walls. Alg.~\ref{alg:CovCont} procedes as follows:
 As the first step, the robots are moved to the left wall to shrink $\sigma_x^2$. After the robots reach a comparatively smaller $\sigma_x^2$ than the goal variance, they will go to the center of the workspace. This is because after they hit the horizontal wall, their $\sigma_x^2$ will increase and it will keep them from growing highly in $\sigma_x^2$. Then the robots will move to the bottom wall until they reach the desired $\sigma_y^2$. The last step is siding the robots to left or right depending on the sign of the desired covariance to make the covariance needed. At the end robots return to the center to avoid any other influence of the high friction boundary. 
 
 \begin{algorithm}
 \caption{Swarm Covariance Control With Wall Friction}\label{alg:CovCont}
 \begin{algorithmic}[1]
-\Require Knowledge of the goal variances and covariance$(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy})$ and mean, variances and covariance of the swarm$(\bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$ .Swarm is Gaussian Distributed(in limit it is uniformly distributed), $L_w$ is width of the walls and $L_h$ is the height of the wall. $(0,0)$ is top right corner. $\epsilon$ is the error for reaching covariance.
+\Require  goal variances and covariance $(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy})$ and mean, variances and covariance of the swarm$(\bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$. Swarm is Gaussian distributed (in limit it is uniformly distributed), $L_w$ is width of the walls and $L_h$ is the height of the wall. $(0,0)$ is top right corner. $\epsilon$ is the error for reaching covariance.
 \If {$\sigma_x^2 > \sigma_{goalx}^2/10 $ }
 \State $ \bar{x} \gets \sigma_{goalx}/10   $ \Comment{Move to left wall}
 \State $MoveToCenter \gets true$
