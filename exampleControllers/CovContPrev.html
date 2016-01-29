@@ -129,8 +129,8 @@
             // bodyDef.position.y = 630/60+10*rnd2();
 
               ///  put the robots in a loose rectangle
-              bodyDef.position.x = 14+(i%rowLength)*2*robotrad;
-              bodyDef.position.y = 18-Math.floor(i/rowLength)*2*robotrad
+              bodyDef.position.x = 14+(i%rowLength)*3*robotrad;
+              bodyDef.position.y = 15-Math.floor(i/rowLength)*3*robotrad
 
              ///  put the robots in a tight rectangle
          //   bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
@@ -229,7 +229,7 @@
 	    var var_x = sum2_x / numrobots;
 	    var var_y = sum2_y / numrobots;
 	    var min_desired_var_x = 6;
-	    var min_desired_var_y = 6;
+	    var min_desired_var_y = 4;
 	    var goalX = 18.5;
 	    var goalY = 10.5;
 
@@ -322,7 +322,7 @@
 
 				}
 			}
-			var cycleInSec = 40;
+			var cycleInSec = 30;
 			var day = new Date();
 
 			if(overall_time == null) // set the start time
@@ -368,7 +368,7 @@
 
 			}
 			var Kgain = 12;
-	var Kderivative = 0.5;
+	var Kderivative = 1;
 	var sum_velocity_x = 0;
 	var sum_velocity_y = 0;
 	var xSize = 1100;
@@ -384,7 +384,7 @@
 
          	var day = new Date();
          	var CycleForCov = 18;
-         	var speed = 100;
+         	var speed = 80;
          	var epsilon = 1;
 
 
@@ -393,8 +393,7 @@
 				overall_time = day.getTime();
 			}
 			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
-			var minVarNeeded = var_xp /2;
-
+			var minVarNeeded = min_desired_var_x/10;
 			if(!GoalRecieved){
          	if(var_x > minVarNeeded && lessVariance == true)
 			{
