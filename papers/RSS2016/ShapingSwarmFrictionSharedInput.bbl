@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{18}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,6 +10,15 @@ Erin Catto.
 \newblock User manual, {Box2D}: A {2D} physics engine for games,
   http://www.box2d.org, 2010.
 \newblock URL \url{http://www.box2d.org}.
+
+\bibitem[Chowdhury et~al.(2015)Chowdhury, Jing, and Cappelleri]{Chowdhury2015}
+Sagar Chowdhury, Wuming Jing, and DavidJ. Cappelleri.
+\newblock Controlling multiple microrobots: recent progress and future
+  challenges.
+\newblock \emph{Journal of Micro-Bio Robotics}, 10\penalty0 (1-4):\penalty0
+  1--11, 2015.
+\newblock \doi{10.1007/s12213-015-0083-6}.
+\newblock URL \url{http://dx.doi.org/10.1007/s12213-015-0083-6}.
 
 \bibitem[Donald et~al.(2013)Donald, Levey, Paprotny, and Rus]{Donald2013}
 Bruce~R Donald, Christopher~G Levey, Igor Paprotny, and Daniela Rus.
