@@ -81,7 +81,7 @@ Control performance is sensitive to the desired clearance $\epsilon$.  As $\epsi
 
 \subsection{Efficient Control of Covariance}
 A set of simulations were conducted to demonstrate the importance of boundary friction.  These simulations use  the 2D physics engine Box2D, by \citet{catto2010box2d}.
- 144 disc-shaped robots were controlled by an open-loop control input.  All robots had  the same initial conditions, but in four tests the boundary friction was $F_f = \{0,1/3 F, 2/3F, F\}$.
+ 144 disc-shaped robots were controlled by an open-loop control input as illustrated in Fig. \ref{fig:SimCovarianceFuncFrictionOpenLoop}.  All robots had  the same initial conditions, but in four tests the boundary friction was $F_f = \{0,1/3 F, 2/3F, F\}$.
  Without friction, covariance has minimal variation.  As friction increases, the covariance can be manipulated to greater degrees.
 
 
@@ -97,7 +97,7 @@ Open-loop simulation with 144 disc robots and varying levels of boundary frictio
  144 disc-shaped robots were also controlled by a closed-loop controller using the procedure in Section \ref{subsec:ClosedLoopCovarianceControl} with the Box2D physics engine. Fig. \ref{fig:CovVarControlPlot} illustrates that covariance and variances in $x$ and $y$ axis were controlled from a set of initial conditions.
 \begin{figure}
 \begin{center}
-	\includegraphics[width=\columnwidth]{CovVarControlPlot.pdf}
+	\includegraphics[width=\columnwidth]{CovVarControlPlot2.eps}
 \end{center}
 \caption{\label{fig:CovVarControlPlot}
 Closed-loop simulation with 144 disc robots and three sets of initial conditions.  The algorithm tracks goal variance and covariance values (green).  The goal covariance switches sign every 30 s.}
