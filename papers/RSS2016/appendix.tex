@@ -166,7 +166,7 @@
 Shaping a Swarm With a Shared Control Input\\ Using Boundary Walls and Wall Friction}}
 
 % You will get a Paper-ID when submitting a pdf file to the conference system
-\author{Paper-ID [add your ID here]}
+\author{Paper-ID 66}
 
 
 \maketitle
@@ -185,6 +185,11 @@ This section provides formulas for the mean, variance,  covariance and correlati
 
 The range of possible angles for the global input angle $\beta $ is [0,2$\pi $). In this range of angles, the swarm assumes eight different polygonal shapes. The shapes alternate between triangles and trapezoids when the area $A$$<$1/2, and alternate between squares with one corner removed and trapezoids when $A$$>$1/2.
 
+Two representative formulas are attached, the outline of the swarm shapes in \eqref{tab:SquareRobotRegions} and $\bar{x}(\beta,A)$ in \eqref{tab:SquareXMean}.
+
+
+
+
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=\columnwidth]{SquarePlotPositions.pdf} 
@@ -192,12 +197,10 @@ The range of possible angles for the global input angle $\beta $ is [0,2$\pi $).
 \label{fig:friction}
 \end{center}
 \end{figure} 
-\begin{table*}
 
+\begin{table*}
 \begin{align}
-&\bar{x}(\beta,A) = \\
-&A\leq \frac{1}{2}: \\
-&\begin{cases}
+\bar{x}(\beta,A) = A\leq \frac{1}{2}: &\begin{cases}
  -\frac{\tan ^2(\beta )}{24 A}-\frac{A}{2}+1 & 0\leq \beta \leq \tan ^{-1}(2 A)\lor 2 \pi -\tan ^{-1}(2 A)<\beta \leq 2 \pi  \\
  1-\frac{1}{3} \sqrt{2} \sqrt{A \tan (\beta )} & \tan ^{-1}(2 A)<\beta \leq \frac{\pi }{2}-\tan ^{-1}(2 A) \\
  \frac{\cot (\beta )}{12 A}+\frac{1}{2} & \frac{\pi }{2}-\tan ^{-1}(2 A)<\beta \leq \tan ^{-1}(2 A)+\frac{\pi }{2} \\
@@ -206,9 +209,8 @@ The range of possible angles for the global input angle $\beta $ is [0,2$\pi $).
  \frac{1}{3} \sqrt{2} \sqrt{A \tan (\beta )} & \tan ^{-1}(2 A)+\pi <\beta \leq \frac{3 \pi }{2}-\tan ^{-1}(2 A) \\
  \frac{1}{2}-\frac{\cot (\beta )}{12 A} & \frac{3 \pi }{2}-\tan ^{-1}(2 A)<\beta \leq \tan ^{-1}(2 A)+\frac{3 \pi }{2} \\
  1-\frac{1}{3} \sqrt{2} \sqrt{-A \tan (\beta )} & \tan ^{-1}(2 A)+\frac{3 \pi }{2}<\beta \leq 2 \pi -\tan ^{-1}(2 A) \\
-\end{cases} \\
-&\frac{1}{2}<A<1:\\
-&\begin{cases}
+\end{cases} \nonumber\\
+\frac{1}{2}<A<1:&\begin{cases}
  -\frac{\tan ^2(\beta )}{24 A}-\frac{A}{2}+1 & 0\leq \beta \leq \tan ^{-1}\left(\frac{1}{2},1-A\right)\lor 2 \pi -\tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq 2 \pi  \\
  \frac{2 \sqrt{2} \sqrt{(1-A) \tan (\beta )} (A-1)+3}{6 A} & \tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq \frac{\pi }{2}-\tan ^{-1}\left(\frac{1}{2},1-A\right) \\
  \frac{6 A+\cot (\beta )}{12 A} & \frac{\pi }{2}-\tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq \tan ^{-1}\left(\frac{1}{2},1-A\right)+\frac{\pi }{2} \\
@@ -218,19 +220,198 @@ The range of possible angles for the global input angle $\beta $ is [0,2$\pi $).
  \frac{1}{2}-\frac{\cot (\beta )}{12 A} & \frac{3 \pi }{2}-\tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq \tan ^{-1}\left(\frac{1}{2},1-A\right)+\frac{3 \pi }{2} \\
  \frac{2 \sqrt{2} \sqrt{(A-1) \tan (\beta )} (A-1)+3}{6 A} & \tan ^{-1}\left(\frac{1}{2},1-A\right)+\frac{3 \pi }{2}<\beta \leq 2 \pi -\tan ^{-1}\left(\frac{1}{2},1-A\right) \\
 \end{cases}
- \\
-&A=1, \frac{1}{2}
+ \nonumber \\
+A=1: &\frac{1}{2}
 \end{align}
-\protect\caption{Long equation}
-\label{tab:long-eq}
+\protect\caption{$\bar{x}$ in a unit-square workspace}
+\label{tab:SquareXMean}
 \end{table*}
 
 
 
+\begin{table*}
+\tiny
+\begin{align}
+\text{RobotRegion}(\beta,A)= \nonumber 
+A\leq \frac{1}{2}:&
+\begin{cases}
+ \left(
+\begin{array}{cc}
+ 1 & 0 \\
+ 1 & 1 \\
+ -A-\frac{\tan (\beta )}{2}+1 & 1 \\
+ -A+\frac{\tan (\beta )}{2}+1 & 0 \\
+\end{array}
+\right) & 0\leq \beta \leq \tan ^{-1}(2 A)\lor 2 \pi -\tan ^{-1}(2 A)<\beta \leq 2 \pi  \\
+ \left(
+\begin{array}{cc}
+ 1 & 1 \\
+ 1-\sqrt{2} \sqrt{A \tan (\beta )} & 1 \\
+ 1 & 1-\sqrt{2} \sqrt{A \cot (\beta )} \\
+\end{array}
+\right) & \tan ^{-1}(2 A)<\beta \leq \frac{\pi }{2}-\tan ^{-1}(2 A) \\
+ \left(
+\begin{array}{cc}
+ 1 & 1 \\
+ 0 & 1 \\
+ 0 & -A+\frac{\cot (\beta )}{2}+1 \\
+ 1 & -A-\frac{\cot (\beta )}{2}+1 \\
+\end{array}
+\right) & \frac{\pi }{2}-\tan ^{-1}(2 A)<\beta \leq \tan ^{-1}(2 A)+\frac{\pi }{2} \\
+ \left(
+\begin{array}{cc}
+ 0 & 1 \\
+ \sqrt{2} \sqrt{-A \tan (\beta )} & 1 \\
+ 0 & 1-\sqrt{2} \sqrt{-A \cot (\beta )} \\
+\end{array}
+\right) & \tan ^{-1}(2 A)+\frac{\pi }{2}<\beta \leq \pi -\tan ^{-1}(2 A) \\
+ \left(
+\begin{array}{cc}
+ 0 & 0 \\
+ 0 & 1 \\
+ A-\frac{\tan (\beta )}{2} & 1 \\
+ A+\frac{\tan (\beta )}{2} & 0 \\
+\end{array}
+\right) & \pi -\tan ^{-1}(2 A)<\beta \leq \tan ^{-1}(2 A)+\pi  \\
+ \left(
+\begin{array}{cc}
+ 0 & 0 \\
+ 0 & \sqrt{2} \sqrt{A \cot (\beta )} \\
+ \sqrt{2} \sqrt{A \tan (\beta )} & 0 \\
+\end{array}
+\right) & \tan ^{-1}(2 A)+\pi <\beta \leq \frac{3 \pi }{2}-\tan ^{-1}(2 A) \\
+ \left(
+\begin{array}{cc}
+ 0 & 0 \\
+ 1 & 0 \\
+ 1 & A-\frac{\cot (\beta )}{2} \\
+ 0 & A+\frac{\cot (\beta )}{2} \\
+\end{array}
+\right) & \frac{3 \pi }{2}-\tan ^{-1}(2 A)<\beta \leq \tan ^{-1}(2 A)+\frac{3 \pi }{2} \\
+ \left(
+\begin{array}{cc}
+ 1 & 0 \\
+ 1-\sqrt{2} \sqrt{-A \tan (\beta )} & 0 \\
+ 1 & \sqrt{2} \sqrt{-A \cot (\beta )} \\
+\end{array}
+\right) & \tan ^{-1}(2 A)+\frac{3 \pi }{2}<\beta \leq 2 \pi -\tan ^{-1}(2 A) \\
+\end{cases}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\nonumber \\
+\frac{1}{2}<A<1:&
+\begin{cases}
+ \left(
+\begin{array}{cc}
+ 1 & 0 \\
+ 1 & 1 \\
+ (1-A)-\frac{\tan (\beta )}{2} & 1 \\
+ (1-A)+\frac{\tan (\beta )}{2} & 0 \\
+\end{array}
+\right) & 0\leq \beta \leq \tan ^{-1}\left(\frac{1}{2},1-A\right)\lor 2 \pi -\tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq 2 \pi  \\
+ \left(
+\begin{array}{cc}
+ 1 & 0 \\
+ 1 & 1 \\
+ 0 & 1 \\
+ 0 & \sqrt{2} \sqrt{(1-A) \cot (\beta )} \\
+ \sqrt{2} \sqrt{(1-A) \tan (\beta )} & 0 \\
+\end{array}
+\right) & \tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq \frac{\pi }{2}-\tan ^{-1}\left(\frac{1}{2},1-A\right) \\
+ \left(
+\begin{array}{cc}
+ 0 & 1 \\
+ 1 & 1 \\
+ 1 & (1-A)-\frac{\cot (\beta )}{2} \\
+ 0 & (1-A)+\frac{\cot (\beta )}{2} \\
+\end{array}
+\right) & \frac{\pi }{2}-\tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq \tan ^{-1}\left(\frac{1}{2},1-A\right)+\frac{\pi }{2} \\
+ \left(
+\begin{array}{cc}
+ 1 & 1 \\
+ 0 & 1 \\
+ 0 & 0 \\
+ 1-\sqrt{2} \sqrt{-(1-A) \tan (\beta )} & 0 \\
+ 1 & \sqrt{2} \sqrt{-(1-A) \cot (\beta )} \\
+\end{array}
+\right) & \tan ^{-1}\left(\frac{1}{2},1-A\right)+\frac{\pi }{2}<\beta \leq \pi -\tan ^{-1}\left(\frac{1}{2},1-A\right) \\
+ \left(
+\begin{array}{cc}
+ 0 & 0 \\
+ 0 & 1 \\
+ -(1-A)-\frac{\tan (\beta )}{2}+1 & 1 \\
+ -(1-A)+\frac{\tan (\beta )}{2}+1 & 0 \\
+\end{array}
+\right) & \pi -\tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq \tan ^{-1}\left(\frac{1}{2},1-A\right)+\pi  \\
+ \left(
+\begin{array}{cc}
+ 1 & 0 \\
+ 0 & 0 \\
+ 0 & 1 \\
+ 1-\sqrt{2} \sqrt{(1-A) \tan (\beta )} & 1 \\
+ 1 & 1-\sqrt{2} \sqrt{(1-A) \cot (\beta )} \\
+\end{array}
+\right) & \tan ^{-1}\left(\frac{1}{2},1-A\right)+\pi <\beta \leq \frac{3 \pi }{2}-\tan ^{-1}\left(\frac{1}{2},1-A\right) \\
+ \left(
+\begin{array}{cc}
+ 1 & 0 \\
+ 0 & 0 \\
+ 0 & -(1-A)+\frac{\cot (\beta )}{2}+1 \\
+ 1 & -(1-A)-\frac{\cot (\beta )}{2}+1 \\
+\end{array}
+\right) & \frac{3 \pi }{2}-\tan ^{-1}\left(\frac{1}{2},1-A\right)<\beta \leq \tan ^{-1}\left(\frac{1}{2},1-A\right)+\frac{3 \pi }{2} \\
+ \left(
+\begin{array}{cc}
+ 0 & 0 \\
+ 1 & 0 \\
+ 1 & 1 \\
+ \sqrt{2} \sqrt{-(1-A) \tan (\beta )} & 1 \\
+ 0 & 1-\sqrt{2} \sqrt{-(1-A) \cot (\beta )} \\
+\end{array}
+\right) & \tan ^{-1}\left(\frac{1}{2},1-A\right)+\frac{3 \pi }{2}<\beta \leq 2 \pi -\tan ^{-1}\left(\frac{1}{2},1-A\right) \\
+\end{cases},\nonumber\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+A=1:&\left(
+\begin{array}{cc}
+ 1 & 0 \\
+ 0 & 0 \\
+ 0 & 1 \\
+ 1 & 1 \\
+\end{array}
+\right)
+\end{align}
+\protect\caption{RobotRegions in a unit-square workspace}
+\label{tab:SquareRobotRegions}
+\end{table*}
+
+
 \subsection{Circle Workspace}
+The area under a chord of a circle is the area of a sector less the area of the triangle originating at the circle center: provement of area formula:
+$A=S(sector)-S(triangle)=1/2 LR-1/2 C(1-h)$, thus
+\begin{align}
+A=(1/2)\left[LR-c(R-h)\right]
+\end{align}
+where $L$ is arc length, $c$ is chord length, $R$ is radius and $h$ is height. Solving for $L$ and $C$ gives
+\begin{align}
+L&=2 \cos ^{-1}(1-h)\\
+C&=2\sqrt{h(2-h)}
+\end{align}
+Therefore the area under a chord is
+\begin{align}
+\cos ^{-1}(1-h)-(1-h) \sqrt{(2-h) h}
+\end{align}
 
+The variance of $x$ and $y$ are:
+{\tiny
+\begin{align}
+&\sigma_x^2(h)=\frac{64 (h-2)^3 h^3}{144 \left(\sqrt{-(h-2) h} (h-1)+\arccos(1-h)\right)^2} +\nonumber\\
+&\frac{9 \left(\sqrt{-(h-2) h} (h-1)+\arccos(1-h)\right) \left(\sin \left(4 \arcsin(1-h)\right)+4 \arccos(1-h)\right)}{144 \left(\sqrt{-(h-2) h} (h-1)+\arccos(1-h)\right)^2}
+\end{align}}
 
-
+{\tiny
+\begin{align}
+\sigma_y^2(h)=
+\frac{12 \arccos(1-h)-8 \sin \left(2 \arccos(1-h)\right)+\sin \left(4 \arccos(1-h)\right)}{48 \left(\sqrt{-(h-2) h} (h-1)+\arccos(1-h)\right)}
+\end{align}}
 
 \section{ Algorithm for generating desired $y$ spacing between two robots using wall friction}
 \begin{algorithm}
