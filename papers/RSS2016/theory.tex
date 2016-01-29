@@ -90,7 +90,7 @@ This means that if one robot is touching the wall and another robot is free, if 
 The next section shows how a system with friction model \eqref{eq:frictionmodel} and two orthogonal walls are sufficient to arbitrarily position two robots. 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=\columnwidth]{friction.pdf} 
+\includegraphics[width=0.8\columnwidth]{friction.pdf} 
 \caption{Wall friction reduces the force for going forward $F_{\text{\emph{forward}}}$ on a robot near a wall, but not for a free robot.}
 \label{fig:friction}
 \end{center}
@@ -339,45 +339,56 @@ Fourth, all robots except robot $k$ are pushed left until robot $k$ is in the co
 Finally, all robots are moved right until robot $k$ is in the desired target position.
 
 
-\subsection{Controlling Covariance Using Wall Friction}
-Assume an open workspace with infinite boundary friction. $\sigma_x^2$ decreases when the swarm is pushed into vertical walls, and $\sigma_y^2$ decreases when the swarm is pushed into horizontal walls. Alg.~\ref{alg:CovCont} procedes as follows:
-As the first step, the robots are moved to the left wall to shrink $\sigma_x^2$. After the robots reach a comparatively smaller $\sigma_x^2$ than the goal variance, they will go to the center of the workspace. This is because after they hit the horizontal wall, their $\sigma_x^2$ will increase and it will keep them from growing highly in $\sigma_x^2$. Then the robots will move to the bottom wall until they reach the desired $\sigma_y^2$. The last step is siding the robots to left or right depending on the sign of the desired covariance to make the covariance needed. At the end robots return to the center to avoid any other influence of the high friction boundary. 
+\subsection{Controlling Covariance Using Wall Friction}\label{subsec:ClosedLoopCovarianceControl}
+Assume an open workspace with infinite boundary friction. Goal variances and covariance are  $(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy}$ and mean, variances and covariance of the swarm  are $( \bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$. 
+%$\sigma_x^2$ decreases when the swarm is pushed into vertical walls, and $\sigma_y^2$ decreases when the swarm is pushed into horizontal walls. Alg.~\ref{alg:CovCont} procedes as follows:
+\begin{enumerate}
+\item swarm is pushed into the left wall until $\sigma_x^2< c_1\sigma_{goalx}^2$.  
+\item swarm's mean position is moved to the center of the workspace
+\item swarm is pushed into the bottom wall until $\sigma_y^2 \le \sigma_{goalt}^2$. 
+\item if $\sigma_{goalxy}>0$ swarm slides right until $\sigma_{xy} \ge \sigma_{goalxy}$ \\
+else swarm slides left until $\sigma_{xy} \le \sigma_{goalxy}$ 
+\item  swarm's mean position is moved to the center of the workspace
+\end{enumerate}
+For our experiments, $c_1 = 0.1$.
 
-\begin{algorithm}
-\caption{Swarm Covariance Control With Wall Friction}\label{alg:CovCont}
-\begin{algorithmic}[1]
-\Require  goal variances and covariance $(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy})$ and mean, variances and covariance of the swarm$(\bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$. Swarm is Gaussian distributed (in limit it is uniformly distributed), $L_w$ is width of the walls and $L_h$ is the height of the wall. $(0,0)$ is top right corner. $\epsilon$ is the error for reaching covariance.
-\If {$\sigma_x^2 > \sigma_{goalx}^2/10 $ }
-\State $ \bar{x} \gets \sigma_{goalx}/10   $ \Comment{Move to left wall}
-\State $MoveToCenter \gets true$
-\Else
-\If {$MoveToCenter$ }
-\State   $ \bar{x} \gets L_w/2 $, $\bar{y} \gets L_h/2 $ \Comment{Move to the center}
-\State $MoveToBottom \gets true$
-\State $MoveToCenter \gets false$
-\Else 
-\If {$MoveToBottom $}
-\State $ \bar{y} \gets L_h - \sigma_{goaly}   $ \Comment{Move to bottom}
-\State $MoveToBottom \gets false$
-\Else
-\If {$\sigma_{xy} -\sigma_{goalxy} > \epsilon$}
-\While  {$\sigma_{xy} -\sigma_{goalxy} > \epsilon$ }
-\State $ \bar{x} \gets \bar{x} + \epsilon  $ \Comment{Move to right wall}
-\EndWhile
-\Else
-\If {$\sigma_{xy} -\sigma_{goalxy} < \epsilon$ }
-\While  {$\sigma_{xy} -\sigma_{goalxy} < \epsilon$ }
-\State $ \bar{x} \gets \bar{x} - \epsilon  $ \Comment{Move to left wall}
-\EndWhile
-\EndIf
-\EndIf
-\EndIf
-\EndIf
-\EndIf
-\State   $ \bar{x} \gets L_w/2 $, $\bar{y} \gets L_h/2 $ \Comment{Move to the center}
-
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}
+%\caption{Swarm Covariance Control With Wall Friction}\label{alg:CovCont}
+%\begin{algorithmic}[1]
+%\Require  goal variances and covariance and mean, variances and covariance of the swarm  $(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy}, \bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$. 
+%%Swarm is Gaussian distributed (in limit it is uniformly distributed), 
+%$L_w$ is width of the walls and $L_h$ is the height of the wall. $(0,0)$ is top right corner. $\epsilon$ is the error for reaching covariance.
+%\If {$\sigma_x^2 > \sigma_{goalx}^2/10 $ }
+%\State $ \bar{x} \gets \sigma_{goalx}/10   $ \Comment{Move to left wall}
+%\State $MoveToCenter \gets true$
+%\Else
+%\If {$MoveToCenter$ }
+%\State   $ \bar{x} \gets L_w/2 $, $\bar{y} \gets L_h/2 $ \Comment{Move to the center}
+%\State $MoveToBottom \gets true$
+%\State $MoveToCenter \gets false$
+%\Else 
+%\If {$MoveToBottom $}
+%\State $ \bar{y} \gets L_h - \sigma_{goaly}   $ \Comment{Move to bottom}
+%\State $MoveToBottom \gets false$
+%\Else
+%\If {$\sigma_{xy} -\sigma_{goalxy} > \epsilon$}
+%\While  {$\sigma_{xy} -\sigma_{goalxy} > \epsilon$ }
+%\State $ \bar{x} \gets \bar{x} + \epsilon  $ \Comment{Move to right wall}
+%\EndWhile
+%\Else
+%\If {$\sigma_{xy} -\sigma_{goalxy} < \epsilon$ }
+%\While  {$\sigma_{xy} -\sigma_{goalxy} < \epsilon$ }
+%\State $ \bar{x} \gets \bar{x} - \epsilon  $ \Comment{Move to left wall}
+%\EndWhile
+%\EndIf
+%\EndIf
+%\EndIf
+%\EndIf
+%\EndIf
+%\State   $ \bar{x} \gets L_w/2 $, $\bar{y} \gets L_h/2 $ \Comment{Move to the center}
+%
+%\end{algorithmic}
+%\end{algorithm}
 
 
 
