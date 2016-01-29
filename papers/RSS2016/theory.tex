@@ -345,12 +345,36 @@ We can use friction to control covariance of the swarm.
 \begin{algorithm}
 \caption{Swarm Covariance Control With Wall Friction}\label{alg:CovCont}
 \begin{algorithmic}[1]
-\Require Swarm is Gaussian Distributed(in limit it is uniformly distributed)
-\Require L is the length of the $x$ of the workspace
-\While $\bar{x}< L - \sigma_x(t)$
-\State Go Left
+\Require Knowledge of the goal variances and covariance$(\sigma_{goalx}^2,\sigma_{goaly}^2, \sigma_{goalxy})$ and mean, variances and covariance of the swarm$(\bar{x},\bar{y},\sigma_x^2,\sigma_y^2, \sigma_{xy})$ .Swarm is Gaussian Distributed(in limit it is uniformly distributed), $L_w$ is width of the walls and $L_h$ is the height of the wall. $(0,0)$ is top right corner. $\epsilon$ is the error for reaching covariance.
+\If {$\sigma_x^2 > \sigma_{goalx}^2/10 $ }
+\State $ \bar{x} \gets \sigma_{goalx}/10   $ \Comment{Move to left wall}
+\State $MoveToCenter \gets true$
+\Else
+\If {$MoveToCenter$ }
+\State   $ \bar{x} \gets L_w/2 $, $\bar{y} \gets L_h/2 $ \Comment{Move to the center}
+\State $MoveToBottom \gets true$
+\State $MoveToCenter \gets false$
+\Else 
+\If {$MoveToBottom $}
+\State $ \bar{y} \gets L_h - \sigma_{goaly}   $ \Comment{Move to bottom}
+\State $MoveToBottom \gets false$
+\Else
+\If {$\sigma_{xy} -\sigma_{goalxy} > \epsilon$}
+\While  {$\sigma_{xy} -\sigma_{goalxy} > \epsilon$ }
+\State $ \bar{x} \gets \bar{x} + \epsilon  $ \Comment{Move to right wall}
 \EndWhile
-\State Go Up for ...
+\Else
+\If {$\sigma_{xy} -\sigma_{goalxy} < \epsilon$ }
+\While  {$\sigma_{xy} -\sigma_{goalxy} < \epsilon$ }
+\State $ \bar{x} \gets \bar{x} - \epsilon  $ \Comment{Move to left wall}
+\EndWhile
+\EndIf
+\EndIf
+\EndIf
+\EndIf
+\EndIf
+\State   $ \bar{x} \gets L_w/2 $, $\bar{y} \gets L_h/2 $ \Comment{Move to the center}
+
 \end{algorithmic}
 \end{algorithm}
 
