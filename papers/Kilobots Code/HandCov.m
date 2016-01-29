@@ -14,8 +14,8 @@ goalYM = 434;
 goalXM = 600;
 
 %These are the goal covariance matrices.
-goalC1 = [18000 -12000; -12000 18000];
-goalC2 = [18000 12000; 12000 18000];
+goalC1 = [12000 -6000; -6000 12000];
+goalC2 = [12000 6000; 6000 12000];
 %Goal Covariances.
 goal1x = goalC1(1,2);
 goal2x = goalC2(1,2);
@@ -71,9 +71,9 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     C = cov(centers);
     
     imshow(originalImage);
-    h = viscircles(centers,radii);
+    h = viscircles(centers,radii,'EdgeColor','b');
     [s, l] = size(centers);
-    goalC = [18000 goalX; goalX 18000];
+    goalC = [12000 goalX; goalX 12000];
     
     if isnan(M)== false 
         
@@ -90,7 +90,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     disp('Current: ');
     disp(C(1,2));
     %Goal Mean and Covariance Ellipse
-    plot_gaussian_ellipsoid([goalXM goalYM],goalC);
+    plot_gaussian_ellipsoid2([M(1,1) M(1,2)],goalC);
     %plot(centers(:,1),centers(:,2),'+','Markersize',16);
     %Goal X.
     %line([goalXM goalXM], ylim,'color','green','linewidth', 3.0);

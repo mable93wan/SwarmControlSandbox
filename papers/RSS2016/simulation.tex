@@ -3,7 +3,8 @@
 
 Two simulations were implemented using wall-friction for position control.  The first controls the position of two robots, the second controls the position of $n$ robots.  All code is available online at [link withheld for review].
 
-TODO: should we also have simulated results with no friction?  Simulated results of covariance control?
+Two additional simulations were performed using wall-friction to control variance and covariance.  The first is an open-loop algorithm that demonstrates the effect of varying friction levels.  The second uses a closed-loop controller to achieve desired variance and covariance values.
+
 
 
 \subsection{Position Control of Two Robots}
@@ -50,8 +51,9 @@ Similarly,  two iterations of Alg. \ref{alg:YControl} are only required if $|\De
 
 \subsection{Position Control of $n$ Robots}
 Algorithm \ref{alg:PosControlNRobots}  was simulated in {\sc Matlab}.
-Simulation results are shown in Fig.~\ref{fig:4diagramsplots.pdf} for four arrangements with an increasing number of robots.  We compare the total distance moved and commanded  with the  \emph{LAP distance}---the shortest distance according to the Linear Assignment Problem using Manhattan distance.   Because all robots are interchangeable, the LAP distance reduces to
- \[ \text{LAP} =   \sum_{k=1}^n  \left| f_{k,x}-p_{k,x} \right| +  \left|  f_{k,y}-p_{k,y}  \right| . \]
+Simulation results are shown in Fig.~\ref{fig:4diagramsplots.pdf} for four arrangements with an increasing number of robots.  
+The total commanded distance is plotted, which is approximately -0.15v^3 + 385x^2-35000x+300000
+%We compare the total distance moved and commanded  with the  \emph{LAP distance}---the shortest distance according to the Linear Assignment Problem using Manhattan distance.   Because all robots are interchangeable, the LAP distance reduces to \[ \text{LAP} =   \sum_{k=1}^n  \left| f_{k,x}-p_{k,x} \right| +  \left|  f_{k,y}-p_{k,y}  \right| . \]
 
 
 \begin{figure}
@@ -60,7 +62,8 @@ Simulation results are shown in Fig.~\ref{fig:4diagramsplots.pdf} for four arran
 \end{center}
 \caption{\label{fig:4diagramsplots.pdf}
 The required number of moves under Algorithm \ref{alg:PosControlNRobots}  using wall-friction to rearrange $n$ square-shaped 
-robots.  The plot compares  \emph{Total distance}---the sum of the moves made by every robot, with \emph{LAP distance}---the shortest distance according to the Linear Assignment Problem using Manhattan distance.  See hardware implementation and simulation at [link withheld for review].
+robots.  %The plot compares  \emph{Total distance}---the sum of the moves made by every robot, with \emph{LAP distance}---the shortest distance according to the Linear Assignment Problem using Manhattan distance.  
+See hardware implementation and simulation at [link withheld for review].
 }
 \end{figure}
 
