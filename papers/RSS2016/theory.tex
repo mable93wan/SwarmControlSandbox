@@ -5,6 +5,7 @@
 \begin{figure*}[!htb]
 \begin{center}
 \includegraphics[width=\linewidth]{SquareFill.pdf} 
+\vspace{-1em}
 \caption{Pushing the swarm against a square boundary wall allows limited control of the shape of the swarm, as a function of swarm area $A$ and the commanded movement direction $\beta$. Left plot shows locus of possible mean positions for five values of $A$.  The locus morphs from a square to a circle as $A$ increases.  The covariance ellipse for each $A$ is shown with a dashed line. Center shows two corresponding arrangements of kilobots.  At right is $\bar{x}(A), \sigma_{xy}(A), \sigma_x^2(A),$ and $\rho(A)$ for a range of $\beta$ values. See online interactive demonstration at [withheld for double-blind review].}
 \label{fig:SquareFill}
 \end{center}
@@ -12,6 +13,7 @@
 \begin{figure*}[!htb]
 \begin{center}
 \includegraphics[width=\linewidth]{CircleFill.pdf} 
+\vspace{-1em}
 \caption{Pushing the swarm against a circular boundary wall allows limited control of the shape of the swarm, as a function of the fill level $h$ and the commanded movement direction $\beta$. Left plot shows locus of possible mean positions for four values of $h$. The locus of possible mean positions are concentric circles. See online interactive demonstration at [withheld for double-blind review].}
 \label{fig:CircleFill}
 \end{center}
@@ -78,6 +80,7 @@ Controlling covariance requires breaking this uniform symmetry.  A swarm inside 
   Instead of pushing our robots directly into a wall, this paper examines an oblique approach, by using boundaries that generate friction with the robots.  These frictional forces are  sufficient to break the symmetry caused by uniform inputs.  Robots touching a wall have a negative friction force that opposes movement along the boundary.  This  causes robots along the boundary to slow down compared to robots in free-space. 
 
 Let the control input be a vector force $\vec{F}$ with magnitude $F$ and orientation $\theta$ with respect to a line perpendicular to and into the nearest boundary. $N$ is the normal or perpendicular force between the robot and the boundary. The force of friction $F_f$ is nonzero if the robot is in contact with the boundary and  $|\theta| < \pi/2$. The resulting net force on the robot, $F_{\text{\emph{forward}}}$, is aligned with the wall and given by
+
 \begin{align}
 F_{\text{\emph{forward}}} &=  F \sin(\theta) - F_f  \nonumber \\
 \text{where }  F_f &= \begin{cases}  \mu_f N, &  \mu_f N < F \sin(\theta)  \label{eq:frictionmodel}  \\
@@ -91,6 +94,7 @@ The next section shows how a system with friction model \eqref{eq:frictionmodel}
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\columnwidth]{friction.pdf} 
+\vspace{-1em}
 \caption{Wall friction reduces the force for going forward $F_{\text{\emph{forward}}}$ on a robot near a wall, but not for a free robot.}
 \label{fig:friction}
 \end{center}
@@ -135,7 +139,6 @@ The next section shows how a system with friction model \eqref{eq:frictionmodel}
 \begin{overpic}[width =\figwid]{S3_5.jpg}\put(45,75){$t$  = 1 s}
 \end{overpic}}
 \vspace{-1em}
-
 \caption{\label{fig:shapeControlMathematica1}{Frames from an implementation of Alg.\ \ref{alg:PosControl2Robots}: two robot positioning using walls with infinite friction. The algorithm only requires friction along the bottom and left walls.
 Robot initial positions are shown by a crosshair, and final positions by a circled crosshair.  Dashed lines show the shortest route if robots could be controlled independently.  The path given by  Alg.\ \ref{alg:PosControl2Robots} is shown with solid arrows.
 The bottom row shows an extreme case where the robots must switch position.

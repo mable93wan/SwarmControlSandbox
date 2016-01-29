@@ -16,16 +16,17 @@ In these experiments as shown in Fig.~\ref{fig:setup}, we used $n$=97 kilobots, 
 \begin{center}
 	\includegraphics[width=\columnwidth]{SetUp.jpg}
 \end{center}
+\vspace{-1em}
 \caption{\label{fig:setup}
 Hardware platform:  table with 1.5$\times$1.2 m workspace, surrounded by eight remotely triggered 30W LED floodlights, with an overhead machine vision system.
 }
 \end{figure}
 
-The walls of the hardware platform have almost infinite friction, due to the laser-cut jagged woods and the three legged design of the kilobots. When a kilobot is steered into the jagged wall, they pin themselves to the wall until the light changes direction and they begin turning in the other direction.  This wall friction is sufficient to enable independent position control of two kilobots, as shown in Fig.~\ref{fig:storyReal}.
+The walls of the hardware platform have almost infinite friction, due to a laser-cut, zigzag border and the three-legged design of the kilobots. When a kilobot is steered into the zigzag border, they pin themselves to the wall unless the global input directs them away from the wall.  This wall friction is sufficient to enable independent control of two kilobots, as shown in Fig.~\ref{fig:storyReal}.
 
 
 
-\begin{figure*}
+\begin{figure*}[!htb]
 \centering
 \renewcommand{\figwid}{0.4\columnwidth}
 {
@@ -55,6 +56,7 @@ To demonstrate covariance control $n$=97 robots were placed on the workspace and
 \begin{center}
 	\includegraphics[width=\columnwidth]{experiment.pdf}
 \end{center}
+\vspace{-1em}
 \caption{\label{fig:covExperiment}
 Hardware demonstration steering 64 kilobot robots to desired covariance. The goal covariance is shown in green, the actual covariance in red. Frames above the plot show output from machine vision system and an overlaid covariance ellipse.
 }
