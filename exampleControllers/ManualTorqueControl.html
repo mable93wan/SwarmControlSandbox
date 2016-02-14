@@ -1,6 +1,6 @@
 
 <html>
-<link rel="ensemble icon" href="pictures/ATBensembleIcon.ico"> 
+
 
 <head>
 	<title>Demonstration of Covariance Control</title>
@@ -137,8 +137,8 @@
             // bodyDef.position.y = 630/60+10*rnd2();
 
               ///  put the robots in a loose rectangle
-              bodyDef.position.x = 14+(i%rowLength)*4*robotrad;
-              bodyDef.position.y = 15-Math.floor(i/rowLength)*4*robotrad
+              bodyDef.position.x = 1+(i%rowLength)*2*robotrad;
+              bodyDef.position.y = 19-Math.floor(i/rowLength)*2*robotrad
 
              ///  put the robots in a tight rectangle
          //   bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
@@ -359,7 +359,7 @@
 					  if(b.GetUserData() == 'obstacle')
 					  	color = 'brown';;
 					  if(b.GetUserData() == 'moveable')
-					  	color = 'green';
+					  	color = 'pink';
 					  $("canvas")
 					  .rotateCanvas({
 					  	x: pos.x *mapScale, y: pos.y * mapScale,
@@ -377,7 +377,7 @@
 
 				}
 			}
-			var cycleInSec = 40;
+			var cycleInSec = 60;
 			var day = new Date();
 
 			if(overall_time == null) // set the start time
@@ -420,6 +420,40 @@
 				rotate: angle2
 			})
 			.restoreCanvas();
+			var goalH= 2*2;
+			var goalW = 6*2;
+			if(cov_desired == cov_desired_positive){
+				$("canvas").drawRect({
+					  	strokeStyle: 'green',
+					  	x: goalX * mapScale, y: goalY * mapScale,
+					  	width: goalW * mapScale,
+					  	height: goalH * mapScale,
+					  	rotate: angle_min_variance2
+					  }).restoreCanvas();
+
+	$("canvas").rotateCanvas({
+		x: 5 * mapScale, y: 5 * mapScale,
+		rotate: 30
+	})
+					  .restoreCanvas();
+					}
+					else
+					{
+						$("canvas").drawRect({
+					  	strokeStyle: 'green',
+					  	x: goalX * mapScale, y: goalY * mapScale,
+					  	width: goalW * mapScale,
+					  	height: goalH * mapScale,
+					  	rotate: angle_min_variance1
+					  }).restoreCanvas();
+
+						$("canvas").rotateCanvas({
+		x: 5 * mapScale, y: 5 * mapScale,
+		rotate: 30
+	})
+					  .restoreCanvas();
+					}
+
 			// if(cov_desired == cov_desired_positive){
 			// 	$("canvas").drawEllipse({
 			// 		strokeStyle: "green",
@@ -438,10 +472,6 @@
 			// 		rotate: angle_min_variance2
 			// 	}).restoreCanvas();
 			// }
-
-
-
-
 
          }; //end update
          
