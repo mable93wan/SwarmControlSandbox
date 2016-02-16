@@ -420,11 +420,12 @@
 				rotate: angle2
 			})
 			.restoreCanvas();
-			var goalH= 2*2;
-			var goalW = 6*2;
+			var goalH= 2*2.1;
+			var goalW = 6*2.1;
 			if(cov_desired == cov_desired_positive){
 				$("canvas").drawRect({
 					  	strokeStyle: 'green',
+					  	strokeWidth: 5,
 					  	x: goalX * mapScale, y: goalY * mapScale,
 					  	width: goalW * mapScale,
 					  	height: goalH * mapScale,
@@ -441,6 +442,7 @@
 					{
 						$("canvas").drawRect({
 					  	strokeStyle: 'green',
+					  	strokeWidth: 5,
 					  	x: goalX * mapScale, y: goalY * mapScale,
 					  	width: goalW * mapScale,
 					  	height: goalH * mapScale,
