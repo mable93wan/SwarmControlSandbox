@@ -2,7 +2,7 @@
 %%%%%%%%% webcam, then process it to find obstacles, gives that map to MDP
 %%%%%%%%% and gets the result and draw the gradients. 
 
-webcamShot = false;
+webcamShot = true;
 if webcamShot
 cam = webcam(2);
  originalImage = snapshot(cam);

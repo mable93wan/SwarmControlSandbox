@@ -1,4 +1,4 @@
-
+ 
 %%% Controlling Covariance of kilobots with light by using a webcam, by: Shiva
 %%% Shahrokhi and Aaron T. Becker @ University of Houston, Robotic Swarm
 %%% Control Lab.
@@ -90,7 +90,7 @@ BW = (I(:,:,1) >= channel1Min ) & (I(:,:,1) <= channel1Max) & ...
     disp('Current: ');
     disp(C(1,2));
     %Goal Mean and Covariance Ellipse
-    plot_gaussian_ellipsoid2([M(1,1) M(1,2)],goalC);
+    %plot_gaussian_ellipsoid2([M(1,1) M(1,2)],goalC);
     %plot(centers(:,1),centers(:,2),'+','Markersize',16);
     %Goal X.
     %line([goalXM goalXM], ylim,'color','green','linewidth', 3.0);
