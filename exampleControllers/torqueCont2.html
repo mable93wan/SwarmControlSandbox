@@ -10,7 +10,7 @@
 <body onload="init();">
 	<!--aspect ratio for HD is 16:9 -->
 
-	<canvas id="canvas" width="1120" height="630" style="background-color:#EEEEEE;" ></canvas>
+	<canvas id="canvas" width="2240" height="1260" style="background-color:#EEEEEE;" ></canvas>
 </body>
 <script type="text/javascript" src="../shared/Box2dWeb-2.1.a.3.min.js"></script> <!-- box2d -->
 <script type="text/javascript" src="../shared/jquery.min.js"></script> <!-- forms & strings, @ https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js -->
@@ -34,9 +34,12 @@
 
       var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
       var mapScale = 30;
+      var canvasWidth = 1120 * 2;
+      var canvasHeight = 630 * 2;
+      var blockCOM_x = 0;
+	  var blockCOM_y = 0;
+	  var rAngle;
 
-
-      //Create standard boxes of given height , width at x,y
 
 
       function init() {
@@ -47,12 +50,16 @@
       	var cov_desired_positive = 3;
       	var cov_desired = cov_desired_positive;
       	var done = false;
+      	var covChange = false;
+      	var goCenter = false;
+      	var lessVariance = true;
+      	var GoalRecieved = false;
+      	var goButtom = false;
 
       	var   b2Vec2 = Box2D.Common.Math.b2Vec2
       	,  b2AABB = Box2D.Collision.b2AABB
       	,	b2BodyDef = Box2D.Dynamics.b2BodyDef
       	,	b2Body = Box2D.Dynamics.b2Body
-
       	,	b2FixtureDef = Box2D.Dynamics.b2FixtureDef
       	,	b2Fixture = Box2D.Dynamics.b2Fixture
       	,	b2World = Box2D.Dynamics.b2World
@@ -61,7 +68,6 @@
       	,	b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
       	,	b2DebugDraw = Box2D.Dynamics.b2DebugDraw
       	,  b2MouseJointDef =  Box2D.Dynamics.Joints.b2MouseJointDef
-      	, b2RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef
       	;
 
 
@@ -87,16 +93,16 @@
 	 bodyDef.userData = 'obstacle';  // canvas is {1120, 630}
 	 bodyDef.type = b2Body.b2_staticBody;
 	 fixDef.shape = new b2PolygonShape;
-         fixDef.shape.SetAsBox(1120/mapScale, 2);//width, height
-         bodyDef.position.Set(10, 630/ mapScale + 1.8); //bottom
+         fixDef.shape.SetAsBox(canvasWidth/mapScale, 2);//width, height
+         bodyDef.position.Set(10, canvasHeight/ mapScale + 1.8); //bottom
          var bodyBottom = world.CreateBody(bodyDef);
          bodyBottom.CreateFixture(fixDef);
          bodyDef.position.Set(2, -1.8); //top
          world.CreateBody(bodyDef).CreateFixture(fixDef);
-         fixDef.shape.SetAsBox(2, 630/mapScale);//width, height
+         fixDef.shape.SetAsBox(2, canvasHeight/mapScale);//width, height
          bodyDef.position.Set(-1.8, 13); //left
          world.CreateBody(bodyDef).CreateFixture(fixDef);
-         bodyDef.position.Set(1120/mapScale+1.8, 13); // right side
+         bodyDef.position.Set(canvasWidth/mapScale+1.8, 13); // right side
          world.CreateBody(bodyDef).CreateFixture(fixDef);
 
 
@@ -105,7 +111,7 @@
 		fixDef.density = 100.0;
 		fixDef.friction = 0.0;
     fixDef.restitution = 0.2;  //bouncing value
-    bodyDef.position.Set(17.5,14.5);
+    bodyDef.position.Set(10,5);
     bodyDef.userData = 'moveable';
     fixDef.shape = new b2PolygonShape;
     //fixDef.shape.b2PolygonShape(6.0);
@@ -115,73 +121,9 @@
     obst.m_angularDamping = 8.0;
     obst.m_linearDamping = 8.0;
 
-  //   //Creating the joint
-
-     
-  //   var body_def = new b2BodyDef();
-  //   var fix_def = new b2FixtureDef();
-     
-  //   fix_def.density = 100.0;
-  //   fix_def.friction = 0.0;
-  //   fix_def.restitution = 0.2;
-     
-  //   var shape = new b2CircleShape(0.1);
-  //   fix_def.shape = shape;
-     
-  //   body_def.position.Set(10 , 10);
-     
-  //   body_def.linearDamping = 8.0;
-  //   body_def.angularDamping = 8.0;
-     
-  //   body_def.type = b2Body.b2_staticBody;
-
-  //   body_def.userData = 'joint';
-     
-  //   var b = world.CreateBody( body_def );
-  //   b.CreateFixture(fix_def);
-
-  // var joint_def = new b2RevoluteJointDef();
-  // var a = createBox(world, 6.50, 3.80, 5 , 1);
-  //   var c = createBall(world, 4, 10, 1, {type : b2Body.b2_staticBody});
-     
-  //   joint_def.bodyA = a;
-  //   joint_def.bodyB = c;
-     
-  //   //connect the centers - center in local coordinate - relative to body is 0,0
-  //   joint_def.localAnchorA = new b2Vec2(2, 0);
-  //   joint_def.localAnchorB = new b2Vec2(0, 0);
-     
-  //   //add the joint to the world
-  //   world.CreateJoint(joint_def);
 
 
-
-  //   bodyDef.type = b2Body.b2_dynamicBody;
-		// fixDef.density = 100.0;
-		// fixDef.friction = 0.0;
-  //   fixDef.restitution = 0.2;  //bouncing value
-  //   bodyDef.position.Set(10,19.5);
-  //   bodyDef.userData = 'joint';
-  //   //fixDef.shape = new b2PolygonShape;
-  //   //fixDef.shape.b2PolygonShape(6.0);
-  //   var shape = new b2CircleShape(1.0);
-  //   fixDef.shape = shape;
-  //   var joi = world.CreateBody(bodyDef);
-  //   joi.CreateFixture(fixDef);
-  //   joi.m_angularDamping = 8.0;
-  //   joi.m_linearDamping = 8.0;
-    
-
-    // var joint_def = new b2RevoluteJointDef();
-    // joint_def.bodyA = joi;
-    // joint_def.bodyB = obst;
-    //connect the centers - center in local coordinate - relative to body is 0,0
-    // joint_def.localAnchorA = new b2Vec2(2, 0);
-    // joint_def.localAnchorB = new b2Vec2(0, 0);
-     
-    //add the joint to the world
-    //world.CreateJoint(joint_def); 
-
+         
          //create some robots
          bodyDef.type = b2Body.b2_dynamicBody;
 
@@ -211,8 +153,8 @@
             // bodyDef.position.y = 630/60+10*rnd2();
 
               ///  put the robots in a loose rectangle
-              bodyDef.position.x = 1+(i%rowLength)*2*robotrad;
-              bodyDef.position.y = 19-Math.floor(i/rowLength)*2*robotrad
+              bodyDef.position.x = 5+(i%rowLength)*2*robotrad;
+              bodyDef.position.y = 5-Math.floor(i/rowLength)*2*robotrad
 
              ///  put the robots in a tight rectangle
          //   bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
@@ -223,7 +165,6 @@
          m_Robot[i].m_linearDamping = 1;
 
      }
-
 
 
          //setup debug draw
@@ -251,34 +192,6 @@
         	update();
         })();
 
-        document.addEventListener( "keydown", function(e){
-        	//console.log(e.keyCode);
-        	if ( timeStart == null)
-        		{	var day = new Date();
-        			timeStart= day.getTime();
-        		}
-        		switch (e.keyCode) {
-        			case 37 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-        			case 39 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-        			case 38 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-        			case 40 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-        			case 65 : m_controlState |= ROBOT_INPUT.ROBOT_LEFT; break;
-        			case 68 : m_controlState |= ROBOT_INPUT.ROBOT_RIGHT; break;
-        			case 87 : m_controlState |= ROBOT_INPUT.ROBOT_FWD; break;
-        			case 83 : m_controlState |= ROBOT_INPUT.ROBOT_BWD; break;
-        		}} , false );
-        document.addEventListener( "keyup", function(e){
-        	switch (e.keyCode) {
-        		case 37 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-        		case 39 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-        		case 38 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-        		case 40 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-        		case 65 : m_controlState &= ~ROBOT_INPUT.ROBOT_LEFT; break;
-        		case 68 : m_controlState &= ~ROBOT_INPUT.ROBOT_RIGHT; break;
-        		case 87 : m_controlState &= ~ROBOT_INPUT.ROBOT_FWD; break;
-        		case 83 : m_controlState &= ~ROBOT_INPUT.ROBOT_BWD; break;
-        	}} , false );
-
 	 // AREA QUERY
 
 		var udata = new Array(); //ARRAY TO STORE USERDATA
@@ -298,116 +211,23 @@
 
 
 
-		
+		function lineDistance( x1,y1,x2,y2)
+		{
+			var xs = 0;
+			var ys = 0;
+
+			xs = x1 - x2;
+			xs = xs * xs;
+
+			ys = y1- y2;
+			ys = ys * ys;
+
+			return Math.sqrt( xs + ys );
+		}
 		var countRobotsAtGoal;
-
-
-
-function createBox(world, x, y, width, height, options) 
-{
-     //default setting
-    options = $.extend(true, {
-        'density' : 1.0 ,
-        'friction' : 1.0 ,
-        'restitution' : 0.5 ,
-         
-        'type' : b2Body.b2_dynamicBody
-    }, options);
-       
-    var body_def = new b2BodyDef();
-    var fix_def = new b2FixtureDef();
-     
-    fix_def.density = options.density;
-    fix_def.friction = options.friction;
-    fix_def.restitution = options.restitution;
-     
-    fix_def.shape = new b2PolygonShape();
-         
-    fix_def.shape.SetAsBox( width/2 , height/2 );
-     
-    body_def.position.Set(x , y);
-    body_def.linearDamping = 0.5;
-    body_def.angularDamping = 0.5;
-     
-    body_def.type = options.type;
-    body_def.userData = options.user_data;
-     
-    var b = world.CreateBody( body_def );
-    var f = b.CreateFixture(fix_def);
-     
-    return b;
-}
-
-//Function to create a round ball, sphere like object
-function createBall(world, x, y, radius, options) 
-{
-     //default setting
-    options = $.extend(true, {
-        'density' : 1.0 ,
-        'friction' : 1.0 ,
-        'restitution' : 0.5 ,
-         
-        'type' : b2Body.b2_dynamicBody
-    }, options);
-     
-    var body_def = new b2BodyDef();
-    var fix_def = new b2FixtureDef();
-     
-    fix_def.density = options.density || 1.0;
-    fix_def.friction = 0.5;
-    fix_def.restitution = 0.5;
-     
-    var shape = new b2CircleShape(radius);
-    fix_def.shape = shape;
-     
-    body_def.position.Set(x , y);
-     
-    body_def.linearDamping = 0.5;
-    body_def.angularDamping = 0.5;
-     
-    body_def.type = options.type;
-    body_def.userData = options.user_data;
-     
-    var b = world.CreateBody( body_def );
-    b.CreateFixture(fix_def);
-     
-    return b;
-}
-
          function update() {//called each animation round
 
-         	var impulseV=new b2Vec2(0,0);
-         	var impulseVtemp=new b2Vec2(0,0);
-
-
-		var impulse = 50.0;  // 1 normally, 50 if we set velocity to zero eevry step.
-		stringCtl = "nothing";
 		
-		if(m_controlState & ROBOT_INPUT.ROBOT_LEFT)
-			{impulseV.x -= impulse;stringCtl = stringCtl+" left";} 
-		if(m_controlState & ROBOT_INPUT.ROBOT_RIGHT)
-			{impulseV.x += impulse;stringCtl = stringCtl+" right";}
-		if(m_controlState & ROBOT_INPUT.ROBOT_FWD)
-		{impulseV.y -= impulse;stringCtl = stringCtl+" fwd";} // y-axis is inverted in webpage
-	if(m_controlState & ROBOT_INPUT.ROBOT_BWD)
-		{impulseV.y += impulse;stringCtl = stringCtl+" bwd";}
-
-		
-		//console.log(m_Robot[19].GetWorldPoint(new b2Vec2(0,0)));
-		//console.log(impulseV);
-		for(var i =0; i<m_Robot.length; i++) {
-
-			impulseVtemp.x = impulseV.x;
-			impulseVtemp.y = impulseV.y;
-			
-
-			m_Robot[i].SetLinearVelocity( new b2Vec2(0,0) );
-			m_Robot[i].ApplyForce(impulseVtemp,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
-			//fr.ApplyForce(new b2Vec2(-p3r.x,-p3r.y),fr.GetWorldPoint(new b2Vec2(0,0)));
-			//m_Robot[i].ApplyForce(impulseV,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
-		}
-		
-
 		world.Step(1 / 60, 10, 10);
 		world.DrawDebugData();
 		world.ClearForces();
@@ -432,8 +252,8 @@ function createBall(world, x, y, radius, options)
 	    }
 	    var var_x = sum2_x / numrobots;
 	    var var_y = sum2_y / numrobots;
-	    var min_desired_var_x = 3;
-	    var min_desired_var_y = 8;
+	    var min_desired_var_x = 6;
+	    var min_desired_var_y = 6;
 	    var goalX = 18.5;
 	    var goalY = 10.5;
 
@@ -472,11 +292,10 @@ function createBall(world, x, y, radius, options)
 
 
 		//draw robots and obstacles
-		var jointCircle;
-		var jointRect;
 		for (b = world.GetBodyList() ; b; b = b.GetNext())
 		{
-			var angle = b.GetAngle()*(180/Math.PI);
+			var angleRad = b.GetAngle();
+			var angle = angleRad*(180/Math.PI);
 			for(f = b.GetFixtureList(); f; f = f.GetNext()) {
 
 				if (b.GetUserData() == 'robot')
@@ -504,14 +323,21 @@ function createBall(world, x, y, radius, options)
 				{	
 					var X = f.GetShape().GetVertices()[1].x - f.GetShape().GetVertices()[0].x; 
 					var Y = f.GetShape().GetVertices()[2].y - f.GetShape().GetVertices()[1].y;
+
+					
+
 					  //console.log(X);		
 					  var pos = b.GetPosition();
 					  var color = 'orange';
 					  if(b.GetUserData() == 'obstacle')
 					  	color = 'brown';;
-					  if(b.GetUserData() == 'moveable'){
-					  	jointRect = b;
+					  if(b.GetUserData() == 'moveable')
+					  {
 					  	color = 'pink';
+					  	blockCOM_x = pos.x;
+						blockCOM_y = pos.y;
+						rAngle = angleRad;
+
 					  }
 					  $("canvas")
 					  .rotateCanvas({
@@ -527,39 +353,10 @@ function createBall(world, x, y, radius, options)
 					  })
 					  .restoreCanvas();
 					}
-else if (b.GetUserData() == 'joint')
-				{
-					jointCircle = b;
-					$("canvas").drawEllipse({
-				strokeStyle: "brown",
-				strokeWidth: 5,
-				x: b.GetPosition().x*mapScale, y: b.GetPosition().y*mapScale,
-				width: 10, height: 10 ,
-				rotate: 0
-			})
-			.restoreCanvas();
+
 				}
-				}
-				
 			}
-
-			// var joint_def = new b2RevoluteJointDef();
-			// joint_def.bodyA = jointCircle;
-   //  joint_def.bodyB = jointRect;
-   //      joint_def.localAnchorA = new b2Vec2(0, 6);
-   //  joint_def.localAnchorB = new b2Vec2(0, 0);
-   //  world.CreateJoint(joint_def);
-
-			// var joint_def = new b2RevoluteJointDef();
-   //  joint_def.bodyA = jointCircle;
-   //  joint_def.bodyB = jointRect;
-   //  //connect the centers - center in local coordinate - relative to body is 0,0
-   //  joint_def.localAnchorA = new b2Vec2(2, 0);
-   //  joint_def.localAnchorB = new b2Vec2(0, 0);
-     
-   //  //add the joint to the world
-   //  world.CreateJoint(joint_def);
-			var cycleInSec = 60;
+			var cycleInSec = 40;
 			var day = new Date();
 
 			if(overall_time == null) // set the start time
@@ -568,31 +365,55 @@ else if (b.GetUserData() == 'joint')
 			}
 			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
 
-			if(elapsedTimeSec%cycleInSec > cycleInSec/2 )
-			{
-				done = false;
+			var Kgain = 12;
+	var Kderivative = 0.5;
+	var sum_velocity_x = 0;
+	var sum_velocity_y = 0;
 
+	for(var i = 0; i < numrobots; ++i) {
+		sum_velocity_x += m_Robot[i].GetLinearVelocity().x;
+		sum_velocity_y += m_Robot[i].GetLinearVelocity().y;
+	}
+	var mean_velocity_x = sum_velocity_x / numrobots;
+	var mean_velocity_y = sum_velocity_y / numrobots;
+			         	var impulseV=new b2Vec2(0,0);
+
+
+         	var day = new Date();
+         	var CycleForCov = 18;
+         	var speed = 100;
+         	var epsilon = 1;
+
+
+			if(overall_time == null) // set the start time
+			{
+				overall_time = day.getTime();
 			}
-			else
-			{
-				if(!done)
-				{
-					if(cov_desired == cov_desired_positive)
-					{
-						cov_desired = cov_desired_negative
+			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
 
-						done = true;
-					}
-					else 
-					{
-						cov_desired = cov_desired_positive;	
-						done = true;
-					}
 
-				}
+			if(!GoalRecieved){
+				deltaTheta =  rAngle;
+				C = 6;
+         	
+			goalY = C * deltaTheta + blockCOM_y;
+			console.log(blockCOM_x+ " " + deltaTheta);
+			goalX = blockCOM_x;
+
+			
+			
+				impulseV.y =  Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+				impulseV.x = Kgain*(goalX - mean_position_x) + Kderivative * (0-mean_velocity_x);
 				
+			
+		}
 
-			}
+		
+		for(var i =0; i<m_Robot.length; i++) {
+			m_Robot[i].SetLinearVelocity( new b2Vec2(0,0) );
+			m_Robot[i].ApplyForce(impulseV,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
+		}
+		//console.log(elapsedTimeSec + " " + cov_xy + " " + cov_desired + " " +var_x+ " "+  min_desired_var_x + " " + var_y+" "+ min_desired_var_y);
 
 			$("canvas").drawEllipse({
 				strokeStyle: "red",
@@ -602,60 +423,7 @@ else if (b.GetUserData() == 'joint')
 				rotate: angle2
 			})
 			.restoreCanvas();
-			var goalH= 2*2.1;
-			var goalW = 6*2.1;
-			if(cov_desired == cov_desired_positive){
-				$("canvas").drawRect({
-					  	strokeStyle: 'green',
-					  	strokeWidth: 5,
-					  	x: goalX * mapScale, y: goalY * mapScale,
-					  	width: goalW * mapScale,
-					  	height: goalH * mapScale,
-					  	rotate: angle_min_variance2
-					  }).restoreCanvas();
-
-	$("canvas").rotateCanvas({
-		x: 5 * mapScale, y: 5 * mapScale,
-		rotate: 30
-	})
-					  .restoreCanvas();
-					}
-					else
-					{
-						$("canvas").drawRect({
-					  	strokeStyle: 'green',
-					  	strokeWidth: 5,
-					  	x: goalX * mapScale, y: goalY * mapScale,
-					  	width: goalW * mapScale,
-					  	height: goalH * mapScale,
-					  	rotate: angle_min_variance1
-					  }).restoreCanvas();
-
-						$("canvas").rotateCanvas({
-		x: 5 * mapScale, y: 5 * mapScale,
-		rotate: 30
-	})
-					  .restoreCanvas();
-					}
-
-			// if(cov_desired == cov_desired_positive){
-			// 	$("canvas").drawEllipse({
-			// 		strokeStyle: "green",
-			// 		strokeWidth: 5,
-			// 		x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
-			// 		width: 3 * 30*Math.sqrt(minvar_xp1), height: 3 * 30*Math.sqrt(minvar_yp1),
-			// 		rotate: angle_min_variance1
-			// 	}).restoreCanvas();
-			// }
-			// else{
-			// 	$("canvas").drawEllipse({
-			// 		strokeStyle: "green",
-			// 		strokeWidth: 5,
-			// 		x: mean_position_x * mapScale, y:  mean_position_y * mapScale,
-			// 		width: 3 * 30*Math.sqrt(minvar_xp2), height: 3 * 30*Math.sqrt(minvar_yp2),
-			// 		rotate: angle_min_variance2
-			// 	}).restoreCanvas();
-			// }
+			
 
          }; //end update
          

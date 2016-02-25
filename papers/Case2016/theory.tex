@@ -4,12 +4,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Controlling Torque}
 
-One of the features of an object is its orientation. When a swarm is manipulating an non-symmetric object, in narrow corridors orientation matters. We can control orientation by controlling torque of the object. Equation ~\ref{eq:torque} shows the parameters that we should control.
+One of the features of an object is its orientation. When a swarm is manipulating a non-symmetric object, in narrow corridors orientation matters. We can control orientation by controlling torque of the object. Equation ~\ref{eq:torque} shows the parameters that we should control.
 
 \begin{equation}
-\tau = F \times d\label{eq:torque}
+\tau = F \times r\label{eq:torque}
 \end{equation}
-where d 
+Where $F$ is the force that each touching robot make and $r$ is the vector from that robot to the center of mass of the object. Because 
 
 
 
