@@ -3,7 +3,7 @@
 
 
 <head>
-	<title>Demonstration of pure transition</title>
+	<title>Demonstration of orientation control</title>
 </head>
 
 
@@ -39,6 +39,10 @@
       var blockCOM_x = 0;
 	  var blockCOM_y = 0;
 	  var rAngle;
+	  var goalAngle;
+	  var goalAngleNegative = -0.7;
+	  var goalAnglePositive = 0.7;
+	  var varCont = false;
 
 
 
@@ -111,7 +115,7 @@
 		fixDef.density = 100.0;
 		fixDef.friction = 0.0;
     fixDef.restitution = 0.2;  //bouncing value
-    bodyDef.position.Set(10,7);
+    bodyDef.position.Set(10,5);
     bodyDef.userData = 'moveable';
     fixDef.shape = new b2PolygonShape;
     //fixDef.shape.b2PolygonShape(6.0);
@@ -154,7 +158,7 @@
 
               ///  put the robots in a loose rectangle
               bodyDef.position.x = 5+(i%rowLength)*2*robotrad;
-              bodyDef.position.y = 8-Math.floor(i/rowLength)*2*robotrad
+              bodyDef.position.y = 5-Math.floor(i/rowLength)*2*robotrad
 
              ///  put the robots in a tight rectangle
          //   bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
@@ -238,6 +242,7 @@
 		var sum2_y = 0;
 		var desired_var_x;
 		var cov_xy = 0;
+		var objectWidth = 6;
 	    // try http://gamedev.stackexchange.com/questions/1366/box2d-get-bounding-box-of-a-body
 	    for(var i = 0; i < numrobots; ++i) {
 	    	sum_position_x += m_Robot[i].GetPosition().x;
@@ -356,7 +361,7 @@
 
 				}
 			}
-			var cycleInSec = 40;
+			var cycleInSec = 60;
 			var day = new Date();
 
 			if(overall_time == null) // set the start time
@@ -364,6 +369,32 @@
 				overall_time = day.getTime();
 			}
 			var elapsedTimeSec = (day.getTime()- overall_time )/1000;
+
+
+			if(elapsedTimeSec%cycleInSec > cycleInSec/2 )
+			{
+				done = false;
+
+			}
+			else
+			{
+				if(!done)
+				{
+					if(goalAngle == goalAnglePositive)
+					{
+						goalAngle = goalAngleNegative;
+
+						done = true;
+					}
+					else 
+					{
+						goalAngle = goalAnglePositive;	
+						done = true;
+					}
+				}
+
+			}
+
 
 			var Kgain = 12;
 	var Kderivative = 0.5;
@@ -393,14 +424,26 @@
 
 
 			if(!GoalRecieved){
-				deltaTheta =  rAngle;
-				C = 6;
-         	
-			goalY = C * deltaTheta + blockCOM_y;
-			console.log(blockCOM_x+ " " + deltaTheta);
-			goalX = blockCOM_x;
-
+				deltaTheta =  -rAngle+  goalAngle;
+				C = objectWidth/2+1;
+         	if(!varCont){
+         		goalY = C * deltaTheta *Math.sin(rAngle)+ blockCOM_y;
+				goalX = C * deltaTheta* (1/Math.abs(deltaTheta))*Math.cos(rAngle)+ blockCOM_x;
+         	}
+         	else {
+         		goalX = 0;
+         		goalY = 0;
+         	}
 			
+			if (var_x > 7|| var_y > 7)
+			{
+				varCont = true;
+			}
+			if(var_x < 3 && var_y < 3)
+			{
+				varCont = false;
+			}
+			console.log(blockCOM_x+ " " + deltaTheta+ " " + goalAngle);
 			
 				impulseV.y =  Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
 				impulseV.x = Kgain*(goalX - mean_position_x) + Kderivative * (0-mean_velocity_x);
@@ -423,6 +466,41 @@
 				rotate: angle2
 			})
 			.restoreCanvas();
+			var goalH= 2*2.1;
+			var goalW = 6*2.1;
+			if(goalAngle == goalAnglePositive){
+				$("canvas").drawRect({
+					  	strokeStyle: 'green',
+					  	strokeWidth: 5,
+					  	x: blockCOM_x * mapScale, y: blockCOM_y * mapScale,
+					  	width: goalW * mapScale,
+					  	height: goalH * mapScale,
+					  	rotate: goalAnglePositive * 180 / Math.PI
+					  }).restoreCanvas();
+
+	// $("canvas").rotateCanvas({
+	// 	x: 5 * mapScale, y: 5 * mapScale,
+	// 	rotate: 30
+	// })
+//					  .restoreCanvas();
+					}
+					else
+					{
+						$("canvas").drawRect({
+					  	strokeStyle: 'green',
+					  	strokeWidth: 5,
+					  	x: blockCOM_x * mapScale, y: blockCOM_y * mapScale,
+					  	width: goalW * mapScale,
+					  	height: goalH * mapScale,
+					  	rotate: goalAngleNegative * 180 / Math.PI
+					  }).restoreCanvas();
+
+	// 					$("canvas").rotateCanvas({
+	// 	x: 5 * mapScale, y: 5 * mapScale,
+	// 	rotate: 30
+	// })
+	// 				  .restoreCanvas();
+					}
 			
 
          }; //end update
