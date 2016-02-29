@@ -2,7 +2,7 @@
 Micro- and nano-robots can be manufactured in large numbers.
 Our vision is for large swarms of robots remotely guided 1) through the human body, to cure disease, heal tissue, and prevent infection and 2) ex vivo to assemble structures in parallel. 
  For each application, large numbers of micro robots are required  to deliver sufficient payloads, but the small size of these robots makes it difficult to perform onboard computation.  Instead, these robots are often controlled by a global, broadcast signal. 
- The biggest barrier to this vision is a lack of control techniques that can reliably exploit large populations despite incredible under-actuation.  
+ The biggest barrier to this vision is a lack of control techniques that can reliably exploit large populations despite significant under-actuation.  
  
 
 \begin{figure}
@@ -21,8 +21,10 @@ Torque Control of an object is essential for manipulating objects to their goal 
 In previous work, we proved the mean position of a swarm is controllable and that, with an obstacle, the swarm's position variance orthogonal to rectangular boundary walls  is also controllable
 ($\sigma_x$ and $\sigma_y$ for a workspace with axis-aligned walls). 
 The usefulness of these techniques was demonstrated by several automatic controllers. One controller steered a swarm of robots to push a larger block through a 2D maze~\cite{ShahrokhiIROS2015}. 
-We also showed methods to control swarm's position covariance to be able to navigate the swarm through the workspaces with narrow corridors, but there is still another challenge remained. When the task is object manipulating, we need to control torque of the object also to successfully pass all the ways. 
-This paper first discusses the ways that we can control torque of an object in Section ~\ref{sec:theory}. Then it introduces algorithms for torque control in Section ~\ref{sec:simulation}. We show that algorithms work in Section ~\ref{sec:expResults} on 100 kilobots.
+We also showed methods to control swarm's position covariance to be able to navigate the swarm through the workspaces with narrow corridors, but there is still another challenge remained. When the task is object manipulating, we need to control torque of the object also to successfully pass all the ways. \\
+However, a swarm with elements' stochastic positions is not possible for precisely measuring force if the only knowledge about it is its statistics. The initial distribution of the swarm has $2n$ degrees of freedom and begins interacting with object in different times. Therefore, number of robots touching the obstacle at each time when average position of the swarm is controlled is not measurable. We are able to predict which elements hits first though, but the problem even gets harder as time runs by interacting with the object, because the swarm changes its state and distribution when it is hitting the object. The challenge is not only limited to swarm-object interaction, but also to swarm-swarm interactions when the swarm is split to some other swarms. As a result, the amount of force the swarm is making on the object is not easily measurable. Instead, this paper focuses on strategies using only the statistics of the swarm.
+
+%This paper first discusses the ways that we can control torque of an object in Section ~\ref{sec:theory}. Then it introduces algorithms for torque control in Section ~\ref{sec:simulation}. We show that algorithms work in Section ~\ref{sec:expResults} on 100 kilobots.
 
 %For controlling $\sigma_{xy}$, we prove that the swarm position covariance $\sigma_{xy}$ is controllable given boundaries with non-zero friction. 
 %We then prove that two orthogonal boundaries with high friction are sufficient to arbitrarily position a swarm of $n$ robots. 
