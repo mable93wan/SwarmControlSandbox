@@ -47,6 +47,10 @@
       	var cov_desired_positive = 3;
       	var cov_desired = cov_desired_positive;
       	var done = false;
+      	var blockCOM_x = 0;
+	  	var blockCOM_y = 0;
+	  	var rAngle;
+
 
       	var   b2Vec2 = Box2D.Common.Math.b2Vec2
       	,  b2AABB = Box2D.Collision.b2AABB
@@ -281,6 +285,7 @@
 
 	 // AREA QUERY
 
+
 		var udata = new Array(); //ARRAY TO STORE USERDATA
 		function worldquery()	{
 		   var aabb2 = new b2AABB(); //CREATE AABB, axis-aligned bounding box
@@ -512,6 +517,9 @@ function createBall(world, x, y, radius, options)
 					  if(b.GetUserData() == 'moveable'){
 					  	jointRect = b;
 					  	color = 'pink';
+					  	blockCOM_x = pos.x;
+						blockCOM_y = pos.y;
+						rAngle = angle;
 					  }
 					  $("canvas")
 					  .rotateCanvas({
@@ -593,7 +601,7 @@ else if (b.GetUserData() == 'joint')
 				
 
 			}
-
+			console.log("RAngle: " + rAngle);
 			$("canvas").drawEllipse({
 				strokeStyle: "red",
 				strokeWidth: 5,
@@ -636,6 +644,7 @@ else if (b.GetUserData() == 'joint')
 		rotate: 30
 	})
 					  .restoreCanvas();
+					  
 					}
 
 			// if(cov_desired == cov_desired_positive){
