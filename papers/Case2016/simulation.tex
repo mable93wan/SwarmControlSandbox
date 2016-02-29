@@ -35,10 +35,10 @@ The swarm can navigate the object without changing its orientation significantly
 \end{figure}
 
 \paragraph{Orientation of the object}
-Using the pure torque control that we discussed, we can control the orientation of the object with applying force to it. We do not have pivot here so the rectangle would move besides rotating. We used that data to pick up a more rational length to lead the swarm to hit that spot. However, the swarm still may split and get apart. We use our hysteresis variance control to gather the swarm together again when it is split. The goal position is related to the angle that the object has made already. It should be somewhere upper or downer the COM, inside the object. In the following equation, $O_{theta}$ is the orientation of the object and $w$ is the width of the object.
+Using the pure torque control that we discussed, we can control the orientation of the object with applying force to it. We do not have pivot here so the rectangle would move besides rotating. We used that data to pick up a more rational length to lead the swarm to hit that spot. However, the swarm still may split and get apart. We use our hysteresis variance control to gather the swarm together again when it is split. The goal position is related to the angle that the object has made already. It should be somewhere upper or downer the COM, inside the object. In the following equation, $O_{\theta}$ is the orientation of the object and $w$ is the width of the object.
 \begin{align}\nonumber
-goal_y &= O_y + 0.66cos(O_{theta})w\\
-goal_x &= O_x + 0.66sin(O_{theta})w
+goal_y &= O_y + 0.66cos(O_{\theta})w\\
+goal_x &= O_x + 0.66sin(O_{\theta})w
 \end{align}
 Fig. \ref{fig:OrientCont} illustrates this controller with different starting positions. When the lines are steady, it means that the variance had grown more and the swarm was on variance control mode.
 \begin{figure}
