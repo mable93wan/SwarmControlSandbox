@@ -49,28 +49,47 @@
 % plot (x3,z3)
 % hold off
 
-load PivotQuart.txt;
-x = PivotQuart(:,1);
-y = PivotQuart(:,2);
+% load PivotQuart.txt;
+% x = PivotQuart(:,1);
+% y = PivotQuart(:,2);
+% 
+% plot(x,y, 'color','green')
+% hold on
+% 
+% 
+% load PivotHalf.txt;
+% x2 = PivotHalf(:,1);
+% y2 = PivotHalf(:,2);
+% plot(x2,y2, 'color', 'blue')
+% 
+% load PivotFull.txt;
+% x3 = PivotFull(:,1);
+% y3 = PivotFull(:,2);
+% 
+% plot(x3,y3, 'color', 'red')
+% 
+% load PivotZero.txt;
+% x4 = PivotZero(:,1);
+% y4 = PivotZero(:,2);
+% 
+% plot(x4,y4, 'color', 'cyan')
+% hold off
 
-plot(x,y, 'color','green')
+
+load StraightNew15C11.txt;
+x4 = StraightNew15C11(:,1);
+y4 = StraightNew15C11(:,2)* 180/ pi;
+plot(x4,y4)
 hold on
+line([11 35] , [0 0]);
 
+load StraightNewN15C11.txt;
+x5 = StraightNewN15C11(:,1);
+y5 = StraightNewN15C11(:,2)* 180/ pi;
+plot(x5,y5)
 
-load PivotHalf.txt;
-x2 = PivotHalf(:,1);
-y2 = PivotHalf(:,2);
-plot(x2,y2, 'color', 'blue')
-
-load PivotFull.txt;
-x3 = PivotFull(:,1);
-y3 = PivotFull(:,2);
-
-plot(x3,y3, 'color', 'red')
-
-load PivotZero.txt;
-x4 = PivotZero(:,1);
-y4 = PivotZero(:,2);
-
-plot(x4,y4, 'color', 'cyan')
+load TSC10S.txt;
+x2 = TSC10S(:,1);
+y2 = TSC10S(:,2)* 180 / pi;
+plot(x2,y2)
 hold off
