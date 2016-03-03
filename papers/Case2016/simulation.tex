@@ -2,7 +2,14 @@
 \section{Simulation}\label{sec:simulation}
 There are four main challenges when we are doing pose and torque control of an object. 
 \paragraph{Pure torque control} 
-Suppose we have a pivot that avoids the object to translate while it is still able to move and have angular velocity like a door. If there was only one robot touching the obstacle, the ending points of the obstacle was the best location due to Eq. \ref{eq:torque} where $r$ would be maximum and the maximum torque has been created with the same force. But, when there is a swarm of robots, because of its dynamic state it is not true. If the swarm hit the object with mean position at the top, lots of its robots is missed and will make the swarm apart, and also because there remain less robots, force is significantly decreased and torque would not maximize. In our simulation, the swarm will try to make torque as much as possible until it is passed the object, when it is passed, it will gather itself in one corner which is very time consuming. Fig. \ref{fig:LFig} illustrates how different positions of the object cause different times. 
+An object with a pivot point can rotate, but not translate. A door is a common example of an object with a pivot. A door can have an angular velocity but cannot translate. 
+ If there was only one robot touching the object, the robot should push at the point which maximizes the moment arm, at the extreme end of the object furthest from the pivot point.
+ the ending points of the obstacle was the best location due to Eq. \ref{eq:torque} where $r$ would be maximum and the maximum torque has been created with the same force. But, when there is a swarm of robots, because of its dynamic state it is not true. If the swarm hit the object with mean position at the top, lots of its robots is missed and will make the swarm apart, and also because there remain less robots, force is significantly decreased and torque would not maximize. In our simulation, the swarm will try to make torque as much as possible until it is passed the object, when it is passed, it will gather itself in one corner which is very time consuming. Fig. \ref{fig:LFig} illustrates how different positions of the object cause different times. 
+ 
+\begin{align}\nonumber
+goal_y &= O_y + C \cos(O_{\theta}- \theta_{goal})\\
+goal_x &= O_x + C \sin(O_{\theta}- \theta_{goal})
+\end{align}
 %When there is only one robot that applies force to an object, the greatest torque is when it apply force to the end of the object. 
 
 \begin{figure}
@@ -15,14 +22,14 @@ Plot showing how changing the mean position of the swarm on the object may affec
 }
 \vspace{-1em}
 \end{figure}
-\paragraph{Pure translation of the object}
+\paragraph{Pure translation of the object} \label{para:PureTranslation}
 In our simulations we used a big uniform density rectangle as object. If the force is applied perpendicular to the object and in line of the center of mass, according to Eq. \ref{eq:torque} there would be no torque. We proposed the following goal position for mean position of the swarm in which uses the difference between the goal angle and the current object angle, $\Delta \theta$ to find where to apply force, $C$ is a constant and $O_x,O_y$ is the object COM position.
 \begin{align}\nonumber
 goal_y &= C \Delta \theta + O_y\\
 goal_x &= O_x
 \end{align}
 
-We use a PD controller to control mean position as in \cite{ShahrokhiIROS2015}. Fig. \ref{fig:PosControlFig} shows how $\Delta \theta$ converges to zero with different locations of the swarm. When it is upper or downer of the object, when it hits it makes a little torque but then it tries to cancel it.
+We use a PD controller to control mean position as in \cite{ShahrokhiIROS2015}. Fig. \ref{fig:PosControlFig} shows how $\Delta \theta$ converges to zero with different locations of the swarm. When it is above or below of the object, when it hits it makes a little torque but then it tries to cancel it.
 \begin{figure}
 \begin{center}
 	\includegraphics[width=\columnwidth]{PosControl.png}
@@ -35,10 +42,10 @@ The swarm can navigate the object without changing its orientation significantly
 \end{figure}
 
 \paragraph{Orientation of the object}
-Using the pure torque control that we discussed, we can control the orientation of the object with applying force to it. We do not have pivot here so the rectangle would move besides rotating. We used that data to pick up a more rational length to lead the swarm to hit that spot. However, the swarm still may split and get apart. We use our hysteresis variance control to gather the swarm together again when it is split. The goal position is related to the angle that the object has made already. It should be somewhere upper or downer the COM, inside the object. In the following equation, $O_{\theta}$ is the orientation of the object and $w$ is the width of the object.
+Using the pure torque control that we discussed in the previous paragraph, we can control the orientation of the object by applying force to it. We do not have pivot here so the rectangle would move besides rotating. We used that data to pick up a more rational length to lead the swarm to hit that spot. However, the swarm still may split and get apart. We use our hysteresis variance control to gather the swarm together again when it is split. The goal position is related to the angle that the object has made already. It should be somewhere above or below the COM, inside the object. In the following equation, $O_{\theta}$ is the orientation of the object and $w$ is the width of the object.
 \begin{align}\nonumber
-goal_y &= O_y + Ccos(O_{\theta})w\\
-goal_x &= O_x + Csin(O_{\theta})w
+goal_y &= O_y + C \cos(O_{\theta})w\\
+goal_x &= O_x + C \sin(O_{\theta})w
 \end{align}
 Fig. \ref{fig:OrientCont} illustrates this controller with different starting positions. When the lines are steady, it means that the variance had grown more and the swarm was on variance control mode.
 \begin{figure}
