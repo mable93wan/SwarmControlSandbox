@@ -409,10 +409,9 @@
 			}
          	if(!varCont){
          		var ObjectHeight = 2;
-
-				goalY = C * deltaTheta + (blockCOM_y+ Math.cos(rAngle) * ObjectHeight);
-				//console.log(blockCOM_x+ " " + deltaTheta);
-				goalX = blockCOM_x + Math.sin(rAngle) * ObjectHeight;
+         		var Ko = 10;
+				goalX = blockCOM_x + Ko * deltaTheta * Math.sin(rAngle) ;
+				goalY = blockCOM_y + Ko * deltaTheta * Math.cos(rAngle);
 			}
 			else{
 				goalX = 0;

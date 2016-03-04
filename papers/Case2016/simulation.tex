@@ -42,12 +42,15 @@ The swarm can navigate the object without changing its orientation significantly
 \end{figure}
 
 \paragraph{Orientation of the object}
-Using the pure torque control that we discussed in the previous paragraph, we can control the orientation of the object by applying force to it. We do not have pivot here so the rectangle would move besides rotating. We used that data to pick up a more rational length to lead the swarm to hit that spot. However, the swarm still may split and get apart. We use our hysteresis variance control to gather the swarm together again when it is split. The goal position is related to the angle that the object has made already. It should be somewhere above or below the COM, inside the object. In the following equation, $O_{\theta}$ is the orientation of the object and $w$ is the width of the object.
+Using the pure torque control that we discussed in the previous paragraph, we can control the orientation of the object by applying force to it. We do not have pivot here so the rectangle would move besides rotating. We used that data to pick up a more rational length to lead the swarm to hit that spot. However, the swarm still may split and get apart. We use our hysteresis variance control to gather the swarm together again when it is split. The goal position is related to the angle that the object has made already. It should be somewhere above or below the COM, inside the object. In the following equation, $O_{\theta}$ is the orientation of the object and $w$ is the width of the object. Let $\theta_O$ = the orientation of the object's major axis, measured from the world x-axis.
+
 \begin{align}\nonumber
-goal_y &= O_y + C \cos(O_{\theta})w\\
-goal_x &= O_x + C \sin(O_{\theta})w
+goal_x &= O_x +  K_{orientation} * ( \theta_O - \theta_{desired} ) * \cos(\theta_O)\\
+goal_y &= O_y +  K_{orientation} * ( \theta_O - \theta_{desired} ) * \sin(\theta_O)
 \end{align}
 Fig. \ref{fig:OrientCont} illustrates this controller with different starting positions. When the lines are steady, it means that the variance had grown more and the swarm was on variance control mode.
+
+Here K_{orientation} is a positive gain on the control input.  The object COM is at $(O_x,O_y)$.
 \begin{figure}
 \begin{center}
 	\includegraphics[width=\columnwidth]{Orientation.png}
