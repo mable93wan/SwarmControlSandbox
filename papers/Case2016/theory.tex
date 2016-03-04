@@ -4,18 +4,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\subsection{Controlling Torque}
 
-One of the features of an object is its orientation. When a swarm is manipulating a non-symmetric object, in narrow corridors orientation matters. We can control orientation by controlling torque of the object. Equation ~\ref{eq:torque} shows the parameters that we should control.
+A key feature of an object is the orientation of its major axis. 
+The orientation is especially relevant when a swarm is manipulating a non-symmetric object, in narrow corridors. 
+Orientation is controllable by applying torque to the object. 
+In Eq.~\ref{eq:torque},  to change the output torque $\tau$, we can choose the direction and magnitude of the force applied $f$, and $r$, the moment arm from the object's center of mass (COM) to the point of contact.
 
 \begin{equation}
 \tau = F \times r\label{eq:torque}
 \end{equation}
-Where $F$ is the force that each touching robot make and $r$ is the vector from that robot to the center of mass of the object. 
+The swarm version of \eqref{eq:torque} is the summation of the forces contributed by individual robots.
 
 \begin{align}
-\tau_{total} &= \sum\limits_{i=1}^n \rho_i F \times (P_i - O)\\
-F_{total} &= \sum\limits_{i=1}^n \rho_i F
+\tau_{total} &= \sum\limits_{i=1}^n \rho_i F_i \times (P_i - O )   \label{eq:swarmtorque}\\
+F_{total} &= \sum\limits_{i=1}^n \rho_i F_i  \label{eq:swarmforce}
 \end{align}
 
+Here $F_i$ is the force that the $i$th robot applies.  If all robots are identical and the control input is uniform, the force is equivalent for every robot and $F_i = F_c$.
+Not all robots are in contact with the object.  $\rho_i$ is an indicator variable.   $\rho_i$ is 1 if the robot is in direct contact with the object, or touching a chain of robots where at least one robot is in contact with the object. Otherwise $\rho_i = 0$.
+The moment arm is the robot's position $P_i$ to the object's COM $O$.
 
 
 

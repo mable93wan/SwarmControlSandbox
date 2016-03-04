@@ -179,14 +179,17 @@ Object Manipulation and Position Control \\Using a Swarm With Global Inputs
 
 \begin{abstract}
 Manipulating objects with a swarm of simple robots with global control inputs is difficult because they are highly under actuated, the number of robots in contact with object changes dynamically, the robots contacting each other changes dynamically, and the robots disperse over time and must be recollected.
+
 Micro and nano robots are suited for targeted drug delivery and micro scale manufacturing because they are small enough to navigate the passageways of the body. 
 However, due to their small size, robots cannot contain onboard processing for autonomy nor onboard power. 
-Instead they are controlled by external signal such as a magnetic field. 
+Instead they are controlled by an external signal such as a magnetic field. 
 Because each robot can only provide a small amount of force or transport a small amount of material, large swarms of robots are required, all controlled by the same external field. 
+
 This work presents controllers and algorithms for steering such an under-actuated swarm to manipulate objects. 
-Previous work showed that mean and variance of the swarm is controllable. This enables manipulating simple objects through a simple maze. A key remaining challenge is controlling the torque applied to an object. 
-Torque control is necessary for observing, emitting and manipulating objects.
-This work first proves that torque control is possible, then presents algorithms to automate the task. 
+Previous work showed that mean and variance of the swarm is controllable. 
+This was used to manipulate convex polygonal objects through a simple maze. A key remaining challenge is controlling the torque applied to an object. 
+Torque control is necessary for manipulating objects as well as for aligning sensors or emitters, and for exerting forces.
+This work first proves that swarm torque control is possible, then presents algorithms to automate the task. 
 The paper concludes with experimental results using 100 hardware robots to manipulate rectangles with large aspect ratios.
 
 %
