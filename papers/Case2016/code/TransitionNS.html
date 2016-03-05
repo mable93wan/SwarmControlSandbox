@@ -10,7 +10,7 @@
 <body onload="init();">
 	<!--aspect ratio for HD is 16:9 -->
 
-	<canvas id="canvas" width="2240" height="630" style="background-color:#EEEEEE;" ></canvas>
+	<canvas id="canvas" width="2240" height="1120" style="background-color:#EEEEEE;" ></canvas>
 </body>
 <script type="text/javascript" src="../shared/Box2dWeb-2.1.a.3.min.js"></script> <!-- box2d -->
 <script type="text/javascript" src="../shared/jquery.min.js"></script> <!-- forms & strings, @ https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js -->
@@ -35,12 +35,13 @@
       var m_controlState = ROBOT_INPUT.ROBOT_IDLE;
       var mapScale = 30;
       var canvasWidth = 1120 *2 ;
-      var canvasHeight = 630;
+      var canvasHeight = 630 * 2;
       var blockCOM_x = 0;
 	  var blockCOM_y = 0;
 	  var rAngle;
 	  var varCont = false;
-	  var goalAngle = 30;
+	  var goalAngle = 15;
+	  var objectWidth = 6;
 
 
 
@@ -115,7 +116,7 @@
     fixDef.restitution = 0.2;  //bouncing value
     bodyDef.position.Set(10,10);
     bodyDef.userData = 'moveable';
-    bodyDef.angle= -30 * Math.PI / 180;
+    bodyDef.angle= 0 * Math.PI / 180;
     fixDef.shape = new b2PolygonShape;
     //fixDef.shape.b2PolygonShape(6.0);
     fixDef.shape.SetAsBox(2.0,6.0);
@@ -396,9 +397,9 @@
 
 			if(!GoalRecieved){
 				rGoalAngle = goalAngle * Math.PI/180;
-				deltaTheta =  -rGoalAngle + rAngle;
-				console.log("deltaTheta " + " "+ deltaTheta + " " + "rGoalAngle "+ " "+rGoalAngle + " " + "rAngle " + rAngle);
-				C = 3;
+				deltaTheta =  rGoalAngle - rAngle;
+				console.log("deltaTheta " + " "+ deltaTheta*180/Math.PI + " " + "rGoalAngle "+ " "+rGoalAngle *180/Math.PI+ " " + "rAngle " + rAngle*180/Math.PI);
+				C = 1;
 			if (var_x > 7|| var_y > 7)
 			{
 				varCont = false;
@@ -409,9 +410,10 @@
 			}
          	if(!varCont){
          		var ObjectHeight = 2;
-         		var Ko = 10;
+         		var Ko = 10;//objectWidth/2-1;
+         		//if (Ko * deltaTheta > objectWidth)
 				goalX = blockCOM_x + Ko * deltaTheta * Math.sin(rAngle) ;
-				goalY = blockCOM_y + Ko * deltaTheta * Math.cos(rAngle);
+				goalY = blockCOM_y - Ko * deltaTheta * Math.cos(rAngle);
 			}
 			else{
 				goalX = 0;
@@ -431,6 +433,17 @@
 			m_Robot[i].ApplyForce(impulseV,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
 		}
 		//console.log(elapsedTimeSec + " " + cov_xy + " " + cov_desired + " " +var_x+ " "+  min_desired_var_x + " " + var_y+" "+ min_desired_var_y);
+		var goalH= 2*2.1;
+			var goalW = 6*2.1;
+			//if(goalAngle == goalAnglePositive){
+				$("canvas").drawRect({
+					  	strokeStyle: 'green',
+					  	strokeWidth: 5,
+					  	x: blockCOM_x * mapScale, y: blockCOM_y * mapScale,
+					  	width: goalW * mapScale,
+					  	height: goalH * mapScale,
+					  	rotate: -(90-goalAngle)
+					  }).restoreCanvas();
 
 			$("canvas").drawEllipse({
 				strokeStyle: "red",
@@ -450,6 +463,12 @@
 		strokeStyle: "cyan",
 		strokeWidth: 5,
 		x: goalX* mapScale, y: goalY * mapScale,
+		radius: radius * mapScale
+	}).restoreCanvas();
+				$("canvas").drawArc({ 
+		strokeStyle: "orange",
+		strokeWidth: 5,
+		x: blockCOM_x* mapScale, y: blockCOM_y * mapScale,
 		radius: radius * mapScale
 	}).restoreCanvas();
 
