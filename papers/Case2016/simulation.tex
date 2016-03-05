@@ -48,7 +48,7 @@ $\Delta_\theta = goal_\theta - O_\theta$ is the difference between the goal angl
  $K_\tau$ is a constant and $(O_x,O_y)$ is the position of the object's COM.
 \begin{align}
 goal_x &= O_x \nonumber \\
-goal_y &= K_\tau \Delta_\theta + O_y
+goal_y &= K_\tau \Delta\theta + O_y
 \end{align}
 
  Fig. \ref{fig:PosControlFig} shows how $\Delta \theta$ converges to zero with different initial configurations of the swarm. When the swam is above or below of the object the swarm applies a torque to the object.
@@ -78,7 +78,7 @@ Let $\theta_O$ = the orientation of the object's major axis, measured from the w
 goal_x = O_x +  K_{orient}  ( \theta_O - \theta_{desired} ) \cos(\theta_O) \\
 goal_y = O_y +  K_{orient}  ( \theta_O - \theta_{desired} ) \sin(\theta_O)
 \end{align}
-Here K_{orient} is a positive gain on the control input.  
+Here $K_{orient}$ is a positive gain on the control input.  
 
 
 \begin{figure}
