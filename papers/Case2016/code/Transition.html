@@ -114,7 +114,7 @@
     fixDef.restitution = 0.2;  //bouncing value
     bodyDef.position.Set(10,10);
     bodyDef.userData = 'moveable';
-    bodyDef.angle= -15 * Math.PI / 180;
+    bodyDef.angle= 0 * Math.PI / 180;
     fixDef.shape = new b2PolygonShape;
     //fixDef.shape.b2PolygonShape(6.0);
     fixDef.shape.SetAsBox(2.0,6.0);
@@ -156,7 +156,7 @@
 
               ///  put the robots in a loose rectangle
               bodyDef.position.x = 1+(i%rowLength)*2*robotrad;
-              bodyDef.position.y = 13-Math.floor(i/rowLength)*2*robotrad; // for up it was 8. for straight it is 9, for down 10.
+              bodyDef.position.y = 12-Math.floor(i/rowLength)*2*robotrad; // for up it was 8. for straight it is 9, for down 10.
 
              ///  put the robots in a tight rectangle
          //   bodyDef.position.x = 0.5+(i%rowLength)*2*robotrad;
@@ -395,7 +395,7 @@
 
 			if(!GoalRecieved){
 				deltaTheta =  rAngle;
-				C = 11;
+				C = 7;
 			if (var_x > 7|| var_y > 7)
 			{
 				varCont = false;
