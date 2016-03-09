@@ -101,7 +101,7 @@ In this task, the swarm pushed the object in the $+x$ direction while trying to 
 we designed an algorithm to control the position of the object, by being able to control the orientation and to keep that orientation while translating the object. Although if we push the object align with its COM to the goal, it would not change its orientation, because here we have the swarm and not just one source of force and the swarm may split, it is much better to apply force perpendicular to the object. Therefore, if we want to translate the object $n$ meters in $x$ axis, we can translate the object $Cx$ where $C<=1$ with the negative orientation, and the rest with the required orientation.
 
 
-This will cancel out the $y$ changes and we will reach the desired position with our desired orientation. Fig.\ref{fig:PosControlFig} shows the plot of getting to the final goal position using this algorithm. The other important task is keeping the swarm together and avoid letting them to split. In order to achieve this goal, we have used hysteresis based variance control, and whenever the swarm variance is bigger than the maximum variance, it will go to the corner to regather itself. It will cause some delay, but it will most of the time avoid having a group of robots in front of the object. However; there is still some probability that a part of the swarm appears in front of the object, as we see in Fig.\ref{fig:PosControlFig} around $t=170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. 
+This will cancel out the $y$ changes and we will reach the desired position with our desired orientation. Fig.\ref{fig:PosControlFig} shows the plot of getting to the final goal position using this algorithm. The other important task is keeping the swarm together and avoid letting them to split. In order to achieve this goal, we have used hysteresis based variance control, and whenever the swarm variance is bigger than the maximum variance, it will go to the corner to regather itself. It will cause some delay, but it will most of the time avoid having a group of robots in front of the object. However; there is still some probability that a part of the swarm appears in front of the object, as we see in Fig.\ref{fig:PosControlFig} around $t=170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation.
 
 \begin{figure}
 \begin{center}
@@ -110,6 +110,17 @@ This will cancel out the $y$ changes and we will reach the desired position with
 \vspace{-2em}
 \caption{\label{fig:PosControlFig}
 By using this algorithm, we can reach the goal position and orientation. The parts that the position including orientation is not changing, the swarm is in variance control mode to avoid splitting as much as it is possible. 
+}
+\vspace{-1em}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=\columnwidth]{PosFig.png}
+\end{center}
+\vspace{-1em}
+\caption{\label{fig:PosScreenShot}
+Different situations for position control of the block while controlling its orientation. In the first half of achieving the goal distance, goal angle is negative the required goal angle.
 }
 \vspace{-1em}
 \end{figure}

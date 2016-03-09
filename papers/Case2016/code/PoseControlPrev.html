@@ -474,8 +474,10 @@
 			}
 			else
 			{
-				impulseV.y =  Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
-				impulseV.x = Kgain*(goalX - mean_position_x) + Kderivative * (0-mean_velocity_x);
+				impulseV.y = 0;
+				impulseV.x = 0;
+				// impulseV.y =  Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+				// impulseV.x = Kgain*(goalX - mean_position_x) + Kderivative * (0-mean_velocity_x);
 			}			
 		}
 
