@@ -44,6 +44,7 @@
 	  var goalAngleNegative = -30;
 	  var goalAnglePositive = 30;
 	  var objectWidth = 6;
+	  var objectHeight = 2;
 	  var finalGoalX = 40;
 	  var finalGoalY;
 	  var StartingBlockCOMX;
@@ -67,6 +68,7 @@
       	var goButtom = false;
       	var maxVar = 5;
 		var minVar = 3;
+		var ep = 1;
 
       	var   b2Vec2 = Box2D.Common.Math.b2Vec2
       	,  b2AABB = Box2D.Collision.b2AABB
@@ -436,7 +438,25 @@
 			{
 				varCont = false;
 			}
-         	if(!varCont){
+			var e = 0.5;
+			var angle = rAngle * 180/Math.PI;
+			if( Math.abs(goalAngle - angle) < e )
+			{
+				orientCont = false;
+				posCont = true;
+			}
+			else 
+			{
+				orientCont = true;
+				posCont = false;
+			}
+			if(blockCOM_x < finalGoalX +ep && blockCOM_x> finalGoalX -ep && blockCOM_y < finalGoalY +ep && blockCOM_y> finalGoalY -ep && !orientCont)
+			{
+				GoalRecieved = true;
+				posCont = false;
+			}
+
+         	if(!varCont&& orientCont){
          		var Ko= 10;
       			var sign = deltaTheta/ Math.abs(deltaTheta);
   				if (Ko * Math.abs(deltaTheta) < objectWidth*2/3)
@@ -451,6 +471,13 @@
 					goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
 				}
 			}
+			else if(!varCont && posCont)
+			{
+				var COMDirTheta = Math.atan2(finalGoalY - blockCOM_y,blockCOM_x- finalGoalX );
+				var phi = Math.PI/2 + COMDirTheta - rAngle;
+				goalX = blockCOM_x - Math.cos(COMDirTheta)* objectHeight/2/Math.cos(phi);
+				goalY = blockCOM_y - Math.sin(COMDirTheta) * objectHeight/2/Math.cos(phi);
+			}
 			else
 			{
 				if(goalAngle >0){
@@ -462,12 +489,9 @@
 					goalY = 42;
 				}
 			}
-			var ep = 1;
-			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2+1)
-			{
-				goalAngle = goalAnglePositive;
-			}
-			if(blockCOM_x < finalGoalX +ep && blockCOM_x> finalGoalX -ep && blockCOM_y < finalGoalY +ep && blockCOM_y> finalGoalY -ep )
+			
+
+			if(GoalRecieved)
 			{
 				impulseV.y = 0;
 				impulseV.x = 0;

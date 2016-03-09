@@ -40,33 +40,10 @@ The swarm mean is steered toward a point $C$ units along the object from the piv
 }
 \vspace{-1em}
 \end{figure}
-\paragraph{Pure translation of the object} \label{para:PureTranslation}
-These simulations used a uniform density rectangle as the object. This object was X??X$\times$ larger than the robots.
-When the total force is applied perpendicular to the object and in line with the center of mass, according to Eq. \ref{eq:torque} there will be no torque. 
-The following goal position for the mean position of the swarm regulates the object's orientation using $\Delta \theta$ for proportional feedback  to determine where to apply force.
-$\Delta_\theta = goal_\theta - O_\theta$ is the difference between the goal angle and the current object angle.
- $K_\tau$ is a constant and $(O_x,O_y)$ is the position of the object's COM.
-\begin{align}
-goal_x &= O_x \nonumber \\
-goal_y &= K_\tau \Delta\theta + O_y
-\end{align}
 
- Fig. \ref{fig:PosControlFig} shows how $\Delta \theta$ converges to zero with different initial configurations of the swarm. When the swam is above or below of the object the swarm applies a torque to the object.
- 
- 
-\begin{figure}
-\begin{center}
-	\includegraphics[width=\columnwidth]{Straight.png}
-\end{center}
-\vspace{-1em}
-\caption{\label{fig:PosControlFig}
-In this task, the swarm pushed the object in the $+x$ direction while trying to regulate the orientation to $goal_\theta = 0^\circ$.
- The swarm can push the object without changing its orientation only if it pushes along a line intersecting the COM of the object.  A feedback control law regulates the object's orientation.
-}
-\vspace{-1em}
-\end{figure}
 
 \paragraph{Orientation of the object}
+These simulations used a uniform density rectangle as the object. This object was 30$\times$ larger than the robots.
 Using the pure torque control discussed in the previous paragraph, the orientation of the object can be controlled by applying force. 
 The rectangular object is not pivoted, so it moves in addition to rotating. 
  The swarm still may split into multiple components.
@@ -94,10 +71,47 @@ Plot demonstrating  orientation control of a rectangular object. The green line 
 
 Fig. \ref{fig:OrientCont} illustrates this controller with different starting positions. When the plot traces are constant the swarm is no longer pushing the object and instead is being regathered in a corner of the workspace. 
 
+\paragraph{Translation straight while regulating orientation of the object} \label{para:PureTranslation}
+
+When the total force is applied perpendicular to the object and in line with the center of mass, according to Eq. \ref{eq:torque} there will be no torque. 
+The following goal position for the mean position of the swarm regulates the object's orientation using $\Delta \theta$ for proportional feedback  to determine where to apply force.
+$\Delta_\theta = goal_\theta - O_\theta$ is the difference between the goal angle and the current object angle.
+ $K_\tau$ is a constant and $(O_x,O_y)$ is the position of the object's COM.
+\begin{align}
+goal_x &= O_x \nonumber \\
+goal_y &= K_\tau \Delta\theta + O_y
+\end{align}
+
+ Fig. \ref{fig:Straight} shows how $\Delta \theta$ converges to zero with different initial configurations of the swarm. When the swam is above or below of the object the swarm applies a torque to the object.
+ 
+ 
+\begin{figure}
+\begin{center}
+	\includegraphics[width=\columnwidth]{Straight.png}
+\end{center}
+\vspace{-1em}
+\caption{\label{fig:Straight}
+In this task, the swarm pushed the object in the $+x$ direction while trying to regulate the orientation to $goal_\theta = 0^\circ$.
+ The swarm can push the object without changing its orientation only if it pushes along a line intersecting the COM of the object.  A feedback control law regulates the object's orientation.
+}
+\vspace{-1em}
+\end{figure}
+
 \paragraph{Object pose control}
+we designed an algorithm to control the position of the object, by being able to control the orientation and to keep that orientation while translating the object. Although if we push the object align with its COM to the goal, it would not change its orientation, because here we have the swarm and not just one source of force and the swarm may split, it is much better to apply force perpendicular to the object. Therefore, if we want to translate the object $n$ meters in $x$ axis, we can translate the object $Cx$ where $C<=1$ with the negative orientation, and the rest with the required orientation.
 
-TODO
-\todo{write this section.  We need a simulation}
 
+This will cancel out the $y$ changes and we will reach the desired position with our desired orientation. Fig.\ref{fig:PosControlFig} shows the plot of getting to the final goal position using this algorithm. The other important task is keeping the swarm together and avoid letting them to split. In order to achieve this goal, we have used hysteresis based variance control, and whenever the swarm variance is bigger than the maximum variance, it will go to the corner to regather itself. It will cause some delay, but it will most of the time avoid having a group of robots in front of the object. However; there is still some probability that a part of the swarm appears in front of the object, as we see in Fig.\ref{fig:PosControlFig} around $t=170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. 
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=\columnwidth]{PosControl.eps}
+\end{center}
+\vspace{-1em}
+\caption{\label{fig:PosControlFig}
+By using this algorithm, we can reach the goal position and orientation. The parts that the position including orientation is not changing, the swarm is in variance control mode to avoid splitting as much as it is possible. 
+}
+\vspace{-1em}
+\end{figure}
 
 

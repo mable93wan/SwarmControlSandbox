@@ -76,31 +76,56 @@
 % hold off
 
 
-load Straight30C7.txt;
-x4 = Straight30C7(:,1);
-y4 = Straight30C7(:,2)* 180/ pi;
-plot(x4,y4)
-hold on
-line([10 35] , [0 0]);
+% load Straight30C7.txt;
+% x4 = Straight30C7(:,1);
+% y4 = Straight30C7(:,2)* 180/ pi;
+% plot(x4,y4)
+% hold on
+% line([10 35] , [0 0]);
+% 
+% load StraightN30C7.txt;
+% x5 = StraightN30C7(:,1);
+% y5 = StraightN30C7(:,2)* 180/ pi;
+% plot(x5,y5)
+% load Straight15C7.txt;
+% x3 = Straight15C7(:,1);
+% y3 = Straight15C7(:,2)* 180/ pi;
+% plot(x3,y3)
+% 
+% 
+% load StraightN15C7.txt;
+% x2 = StraightN15C7(:,1);
+% y2 = StraightN15C7(:,2)* 180/ pi;
+% plot(x2,y2)
+% load Straight0C7.txt;
+% x = Straight0C7(:,1);
+% y = Straight0C7(:,2);
+% plot(x,y)
 
-load StraightN30C7.txt;
-x5 = StraightN30C7(:,1);
-y5 = StraightN30C7(:,2)* 180/ pi;
-plot(x5,y5)
-load Straight15C7.txt;
-x3 = Straight15C7(:,1);
-y3 = Straight15C7(:,2)* 180/ pi;
-plot(x3,y3)
+load PosControl.txt;
+t = PosControl(:,1);
+goalX = PosControl(:,2);
+X = PosControl(:,3);
+goalY = PosControl(:,4);
+Y = PosControl(:,5);
+goalAngle = PosControl(:,6);
+Angle = PosControl(:,7);
+subplot(3,1,1)
+plot(t, goalX-1);
+hold on 
+plot(t,X);
+hold off
+subplot(3,1,2)
+plot(t, goalY);
+hold on 
+plot(t,Y);
+hold off
+subplot(3,1,3)
+plot(t, goalAngle);
+hold on 
+plot(t,Angle);
+hold off
 
-
-load StraightN15C7.txt;
-x2 = StraightN15C7(:,1);
-y2 = StraightN15C7(:,2)* 180/ pi;
-plot(x2,y2)
-load Straight0C7.txt;
-x = Straight0C7(:,1);
-y = Straight0C7(:,2);
-plot(x,y)
 % 
 % load TSC10S.txt;
 % x2 = TSC10S(:,1);
