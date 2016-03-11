@@ -44,11 +44,12 @@
 	  var goalAngleNegative = -30;
 	  var goalAnglePositive = 30;
 	  var objectWidth = 6;
-	  var finalGoalX = 40;
+	  var finalGoalX = 41;
 	  var finalGoalY;
 	  var StartingBlockCOMX;
 	  var StartingBlockCOMY;
 	  var initial = true;
+	  var counter = 0;
 
 
 
@@ -65,7 +66,7 @@
       	var lessVariance = true;
       	var GoalRecieved = false;
       	var goButtom = false;
-      	var maxVar = 5;
+      	var maxVar = 4;
 		var minVar = 3;
 
       	var   b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -436,6 +437,7 @@
 			{
 				varCont = false;
 			}
+
          	if(!varCont){
          		var Ko= 10;
       			var sign = deltaTheta/ Math.abs(deltaTheta);
@@ -462,8 +464,8 @@
 					goalY = 42;
 				}
 			}
-			var ep = 1;
-			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2)
+			var ep = 0.1;
+			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2-1)
 			{
 				goalAngle = goalAnglePositive;
 			}
@@ -474,10 +476,14 @@
 			}
 			else
 			{
-				impulseV.y = 0;
-				impulseV.x = 0;
-				// impulseV.y =  Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
-				// impulseV.x = Kgain*(goalX - mean_position_x) + Kderivative * (0-mean_velocity_x);
+				if(mean_position_x < goalX +ep && mean_position_x>  goalX-ep && mean_position_y < goalY +ep && mean_position_y> goalY -ep )
+				{
+
+					counter = counter +1;
+				}
+
+				impulseV.y =  Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
+				impulseV.x = Kgain*(goalX - mean_position_x) + Kderivative * (0-mean_velocity_x);
 			}			
 		}
 
