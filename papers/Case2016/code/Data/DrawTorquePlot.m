@@ -102,33 +102,43 @@
 % y = Straight0C7(:,2);
 % plot(x,y)
 
-load PosControl.txt;
-t = PosControl(:,1);
-goalX = PosControl(:,2);
-X = PosControl(:,3);
-goalY = PosControl(:,4);
-Y = PosControl(:,5);
-goalAngle = PosControl(:,6);
-Angle = PosControl(:,7);
-subplot(3,1,1)
-plot(t, goalX-1);
-hold on 
-plot(t,X);
-hold off
-subplot(3,1,2)
-plot(t, goalY);
-hold on 
-plot(t,Y);
-hold off
-subplot(3,1,3)
-plot(t, goalAngle);
-hold on 
-plot(t,Angle);
-hold off
-
+% load High.txt;
+% x1 = 17- High(:,1);
+% y1 = High(:,2);
+% t = High(:,3);
+% plot(t, atan2(y1,x1)*180/ pi);
 % 
 % load TSC10S.txt;
 % x2 = TSC10S(:,1);
 % y2 = TSC10S(:,2)* 180 / pi;
 % plot(x2,y2)
 % hold off
+
+load New1.txt;
+t = New1(:,1);
+goalx = New1(:,2);
+X = New1(:,3);
+goaly = New1(:,4);
+Y = New1(:,5);
+goalAng = New1(:,6);
+Ang = New1(:,7);
+
+subplot(3,1,1)
+plot(t,goalx);
+hold on
+plot(t,X);
+hold off
+
+subplot(3,1,2)
+plot(t,goaly);
+hold on
+plot(t,Y);
+hold off
+
+subplot(3,1,3)
+plot(t,goalAng);
+hold on
+plot(t,Ang);
+hold off
+
+

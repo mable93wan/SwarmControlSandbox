@@ -2,8 +2,9 @@
 %%%%%%%%% webcam, then process it to find obstacles, gives that map to MDP
 %%%%%%%%% and gets the result and draw the gradients. 
 success = false;
-cam = webcam(1);
+cam = webcam(2);
 t0 = tic;
+results3= [];
 while success == false
 
  originalImage = snapshot(cam);
@@ -37,7 +38,7 @@ s = size(BW);
 scale = 30;
 sizeOfMap = floor(s/scale);
 map = zeros(sizeOfMap(1),sizeOfMap(2));
-results1= [];
+
 corners =[];
 map(1,:) = 1;
 map(:,1) = 1;
@@ -52,7 +53,7 @@ for i= 1:sizeOfMap(1)-1
                 if BW(i*scale+k, j*scale+l,1) > 0
                     if ~found
                         found = true;
-                        results1 = [results1, j i  toc(t0)]
+                        results3 = [results3, j i  toc(t0)]
 %                         img(i*scale:i*scale+scale,j*scale:j*scale+scale,1) = 255;  % Change the red value for the first pixel
 %                     img(i*scale:i*scale+scale,j*scale:j*scale+scale,2) = 0;    % Change the green value for the first pixel
 %                     img(i*scale:i*scale+scale,j*scale:j*scale+scale,3) = 0;
@@ -116,7 +117,7 @@ BW2 = (I2(:,:,1) >= channel1Min2 ) & (I2(:,:,1) <= channel1Max2) & ...
     plot(M(1,1) , M(1,2),'*','Markersize',16,'color','red', 'linewidth',3);
     plot_gaussian_ellipsoid(M,C);
 % Convert RGB image to chosen color space
-save('results1');
+save('results3','results3');
 
 
 end

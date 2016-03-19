@@ -30,13 +30,13 @@ goal_y &= O_y + C \cos(O_{\theta})  \label{eq:TorqueControl}
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=\columnwidth]{LFig.png}
+	\includegraphics[width=\columnwidth]{LFig.pdf}
 \end{center}
 \vspace{-1em}
 \caption{\label{fig:LFig}
 Simulation results from a swarm applying force to a hinged door. 
 The swarm mean is steered toward a point $C$ units along the object from the pivot point. The red dashed line indicates the times that the swarm was in variance control mode.
- Simulation used 144 robots of diameter $XXXXXX$ with a standard deviation of less than $1.5$ m and an object length of $6$ m.
+ Simulation used 144 robots of diameter $0.2$ m with a standard deviation of less than $1.5$ m and an object length of $6$ m.
 }
 \vspace{-1em}
 \end{figure}
@@ -50,7 +50,7 @@ The rectangular object is not pivoted, so it moves in addition to rotating.
   We use the hysteresis variance control from \cite{ShahrokhiIROS2015}  to gather the swarm when its variance grows too large. 
   The following control law chooses a goal position to regulate the orientation of the object.  In the following equation, $O_{\theta}$ is the orientation of the object's major axis. The object COM is at $(O_x,O_y)$.
 
-Let $\theta_O$ = the orientation of the object's major axis, measured from the world $x$-axis.
+Let $O_{\theta}$ = the orientation of the object's major axis, measured from the world $x$-axis.
 \begin{align}\nonumber
 goal_x = O_x +  K_{orient}  (O_{\theta} - goal_\theta ) \cos(O_{\theta}) \\
 goal_y = O_y +  K_{orient}  ( O_{\theta} -goal_\theta  ) \sin(O_{\theta})
@@ -60,7 +60,7 @@ Here $K_{orient}$ is a positive gain on the control input.
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=\columnwidth]{Orientation.png}
+	\includegraphics[width=\columnwidth]{Orientation.pdf}
 \end{center}
 \vspace{-1em}
 \caption{\label{fig:OrientCont}
@@ -87,7 +87,7 @@ goal_y &= K_\tau \Delta\theta + O_y  \label{eq:TranslationAndOrientation}
  
 \begin{figure}
 \begin{center}
-	\includegraphics[width=\columnwidth]{Straight.png}
+	\includegraphics[width=\columnwidth]{Straight.pdf}
 \end{center}
 \vspace{-1em}
 \caption{\label{fig:Straight}
@@ -99,18 +99,31 @@ In this task, the swarm pushed the object in the $+x$ direction while trying to 
 
 \paragraph{Following straight trajectory while regulating object orientation} \label{para:PureTranslation}
 
+Assume an arbitrary line that if the object face that direction, the swarm should apply perpendicular force to the object to get to the desired location with the desired orientation.  We want to keep the object on the trajectory while the orientation of the object is also kept as desired. For this purpose, we have to find the intersection of the object orientation axis and the line. If the equation of the line is $ax+by+c =0$, and we name this point $P$, it can be found as:
 
-TODO:  control law regulating distance from the straight line trajectory AND object orientation
-
-Perhaps: assume without loss of generality that the desired trajectory is the line $y = goal_y$
-
-\begin{align} \label{eq:StraightTrajectoryAndOrientation}
-goal_x &= O_x \nonumber \\
-goal_y &= O_y + K_\tau \Delta\theta  + K_p (O_y -  goal_y)
+\begin{align}
+P_x &= \frac{b(bO_x-aO_y)-ac}{a^2 + b^2},\\ \nonumber
+P_y &= \frac{a(-bO_x+aO_y)-bc}{a^2 + b^2}
 \end{align}
 
+Then for keeping the object on trajectory, we will have the following goal position for correcting both perpendicular error and angle error while pushing the object:
+\begin{align}
+goal_x &= O_x+ K_p (O_x-P_x)+ K_\tau \frac{O_x-P_x}{||O_x-P_x||}\Delta\theta \nonumber \\
+goal_y &= O_y+ K_p (O_y-P_y)+ K_\tau \frac{O_y-P_y}{||O_y-P_y||}\Delta\theta \label{eq:Regulate}
+\end{align}
 
-Shiva, you can do better than this, and write an equation to make the swarm follow an arbitrary line
+Fig. \ref{fig:regulateStraight} shows the position and orientation over time when the desired trajectory is the line $y = goal_y$. 
+%TODO:  control law regulating distance from the straight line trajectory AND object orientation
+
+%Perhaps: assume without loss of generality that the desired trajectory is the line $y = goal_y$
+
+%\begin{align} \label{eq:StraightTrajectoryAndOrientation}
+%goal_x &= O_x \nonumber \\
+%goal_y &= O_y + K_\tau \Delta\theta  + K_p (O_y -  goal_y)
+%\end{align}
+
+
+%Shiva, you can do better than this, and write an equation to make the swarm follow an arbitrary line
 
 
 
@@ -127,32 +140,34 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 
 
 \begin{algorithm}
-\caption{PerpendicularPushesPoseControl($s_1,s_2,e_1,e_2,L$)}\label{alg:naivePoseControlApproach}
+\caption{PerpendicularPushesPoseControl}\label{alg:naivePoseControlApproach}
 \begin{algorithmic}[1]
-\Require starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
-$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
- $L$ is length of the walls. 
- Current position of the robots are $(r_1,r_2)$.
-
-\State ($r_1,r_2$) = GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
-\State GenerateDesired$y$-spacing($r_1,r_2,e_1,e_2,L$)
-
+\Require $goal_x, goal_y, goal_{\theta},O_x, O_y, O_{\theta}$.
+\State $\Delta x = goal_x - O_x$
+\State $\Delta y = goal_y - O_y$
+\State $d = sqrt(\Delta x^2 + \Delta y^2) $ \Comment{Distance to goal}
+\While {d is decreasing}
+\State Follow straight trajectory while regulating object orientation horizontally
+\State Update $d$
+\EndWhile
+\State Follow straight trajectory while regulating object orientation vertically
 \end{algorithmic}
 \end{algorithm}
 
 
 
 \begin{algorithm}
-\caption{PoseControl($s_1,s_2,e_1,e_2,L$)}\label{alg:PoseControl}
+\caption{PoseControl}\label{alg:PoseControl}
 \begin{algorithmic}[1]
-\Require starting $(s_1,s_2)$ and ending $(e_1,e_2)$ positions of  two robots. 
-$(0,0)$ is bottom corner, $s_1$ is rightmost robot, 
- $L$ is length of the walls. 
- Current position of the robots are $(r_1,r_2)$.
-
-\State ($r_1,r_2$) = GenerateDesired$x$-spacing($s_1,s_2,e_1,e_2,L$)
-\State GenerateDesired$y$-spacing($r_1,r_2,e_1,e_2,L$)
-
+\Require $goal_x, goal_y, goal_{\theta},O_x, O_y, O_{\theta}, C<1$.
+\State $\Delta x = goal_x - O_x$
+\State $s_x = O_x$ \Comment{Starting position}
+\While {$O_x < s_x + C\Delta x $}
+\State $goal_{\theta} = -goal_{\theta}$ \Comment{Having negative $\theta$ until some point}
+\State Follow straight trajectory while regulating object orientation
+\EndWhile
+\State $goal_{\theta} = -goal_{\theta}$\Comment{Required $\theta$}
+\State Follow straight trajectory while regulating object orientation
 \end{algorithmic}
 \end{algorithm}
 
@@ -175,13 +190,13 @@ Pose control using algorithm XX.  The objects is delivered to a goal position an
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=\columnwidth]{PosFig.png}
+	\includegraphics[width=\columnwidth]{PosControl.pdf}
 \end{center}
-\vspace{-1em}
+\vspace{-2em}
 \caption{\label{fig:PosScreenShot}
 Different situations for position control of the block while controlling its orientation. In the first half of achieving the goal distance, goal angle is negative the required goal angle.
 }
-\vspace{-1em}
+\vspace{-0.5em}
 \end{figure}
 
 

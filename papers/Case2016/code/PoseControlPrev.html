@@ -66,7 +66,7 @@
       	var lessVariance = true;
       	var GoalRecieved = false;
       	var goButtom = false;
-      	var maxVar = 4;
+      	var maxVar = 5;
 		var minVar = 3;
 
       	var   b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -420,6 +420,7 @@
 			if(!GoalRecieved){
 
 				var Ko = 10;
+				var Kp = 0.01;
 				rGoalAngle = goalAngle * Math.PI/180;
 				// if (rGoalAngle<0)
 
@@ -439,19 +440,52 @@
 			}
 
          	if(!varCont){
-         		var Ko= 10;
+         		var e = 1;
+         		var a = - Math.tan(rAngle);
+				var c = finalGoalY - a*finalGoalX;
+				var p_x = 2*((blockCOM_x+ a * blockCOM_y)+ a)/(a^2 + 1);
+
+				var p_y = 2*(a*(blockCOM_x+ a * blockCOM_y)+c)/(a^2 + 1);
+
       			var sign = deltaTheta/ Math.abs(deltaTheta);
-  				if (Ko * Math.abs(deltaTheta) < objectWidth*2/3)
-         		//if(Math.abs(Ko * deltaTheta) < objectWidth*2/3 )
-         		{
-         			goalX = blockCOM_x + Ko * deltaTheta * Math.sin(rAngle) ;
-					goalY = blockCOM_y - Ko * deltaTheta * Math.cos(rAngle);
-         		}
-         		else
-         		{			
-     				goalX = blockCOM_x + sign* objectWidth*2/3 * Math.sin(rAngle) ;
-					goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
+      			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2)
+				{
+					goalAngle = goalAnglePositive;
 				}
+
+				if(blockCOM_x < p_x + e && blockCOM_x> p_x - e && blockCOM_y < p_y + e && blockCOM_y> p_y - e)
+				{
+					if (Ko * Math.abs(deltaTheta) < objectWidth*2/3)
+	         		//if(Math.abs(Ko * deltaTheta) < objectWidth*2/3 )
+	         		{
+	         			goalX = blockCOM_x + Ko * deltaTheta * Math.sin(rAngle) ;
+						goalY = blockCOM_y - Ko * deltaTheta * Math.cos(rAngle);
+						console.log("FIRST!");
+	         		}
+
+	         		else
+	         		{			
+	     				goalX = blockCOM_x + sign* objectWidth*2/3 * Math.sin(rAngle) ;
+						goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
+						console.log("SECOND!");
+					}
+				}
+				else if(Kp * (blockCOM_x- p_x) + Ko * sign* Math.abs(deltaTheta) < objectWidth*2/3)
+				{
+					
+					goalX = blockCOM_x+ Kp * (blockCOM_x- p_x) * Math.sin(rAngle)+ Ko * sign* deltaTheta* Math.sin(rAngle);
+					goalY = blockCOM_y-sign*( Kp * (blockCOM_y- p_y)* Math.cos(rAngle) +Ko * sign* deltaTheta* Math.cos(rAngle));
+					console.log("THIRD!");
+					//console.log("P_x : " + p_x + " P_y : " + p_y + " finalgoalX = " + finalGoalX + " finalGoalY : "+ finalGoalY);
+
+				}
+  				else 
+  				{
+  					console.log("FORTH!");
+  					goalX = blockCOM_x + sign* objectWidth*2/3 * Math.sin(rAngle) ;
+					goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
+  				}
+				
 			}
 			else
 			{
@@ -464,11 +498,8 @@
 					goalY = 42;
 				}
 			}
-			var ep = 0.1;
-			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2-1)
-			{
-				goalAngle = goalAnglePositive;
-			}
+			var ep = 0.5;
+
 			if(blockCOM_x < finalGoalX +ep && blockCOM_x> finalGoalX -ep && blockCOM_y < finalGoalY +ep && blockCOM_y> finalGoalY -ep )
 			{
 				impulseV.y = 0;
@@ -492,7 +523,7 @@
 			m_Robot[i].SetLinearVelocity( new b2Vec2(0,0) );
 			m_Robot[i].ApplyForce(impulseV,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
 		}
-		console.log(elapsedTimeSec + " " + finalGoalX + " " + blockCOM_x + " " +finalGoalY+ " "+  blockCOM_y + " " + goalAnglePositive+" "+ rAngle*180/Math.PI);
+		//console.log(elapsedTimeSec + " " + finalGoalX + " " + blockCOM_x + " " +finalGoalY+ " "+  blockCOM_y + " " + goalAnglePositive+" "+ rAngle*180/Math.PI);
 		var goalH= 2*2.1;
 			var goalW = 6*2.1;
 			//if(goalAngle == goalAnglePositive){
@@ -503,6 +534,14 @@
 					  	width: goalW * mapScale,
 					  	height: goalH * mapScale,
 					  	rotate: -(90-goalAngle)
+					  }).restoreCanvas();
+				$("canvas").drawRect({
+					  	strokeStyle: 'black',
+					  	strokeWidth: 5,
+					  	x: finalGoalX * mapScale, y: finalGoalY * mapScale,
+					  	width: goalW*1.2 * mapScale,
+					  	height: goalH *1.2* mapScale,
+					  	rotate: -(90- goalAnglePositive)
 					  }).restoreCanvas();
 
 			$("canvas").drawEllipse({
