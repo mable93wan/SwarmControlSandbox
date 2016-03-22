@@ -1,23 +1,23 @@
 
 \section{Simulation}\label{sec:simulation}
-This section examples four main challenges for pose and torque control of an object, arranged in increasing difficulty.  Each task uses a PD controller that uses the mean position and mean velocity to regulate the swarm's mean position,  as in \cite{ShahrokhiIROS2015}. The control input is the global force applied to each robot:
+This section examples four main challenges for pose and torque control of an object, arranged in increasing difficulty.  Each task uses a PD controller that uses the swarm's mean position and mean velocity to regulate the swarm's mean position,  as in \cite{ShahrokhiIROS2015}. The control input is the global force applied to each robot:
 \begin{align}
 u_x &= K_{p}(goal_x - \bar{x}) + K_{d}(0-\bar{v}_x) \nonumber\\
 u_y &= K_{p}(goal_y  - \bar{y}) + K_{d}(0-\bar{v}_y)  \label{eq:PDcontrolPosition}
 \end{align}
 here $K_{p}$ is the proportional gain, and $K_{d}$ is the derivative gain.  
-The swarm's average position is $(\bar{x},\bar{y})$ and mean velocity is $(\bar{v}_x,\bar{v}_y)$.  
-Each task uses a different algorithm to select the swarm's goal position $(goal_x,goal_y)$.
+The swarm's average position is $[\bar{x},\bar{y}]^T$ and mean velocity is $[\bar{v}_x,\bar{v}_y]^T$.  
+Each task uses a different algorithm to select the swarm's goal position $[goal_x,goal_y]^T$.
 
 \paragraph{Pure torque control} 
 An object with a pivot point can rotate, but not translate. A door is a common example of an object with a pivot. A door can have an angular velocity but cannot translate. 
  If there was only one robot touching the object, the robot should push at the point which maximizes the moment arm, at the extreme end of the object furthest from the pivot point.
 The optimal pushing location provides the maximum force, because it maximizes  $r$ in \eqref{eq:torque}.
 However, given a swarm of robots, maximizing $r$ is no longer the optimal solution.  
-If the swarm hit the object with its mean position at the extreme edge, half of the robots will miss the object and  the swarm will be torn apart.
+If the swarm hits the object with its mean position at the extreme edge, half of the robots will miss the object and  the swarm will be torn apart.
 Because few robots remain,  the force is significantly decreased and torque is not maximized.
- In our simulation, the swarm apples torque until the swarm's mean position is beyond the object.  At this point, the swarm will be regathered in a corner, a time-consuming task. 
- The key parameter of interest for a hinged door of length $L$ is $C/L$, where $C$ is the position along the door where the mean of the swarm will push.  The swarm is directed toward 
+ In our simulation, the swarm applies torque until the swarm's mean position is beyond the object.  At this point, the swarm will be regathered in a corner before returning to torque control, a time-consuming task. 
+ The key parameter of interest for a hinged door of length $L$ is $C$, the position along the door where the mean of the swarm will push.  The swarm is directed toward 
  
 \begin{align}\nonumber
 goal_x &= O_x + C \sin(O_{\theta}) \\
@@ -73,7 +73,7 @@ Fig. \ref{fig:OrientCont} illustrates this controller with different starting po
 
 \paragraph{Straight translation while regulating object orientation} \label{para:PureTranslation}
 
-When the total force is applied perpendicular to the object and in line with the center of mass, according to Eq. \ref{eq:torque} there will be no torque. 
+When the total force is applied perpendicular to the object and in line with the center of mass, according to Eq. \eqref{eq:torque} there will be no torque. 
 The following goal position for the mean position of the swarm regulates the object's orientation using $\Delta \theta$ for proportional feedback  to determine where to apply force.
 $\Delta_\theta = goal_\theta - O_\theta$ is the difference between the goal angle and the current object angle.
  $K_\tau$ is a constant and $(O_x,O_y)$ is the position of the object's COM.
@@ -97,7 +97,7 @@ In this task, the swarm pushed the object in the $+x$ direction while trying to 
 \vspace{-1em}
 \end{figure}
 
-\paragraph{Following straight trajectory while regulating object orientation} \label{para:PureTranslation}
+\paragraph{Follow linear trajectory with perpendicular orientation} \label{para:PureTranslation}
 
 Assume an arbitrary line that if the object face that direction, the swarm should apply perpendicular force to the object to get to the desired location with the desired orientation.  We want to keep the object on the trajectory while the orientation of the object is also kept as desired. For this purpose, we have to find the intersection of the object orientation axis and the line. If the equation of the line is $ax+by+c =0$, and we name this point $P$, it can be found as:
 
@@ -132,7 +132,7 @@ Fig. \ref{fig:regulateStraight} shows the position and orientation over time whe
 We designed two algorithms to control the position of the object.  
 Each works by first controlling the orientation and then regulating that orientation while translating the object. 
 An ideal approach might use pure translation moves by  pushing  the object with a contact point in line with the object's COM and the goal.
-In practice the ideal approach fails because the swarm has multiple points of contact, these contacts slide along the object, and the swarm flows around the object, usually splitting into multiple components.
+In practice the ideal approach fails because the swarm has multiple points of contact. These contacts slide along the object, and the swarm flows around the object, usually splitting into multiple components.
 Instead, by applying force perpendicular to the object's long axis, splitting of the swarm is reduced. 
 The na\"{i}ve approach we represented in Alg. \ref{alg:naivePoseControlApproach} is to push the object along the major axis until position error perpendicular to the major axis is zero, then push perpendicular to the minor axis until parallel error is zero. 
 This na\"{i}ve approach works poorly on objects with large aspect ratios because the swarm flows past the object. 
@@ -147,10 +147,10 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \State $\Delta y = goal_y - O_y$
 \State $d = sqrt(\Delta x^2 + \Delta y^2) $ \Comment{Distance to goal}
 \While {d is decreasing}
-\State Follow straight trajectory while regulating object orientation horizontally
+\State Follow linear trajectory with perpendicular orientation horizontally 
 \State Update $d$
 \EndWhile
-\State Follow straight trajectory while regulating object orientation vertically
+\State Follow linear trajectory with perpendicular orientation vertically
 \end{algorithmic}
 \end{algorithm}
 
@@ -164,18 +164,18 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \State $s_x = O_x$ \Comment{Starting position}
 \While {$O_x < s_x + C\Delta x $}
 \State $goal_{\theta} = -goal_{\theta}$ \Comment{Having negative $\theta$ until some point}
-\State Follow straight trajectory while regulating object orientation
+\State Follow linear trajectory with perpendicular orientation
 \EndWhile
 \State $goal_{\theta} = -goal_{\theta}$\Comment{Required $\theta$}
-\State Follow straight trajectory while regulating object orientation
+\State Follow linear trajectory with perpendicular orientation
 \end{algorithmic}
 \end{algorithm}
 
 
 
 The swarm pushes the object to an intermediate location, from where a ``Translate while regulating orientation" move can deliver the object to the goal pose. 
-In order to achieve this goal, we have used hysteresis based variance control, and whenever the swarm variance is bigger than the maximum variance, it will go to the corner to regather itself. 
-It will cause some delay, but it will most of the time avoid having a group of robots in front of the object. However; there is still some probability that a part of the swarm appears in front of the object, as we see in Fig. \ref{fig:PosControlFig} around $t=170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation.
+To achieve this goal, we used hysteresis-based variance control, and whenever the swarm variance is bigger than the maximum variance, it will go to the corner to regather itself. 
+It will cause some delay, but it will usually avoid having a group of robots in front of the object. However, there is still some probability that a part of the swarm appears in front of the object, as we see in Fig. \ref{fig:PosControlFig} at $t\approx170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation. See also the video attachment.
 
 \begin{figure}
 \begin{center}
@@ -183,7 +183,7 @@ It will cause some delay, but it will most of the time avoid having a group of r
 \end{center}
 \vspace{-2em}
 \caption{\label{fig:PosControlFig} 
-Pose control using algorithm XX.  The objects is delivered to a goal position and orientation. The parts that the position including orientation is not changing, the swarm is in variance control mode to avoid splitting as much as it is possible. 
+Pose control using Alg. \ref{alg:PoseControl}.  The objects is delivered to a goal position and orientation. The parts that the position including orientation is not changing, the swarm is in variance control mode to avoid splitting as much as it is possible. 
 }
 \vspace{-1em}
 \end{figure}
