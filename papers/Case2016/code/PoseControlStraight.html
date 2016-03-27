@@ -41,10 +41,9 @@
 	  var rAngle;
 	  var varCont = false;
 	  var goalAngle;
-	  var goalAngleNegative = -30;//in Degrees
-	  var goalAnglePositive = 30;//in Degrees, the orientation of the goal rectangle.
-	  var objectWidth = 10;
-	  var objectHeight = 1;
+	  var goalAngleNegative = -30;
+	  var goalAnglePositive = 30;
+	  var objectWidth = 6;
 	  var finalGoalX = 41;
 	  var finalGoalY;
 	  var StartingBlockCOMX;
@@ -130,7 +129,7 @@
     bodyDef.angle= 0 * Math.PI / 180;
     fixDef.shape = new b2PolygonShape;
     //fixDef.shape.b2PolygonShape(6.0);
-    fixDef.shape.SetAsBox(objectHeight,objectWidth);
+    fixDef.shape.SetAsBox(2.0,6.0);
     var obst = world.CreateBody(bodyDef);
     obst.CreateFixture(fixDef);
     obst.m_angularDamping = 8.0;
@@ -412,6 +411,7 @@
 					else 
 					{
 						goalAngle = goalAngleNegative;	
+						
 						GoalRecieved = false;
 						done = true;
 					}
@@ -421,7 +421,7 @@
 			if(!GoalRecieved){
 
 				var Ko = 10;
-				var Kp = 0.3;
+				var Kp = 0.01;
 				rGoalAngle = goalAngle * Math.PI/180;
 				// if (rGoalAngle<0)
 
@@ -441,65 +441,54 @@
 			}
 
          	if(!varCont){
-         		var e = 2.5;
-         		var a = Math.cos(goalAnglePositive*Math.PI/180+ Math.PI/2);// link to wikipedia : https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
-         		var b = Math.sin(goalAnglePositive*Math.PI/180+ Math.PI/2);
-				var c = - a*finalGoalX - b* finalGoalY;
-				var p_x = (b*(b*blockCOM_x- a * blockCOM_y)- a*c)/(a*a + b*b);
+         		var e = 1;
+         		var a = Math.tan(goalAngle*Math.PI /180);
+         		var b = 1;
+				var c = -finalGoalY - a*finalGoalX;
+				//var p_x = ((blockCOM_x+ a * blockCOM_y)+ a)/(a^2 + 1);
+				var p_x = (b* (b * blockCOM_x- a * blockCOM_y)-a*c)/(a^2+ b^2);	
 
-				var p_y = (a*(-b* blockCOM_x+ a * blockCOM_y)-b*c)/(a*a + b*b);
-				$("canvas").drawArc({ 
-		strokeStyle: "orange",
-		strokeWidth: 5,
-		x: p_x* mapScale, y: p_y * mapScale,
-		radius: radius * mapScale*4
-	}).restoreCanvas();	
-				//Draw line from goal COM to find p.
-				$('canvas').drawLine({
-  strokeStyle: 'orange',
-					  	strokeWidth: 3,
-  x1: p_x* mapScale, y1: p_y* mapScale,
-  x2: blockCOM_x* mapScale, y2: blockCOM_y* mapScale
-});
-				
-				console.log("P = "+ p_x + " " + p_y);
+				var p_y = (a*(-b * blockCOM_x+ a * blockCOM_y)- b*c)/(a^2 + b^2);
+
+
 
       			var sign = deltaTheta/ Math.abs(deltaTheta);
-    //   			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2)
-				// {
-				// 	goalAngle = goalAnglePositive;
-				// }
+      			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2)
+				{
+				goalAngle = goalAnglePositive;
+				}
 
 				if(blockCOM_x < p_x + e && blockCOM_x> p_x - e && blockCOM_y < p_y + e && blockCOM_y> p_y - e)
 				{
-					goalAngle = goalAnglePositive;
-					// if (Ko * Math.abs(deltaTheta) < objectWidth*2/3)
-	    //      		//if(Math.abs(Ko * deltaTheta) < objectWidth*2/3 )
-	    //      		{
-	    //      			goalX = blockCOM_x + Ko * deltaTheta * Math.sin(rAngle) ;
-					// 	goalY = blockCOM_y - Ko * deltaTheta * Math.cos(rAngle);
-					// 	console.log("FIRST!");
-	    //      		}
+					if (Ko * Math.abs(deltaTheta) < objectWidth*2/3)
+	         		//if(Math.abs(Ko * deltaTheta) < objectWidth*2/3 )
+	         		{
+	         			goalX = blockCOM_x + Ko * deltaTheta * Math.sin(rAngle) ;
+						goalY = blockCOM_y - Ko * deltaTheta * Math.cos(rAngle);
+						//console.log("FIRST!");
+	         		}
 
-	    //      		else
-	    //      		{			
-	    //  				goalX = blockCOM_x + sign* objectWidth*2/3 * Math.sin(rAngle) ;
-					// 	goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
-					// 	console.log("SECOND!");
-					// }
+	         		else
+	         		{			
+	     				goalX = blockCOM_x + sign* objectWidth*2/3 * Math.sin(rAngle) ;
+						goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
+						//console.log("SECOND!");
+					}
 				}
-				if(Kp * (blockCOM_x- p_x) + Ko * sign* Math.abs(deltaTheta) < objectWidth*2/3)
+				else if(Kp * (blockCOM_x- p_x) + Ko * sign* Math.abs(deltaTheta) < objectWidth*2/3)
 				{
 					
-					goalX = blockCOM_x+ Kp * (blockCOM_x- p_x) * Math.sin(rAngle)+ Ko * sign* deltaTheta* Math.sin(rAngle);
-					goalY = blockCOM_y-sign*( Kp * (blockCOM_y- p_y)* Math.cos(rAngle) +Ko * sign* deltaTheta* Math.cos(rAngle));
-					console.log("THIRD!");
-					//console.log("P_x : " + p_x + " P_y : " + p_y + " finalgoalX = " + finalGoalX + " finalGoalY : "+ finalGoalY);
+					goalX = blockCOM_x+ Kp * (blockCOM_x- p_x) * Math.sin(rAngle)+ Ko * deltaTheta* Math.sin(rAngle);
+					goalY = blockCOM_y-sign*( Kp * (blockCOM_y- p_y)* Math.cos(rAngle) +Ko * deltaTheta* Math.cos(rAngle));
+					//console.log("THIRD!");
+					var deltax = blockCOM_x- p_x;
+					var deltay = blockCOM_y - p_y;
+					console.log("P_x : " + p_x + " P_y : " + p_y + " finalgoalX = " + finalGoalX + " finalGoalY : "+ finalGoalY + " delta X: " + deltax + " delta Y: " +  deltay);
 
 				}
   				else 
   				{
-  					console.log("FORTH!");
+  					//console.log("FORTH!");
   					goalX = blockCOM_x + sign* objectWidth*2/3 * Math.sin(rAngle) ;
 					goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
   				}
@@ -516,7 +505,7 @@
 					goalY = 42;
 				}
 			}
-			var ep = 0.2;
+			var ep = 0.5;
 
 			if(blockCOM_x < finalGoalX +ep && blockCOM_x> finalGoalX -ep && blockCOM_y < finalGoalY +ep && blockCOM_y> finalGoalY -ep )
 			{
@@ -542,37 +531,25 @@
 			m_Robot[i].ApplyForce(impulseV,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
 		}
 		//console.log(elapsedTimeSec + " " + finalGoalX + " " + blockCOM_x + " " +finalGoalY+ " "+  blockCOM_y + " " + goalAnglePositive+" "+ rAngle*180/Math.PI);
-		var goalH= objectHeight*2.1;
-			var goalW = objectWidth*2.1;
+		var goalH= 2*2.1;
+			var goalW = 6*2.1;
 			//if(goalAngle == goalAnglePositive){
-				//Draws the intermediate goal location
 				$("canvas").drawRect({
 					  	strokeStyle: 'green',
 					  	strokeWidth: 5,
-					  	strokeDash: [10,5],
 					  	x: blockCOM_x * mapScale, y: blockCOM_y * mapScale,
 					  	width: goalW * mapScale,
 					  	height: goalH * mapScale,
-					  	rotate: goalAngle-90
+					  	rotate: -(90-goalAngle)
 					  }).restoreCanvas();
-				//Draws the final goal location
 				$("canvas").drawRect({
 					  	strokeStyle: 'black',
 					  	strokeWidth: 5,
-					  	strokeDash: [10,5],
 					  	x: finalGoalX * mapScale, y: finalGoalY * mapScale,
 					  	width: goalW*1.2 * mapScale,
 					  	height: goalH *1.2* mapScale,
-					  	rotate: goalAnglePositive -90 //in degrees, rotates clockwise
+					  	rotate: -(90- goalAnglePositive)
 					  }).restoreCanvas();
-
-				//Draw line from goal COM to find p.
-				$('canvas').drawLine({
-  strokeStyle: 'black',
-					  	strokeWidth: 3,
-  x1: (finalGoalX - 100* Math.cos(goalAnglePositive*Math.PI/180))* mapScale, y1: (finalGoalY - 100* Math.sin(goalAnglePositive*Math.PI/180))* mapScale,
-  x2: (finalGoalX + 100* Math.cos(goalAnglePositive*Math.PI/180))* mapScale, y2: (finalGoalY + 100* Math.sin(goalAnglePositive*Math.PI/180))* mapScale
-});
 
 			$("canvas").drawEllipse({
 				strokeStyle: "red",
@@ -605,8 +582,7 @@
 		strokeWidth: 5,
 		x: finalGoalX* mapScale, y: finalGoalY * mapScale,
 		radius: radius * mapScale*4
-	}).restoreCanvas();	
-				
+	}).restoreCanvas();				
 
          }; //end update
          
