@@ -26,6 +26,16 @@ S.~Shahrokhi and A.~T. Becker, ``Stochastic swarm control with global inputs,''
   in \emph{IEEE/RSJ International Conference on Intelligent Robots and Systems
   (IROS)}, Sep. 2015, p. tbd.
 
+\bibitem{Sudsang2002}
+A.~Sudsang, F.~Rothganger, and J.~Ponce, ``Motion planning for disc-shaped
+  robots pushing a polygonal object in the plane,'' \emph{{IEEE} Trans. Robot.
+  Autom.}, vol.~18, no.~4, pp. 550--562, Aug. 2002.
+
+\bibitem{Fink2007}
+J.~Fink, N.~Michael, and V.~Kumar, ``Composition of vector fields for
+  multi-robot manipulation via caging,'' in \emph{Robotics Science and
+  Systems}, Atlanta, GA, Jun. 2007.
+
 \bibitem{Lynch1999}
 K.~Lynch, ``Locally controllable manipulation by stable pushing,'' \emph{{IEEE}
   Trans. Robot. Autom.}, vol.~15, no.~2, pp. 318--327, Apr. 1999.
@@ -44,16 +54,6 @@ S.~Akella, W.~H. Huang, K.~M. Lynch, and M.~T. Mason, ``Parts feeding on a
 J.~D. Bernheisel and K.~M. Lynch, ``Stable transport of assemblies by
   pushing,'' \emph{IEEE Transactions on Robotics}, vol.~22, no.~4, pp.
   740--750, Aug. 2006.
-
-\bibitem{Sudsang2002}
-A.~Sudsang, F.~Rothganger, and J.~Ponce, ``Motion planning for disc-shaped
-  robots pushing a polygonal object in the plane,'' \emph{{IEEE} Trans. Robot.
-  Autom.}, vol.~18, no.~4, pp. 550--562, Aug. 2002.
-
-\bibitem{Fink2007}
-J.~Fink, N.~Michael, and V.~Kumar, ``Composition of vector fields for
-  multi-robot manipulation via caging,'' in \emph{Robotics Science and
-  Systems}, Atlanta, GA, Jun. 2007.
 
 \bibitem{Armani2006}
 M.~D. Armani, S.~V. Chaudhary, R.~Probst, and B.~Shapiro, ``Using feedback
@@ -97,6 +97,30 @@ A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
   uniform manipulation: Controlling large populations of simple robots with a
   common input signal,'' in \emph{IEEE/RSJ International Conference on
   Intelligent Robots and Systems (IROS)}, Nov. 2013, pp. 520--527.
+
+\bibitem{Shahrokhi16torque}
+\BIBentryALTinterwordspacing
+(2016, March). [Online]. Available:
+  \url{https://github.com/aabecker/SwarmControlSandbox/blob/master/TorqueControl/Torque.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Shahrokhi16Orient}
+\BIBentryALTinterwordspacing
+(2016, March). [Online]. Available:
+  \url{https://github.com/aabecker/SwarmControlSandbox/blob/master/TorqueControl/Orientation.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Shahrokhi16translation}
+\BIBentryALTinterwordspacing
+(2016, March). [Online]. Available:
+  \url{https://github.com/aabecker/SwarmControlSandbox/blob/master/TorqueControl/Translation.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{Shahrokhi16pose}
+\BIBentryALTinterwordspacing
+(2016, March). [Online]. Available:
+  \url{https://github.com/aabecker/SwarmControlSandbox/blob/master/TorqueControl/PoseControl.html}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Rubenstein2012}
 M.~Rubenstein, C.~Ahler, and R.~Nagpal, ``Kilobot: A low cost scalable robot

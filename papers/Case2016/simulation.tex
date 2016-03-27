@@ -24,7 +24,7 @@ goal_x &= O_x + C \sin(O_{\theta}) \\
 goal_y &= O_y + C \cos(O_{\theta})  \label{eq:TorqueControl}
 \end{align}
 
- Fig. \ref{fig:LFig} illustrates how different values of $C$ result in different rates of turning. These simulations tested $C = \{1/2, 3/4, 5/8, 1\}L$  The fastest turning rates occurred with  $C =  5/8L$. 
+ Fig. \ref{fig:LFig} illustrates how different values of $C$ result in different rates of turning. These simulations tested $C = \{1/2, 3/4, 5/8, 1\}L$  The fastest turning rates occurred with  $C =  5/8L$. Code is available at \cite{Shahrokhi16torque}.
 
 
 
@@ -69,7 +69,7 @@ Plot demonstrating  orientation control of a rectangular object. The green line 
 \vspace{-1em}
 \end{figure}
 
-Fig. \ref{fig:OrientCont} illustrates this controller with different starting positions. When the plot traces are constant the swarm is no longer pushing the object and instead is being regathered in a corner of the workspace. 
+Fig. \ref{fig:OrientCont} illustrates this controller with different starting positions. When the plot traces are constant the swarm is no longer pushing the object and instead is being regathered in a corner of the workspace. Code is available at \cite{Shahrokhi16Orient}.
 
 \paragraph{Straight translation while regulating object orientation} \label{para:PureTranslation}
 
@@ -82,7 +82,7 @@ goal_x &= O_x \nonumber \\
 goal_y &= K_\tau \Delta\theta + O_y  \label{eq:TranslationAndOrientation}
 \end{align}
 
- Fig. \ref{fig:Straight} shows how $\Delta \theta$ converges to zero with different initial configurations of the swarm. When the swam is above or below of the object the swarm applies a torque to the object.
+ Fig. \ref{fig:Straight} shows how $\Delta \theta$ converges to zero with different initial configurations of the swarm. When the swam is above or below of the object the swarm applies a torque to the object. Code is available at \cite{Shahrokhi16translation}.
  
  
 \begin{figure}
@@ -112,7 +112,28 @@ goal_x &= O_x+ K_p (O_x-P_x)+ K_\tau \frac{O_x-P_x}{||O_x-P_x||}\Delta\theta \no
 goal_y &= O_y+ K_p (O_y-P_y)+ K_\tau \frac{O_y-P_y}{||O_y-P_y||}\Delta\theta \label{eq:Regulate}
 \end{align}
 
-Fig. \ref{fig:regulateStraight} shows the position and orientation over time when the desired trajectory is the line $y = goal_y$. 
+Fig. \ref{fig:Linear} shows the position and orientation over time when the desired trajectory is an arbitrary line. Goal position is the nearest point to COM in the line, therefore when the swarm is in variance control mode, goal position and COM position would not change. 
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=1.07\columnwidth]{Linear.eps}
+\end{center}
+\vspace{-2em}
+\caption{\label{fig:Linear} 
+Following an arbitrary line with perpendicular orientation. This control law would keep the object on the line, while it regulates its orientation.
+}
+\vspace{-1em}
+\end{figure}
+
+\begin{figure*}
+\centering
+
+\includegraphics[width=2\columnwidth]{Linear.pdf}
+\vspace{0em}
+\caption{\label{fig:LinearScreenShots}
+Different situations for linear trajectory. The object is kept on the line, while its orientation is also being corrected.
+}
+\end{figure*}
 %TODO:  control law regulating distance from the straight line trajectory AND object orientation
 
 %Perhaps: assume without loss of generality that the desired trajectory is the line $y = goal_y$
@@ -175,7 +196,7 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 
 The swarm pushes the object to an intermediate location, from where a ``Translate while regulating orientation" move can deliver the object to the goal pose. 
 To achieve this goal, we used hysteresis-based variance control, and whenever the swarm variance is bigger than the maximum variance, it will go to the corner to regather itself. 
-It will cause some delay, but it will usually avoid having a group of robots in front of the object. However, there is still some probability that a part of the swarm appears in front of the object, as we see in Fig. \ref{fig:PosControlFig} at $t\approx170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation. See also the video attachment.
+It will cause some delay, but it will usually avoid having a group of robots in front of the object. However, there is still some probability that a part of the swarm appears in front of the object, as we see in Fig. \ref{fig:PosControlFig} at $t\approx170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation. Code is available at \cite{Shahrokhi16pose}.
 
 \begin{figure}
 \begin{center}
@@ -188,15 +209,15 @@ Pose control using Alg. \ref{alg:PoseControl}.  The objects is delivered to a go
 \vspace{-1em}
 \end{figure}
 
-\begin{figure}
-\begin{center}
-	\includegraphics[width=\columnwidth]{PosControl.pdf}
-\end{center}
-\vspace{-2em}
+
+\begin{figure*}
+\centering
+
+\includegraphics[width=2\columnwidth]{PoseControl.pdf}
+\vspace{0em}
 \caption{\label{fig:PosScreenShot}
-Different situations for position control of the block while controlling its orientation. In the first half of achieving the goal distance, goal angle is negative the required goal angle.
+Different situations for position control of the block while controlling its orientation. First goal is getting to the perpendicular line to the goal, then following that linear line while regulating the orientation.
 }
-\vspace{-0.5em}
-\end{figure}
+\end{figure*}
 
 

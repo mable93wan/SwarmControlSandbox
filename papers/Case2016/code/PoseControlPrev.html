@@ -51,6 +51,8 @@
 	  var StartingBlockCOMY;
 	  var initial = true;
 	  var counter = 0;
+	  var p_x;
+	  var p_y;
 
 
 
@@ -445,9 +447,9 @@
          		var a = Math.cos(goalAnglePositive*Math.PI/180+ Math.PI/2);// link to wikipedia : https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
          		var b = Math.sin(goalAnglePositive*Math.PI/180+ Math.PI/2);
 				var c = - a*finalGoalX - b* finalGoalY;
-				var p_x = (b*(b*blockCOM_x- a * blockCOM_y)- a*c)/(a*a + b*b);
+				p_x = (b*(b*blockCOM_x- a * blockCOM_y)- a*c)/(a*a + b*b);
 
-				var p_y = (a*(-b* blockCOM_x+ a * blockCOM_y)-b*c)/(a*a + b*b);
+				p_y = (a*(-b* blockCOM_x+ a * blockCOM_y)-b*c)/(a*a + b*b);
 				$("canvas").drawArc({ 
 		strokeStyle: "orange",
 		strokeWidth: 5,
@@ -462,7 +464,7 @@
   x2: blockCOM_x* mapScale, y2: blockCOM_y* mapScale
 });
 				
-				console.log("P = "+ p_x + " " + p_y);
+				//console.log("P = "+ p_x + " " + p_y);
 
       			var sign = deltaTheta/ Math.abs(deltaTheta);
     //   			if(blockCOM_x> StartingBlockCOMX+ (finalGoalX - StartingBlockCOMX)/2)
@@ -493,13 +495,13 @@
 					
 					goalX = blockCOM_x+ Kp * (blockCOM_x- p_x) * Math.sin(rAngle)+ Ko * sign* deltaTheta* Math.sin(rAngle);
 					goalY = blockCOM_y-sign*( Kp * (blockCOM_y- p_y)* Math.cos(rAngle) +Ko * sign* deltaTheta* Math.cos(rAngle));
-					console.log("THIRD!");
+					//console.log("THIRD!");
 					//console.log("P_x : " + p_x + " P_y : " + p_y + " finalgoalX = " + finalGoalX + " finalGoalY : "+ finalGoalY);
 
 				}
   				else 
   				{
-  					console.log("FORTH!");
+  					//console.log("FORTH!");
   					goalX = blockCOM_x + sign* objectWidth*2/3 * Math.sin(rAngle) ;
 					goalY = blockCOM_y - sign*objectWidth*2/3* Math.cos(rAngle);
   				}
@@ -541,7 +543,7 @@
 			m_Robot[i].SetLinearVelocity( new b2Vec2(0,0) );
 			m_Robot[i].ApplyForce(impulseV,m_Robot[i].GetWorldPoint(new b2Vec2(0,0)));
 		}
-		//console.log(elapsedTimeSec + " " + finalGoalX + " " + blockCOM_x + " " +finalGoalY+ " "+  blockCOM_y + " " + goalAnglePositive+" "+ rAngle*180/Math.PI);
+		console.log(elapsedTimeSec + " " + p_x + " " + blockCOM_x + " " +p_y+ " "+  blockCOM_y + " " + goalAnglePositive+" "+ rAngle*180/Math.PI);
 		var goalH= objectHeight*2.1;
 			var goalW = objectWidth*2.1;
 			//if(goalAngle == goalAnglePositive){

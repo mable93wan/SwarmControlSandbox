@@ -114,14 +114,42 @@
 % plot(x2,y2)
 % hold off
 
-load New1.txt;
-t = New1(:,1);
-goalx = New1(:,2);
-X = New1(:,3);
-goaly = New1(:,4);
-Y = New1(:,5);
-goalAng = New1(:,6);
-Ang = New1(:,7);
+% load New1.txt;
+% t = New1(:,1);
+% goalx = New1(:,2);
+% X = New1(:,3);
+% goaly = New1(:,4);
+% Y = New1(:,5);
+% goalAng = New1(:,6);
+% Ang = New1(:,7);
+% 
+% subplot(3,1,1)
+% plot(t,goalx);
+% hold on
+% plot(t,X);
+% hold off
+% 
+% subplot(3,1,2)
+% plot(t,goaly);
+% hold on
+% plot(t,Y);
+% hold off
+% 
+% subplot(3,1,3)
+% plot(t,goalAng);
+% hold on
+% plot(t,Ang);
+% hold off
+
+
+load Linear.txt;
+t = Linear(:,1);
+goalx = Linear(:,2);
+X = Linear(:,3);
+goaly = Linear(:,4);
+Y = Linear(:,5);
+goalAng = Linear(:,6);
+Ang = Linear(:,7);
 
 subplot(3,1,1)
 plot(t,goalx);
@@ -140,5 +168,6 @@ plot(t,goalAng);
 hold on
 plot(t,Ang);
 hold off
+
 
 
