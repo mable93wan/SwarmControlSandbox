@@ -161,10 +161,14 @@ Screenshots from simulation of line following with perpendicular orientation.
 \paragraph{Object pose control}
 The section presents two algorithms designed to control the \emph{pose}, the position and orientation, of an object.  
 Each works by first controlling the orientation and then regulating that orientation while translating the object. 
-An ideal approach might use pure translation moves by  pushing  the object with a contact point in line with the object's COM and the goal.
-In practice the ideal approach fails because the swarm has multiple points of contact. These contacts slide along the object, and the swarm flows around the object, usually splitting into multiple components.
+
+A na\"{i}ve approach might use pure translation moves by  pushing  the object with a contact point in line with the object's COM and the goal.
+In practice the na\"{i}ve approach fails because the swarm has multiple points of contact. These contacts slide along the object, and the swarm flows around the object, usually splitting into multiple components.
 Instead, by applying force perpendicular to the object's long axis, splitting of the swarm is reduced. 
-The na\"{i}ve approach is represented in Alg. \ref{alg:naivePoseControlApproach}.  It pushes the object along the major axis until position error perpendicular to the major axis is zero, then pushes perpendicular to the minor axis until parallel error is zero. 
+
+The na\"{i}ve approach is represented in Alg. \ref{alg:naivePoseControlApproach}. It defines  the coordinate frame such that $[goal_x, goal_y, goal_{\theta}] = [0,0,0]$.
+Then it cycles between regulating the angular error below some threshold $T_{\theta}$,
+pushing the object along the major axis until position error perpendicular to the major axis is less than $T_x$, then pushing perpendicular to the minor axis until error perpendicular to the minor axis is less than $T_y$. 
 This na\"{i}ve approach works poorly on objects with large aspect ratios because the swarm flows past the object. 
 Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular to the major axis, preventing the swarm from flowing around. 
 
@@ -173,14 +177,18 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \caption{PerpendicularPushesPoseControl}\label{alg:naivePoseControlApproach}
 \begin{algorithmic}[1]
 \Require $goal_x, goal_y, goal_{\theta},O_x, O_y, O_{\theta}$.
-\State $\Delta x = goal_x - O_x$
-\State $\Delta y = goal_y - O_y$
-\State $d = \sqrt{(\Delta x)^2 + (\Delta y)^2} $ \Comment{Distance to goal}
-\While {$d$ is decreasing}
-\State Line following with perpendicular orientation horizontally
-\State Update $d$
+\State Define coordinate frame such that $[goal_x, goal_y, goal_{\theta}]^\top = [0,0,0]^\top$
+\While {$\lvert O_x \rvert >T_x \vee \lvert O_y \rvert >T_y \vee \lvert O_{\theta} \rvert >T_{\theta}$}
+	\While {$\lvert O_{\theta} \rvert >T_{\theta}$}
+		\State Orientation control \S\ref{sec:simulation}.a
+	\EndWhile
+	\While {$\lvert O_x \rvert >T_{x}$}
+		\State Straight translation \S\ref{sec:simulation}.c along line $y = 0$
+	\EndWhile
+	\While {$\lvert O_y \rvert >T_{y}$}
+		\State Straight translation \S\ref{sec:simulation}.c along line $x = 0$
+	\EndWhile
 \EndWhile
-\State Line following with perpendicular orientation vertically
 \end{algorithmic}
 \end{algorithm}
 
@@ -194,7 +202,7 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \State $s_x = O_x$ \Comment{Starting position}
 \State $goal_{\theta} = -goal_{\theta}$ \Comment{Having negative $\theta$ until some point}
 \While {$O_x < s_x + C\Delta x $}
-\State Line following with perpendicular orientation
+\State Line following with perpendicular orientation \S\ref{sec:simulation}.d
 \EndWhile
 \State $goal_{\theta} = -goal_{\theta}$\Comment{Required $\theta$}
 \State Follow linear trajectory with perpendicular orientation
@@ -205,7 +213,7 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 
 The swarm pushes the object to an intermediate location, from where a ``Line following with perpendicular orientation" move can deliver the object to the goal pose. 
 To achieve this goal, we used hysteresis-based variance control, and whenever the swarm variance is bigger than a maximum variance threshold, the swarm is steered to  the corner to regather itself. 
-This causes delays, but it usually prevents robots from flowing around the object. However, there is still some probability that a part of the swarm appears in front of the object, as shown in Fig. \ref{fig:PosControlFig} where at $t\approx170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots were in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation. Code is available at \cite{Shahrokhi16pose}.
+This causes delays, but it usually prevents robots from flowing around the object. However, there is still some probability that a part of the swarm appears in front of the object, as shown in Fig. \ref{fig:PosControlFig} where at $t\approx170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots were in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation. Simulation code that runs natively in any modern web browser is available at \cite{Shahrokhi16pose}.
 
 \begin{figure}
 \begin{center}
