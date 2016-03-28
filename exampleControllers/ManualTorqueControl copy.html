@@ -50,8 +50,8 @@
       	var blockCOM_x = 0;
 	  	var blockCOM_y = 0;
 	  	var rAngle;
-      var objectWidth = 6;
-      var objectHeight = 0.6;
+      var objectWidth = 8;
+      var objectHeight = 0.8;
 
 
       	var   b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -111,7 +111,7 @@
 		fixDef.density = 100.0;
 		fixDef.friction = 0.0;
     fixDef.restitution = 0.2;  //bouncing value
-    bodyDef.position.Set(17.5,10.5);
+    bodyDef.position.Set(17.5,14.5);
     bodyDef.userData = 'moveable';
     fixDef.shape = new b2PolygonShape;
     //fixDef.shape.b2PolygonShape(6.0);
@@ -614,7 +614,40 @@ else if (b.GetUserData() == 'joint')
 			.restoreCanvas();
 			var goalH= 2*2.1;
 			var goalW = 6*2.1;
+			if(cov_desired == cov_desired_positive){
+				$("canvas").drawRect({
+					  	strokeStyle: 'green',
+					  	strokeWidth: 5,
+					  	x: goalX * mapScale, y: goalY * mapScale,
+					  	width: goalW * mapScale,
+					  	height: goalH * mapScale,
+					  	rotate: angle_min_variance2
+					  }).restoreCanvas();
 
+	$("canvas").rotateCanvas({
+		x: 5 * mapScale, y: 5 * mapScale,
+		rotate: 30
+	})
+					  .restoreCanvas();
+					}
+					else
+					{
+						$("canvas").drawRect({
+					  	strokeStyle: 'green',
+					  	strokeWidth: 5,
+					  	x: goalX * mapScale, y: goalY * mapScale,
+					  	width: goalW * mapScale,
+					  	height: goalH * mapScale,
+					  	rotate: angle_min_variance1
+					  }).restoreCanvas();
+
+						$("canvas").rotateCanvas({
+		x: 5 * mapScale, y: 5 * mapScale,
+		rotate: 30
+	})
+					  .restoreCanvas();
+					  
+					}
 
 			// if(cov_desired == cov_desired_positive){
 			// 	$("canvas").drawEllipse({

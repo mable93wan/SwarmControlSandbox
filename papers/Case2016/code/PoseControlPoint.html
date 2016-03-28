@@ -53,6 +53,7 @@
 	  var counter = 0;
 	  var p_x;
 	  var p_y;
+	  var varBigger = false;
 
 
 
@@ -475,6 +476,7 @@
 				if(blockCOM_x < p_x + e && blockCOM_x> p_x - e && blockCOM_y < p_y + e && blockCOM_y> p_y - e)
 				{
 					goalAngle = goalAnglePositive;
+					
 					// if (Ko * Math.abs(deltaTheta) < objectWidth*2/3)
 	    //      		//if(Math.abs(Ko * deltaTheta) < objectWidth*2/3 )
 	    //      		{
@@ -490,11 +492,17 @@
 					// 	console.log("SECOND!");
 					// }
 				}
+				if(elapsedTimeSec > 150)
+				{
+					maxVar = 9;
+				}
 				if(Kp * (blockCOM_x- p_x) + Ko * sign* Math.abs(deltaTheta) < objectWidth*2/3)
 				{
 					
 					goalX = blockCOM_x+ Kp * (blockCOM_x- p_x) * Math.sin(rAngle)+ Ko * sign* deltaTheta* Math.sin(rAngle);
 					goalY = blockCOM_y-sign*( Kp * (blockCOM_y- p_y)* Math.cos(rAngle) +Ko * sign* deltaTheta* Math.cos(rAngle));
+
+
 					//console.log("THIRD!");
 					//console.log("P_x : " + p_x + " P_y : " + p_y + " finalgoalX = " + finalGoalX + " finalGoalY : "+ finalGoalY);
 
@@ -518,7 +526,7 @@
 					goalY = 42;
 				}
 			}
-			var ep = 0.2;
+			var ep = 0.3;
 
 			if(blockCOM_x < finalGoalX +ep && blockCOM_x> finalGoalX -ep && blockCOM_y < finalGoalY +ep && blockCOM_y> finalGoalY -ep )
 			{

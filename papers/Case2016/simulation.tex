@@ -163,8 +163,19 @@ The section presents two algorithms designed to control the \emph{pose}, the pos
 Each works by first controlling the orientation and then regulating that orientation while translating the object. 
 
 A na\"{i}ve approach might use pure translation moves by  pushing  the object with a contact point in line with the object's COM and the goal.
-In practice the na\"{i}ve approach fails because the swarm has multiple points of contact. These contacts slide along the object, and the swarm flows around the object, usually splitting into multiple components.
+In practice the na\"{i}ve approach fails because the swarm has multiple points of contact. These contacts slide along the object, and the swarm flows around the object, usually splitting into multiple components as seen in Fig. \ref{fig:perpendicular}.
 Instead, by applying force perpendicular to the object's long axis, splitting of the swarm is reduced. 
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=\columnwidth]{perpendicular.pdf}
+\end{center}
+\vspace{-1em}
+\caption{\label{fig:perpendicular} 
+Pushing the object perpendicular to its axis. The swarm spread around the object when it pushes the object perpendicular to its short axis. Applying force perpendicular to the object's long axis reduces the probability of splitting the swarm.
+}
+\vspace{-1em}
+\end{figure}
 
 The na\"{i}ve approach is represented in Alg. \ref{alg:naivePoseControlApproach}. It defines  the coordinate frame such that $[goal_x, goal_y, goal_{\theta}] = [0,0,0]$.
 Then it cycles between regulating the angular error below some threshold $T_{\theta}$,
