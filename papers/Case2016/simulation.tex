@@ -97,22 +97,30 @@ In this task, the swarm pushed the object in the $+x$ direction while trying to 
 \vspace{-1em}
 \end{figure}
 
-\paragraph{Follow linear trajectory with perpendicular orientation} \label{para:PureTranslation}
+\paragraph{Line following with perpendicular orientation} \label{para:PureTranslation}
+This task designs a control law that, given an arbitrary line, will push an object's COM onto that line and regulate the object's orientation to be perpendicular to that line.
+Any line can be parameterized in the form $ax+by+c =0$,  which gives the locus of $(x,y)$ points along the line.  The point on this line nearest to the swarm COM $(O_x,O_y)$ is $P$:
 
-Assume an arbitrary line that if the object face that direction, the swarm should apply perpendicular force to the object to get to the desired location with the desired orientation.  We want to keep the object on the trajectory while the orientation of the object is also kept as desired. For this purpose, we have to find the intersection of the object orientation axis and the line. If the equation of the line is $ax+by+c =0$, and we name this point $P$, it can be found as:
+%Assume an arbitrary line that if the object face that direction, the swarm should apply perpendicular force to the object to get to the desired location with the desired orientation.  We want to keep the object on the trajectory while the orientation of the object is also kept as desired. For this purpose, we have to find the intersection of the object orientation axis and the line. If the equation of the line is $ax+by+c =0$, and we name this point $P$, it can be found as:
 
 \begin{align}
 P_x &= \frac{b(bO_x-aO_y)-ac}{a^2 + b^2},\\ \nonumber
 P_y &= \frac{a(-bO_x+aO_y)-bc}{a^2 + b^2}
 \end{align}
 
-Then for keeping the object on trajectory, we will have the following goal position for correcting both perpendicular error and angle error while pushing the object:
+%Then for keeping the object on trajectory, we will have the following goal position for correcting both perpendicular error and angle error while pushing the object:
+
+The following control law regulates the goal position for the swarm COM to push the object COM onto the line and regulates the object angle.
+
 \begin{align}
 goal_x &= O_x+ K_p (O_x-P_x)+ K_\tau \frac{O_x-P_x}{||O_x-P_x||}\Delta\theta \nonumber \\
 goal_y &= O_y+ K_p (O_y-P_y)+ K_\tau \frac{O_y-P_y}{||O_y-P_y||}\Delta\theta \label{eq:Regulate}
 \end{align}
 
-Fig. \ref{fig:Linear} shows the position and orientation over time when the desired trajectory is an arbitrary line. Goal position is the nearest point to COM in the line, therefore when the swarm is in variance control mode, goal position and COM position would not change. 
+Fig. \ref{fig:Linear} shows the position and orientation over time 
+while line following with perpendicular orientation.
+The goal position for the swarm is based on the nearest point to COM in the line.
+ When the swarm is in variance control mode, the goal position and COM position does not change. 
 
 \begin{figure}
 \begin{center}
@@ -131,7 +139,8 @@ Following an arbitrary line with perpendicular orientation. This control law wou
 \includegraphics[width=2\columnwidth]{Linear.pdf}
 \vspace{0em}
 \caption{\label{fig:LinearScreenShots}
-Different situations for linear trajectory. The object is kept on the line, while its orientation is also being corrected.
+Screenshots from simulation of line following with perpendicular orientation.
+ The object's COM is pushed to the line, while its orientation is regulated to be perpendicular to the line.
 }
 \end{figure*}
 %TODO:  control law regulating distance from the straight line trajectory AND object orientation
@@ -150,12 +159,12 @@ Different situations for linear trajectory. The object is kept on the line, whil
 
 
 \paragraph{Object pose control}
-We designed two algorithms to control the position of the object.  
+The section presents two algorithms designed to control the \emph{pose}, the position and orientation, of an object.  
 Each works by first controlling the orientation and then regulating that orientation while translating the object. 
 An ideal approach might use pure translation moves by  pushing  the object with a contact point in line with the object's COM and the goal.
 In practice the ideal approach fails because the swarm has multiple points of contact. These contacts slide along the object, and the swarm flows around the object, usually splitting into multiple components.
 Instead, by applying force perpendicular to the object's long axis, splitting of the swarm is reduced. 
-The na\"{i}ve approach we represented in Alg. \ref{alg:naivePoseControlApproach} is to push the object along the major axis until position error perpendicular to the major axis is zero, then push perpendicular to the minor axis until parallel error is zero. 
+The na\"{i}ve approach is represented in Alg. \ref{alg:naivePoseControlApproach}.  It pushes the object along the major axis until position error perpendicular to the major axis is zero, then pushes perpendicular to the minor axis until parallel error is zero. 
 This na\"{i}ve approach works poorly on objects with large aspect ratios because the swarm flows past the object. 
 Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular to the major axis, preventing the swarm from flowing around. 
 
@@ -166,12 +175,12 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \Require $goal_x, goal_y, goal_{\theta},O_x, O_y, O_{\theta}$.
 \State $\Delta x = goal_x - O_x$
 \State $\Delta y = goal_y - O_y$
-\State $d = sqrt(\Delta x^2 + \Delta y^2) $ \Comment{Distance to goal}
+\State $d = \sqrt{(\Delta x)^2 + (\Delta y)^2} $ \Comment{Distance to goal}
 \While {$d$ is decreasing}
-\State Follow linear trajectory with perpendicular orientation horizontally 
+\State Line following with perpendicular orientation horizontally
 \State Update $d$
 \EndWhile
-\State Follow linear trajectory with perpendicular orientation vertically
+\State Line following with perpendicular orientation vertically
 \end{algorithmic}
 \end{algorithm}
 
@@ -183,9 +192,9 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \Require $goal_x, goal_y, goal_{\theta},O_x, O_y, O_{\theta}, C<1$.
 \State $\Delta x = goal_x - O_x$
 \State $s_x = O_x$ \Comment{Starting position}
-\While {$O_x < s_x + C\Delta x $}
 \State $goal_{\theta} = -goal_{\theta}$ \Comment{Having negative $\theta$ until some point}
-\State Follow linear trajectory with perpendicular orientation
+\While {$O_x < s_x + C\Delta x $}
+\State Line following with perpendicular orientation
 \EndWhile
 \State $goal_{\theta} = -goal_{\theta}$\Comment{Required $\theta$}
 \State Follow linear trajectory with perpendicular orientation
@@ -194,9 +203,9 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 
 
 
-The swarm pushes the object to an intermediate location, from where a ``Translate while regulating orientation" move can deliver the object to the goal pose. 
-To achieve this goal, we used hysteresis-based variance control, and whenever the swarm variance is bigger than the maximum variance, it will go to the corner to regather itself. 
-It will cause some delay, but it will usually avoid having a group of robots in front of the object. However, there is still some probability that a part of the swarm appears in front of the object, as we see in Fig. \ref{fig:PosControlFig} at $t\approx170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots are in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation. Code is available at \cite{Shahrokhi16pose}.
+The swarm pushes the object to an intermediate location, from where a ``Line following with perpendicular orientation" move can deliver the object to the goal pose. 
+To achieve this goal, we used hysteresis-based variance control, and whenever the swarm variance is bigger than a maximum variance threshold, the swarm is steered to  the corner to regather itself. 
+This causes delays, but it usually prevents robots from flowing around the object. However, there is still some probability that a part of the swarm appears in front of the object, as shown in Fig. \ref{fig:PosControlFig} where at $t\approx170$ the orientation of the object is affected when the swarm is trying to regather because a group of the robots were in front of the object. Fig. \ref{fig:PosScreenShot} shows screenshots of the simulation. Code is available at \cite{Shahrokhi16pose}.
 
 \begin{figure}
 \begin{center}
@@ -216,7 +225,7 @@ Pose control using Alg. \ref{alg:PoseControl}.  The objects is delivered to a go
 \includegraphics[width=2\columnwidth]{PoseControl.pdf}
 \vspace{0em}
 \caption{\label{fig:PosScreenShot}
-Different situations for position control of the block while controlling its orientation. The first task is pushing the object COM to a line perpendicular to the goal. The second task is to push the object along this perpendicular line while regulating the orientation.
+Different stages for position control of a block while controlling its orientation. The first task (0--90 s) is to push the object COM to a line perpendicular to the goal. The second task (90--210 s) is to push the object along this perpendicular line while regulating the orientation.
 }
 \end{figure*}
 
