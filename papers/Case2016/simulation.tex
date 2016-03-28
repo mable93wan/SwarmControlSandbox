@@ -209,14 +209,16 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \caption{PoseControl}\label{alg:PoseControl}
 \begin{algorithmic}[1]
 \Require $goal_x, goal_y, goal_{\theta},O_x, O_y, O_{\theta}, C<1$.
-\State $\Delta x = goal_x - O_x$
-\State $s_x = O_x$ \Comment{Starting position}
-\State $goal_{\theta} = -goal_{\theta}$ \Comment{Having negative $\theta$ until some point}
-\While {$O_x < s_x + C\Delta x $}
-\State Line following with perpendicular orientation \S\ref{sec:simulation}.d
+\State $a = cos(goal_{\theta})$ \Comment{Line Equation}
+\State $b = sin(goal_{\theta})$
+\State $c = -a goal_x - b goal_y$
+\State $P_x = \frac{b(bO_x-aO_y)-ac}{a^2 + b^2}$  \Comment{Nearest point on line}
+\State $P_y = \frac{a(-bO_x+aO_y)-bc}{a^2 + b^2}$
+\While {$O_x <  P_x \wedge O_y < P_y $} \Comment{Reaching near the line}
+\State $Temp_{\theta} = -goal_{\theta}$
+\State Line following with perpendicular orientation $Temp_{\theta}$ \S\ref{sec:simulation}.d
 \EndWhile
-\State $goal_{\theta} = -goal_{\theta}$\Comment{Required $\theta$}
-\State Follow linear trajectory with perpendicular orientation
+\State Line following with perpendicular orientation $goal_{\theta}$ \S\ref{sec:simulation}.d
 \end{algorithmic}
 \end{algorithm}
 
