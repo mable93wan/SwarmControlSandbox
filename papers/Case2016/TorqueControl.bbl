@@ -116,6 +116,12 @@ A.~Becker, G.~Habibi, J.~Werfel, M.~Rubenstein, and J.~McLurkin, ``Massive
   \url{https://github.com/aabecker/SwarmControlSandbox/blob/master/TorqueControl/Translation.html}
 \BIBentrySTDinterwordspacing
 
+\bibitem{Shahrokhi16TorqueLine}
+\BIBentryALTinterwordspacing
+(2016, March). [Online]. Available:
+  \url{https://github.com/aabecker/SwarmControlSandbox/blob/master/TorqueControl/Linear.html}
+\BIBentrySTDinterwordspacing
+
 \bibitem{Shahrokhi16pose}
 \BIBentryALTinterwordspacing
 (2016, March). [Online]. Available:
