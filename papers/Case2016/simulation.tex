@@ -9,7 +9,7 @@ here $K_{p}$ is the proportional gain, and $K_{d}$ is the derivative gain.
 The swarm's average position is $[\bar{x},\bar{y}]^T$ and mean velocity is $[\bar{v}_x,\bar{v}_y]^T$.  
 Each task uses a different algorithm to select the swarm's goal position $[goal_x,goal_y]^T$.
 
-\paragraph{Pure torque control} 
+\paragraph{Pure torque control} \label{sec:simulationPureTorque}
 An object with a pivot point can rotate, but not translate. A door is a common example of an object with a pivot. A door can have an angular velocity but cannot translate. 
  If there was only one robot touching the object, the robot should push at the point which maximizes the moment arm, at the extreme end of the object furthest from the pivot point.
 The optimal pushing location provides the maximum force, because it maximizes  $r$ in \eqref{eq:torque}.
@@ -167,7 +167,7 @@ Instead Alg. \ref{alg:PoseControl} seeks to always push the object perpendicular
 \State $\Delta x = goal_x - O_x$
 \State $\Delta y = goal_y - O_y$
 \State $d = sqrt(\Delta x^2 + \Delta y^2) $ \Comment{Distance to goal}
-\While {d is decreasing}
+\While {$d$ is decreasing}
 \State Follow linear trajectory with perpendicular orientation horizontally 
 \State Update $d$
 \EndWhile
@@ -216,7 +216,7 @@ Pose control using Alg. \ref{alg:PoseControl}.  The objects is delivered to a go
 \includegraphics[width=2\columnwidth]{PoseControl.pdf}
 \vspace{0em}
 \caption{\label{fig:PosScreenShot}
-Different situations for position control of the block while controlling its orientation. First goal is getting to the perpendicular line to the goal, then following that linear line while regulating the orientation.
+Different situations for position control of the block while controlling its orientation. The first task is pushing the object COM to a line perpendicular to the goal. The second task is to push the object along this perpendicular line while regulating the orientation.
 }
 \end{figure*}
 
