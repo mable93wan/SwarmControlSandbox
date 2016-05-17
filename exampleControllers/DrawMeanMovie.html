@@ -39,7 +39,10 @@ This is just for getting a movie of the swarm writing the "swarm" !
 ///////////////////////////////
 var ROBOT_INPUT = {
 	ROBOT_IDLE : 0x0,
-	ROBOT_PROP : 0x01, //proportional control
+	ROBOT_LEFT    : 0x1, 
+	ROBOT_RIGHT   : 0x2, 
+	ROBOT_UP     : 0x4, 
+	ROBOT_DOWN     : 0x8,
 	WAIT : 0x40
 };
 var width = 600;
@@ -536,11 +539,34 @@ function init()
 	{
 		var impulseV=new b2Vec2(0,0);
 		var impulse = 3.0;
-		if(m_controlState & ROBOT_INPUT.ROBOT_PROP)
-		{
-			impulseV.x = m_ControlInputX;
-			impulseV.y = m_ControlInputY;
-		}
+		
+		document.addEventListener("keydown",function(e){
+			switch(e.keyCode){ // |= sets
+				case 37: m_controlState |= ROBOT_LEFT; break; 
+				case 38: m_controlState |= ROBOT_UP;break; 
+				case 39: m_controlState |= ROBOT_RIGHT;break; 
+				case 40: m_controlState |= ROBOT_DOWN;break; 
+			}
+		})
+		
+		document.addEventListener("keyup",function(e){
+			switch(e.keyCode){ // &=~ resets
+				case 37: m_controlState &=~ ROBOT_LEFT; break; 
+				case 38: m_controlState &=~ ROBOT_UP;break; 
+				case 39: m_controlState &=~ ROBOT_RIGHT;break; 
+				case 40: m_controlState &=~ ROBOT_DOWN;break; 
+			}
+		})
+		
+		if(m_controlState == ROBOT_LEFT)
+		{impulseV.x-=impulse;}
+		if(m_controlState == ROBOT_UP)
+		{impulseV.y+=impulse;}
+		if(m_controlState == ROBOT_RIGHT)
+		{impulseV.x+=impulse;}
+		if(m_controlState == ROBOT_DOWN)
+		{impulseV.y-=impulse;}
+
 		//apply Brownian noise:
 		var brownianImpulse = new b2Vec2(0,0);
 		var mag = 0;
@@ -859,7 +885,7 @@ function init()
 	var mean_velocity_y = sum_velocity_y / numrobots;
 	m_ControlInputY = Kgain*(goalY - mean_position_y) + Kderivative*(0-mean_velocity_y) ;
 	m_ControlInputX = Kgain*(goalX - mean_position_x) + Kderivative*(0-mean_velocity_x) ;
-	m_controlState = ROBOT_INPUT.ROBOT_PROP;
+	// m_controlState = ROBOT_INPUT.ROBOT_PROP;
 
 	//console.log(elapsedTimeSec + " " + mean_position_y + " " + goalY + " " + mean_position_x + " " + goalX );
 	//console.log(elapsedTimeSec + " " + var_x );
